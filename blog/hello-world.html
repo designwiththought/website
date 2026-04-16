@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello, World — Your Name</title>
+  <meta name="description" content="Why I decided to build a personal website in 2026, and why plain HTML still makes sense.">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="/" class="header__name">Your Name</a>
+    <nav>
+      <ul class="header__nav">
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/now.html">Now</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="post post--essay">
+
+      <p class="post__human">This was written by a human. I hope you enjoy reading it.</p>
+
+      <span class="post__type">essay</span>
+      <h1 class="post__title">Hello, World</h1>
+      <div class="post__meta">
+        <time>March 20, 2026</time>
+        <span>&middot;</span>
+        <span>6 min read</span>
+      </div>
+
+      <p class="post__summary">Why I decided to build a personal website in 2026, what I hope to write about, and why plain HTML still makes sense.</p>
+
+      <div class="post__body">
+        <p>Every developer has written "Hello, World" a hundred times. It's the first thing you type when learning a new language, the proof that something works. This post is my Hello, World — not for a programming language, but for this little corner of the internet I'm building for myself.<a href="#fn1" id="ref1" class="fn">1</a></p>
+
+        <h2>Why now?</h2>
+
+        <p>I've been meaning to start a personal website for years. The usual story: I'd pick a framework, spend a weekend configuring it, get distracted by the tooling, and never write a single word. The stack became the project, and the writing never happened.</p>
+
+        <p>This time I took a different approach. No build step. No framework. No npm install. Just HTML files, a CSS stylesheet, and words. It turns out that when you remove all the friction, you actually get to the part that matters: writing.<a href="#fn2" id="ref2" class="fn">2</a></p>
+
+        <h2>What I'll write about</h2>
+
+        <p>A mix of things, honestly. I work in technology and think about software a lot, so there will be plenty of that. But I also hike, read, and have opinions about things that have nothing to do with code. This site is meant to hold all of it.</p>
+
+        <p>I'm organizing posts into a few types:</p>
+
+        <ul>
+          <li><strong>Essays</strong> — longer, more considered pieces (like this one)</li>
+          <li><strong>Notes</strong> — quick thoughts, interesting links, observations</li>
+          <li><strong>Logs</strong> — activity reports from hikes, reading, projects</li>
+          <li><strong>Photos</strong> — visual posts, mostly from time outdoors</li>
+        </ul>
+
+        <h2>Why plain HTML?</h2>
+
+        <p>There's something satisfying about a website that's just files. No server-side rendering, no hydration, no JavaScript bundle. Open the HTML in a browser and it works. Put the files on any web server and they're live. It's the simplest possible version of a website, and that simplicity is a feature.<a href="#fn3" id="ref3" class="fn">3</a></p>
+
+        <p>The trade-off is real: adding a new post means creating an HTML file and updating a listing by hand. But for the volume I expect to write — maybe a few posts a month — that's not just manageable, it's pleasant. Every post is a file I can read and edit in any text editor.</p>
+
+        <h2>What's next</h2>
+
+        <p>I'm going to keep this simple and just write. No posting schedule, no content strategy, no analytics to obsess over. Just thoughts, published when they're ready.</p>
+
+        <p>If you've been thinking about starting your own site, I'd encourage you to do it. Skip the framework decision, open a text editor, and write an <code>index.html</code>. You can always add complexity later. But you might find, like I did, that you don't need to.</p>
+      </div>
+
+      <section class="footnotes">
+        <p class="footnotes__label">Footnotes</p>
+        <ol>
+          <li id="fn1">"Hello, World" first appeared in Brian Kernighan's 1978 book <em>The C Programming Language</em>. <a href="#ref1">&uarr;</a></li>
+          <li id="fn2">I'm not against frameworks — I use them at work every day. But for a personal blog, the overhead-to-value ratio doesn't make sense to me. <a href="#ref2">&uarr;</a></li>
+          <li id="fn3">This entire site could be served from a USB drive, a Raspberry Pi, or a free GitHub Pages account. <a href="#ref3">&uarr;</a></li>
+        </ol>
+      </section>
+
+      <div class="changelog">
+        <p class="changelog__label">Changelog</p>
+        <ul class="changelog__list">
+          <li><time>2026-03-20</time> <span>Published</span></li>
+        </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <footer class="footer">
+    <span>&copy; 2026</span>
+    <ul class="footer__links">
+      <li><a href="https://github.com">GitHub</a></li>
+      <li><a href="https://twitter.com">Twitter</a></li>
+      <li><a href="/feed.xml">RSS</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
