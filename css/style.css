@@ -187,6 +187,11 @@ img {
 
 .home__now-link:hover { color: var(--black); }
 
+/* --- Work (on home) --- */
+.home__work {
+  padding: 0 0 4rem;
+}
+
 /* --- Recent posts (on home) --- */
 .home__posts {
   padding: 0 0 6rem;
@@ -246,6 +251,28 @@ img {
   color: var(--light);
   flex-shrink: 0;
 }
+
+/* ==========================================================================
+   ILLUSTRATION PLACEHOLDERS
+   Dashed boxes, labelled. Swap for real art later.
+   ========================================================================== */
+
+.placeholder {
+  border: 1px dashed var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--light);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  aspect-ratio: 16 / 9;
+  margin: 2rem 0;
+}
+
+.placeholder--plank { aspect-ratio: 5 / 1; }
+.placeholder--door { aspect-ratio: 2 / 3; max-width: 16rem; }
 
 /* ==========================================================================
    BLOG LISTING
