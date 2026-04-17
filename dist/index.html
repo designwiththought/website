@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-reduced-motion="false" data-simplify="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brian Hinton // Design & Accessibility</title>
+  <meta name="description" content="Accessibility lead, design systems thinker, and people manager. Currently at Superhuman, formerly Grammarly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Display:ital,wght@0,300;0,600;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </symbol>
+  <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <symbol id="icon-zap-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="12.41 6.75 13 2 10.57 4.92"/><polyline points="18.57 12.91 21 10 15.66 10"/><polyline points="8 8 3 14 12 14 11 22 16 16"/><line x1="1" y1="1" x2="23" y2="23"/>
+  </symbol>
+  <symbol id="icon-align-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+  </symbol>
+  <symbol id="icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </symbol>
+</svg>
+
+
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Screen reader announcements -->
+  <div id="sr-announcer" class="sr-announce" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Settings (top-right, minimal) -->
+  <div class="settings">
+    <button id="btn-simplify" class="settings__btn" aria-label="Toggle simplified view" aria-pressed="false">
+      <svg aria-hidden="true"><use href="#icon-align-left"/></svg>
+    </button>
+    <button id="btn-motion" class="settings__btn" aria-label="Toggle reduced motion" aria-pressed="false">
+      <svg id="icon-motion-zap" aria-hidden="true"><use href="#icon-zap"/></svg>
+      <svg id="icon-motion-zapoff" aria-hidden="true" style="display:none"><use href="#icon-zap-off"/></svg>
+    </button>
+    <div style="position:relative">
+      <button id="btn-brightness" class="settings__btn" aria-label="Adjust brightness">
+        <svg id="icon-brightness-sun" aria-hidden="true" style="display:none"><use href="#icon-sun"/></svg>
+        <svg id="icon-brightness-moon" aria-hidden="true"><use href="#icon-moon"/></svg>
+      </button>
+      <div id="ruler-wrap" class="ruler-wrap" aria-hidden="true">
+        <div id="ruler" class="ruler" tabindex="0" role="slider" aria-label="Luminance" aria-orientation="vertical" aria-valuenow="15" aria-valuemin="15" aria-valuemax="98" aria-valuetext="Luminance 15 percent">
+          <div id="ruler-fill" class="ruler__fill"></div>
+          <div class="ruler__ticks">
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+          </div>
+        </div>
+        <div class="ruler__tag">Luminance</div>
+      </div>
+    </div>
+  </div>
+
+    <main id="main-content" class="page">
+    <!-- Intro -->
+    <header class="page__intro reveal">
+      <div data-content="normal">
+        <p class="intro">
+          I'm <strong>Brian Hinton</strong>, accessibility lead at Superhuman and formerly at Grammarly. I spend most of my time thinking about what happens when you treat design as a form of care: for the people using the software, for the engineers building it, and for the systems that hold it all together.
+        </p>
+        <p class="intro mt-6">
+          For years my online presence was rented space. Social profiles and digital CVs on platforms I didn't own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open. It's a place to slow down and share <a href="#writing" class="text-link">ideas</a> that invite reflection rather than consumption, on design systems, accessibility, leadership, and whatever I'm <a href="#now" class="text-link">paying attention to now</a>.
+        </p>
+      </div>
+      <div data-content="simple" hidden>
+        <p class="intro">
+          Hi, I'm <strong>Brian Hinton</strong>. I lead accessibility at a company called Superhuman. Before that I worked at Grammarly. I care about making software that works for everyone.
+        </p>
+        <p class="intro mt-6">
+          This website is my own place on the internet. I built it myself. It is where I share my <a href="#writing" class="text-link">writing</a> and ideas about design, accessibility, and leading teams. I also share what I am <a href="#now" class="text-link">working on right now</a>.
+        </p>
+      </div>
+    </header>
+
+    <!-- Planks (illustration placeholders) -->
+    <div class="placeholders placeholders--planks" aria-hidden="true">
+      <div class="placeholder placeholder--plank">plank illustration</div>
+      <div class="placeholder placeholder--plank">plank illustration</div>
+      <div class="placeholder placeholder--plank">plank illustration</div>
+    </div>
+
+    <!-- Door (illustration placeholder) -->
+    <div class="placeholders" aria-hidden="true">
+      <div class="placeholder placeholder--door">door illustration</div>
+    </div>
+
+    <!-- Now -->
+    <section id="now" class="page__section reveal" aria-label="Now">
+      <h2 class="section-label">
+        <span data-content="normal">Now</span>
+        <span data-content="simple" hidden>What I am doing right now</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">now illustration</div>
+      <div data-content="normal">
+        <p class="now-prose">
+          Right now I'm
+          <span class="now-badge">[ Focusing ] <span class="now-dot"></span></span>
+          on <strong class="now-title">building out Superhuman's accessibility program</strong>, defining audit processes, mentoring engineers on ARIA patterns, and shipping keyboard navigation improvements across the app.
+          I'm also <span class="now-badge">[ Listening ]</span>
+          to <strong class="now-title"><span class="underline-accent">CPR</span></strong> by Wet Leg,
+          while <span class="now-badge">[ Reading ]</span>
+          <strong class="now-title"><em>The Oyster</em></strong> by Mark Kurlansky.
+          Most recently <span class="now-badge">[ Watching ]</span>
+          <strong class="now-title">Hail Mary</strong>, in theaters now.
+        </p>
+      </div>
+      <div data-content="simple" hidden>
+        <div class="flex flex-col gap-8">
+          <div class="now-simple">
+            <span class="now-simple__label">Working on:</span>
+            making Superhuman easier to use for people who navigate with keyboards and screen readers.
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">Listening to:</span>
+            a fun song called CPR by a band named Wet Leg.
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">Reading:</span>
+            a book about oysters and how they changed the world, by Mark Kurlansky.
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">Watching:</span>
+            a new movie called Hail Mary.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="page__section reveal" aria-label="Work">
+      <h2 class="section-label">
+        <span data-content="normal">Work</span>
+        <span data-content="simple" hidden>Things I made</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">work illustration</div>
+      
+      <a href="projects/superhuman-a11y/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">Superhuman accessibility program</span>
+          <span data-content="simple" hidden>Making Superhuman work for everyone</span>
+        </span>
+        <span class="list-row__meta">
+          <span data-content="normal">Accessibility // Design systems</span>
+          <span data-content="simple" hidden>Accessibility</span>
+        </span>
+      </a>
+      
+      <a href="projects/design-tokens/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">Cross-platform token system</span>
+          <span data-content="simple" hidden>One design language for all platforms</span>
+        </span>
+        <span class="list-row__meta">
+          <span data-content="normal">Design systems // Tooling</span>
+          <span data-content="simple" hidden>Design systems</span>
+        </span>
+      </a>
+      
+      <a href="projects/typographic-space/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">Typographic space</span>
+          <span data-content="simple" hidden>Playing with letters and shapes</span>
+        </span>
+        <span class="list-row__meta">
+          <span data-content="normal">Exploration // Visual</span>
+          <span data-content="simple" hidden>Art project</span>
+        </span>
+      </a>
+      
+    </section>
+
+    <!-- Writing -->
+    <section id="writing" class="page__section reveal" aria-label="Writing">
+      <h2 class="section-label">
+        <span data-content="normal">Writing</span>
+        <span data-content="simple" hidden>Things I wrote</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">writing illustration</div>
+      
+      <a href="articles/invisible-decisions/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">The weight of invisible decisions</span>
+          <span data-content="simple" hidden>Choices people never see</span>
+        </span>
+        <span class="list-row__meta">March 12, 2026</span>
+      </a>
+      
+      <a href="articles/accessibility-management/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">Accessibility is a management problem</span>
+          <span data-content="simple" hidden>Accessibility needs good managers</span>
+        </span>
+        <span class="list-row__meta">Jan 05, 2026</span>
+      </a>
+      
+      <a href="articles/managing-designers/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">Managing designers without managing design</span>
+          <span data-content="simple" hidden>Leading without taking over</span>
+        </span>
+        <span class="list-row__meta">Nov 22, 2025</span>
+      </a>
+      
+    </section>
+
+    <!-- Contact -->
+    <footer class="page__footer reveal">
+      <div class="footer__links">
+        <a href="mailto:hello@hinton.studio" class="text-link">hello@hinton.studio</a>
+        
+        <a href="https://hinton.studio" class="text-link" rel="noopener noreferrer" target="_blank">Website</a>
+        
+        <a href="https://linkedin.com/in/brianhinton" class="text-link" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+        
+        <a href="https://instagram.com/brianhinton.studio" class="text-link" rel="noopener noreferrer" target="_blank">Instagram</a>
+        
+      </div>
+      <div class="footer__copy">&copy; 2026 Brian Hinton</div>
+    </footer>
+  </main>
+
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+---
+id: "02"
+title: "Cross-platform token system"
+simpleTitle: "One design language for all platforms"
+slug: "design-tokens"
+date: "2025"
+tag: "Design systems // Tooling"
+simpleTag: "Design systems"
+summary: "A design token architecture that bridges Figma, iOS, Android, and web, with built-in accessibility constraints for color contrast and touch targets."
+simpleSummary: "I made a system of design rules that works the same on phones, computers, and tablets. It has built-in checks to make sure colors are easy to read and buttons are big enough to tap."
+changelog:
+  - date: "2025.09.15"
+    note: "Initial case study."
+---
+
+Design tokens sound simple until you try to make them work across four platforms with different rendering engines, accessibility APIs, and team cultures. The challenge wasn't defining the tokens. It was defining them in a way that each platform team could adopt without feeling like they were losing ownership of their codebase.<Footnote id="1" text="Jina Anne's Design Tokens Community Group specification informed our naming conventions." />
+
+We embedded accessibility constraints directly into the token definitions. A color token doesn't just carry a hex value; it carries metadata about its minimum contrast ratio and the contexts where it's valid. If someone tries to use a background token as text color, the linter catches it before code review.<Footnote id="2" text="This approach was inspired by Salesforce's Lightning Design System token architecture." />

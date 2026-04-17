@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-reduced-motion="false" data-simplify="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superhuman accessibility program — Brian Hinton // Design & Accessibility</title>
+  <meta name="description" content="Building the accessibility practice from the ground up: audit frameworks, ARIA patterns, keyboard navigation, and engineering mentorship across the product.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Display:ital,wght@0,300;0,600;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </symbol>
+  <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <symbol id="icon-zap-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="12.41 6.75 13 2 10.57 4.92"/><polyline points="18.57 12.91 21 10 15.66 10"/><polyline points="8 8 3 14 12 14 11 22 16 16"/><line x1="1" y1="1" x2="23" y2="23"/>
+  </symbol>
+  <symbol id="icon-align-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+  </symbol>
+  <symbol id="icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </symbol>
+</svg>
+
+
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Screen reader announcements -->
+  <div id="sr-announcer" class="sr-announce" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Settings (top-right, minimal) -->
+  <div class="settings">
+    <button id="btn-simplify" class="settings__btn" aria-label="Toggle simplified view" aria-pressed="false">
+      <svg aria-hidden="true"><use href="#icon-align-left"/></svg>
+    </button>
+    <button id="btn-motion" class="settings__btn" aria-label="Toggle reduced motion" aria-pressed="false">
+      <svg id="icon-motion-zap" aria-hidden="true"><use href="#icon-zap"/></svg>
+      <svg id="icon-motion-zapoff" aria-hidden="true" style="display:none"><use href="#icon-zap-off"/></svg>
+    </button>
+    <div style="position:relative">
+      <button id="btn-brightness" class="settings__btn" aria-label="Adjust brightness">
+        <svg id="icon-brightness-sun" aria-hidden="true" style="display:none"><use href="#icon-sun"/></svg>
+        <svg id="icon-brightness-moon" aria-hidden="true"><use href="#icon-moon"/></svg>
+      </button>
+      <div id="ruler-wrap" class="ruler-wrap" aria-hidden="true">
+        <div id="ruler" class="ruler" tabindex="0" role="slider" aria-label="Luminance" aria-orientation="vertical" aria-valuenow="15" aria-valuemin="15" aria-valuemax="98" aria-valuetext="Luminance 15 percent">
+          <div id="ruler-fill" class="ruler__fill"></div>
+          <div class="ruler__ticks">
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+          </div>
+        </div>
+        <div class="ruler__tag">Luminance</div>
+      </div>
+    </div>
+  </div>
+
+    <main id="main-content" class="page">
+    <article>
+      <a href="../../#studio" class="back-link">
+        <svg aria-hidden="true"><use href="#icon-arrow-left"/></svg>
+        <span data-content="normal">Back to work</span>
+        <span data-content="simple" hidden>Go back</span>
+      </a>
+
+      <header class="mb-12">
+        <h1 class="article-heading mb-6">
+          <span data-content="normal">Superhuman accessibility program</span>
+          <span data-content="simple" hidden>Making Superhuman work for everyone</span>
+        </h1>
+        <div class="article-header__meta">
+          <div class="article-header__meta-item">
+            <span class="article-header__meta-label" data-content="normal">Published</span>
+            <span class="article-header__meta-label" data-content="simple" hidden>Written</span>
+            <span></span>
+          </div>
+          <div class="article-header__meta-item">
+            <span class="article-header__meta-label" data-content="normal">Updated</span>
+            <span class="article-header__meta-label" data-content="simple" hidden>Changed</span>
+            <span style="color:var(--accent)"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Summary -->
+      <div class="mb-16">
+        <p class="intro">
+          <span data-content="normal">Building the accessibility practice from the ground up: audit frameworks, ARIA patterns, keyboard navigation, and engineering mentorship across the product.</span>
+          <span data-content="simple" hidden>I helped build a plan to make Superhuman easier to use for people with disabilities. This included keyboard shortcuts, screen reader support, and teaching engineers how to do it.</span>
+        </p>
+      </div>
+
+      <!-- Body -->
+      <section class="prose mb-16" style="display:flex;flex-direction:column;gap:var(--space-8)">
+        <p>When I joined Superhuman, accessibility wasn't ignored so much as undefined. There was no audit process, no shared language for what "accessible" meant in the context of a keyboard-first email client, and no clear owner. My first job was to make the invisible visible: catalog every interaction, measure it against WCAG 2.2, and build a prioritized backlog that engineering could actually work against.<sup><a href="#fn1" id="ref1" class="footnote-ref" aria-label="Footnote 1, see source">[1]</a></sup></p>
+<p>The hardest part wasn't the technical work. It was building consensus that accessibility deserved sprint time alongside feature work. That meant showing up in planning meetings with data, not just principles.<sup><a href="#fn2" id="ref2" class="footnote-ref" aria-label="Footnote 2, see source">[2]</a></sup></p>
+      </section>
+
+      <!-- Changelog -->
+      <section class="page__section" style="border-top:1px solid var(--border)" aria-label="Changelog">
+        <h2 class="section-label">
+          <span data-content="normal">Changelog</span>
+          <span data-content="simple" hidden>What changed</span>
+        </h2>
+        <div class="flex flex-col gap-6">
+          
+          <div class="changelog-entry">
+            <span class="changelog-entry__date">2026.03.01</span>
+            <p class="changelog-entry__note">Ongoing work.</p>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- Footnotes -->
+      <section id="footnotes" class="page__section" style="border-top:1px solid var(--border)" role="doc-endnotes" aria-label="References">
+        <h2 class="section-label" style="color:var(--accent)">
+          <span data-content="normal">References</span>
+          <span data-content="simple" hidden>Where I learned this</span>
+        </h2>
+        <ul class="footnotes-list flex flex-col gap-8">
+          
+          <li id="fn1" class="footnote-item">
+            <span class="footnote-item__id">[1]</span>
+            <div>
+              <p>WCAG 2.2 became a W3C Recommendation in October 2023.</p>
+              <a href="#ref1" class="footnote-item__back">
+                <span data-content="normal">Return to text</span>
+                <span data-content="simple" hidden>Go back</span>
+              </a>
+            </div>
+          </li>
+          
+          <li id="fn2" class="footnote-item">
+            <span class="footnote-item__id">[2]</span>
+            <div>
+              <p>Marcy Sutton's work on accessibility testing automation was a key influence on our audit tooling.</p>
+              <a href="#ref2" class="footnote-item__back">
+                <span data-content="normal">Return to text</span>
+                <span data-content="simple" hidden>Go back</span>
+              </a>
+            </div>
+          </li>
+          
+        </ul>
+      </section>
+
+      <!-- Article Footer -->
+      <footer class="page__footer" style="text-align:center">
+        <a href="../../#studio" class="article-return">
+          <span data-content="normal">Back to work</span>
+          <span data-content="simple" hidden>Go back</span>
+        </a>
+      </footer>
+    </article>
+  </main>
+
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

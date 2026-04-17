@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-reduced-motion="false" data-simplify="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{pageTitle}}</title>
+  <meta name="description" content="{{pageDescription}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Display:ital,wght@0,300;0,600;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{basePath}}css/style.css">
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  {{iconSprite}}
+
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Screen reader announcements -->
+  <div id="sr-announcer" class="sr-announce" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Settings (top-right, minimal) -->
+  <div class="settings">
+    <button id="btn-simplify" class="settings__btn" aria-label="Toggle simplified view" aria-pressed="false">
+      <svg aria-hidden="true"><use href="#icon-align-left"/></svg>
+    </button>
+    <button id="btn-motion" class="settings__btn" aria-label="Toggle reduced motion" aria-pressed="false">
+      <svg id="icon-motion-zap" aria-hidden="true"><use href="#icon-zap"/></svg>
+      <svg id="icon-motion-zapoff" aria-hidden="true" style="display:none"><use href="#icon-zap-off"/></svg>
+    </button>
+    <div style="position:relative">
+      <button id="btn-brightness" class="settings__btn" aria-label="Adjust brightness">
+        <svg id="icon-brightness-sun" aria-hidden="true" style="display:none"><use href="#icon-sun"/></svg>
+        <svg id="icon-brightness-moon" aria-hidden="true"><use href="#icon-moon"/></svg>
+      </button>
+      <div id="ruler-wrap" class="ruler-wrap" aria-hidden="true">
+        <div id="ruler" class="ruler" tabindex="0" role="slider" aria-label="Luminance" aria-orientation="vertical" aria-valuenow="15" aria-valuemin="15" aria-valuemax="98" aria-valuetext="Luminance 15 percent">
+          <div id="ruler-fill" class="ruler__fill"></div>
+          <div class="ruler__ticks">
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+            <div class="ruler__tick ruler__tick--minor"></div>
+            <div class="ruler__tick ruler__tick--major"></div>
+          </div>
+        </div>
+        <div class="ruler__tag">Luminance</div>
+      </div>
+    </div>
+  </div>
+
+  {{content}}
+
+  <script src="{{basePath}}js/main.js"></script>
+</body>
+</html>

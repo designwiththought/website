@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Design Tokens
+   Systematic spacing, typography, color, and timing scales.
+   ========================================================================== */
+
+:root {
+  /* --- Spacing (4px base, rem) --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+  --space-64: 16rem;
+
+  /* --- Type Scale (1.333 perfect fourth) --- */
+  --text-xs: 0.75rem;     /* 12px — minimum */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.333rem;    /* ~21px */
+  --text-xl: 1.777rem;    /* ~28px */
+  --text-2xl: 2.369rem;   /* ~38px */
+  --text-3xl: 3.157rem;   /* ~51px */
+  --text-4xl: 4.209rem;   /* ~67px */
+  --text-5xl: 5.61rem;    /* ~90px */
+  --text-display: clamp(4rem, 14vw, 10rem);
+
+  /* --- Font Families --- */
+  --font-serif: 'Cormorant Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+  /* --- Font Weights --- */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* --- Line Heights --- */
+  --leading-none: 0.85;
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* --- Timing --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+  --duration-glacial: 800ms;
+
+  /* --- Border Radius --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 3rem;
+  --radius-full: 9999px;
+
+  /* --- Dynamic Theme (overwritten by JS) --- */
+  --lum: 15;
+  --fg: hsl(30, 5%, 96%);
+  --bg: hsl(30, 5%, 15%);
+  --surface: hsl(30, 5%, 25%);
+  --accent: hsl(35, 70%, 70%);
+  --border: rgba(255, 255, 255, 0.2);
+  --nav-bg: rgba(10, 10, 10, 0.98);
+
+  /* --- Layout --- */
+  --max-width: 87.5rem;     /* 1400px */
+  --max-width-prose: 62.5rem; /* 1000px */
+  --gutter: var(--space-6);
+}
+
+@media (min-width: 64em) {
+  :root {
+    --gutter: var(--space-8);
+  }
+}

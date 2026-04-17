@@ -1,0 +1,125 @@
+  <main id="main-content" class="page">
+    <!-- Intro -->
+    <header class="page__intro reveal">
+      <div data-content="normal">
+        <p class="intro">
+          I'm <strong>Brian Hinton</strong>, accessibility lead at Superhuman and formerly at Grammarly. I spend most of my time thinking about what happens when you treat design as a form of care: for the people using the software, for the engineers building it, and for the systems that hold it all together.
+        </p>
+        <p class="intro mt-6">
+          For years my online presence was rented space. Social profiles and digital CVs on platforms I didn't own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open. It's a place to slow down and share <a href="#writing" class="text-link">ideas</a> that invite reflection rather than consumption, on design systems, accessibility, leadership, and whatever I'm <a href="#now" class="text-link">paying attention to now</a>.
+        </p>
+      </div>
+      <div data-content="simple" hidden>
+        <p class="intro">
+          Hi, I'm <strong>Brian Hinton</strong>. I lead accessibility at a company called Superhuman. Before that I worked at Grammarly. I care about making software that works for everyone.
+        </p>
+        <p class="intro mt-6">
+          This website is my own place on the internet. I built it myself. It is where I share my <a href="#writing" class="text-link">writing</a> and ideas about design, accessibility, and leading teams. I also share what I am <a href="#now" class="text-link">working on right now</a>.
+        </p>
+      </div>
+    </header>
+
+    <!-- Planks (illustration placeholders) -->
+    <div class="placeholders placeholders--planks" aria-hidden="true">
+      <div class="placeholder placeholder--plank">plank illustration</div>
+      <div class="placeholder placeholder--plank">plank illustration</div>
+      <div class="placeholder placeholder--plank">plank illustration</div>
+    </div>
+
+    <!-- Door (illustration placeholder) -->
+    <div class="placeholders" aria-hidden="true">
+      <div class="placeholder placeholder--door">door illustration</div>
+    </div>
+
+    <!-- Now -->
+    <section id="now" class="page__section reveal" aria-label="Now">
+      <h2 class="section-label">
+        <span data-content="normal">Now</span>
+        <span data-content="simple" hidden>What I am doing right now</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">now illustration</div>
+      <div data-content="normal">
+        <p class="now-prose">
+          Right now I'm
+          <span class="now-badge">[ Focusing ] <span class="now-dot"></span></span>
+          {{now.focus.detail}}
+          I'm also <span class="now-badge">[ Listening ]</span>
+          {{now.music.detail}}
+          while <span class="now-badge">[ Reading ]</span>
+          {{now.reading.detail}}
+          Most recently <span class="now-badge">[ Watching ]</span>
+          {{now.watching.detail}}
+        </p>
+      </div>
+      <div data-content="simple" hidden>
+        <div class="flex flex-col gap-8">
+          <div class="now-simple">
+            <span class="now-simple__label">{{now.focus.simpleLabel}}:</span>
+            {{now.focus.simple}}
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">{{now.music.simpleLabel}}:</span>
+            {{now.music.simple}}
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">{{now.reading.simpleLabel}}:</span>
+            {{now.reading.simple}}
+          </div>
+          <div class="now-simple">
+            <span class="now-simple__label">{{now.watching.simpleLabel}}:</span>
+            {{now.watching.simple}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="page__section reveal" aria-label="Work">
+      <h2 class="section-label">
+        <span data-content="normal">Work</span>
+        <span data-content="simple" hidden>Things I made</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">work illustration</div>
+      {{#each projects}}
+      <a href="{{basePath}}projects/{{slug}}/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">{{title}}</span>
+          <span data-content="simple" hidden>{{simpleTitle}}</span>
+        </span>
+        <span class="list-row__meta">
+          <span data-content="normal">{{tag}}</span>
+          <span data-content="simple" hidden>{{simpleTag}}</span>
+        </span>
+      </a>
+      {{/each}}
+    </section>
+
+    <!-- Writing -->
+    <section id="writing" class="page__section reveal" aria-label="Writing">
+      <h2 class="section-label">
+        <span data-content="normal">Writing</span>
+        <span data-content="simple" hidden>Things I wrote</span>
+      </h2>
+      <div class="placeholder" aria-hidden="true">writing illustration</div>
+      {{#each articles}}
+      <a href="{{basePath}}articles/{{slug}}/" class="list-row">
+        <span class="list-row__title">
+          <span data-content="normal">{{title}}</span>
+          <span data-content="simple" hidden>{{simpleTitle}}</span>
+        </span>
+        <span class="list-row__meta">{{published}}</span>
+      </a>
+      {{/each}}
+    </section>
+
+    <!-- Contact -->
+    <footer class="page__footer reveal">
+      <div class="footer__links">
+        <a href="mailto:{{email}}" class="text-link">{{email}}</a>
+        {{#each social}}
+        <a href="{{url}}" class="text-link" rel="noopener noreferrer" target="_blank">{{label}}</a>
+        {{/each}}
+      </div>
+      <div class="footer__copy">&copy; 2026 Brian Hinton</div>
+    </footer>
+  </main>
