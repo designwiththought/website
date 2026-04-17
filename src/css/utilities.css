@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Live region for screen reader announcements */
+.sr-announce {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Hidden visually but preserved for a11y */
+[hidden] {
+  display: none !important;
+}
+
+/* Reveal animation (JS adds .is-revealed) */
+.reveal {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 1s var(--ease-out),
+              transform 1s var(--ease-out);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children within revealed sections */
+.reveal.is-revealed .list-row {
+  animation: fadeUp 0.5s var(--ease-out) both;
+}
+
+.reveal.is-revealed .list-row:nth-child(1) { animation-delay: 0.05s; }
+.reveal.is-revealed .list-row:nth-child(2) { animation-delay: 0.1s; }
+.reveal.is-revealed .list-row:nth-child(3) { animation-delay: 0.15s; }
+.reveal.is-revealed .list-row:nth-child(4) { animation-delay: 0.2s; }
+.reveal.is-revealed .list-row:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-reduced-motion="true"] .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+[data-reduced-motion="true"] .reveal.is-revealed .list-row {
+  animation: none;
+}
