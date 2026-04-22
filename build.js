@@ -137,11 +137,17 @@ function parseMarkdown(md) {
       continue;
     }
 
-    // Headings
+    // Headings — slugify to an id so TOC anchors work
     const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;
-      output.push('<h' + level + '>' + inlineFormat(headingMatch[2]) + '</h' + level + '>');
+      const text = headingMatch[2];
+      const id = text.toLowerCase()
+        .replace(/<[^>]+>/g, '')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+      output.push('<h' + level + ' id="' + id + '">' + inlineFormat(text) + '</h' + level + '>');
       continue;
     }
 
@@ -330,7 +336,7 @@ function build() {
 
   // 5. Concatenate CSS
   mkdirp(path.join(DIST, 'css'));
-  var cssOrder = ['tokens.css', 'reset.css', 'typography.css', 'layout.css', 'components.css', 'utilities.css'];
+  var cssOrder = ['tokens.css', 'kit.css', 'site.css'];
   var cssBundle = cssOrder.map(function (file) {
     return fs.readFileSync(path.join(SRC, 'css', file), 'utf8');
   }).join('\n\n');

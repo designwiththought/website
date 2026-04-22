@@ -11,19 +11,16 @@
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- Icon sprite placeholder. Current design uses inline SVGs in layouts. -->
-
-
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav" aria-label="Primary">
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
     <a class="site-nav__brand" href="../../" aria-label="Home">
       <span class="brand-name">Home</span>
     </a>
     <div class="site-nav__links">
-      <button id="theme-toggle" class="site-nav__theme" aria-label="Toggle theme" type="button">
-        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
       <button
         id="menu-open"
@@ -34,7 +31,7 @@
         aria-controls="site-menu-dialog"
       >
         <span>Menu</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" style="margin-left:8px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </nav>
@@ -47,16 +44,16 @@
     aria-labelledby="site-menu-dialog-heading"
     hidden
   >
-    <div class="drawer__head">
+    <div class="drawer__head container">
       <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse the site</h2>
       <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
         <span>Close</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" style="margin-left:8px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div class="drawer__body">
+    <div class="drawer__body container">
       <section aria-labelledby="drawer-grp-writing">
-        <h3 id="drawer-grp-writing" class="drawer__group-title">§ Writing</h3>
+        <h3 id="drawer-grp-writing" class="drawer__group-title">&sect; Writing</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="../../#writing"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
           <li><a class="drawer__item" href="../../#writing"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
@@ -64,13 +61,13 @@
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-making">
-        <h3 id="drawer-grp-making" class="drawer__group-title">§ Making</h3>
+        <h3 id="drawer-grp-making" class="drawer__group-title">&sect; Making</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="../../#projects"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-enjoying">
-        <h3 id="drawer-grp-enjoying" class="drawer__group-title">§ Enjoying</h3>
+        <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="../../#reading"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
           <li><a class="drawer__item" href="../../#reading"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
@@ -80,14 +77,14 @@
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-learning">
-        <h3 id="drawer-grp-learning" class="drawer__group-title">§ Learning</h3>
+        <h3 id="drawer-grp-learning" class="drawer__group-title">&sect; Learning</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="../../#writing"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
           <li><a class="drawer__item" href="../../#writing"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-about">
-        <h3 id="drawer-grp-about" class="drawer__group-title">§ About</h3>
+        <h3 id="drawer-grp-about" class="drawer__group-title">&sect; About</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="../../#about"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
           <li><a class="drawer__item" href="../../#now"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
@@ -98,35 +95,59 @@
   </div>
 
     <main id="main">
-    <article class="reader">
-      <a class="btn btn--link reader__back" href="../../#writing">
-        <span aria-hidden="true">&larr;</span>
-        <span class="reader__back-label">Back to writing</span>
-      </a>
-      <div class="reader__kicker"><span class="kicker">&sect; Essay</span></div>
-      <h1>The focus ring is a social contract</h1>
-      <p class="reader__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p>
-      <div class="reader__meta">
-        <span class="kicker">12 April 2026</span>
-        <span class="kicker">&middot; 9 min</span>
-        <span class="kicker">&middot; A11y &middot; Keyboard</span>
-      </div>
-      <div class="reader__body">
-        <p>There is a small, persistent argument in our industry about the focus ring. One side says it is ugly — a blue smudge on an otherwise clean design. The other side says it is essential — the only way a keyboard user can tell where they are on a page. Both sides, I think, are missing the point.</p>
+    <div class="reader-with-toc">
+      <article class="reader">
+        <a class="btn btn--link reader__back" href="../../#writing">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+          <span class="reader__back-label">Back to writing</span>
+        </a>
+        <div class="reader__kicker"><span class="kicker">&sect; Essay</span></div>
+        <h1>The focus ring is a social contract</h1>
+        <p class="reader__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p>
+        <div class="reader__meta">
+          <span class="kicker">12 April 2026</span>
+          <span class="kicker">&middot; 9 min</span>
+          <span class="kicker">&middot; A11y</span>
+          <span class="kicker">&middot; Keyboard</span>
+          <span class="kicker">&middot; Craft</span>
+        </div>
+        <div class="reader__body prose">
+          <h2 id="opening">Opening</h2>
+<p>There is a small, persistent argument in our industry about the focus ring. One side says it is ugly — a blue smudge on an otherwise clean design. The other side says it is essential — the only way a keyboard user can tell where they are on a page. Both sides, I think, are missing the point.</p>
 <p>The focus ring is not a visual decision. It is a <em>social</em> one. When I show you where the focus is, I am promising that you can use this software with your hands on the keyboard. When I hide it, I am promising that I've thought about you — and deciding, quietly, that you are not this product's audience.</p>
 <blockquote>
-<p>A focus ring is the smallest, most visible contract a designer can make with a stranger.</p>
+<p>A focus ring is the smallest, most visible contract a designer can make with a stranger. — from an internal talk, feb 2026</p>
 </blockquote>
-<h2>The middle move</h2>
+<h2 id="the-middle-move">The middle move</h2>
 <p>Over the last decade I've watched the same pattern play out, at every company I've worked with: someone redesigns the focus ring to match the brand. It becomes a warm honey outline, or a subtle drop shadow, or — most often — a <em>slightly</em> paler version of the default blue.</p>
 <p>And then, six months later, someone new joins the design team, notices that the focus ring is "a bit subtle," and strengthens it. And six months after that, someone else notices that it's "a bit aggressive," and softens it. This is a pendulum problem — it will not resolve itself through iteration, because the thing being iterated on is not what matters.</p>
 <p>What matters is the <em>agreement</em>. The focus ring says: wherever you are, I will show you. It does not have to be blue. It does not have to match Material Design. It has to be <strong>there</strong>, and it has to be <strong>honest</strong> — meaning, the thing it highlights is actually the thing that's going to respond.</p>
-<h2>Landing</h2>
+<h2 id="landing">Landing</h2>
 <p>If you are a designer reading this: the next time someone suggests softening the focus ring, ask them what the benefit is, and who it's for. If they cannot name the person who benefits from a less visible focus indicator, you already have your answer.</p>
 <p>If you are an engineer reading this: <code>:focus-visible</code> is one of the kindest additions to CSS in the last ten years. It lets you show focus only when the user is navigating by keyboard, so the ring doesn't appear on mouse click. That is the whole argument, resolved. Please use it.</p>
 <p>And if you are a keyboard user reading this: I'm sorry for the decades of blurry, inconsistent, apologetic outlines. We are, slowly, getting better.</p>
-      </div>
-    </article>
+<h2 id="colophon">Colophon</h2>
+<p>Drafted on a train from Edinburgh to London, revised over two weeks. Thanks to R, J, and P for reading early drafts. Typeset in Young Serif and Commissioner. The pull quote is from a talk I gave at my team offsite — slides are not, and will not be, public.</p>
+        </div>
+      </article>
+
+      
+      <aside class="toc" aria-label="Table of contents">
+        <div class="toc__title">In this essay</div>
+        <ol>
+          
+          <li><a href="#opening">Opening</a></li>
+          
+          <li><a href="#the-middle-move">The middle move</a></li>
+          
+          <li><a href="#landing">Landing</a></li>
+          
+          <li><a href="#colophon">Colophon</a></li>
+          
+        </ol>
+      </aside>
+      
+    </div>
   </main>
 
 
@@ -134,16 +155,18 @@
     <div class="site-footer__inner container">
       <div class="site-footer__col site-footer__col--wide">
         <div class="site-footer__wordmark">Design with Thought</div>
-        <p class="site-footer__tag">A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.</p>
+        <p class="t-small" style="color: var(--fg-muted); max-width: 36ch; margin-top: 10px;">
+          A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.
+        </p>
         <ul class="site-footer__social">
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
-          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
+          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ Writing</h5>
+        <h5>&sect; Writing</h5>
         <ul>
           <li><a href="../../#writing">Essays</a></li>
           <li><a href="../../#writing">Studies</a></li>
@@ -151,7 +174,7 @@
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ Making &amp; enjoying</h5>
+        <h5>&sect; Making &amp; enjoying</h5>
         <ul>
           <li><a href="../../#projects">Projects</a></li>
           <li><a href="../../#reading">Reading</a></li>
@@ -160,7 +183,7 @@
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ About</h5>
+        <h5>&sect; About</h5>
         <ul>
           <li><a href="../../#about">About</a></li>
           <li><a href="../../#now">Now</a></li>
