@@ -374,7 +374,7 @@ function build() {
 
     var articleData = Object.assign({}, siteData, article, {
       basePath: '../../',
-      backHref: '#archive',
+      backHref: '#writing',
       backLabel: 'Back to writing',
       iconSprite: iconSprite,
       pageTitle: article.title + ' — ' + siteData.title,
@@ -396,8 +396,8 @@ function build() {
 
     var projectData = Object.assign({}, siteData, project, {
       basePath: '../../',
-      backHref: '#studio',
-      backLabel: 'Back to work',
+      backHref: '#projects',
+      backLabel: 'Back to projects',
       iconSprite: iconSprite,
       pageTitle: project.title + ' — ' + siteData.title,
       pageDescription: project.summary

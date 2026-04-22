@@ -1,0 +1,32 @@
+---
+slug: prism
+title: "Prism"
+summary: "An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer's own perception. Currently in preview."
+date: "2026"
+read: "Ongoing"
+kind: "Project"
+plate: "cocoa"
+glyph: "P"
+label: "Contrast tool"
+status: "§ In progress"
+year: "2026"
+tag1: "A11y"
+tag2: "Open source"
+---
+
+There are a lot of contrast checkers. Almost all of them return a ratio and a pass/fail verdict against WCAG. What almost none of them tell you is whether the check is *meaningful* for the person actually using the product.
+
+WCAG contrast is a helpful floor, not a ceiling. Two colour pairs can both pass 4.5:1 and feel wildly different — one confident, one blurry. **Prism** is an experiment in treating contrast as a perceptual question, not just a mathematical one.
+
+## What it does
+
+Paste two colours (or a screenshot). Prism reports:
+
+- WCAG 2.2 ratio (baseline)
+- APCA Lc value (for body-text guidance)
+- A *perceptual* contrast score, adjusted for the colour pair's position on the warm/cool axis
+- An "ambient" simulation: what the pair looks like on a dim screen, a bright one, and through a yellow filter
+
+## Where it's going
+
+Prism is in alpha with four teams. The goal for this summer is a public web tool plus a small library (CLI + Node API). After that, a Figma plugin, if the interaction model holds up.

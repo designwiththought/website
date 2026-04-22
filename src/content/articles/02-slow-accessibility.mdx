@@ -1,0 +1,24 @@
+---
+slug: slow-accessibility
+kind: Essay
+title: "Slow accessibility"
+summary: "Six years ago I was shipping a11y fixes in week-long sprints and calling it done. I was wrong. A note on working at the pace the work actually needs."
+date: "28 March 2026"
+read: "12 min"
+tag1: "A11y"
+tag2: "Practice"
+---
+
+For a long time I thought accessibility was a series of discrete problems you could knock off a list. A focus style here. An aria-label there. A missing tab stop. Ship, close the ticket, move on.
+
+The problem with that model is not that it's wrong. It's that it's too fast. Accessibility work, done well, is slow work — the kind that requires sitting with a product for long enough to notice the second-order effects.
+
+## What fast-accessibility misses
+
+The modal that's keyboard-accessible *and also* traps focus *and also* announces itself *and also* doesn't reopen at the wrong time *and also* doesn't interrupt a live region. Each of those is a one-line fix. The interaction they produce together is a month of research.
+
+Fast accessibility ships a modal that "passes." Slow accessibility ships a modal that a blind colleague uses without saying anything about it afterwards, because nothing went wrong.
+
+## A short case for patience
+
+We don't celebrate this kind of work enough. It's invisible when it goes well. The only time anyone notices is when it doesn't. But that's also, I think, what makes it worth doing — the measure of success is that no one is forced to think about the software, which is, more often than not, the whole point of the software.
