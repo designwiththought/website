@@ -1,87 +1,19 @@
-  <main id="main-content" class="page">
-    <article>
-      <a href="{{basePath}}{{backHref}}" class="back-link">
-        <svg aria-hidden="true"><use href="#icon-arrow-left"/></svg>
-        <span data-content="normal">{{backLabel}}</span>
-        <span data-content="simple" hidden>Go back</span>
+  <main id="main">
+    <article class="reader">
+      <a class="btn btn--link reader__back" href="{{basePath}}{{backHref}}">
+        <span aria-hidden="true">&larr;</span>
+        <span class="reader__back-label">{{backLabel}}</span>
       </a>
-
-      <header class="mb-12">
-        <h1 class="article-heading mb-6">
-          <span data-content="normal">{{title}}</span>
-          <span data-content="simple" hidden>{{simpleTitle}}</span>
-        </h1>
-        <div class="article-header__meta">
-          <div class="article-header__meta-item">
-            <span class="article-header__meta-label" data-content="normal">Published</span>
-            <span class="article-header__meta-label" data-content="simple" hidden>Written</span>
-            <span>{{published}}</span>
-          </div>
-          <div class="article-header__meta-item">
-            <span class="article-header__meta-label" data-content="normal">Updated</span>
-            <span class="article-header__meta-label" data-content="simple" hidden>Changed</span>
-            <span style="color:var(--accent)">{{updated}}</span>
-          </div>
-        </div>
-      </header>
-
-      <!-- Summary -->
-      <div class="mb-16">
-        <p class="intro">
-          <span data-content="normal">{{summary}}</span>
-          <span data-content="simple" hidden>{{simpleSummary}}</span>
-        </p>
+      <div class="reader__kicker"><span class="kicker">&sect; {{kind}}</span></div>
+      <h1>{{title}}</h1>
+      <p class="reader__dek">{{summary}}</p>
+      <div class="reader__meta">
+        <span class="kicker">{{date}}</span>
+        <span class="kicker">&middot; {{read}}</span>
+        <span class="kicker">&middot; {{tag1}} &middot; {{tag2}}</span>
       </div>
-
-      <!-- Body -->
-      <section class="prose mb-16" style="display:flex;flex-direction:column;gap:var(--space-8)">
+      <div class="reader__body">
         {{bodyHtml}}
-      </section>
-
-      <!-- Changelog -->
-      <section class="page__section" style="border-top:1px solid var(--border)" aria-label="Changelog">
-        <h2 class="section-label">
-          <span data-content="normal">Changelog</span>
-          <span data-content="simple" hidden>What changed</span>
-        </h2>
-        <div class="flex flex-col gap-6">
-          {{#each changelog}}
-          <div class="changelog-entry">
-            <span class="changelog-entry__date">{{date}}</span>
-            <p class="changelog-entry__note">{{note}}</p>
-          </div>
-          {{/each}}
-        </div>
-      </section>
-
-      <!-- Footnotes -->
-      <section id="footnotes" class="page__section" style="border-top:1px solid var(--border)" role="doc-endnotes" aria-label="References">
-        <h2 class="section-label" style="color:var(--accent)">
-          <span data-content="normal">References</span>
-          <span data-content="simple" hidden>Where I learned this</span>
-        </h2>
-        <ul class="footnotes-list flex flex-col gap-8">
-          {{#each footnotes}}
-          <li id="fn{{id}}" class="footnote-item">
-            <span class="footnote-item__id">[{{id}}]</span>
-            <div>
-              <p>{{text}}</p>
-              <a href="#ref{{id}}" class="footnote-item__back">
-                <span data-content="normal">Return to text</span>
-                <span data-content="simple" hidden>Go back</span>
-              </a>
-            </div>
-          </li>
-          {{/each}}
-        </ul>
-      </section>
-
-      <!-- Article Footer -->
-      <footer class="page__footer" style="text-align:center">
-        <a href="{{basePath}}{{backHref}}" class="article-return">
-          <span data-content="normal">{{backLabel}}</span>
-          <span data-content="simple" hidden>Go back</span>
-        </a>
-      </footer>
+      </div>
     </article>
   </main>

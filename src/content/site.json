@@ -1,36 +1,6 @@
 {
-  "title": "Brian Hinton // Design & Accessibility",
-  "description": "Accessibility lead, design systems thinker, and people manager. Currently at Superhuman, formerly Grammarly.",
-  "email": "hello@hinton.studio",
-  "social": [
-    { "label": "Website", "url": "https://hinton.studio", "icon": "globe" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/in/brianhinton", "icon": "linkedin" },
-    { "label": "Instagram", "url": "https://instagram.com/brianhinton.studio", "icon": "instagram" }
-  ],
-  "now": {
-    "focus": {
-      "label": "Focusing",
-      "simpleLabel": "Working on",
-      "detail": "on <strong class=\"now-title\">building out Superhuman's accessibility program</strong>, defining audit processes, mentoring engineers on ARIA patterns, and shipping keyboard navigation improvements across the app.",
-      "simple": "making Superhuman easier to use for people who navigate with keyboards and screen readers."
-    },
-    "music": {
-      "label": "Listening",
-      "simpleLabel": "Listening to",
-      "detail": "to <strong class=\"now-title\"><span class=\"underline-accent\">CPR</span></strong> by Wet Leg,",
-      "simple": "a fun song called CPR by a band named Wet Leg."
-    },
-    "reading": {
-      "label": "Reading",
-      "simpleLabel": "Reading",
-      "detail": "<strong class=\"now-title\"><em>The Oyster</em></strong> by Mark Kurlansky.",
-      "simple": "a book about oysters and how they changed the world, by Mark Kurlansky."
-    },
-    "watching": {
-      "label": "Watching",
-      "simpleLabel": "Watching",
-      "detail": "<strong class=\"now-title\">Hail Mary</strong>, in theaters now.",
-      "simple": "a new movie called Hail Mary."
-    }
-  }
+  "title": "Design with Thought",
+  "description": "Essays, studies, projects and notes by Brian Hinton — accessibility lead at Superhuman (formerly Grammarly).",
+  "ownerName": "Brian Hinton",
+  "email": "hello@brian.is"
 }
