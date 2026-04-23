@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes — Design with Thought</title>
-  <meta name="description" content="Short thoughts and unfinished fragments by Brian Hinton.">
+  <title>Projects — Design with Thought</title>
+  <meta name="description" content="Projects by Brian Hinton.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,19 +95,106 @@
   </div>
 
     <main id="main">
-    <div class="container--narrow section">
+    <div class="container section">
       <header class="page-header page-header--left">
-        <span class="kicker">&para; Notes</span>
-        <h1>Notes</h1>
-        <p class="lead">Short thoughts and unfinished fragments. Published as they happen, mostly unedited. If an essay is a paragraph, a note is a sentence.</p>
+        <span class="kicker">&sect; Projects</span>
+        <h1>Projects</h1>
+        <p class="lead">Things I&rsquo;ve made, or am still making. Most are about accessibility or reading &mdash; the two topics I keep circling back to.</p>
       </header>
 
-      <section class="notes-month"><h3 class="notes-month__label">April 2026</h3><ul class="note-list"><li class="note-item"><span class="note-item__date">Apr 14</span><div><a href="../notes/watched-a-colleague-navigate/" class="note-item__link"><p class="note-item__body">Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p></a><div class="note-item__context">office, tue</div></div></li><li class="note-item"><span class="note-item__date">Apr 11</span><div><a href="../notes/rereading-design-of-everyday-things/" class="note-item__link"><p class="note-item__body">Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.</p></a><div class="note-item__context">train home</div></div></li><li class="note-item"><span class="note-item__date">Apr 07</span><div><a href="../notes/tiny-win-focus-visible/" class="note-item__link"><p class="note-item__body">Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.</p></a><div class="note-item__context">midnight</div></div></li><li class="note-item"><span class="note-item__date">Apr 02</span><div><a href="../notes/mentorship-conversation-with-j/" class="note-item__link"><p class="note-item__body">Mentorship conversation with J — she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.</p></a><div class="note-item__context">weekly 1:1</div></div></li></ul></section>
-<section class="notes-month"><h3 class="notes-month__label">March 2026</h3><ul class="note-list"><li class="note-item"><span class="note-item__date">Mar 28</span><div><a href="../notes/frictionless-in-the-brief/" class="note-item__link"><p class="note-item__body">A PM described our new flow as "frictionless" in the brief. I have started replacing the word with what it usually means: "we haven't timed it yet."</p></a><div class="note-item__context">draft feedback</div></div></li><li class="note-item"><span class="note-item__date">Mar 22</span><div><a href="../notes/annual-a11y-report/" class="note-item__link"><p class="note-item__body">Drafted the annual a11y report. 47 bugs closed, 11 new patterns, 2 partnerships. None of the numbers captures what I'm actually proud of, which is that four teams now ship with a screen reader open.</p></a><div class="note-item__context">sat morning</div></div></li><li class="note-item"><span class="note-item__date">Mar 15</span><div><a href="../notes/home-from-a-long-flight/" class="note-item__link"><p class="note-item__body">Home from a long flight. In-flight entertainment: remains the worst-designed software most people ever touch. I wrote three pages in the margin of a paperback about it.</p></a><div class="note-item__context">SFO to JFK</div></div></li><li class="note-item"><span class="note-item__date">Mar 09</span><div><a href="../notes/half-the-usefulness-of-a-design-system/" class="note-item__link"><p class="note-item__body">Half the usefulness of a design system is that it gives teams a <em>vocabulary</em>. The other half is that it takes design questions off the critical path.</p></a><div class="note-item__context">monday standup</div></div></li></ul></section>
-
-      <p class="t-small" style="color: var(--fg-subtle); text-align: center; margin-top: 40px;">
-        &#10086; older notes in <a href="#">the archive</a> &#10086;
-      </p>
+      <div class="grid grid--projects">
+        
+        <a class="project-tile" href="../projects/prism/">
+          <div class="project-tile__plate project-tile__plate--cocoa">
+            <div class="project-tile__glyph">P</div>
+            <div class="project-tile__plate-label">Contrast tool</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">§ In progress</span>
+              <span class="project-tile__year">2026</span>
+            </div>
+            <h4 class="project-tile__title">Prism</h4>
+            <p class="project-tile__blurb">An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer's own perception. Currently in preview.</p>
+          </div>
+        </a>
+        
+        <a class="project-tile" href="../projects/quiet-keys/">
+          <div class="project-tile__plate project-tile__plate--terra">
+            <div class="project-tile__glyph">Q</div>
+            <div class="project-tile__plate-label">Pattern lib</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">§ Maintained</span>
+              <span class="project-tile__year">2025</span>
+            </div>
+            <h4 class="project-tile__title">Quiet Keys</h4>
+            <p class="project-tile__blurb">A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.</p>
+          </div>
+        </a>
+        
+        <a class="project-tile" href="../projects/reader-panel/">
+          <div class="project-tile__plate project-tile__plate--moss">
+            <div class="project-tile__glyph">R</div>
+            <div class="project-tile__plate-label">Research practice</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">§ Ongoing</span>
+              <span class="project-tile__year">2023 →</span>
+            </div>
+            <h4 class="project-tile__title">The Reader Panel</h4>
+            <p class="project-tile__blurb">A volunteer panel of 24 readers — half using assistive tech — who review early drafts of product copy. Running its third year.</p>
+          </div>
+        </a>
+        
+        <a class="project-tile" href="../projects/margin/">
+          <div class="project-tile__plate project-tile__plate--honey">
+            <div class="project-tile__glyph">M</div>
+            <div class="project-tile__plate-label">Prototype</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">¶ Paused</span>
+              <span class="project-tile__year">2024</span>
+            </div>
+            <h4 class="project-tile__title">Margin</h4>
+            <p class="project-tile__blurb">A long-form reader with real marginalia. A prototype for what happens when you take annotation seriously as a first-class interaction.</p>
+          </div>
+        </a>
+        
+        <a class="project-tile" href="../projects/field-guide/">
+          <div class="project-tile__plate project-tile__plate--cocoa">
+            <div class="project-tile__glyph">F</div>
+            <div class="project-tile__plate-label">Handbook</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">§ Shipped</span>
+              <span class="project-tile__year">2023</span>
+            </div>
+            <h4 class="project-tile__title">Field Guide to Screen Readers</h4>
+            <p class="project-tile__blurb">A short, illustrated guide to what each major screen reader actually does differently. Free. 6,000 downloads since release.</p>
+          </div>
+        </a>
+        
+        <a class="project-tile" href="../projects/tab-order/">
+          <div class="project-tile__plate project-tile__plate--terra">
+            <div class="project-tile__glyph">T</div>
+            <div class="project-tile__plate-label">Dev tool</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">§ Shipped</span>
+              <span class="project-tile__year">2022</span>
+            </div>
+            <h4 class="project-tile__title">tab-order.dev</h4>
+            <p class="project-tile__blurb">A browser extension that visualises tab order on any page as a numbered path. Used by a few thousand teams.</p>
+          </div>
+        </a>
+        
+      </div>
     </div>
   </main>
 

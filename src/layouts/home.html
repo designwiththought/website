@@ -93,7 +93,7 @@
           <span class="kicker">&sect; Projects</span>
           <h3 class="section__title section__title--sm">Currently building</h3>
           <div class="project-stack">
-            {{#each projects}}
+            {{#each homeProjects}}
             <a class="project-tile project-tile--sm" href="{{basePath}}projects/{{slug}}/">
               <div class="project-tile__plate project-tile__plate--{{plate}}">
                 <div class="project-tile__glyph">{{glyph}}</div>
@@ -110,6 +110,7 @@
             </a>
             {{/each}}
           </div>
+          <a class="btn btn--link" style="margin-top: 12px; display: inline-block;" href="{{basePath}}projects/">All projects &#8599;</a>
         </div>
       </aside>
     </section>

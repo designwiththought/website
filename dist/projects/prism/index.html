@@ -63,7 +63,7 @@
       <section aria-labelledby="drawer-grp-making">
         <h3 id="drawer-grp-making" class="drawer__group-title">&sect; Making</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../#projects"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
+          <li><a class="drawer__item" href="../../projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-enjoying">
@@ -95,40 +95,48 @@
   </div>
 
     <main id="main">
-    <div class="reader-with-toc">
-      <article class="reader">
-        <a class="btn btn--link reader__back" href="../../#projects">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
-          <span class="reader__back-label">Back to projects</span>
-        </a>
-        <div class="reader__kicker"><span class="kicker">&sect; Project</span></div>
-        <h1>Prism</h1>
-        <p class="reader__dek">An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer's own perception. Currently in preview.</p>
-        <div class="reader__meta">
-          <span class="kicker">2026</span>
-          <span class="kicker">&middot; Ongoing</span>
-          <span class="kicker">&middot; A11y</span>
-          <span class="kicker">&middot; Open source</span>
-          
-        </div>
-        <div class="reader__body prose">
-          <p>There are a lot of contrast checkers. Almost all of them return a ratio and a pass/fail verdict against WCAG. What almost none of them tell you is whether the check is <em>meaningful</em> for the person actually using the product.</p>
+    <article class="reader" style="max-width: 760px;">
+      <a class="btn btn--link reader__back" href="../../projects/">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+        <span class="reader__back-label">All projects</span>
+      </a>
+
+      <div class="reader__kicker"><span class="kicker">§ In progress</span></div>
+      <h1>Prism</h1>
+      <p class="lead">An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer's own perception. Currently in preview.</p>
+      <div class="reader__meta">
+        <span class="kicker">2026</span>
+        <span class="kicker">&middot; A11y</span>
+        <span class="kicker">&middot; Color</span>
+        <span class="kicker">&middot; Open source</span>
+      </div>
+
+      <div class="project-plate project-plate--cocoa">
+        <div class="project-plate__glyph">P</div>
+        <div class="project-plate__label">Contrast tool</div>
+      </div>
+
+      <div class="reader__body prose">
+        <h2 id="premise">Premise</h2>
+<p>There are a lot of contrast checkers. Almost all of them return a ratio and a pass/fail verdict against WCAG. What almost none of them tell you is whether the check is <em>meaningful</em> for the person actually using the product.</p>
 <p>WCAG contrast is a helpful floor, not a ceiling. Two colour pairs can both pass 4.5:1 and feel wildly different — one confident, one blurry. <strong>Prism</strong> is an experiment in treating contrast as a perceptual question, not just a mathematical one.</p>
 <h2 id="what-it-does">What it does</h2>
-<p>Paste two colours (or a screenshot). Prism reports:</p>
+<p>Paste two colours — or a screenshot. Prism reports:</p>
 <ul>
-<li>WCAG 2.2 ratio (baseline)</li>
-<li>APCA Lc value (for body-text guidance)</li>
-<li>A <em>perceptual</em> contrast score, adjusted for the colour pair's position on the warm/cool axis</li>
-<li>An "ambient" simulation: what the pair looks like on a dim screen, a bright one, and through a yellow filter</li>
+<li>WCAG 2.2 ratio, as the baseline</li>
+<li>APCA Lc value, for body-text guidance</li>
+<li>A <em>perceptual</em> contrast score, adjusted for the pair's position on the warm/cool axis — warm-dark pairs, we've found, need higher numerical contrast to read as confident</li>
+<li>An "ambient" simulation: what the pair looks like on a dim screen, a bright one, and through a yellow filter (a stand-in for a slightly aged display)</li>
 </ul>
+<blockquote>
+<p>The surprise wasn't that WCAG numbers lied. It's that they were honest — just answering a narrower question than anyone thought they were.</p>
+</blockquote>
 <h2 id="where-its-going">Where it's going</h2>
 <p>Prism is in alpha with four teams. The goal for this summer is a public web tool plus a small library (CLI + Node API). After that, a Figma plugin, if the interaction model holds up.</p>
-        </div>
-      </article>
-
-      
-    </div>
+<h2 id="credits">Credits</h2>
+<p>Design and code by me. The perceptual scoring model was developed with M, a colour scientist at a large display manufacturer (she prefers not to be named, for now). Early feedback from the four alpha teams, whose patience has been considerable.</p>
+      </div>
+    </article>
   </main>
 
 
@@ -157,7 +165,7 @@
       <div class="site-footer__col">
         <h5>&sect; Making &amp; enjoying</h5>
         <ul>
-          <li><a href="../../#projects">Projects</a></li>
+          <li><a href="../../projects/">Projects</a></li>
           <li><a href="../../#reading">Reading</a></li>
           <li><a href="../../#reading">Music</a></li>
           <li><a href="../../#reading">Movies</a></li>

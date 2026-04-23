@@ -297,6 +297,8 @@ function build() {
   var articleLayout = fs.readFileSync(path.join(SRC, 'layouts', 'article.html'), 'utf8');
   var notesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'notes.html'), 'utf8');
   var noteLayout = fs.readFileSync(path.join(SRC, 'layouts', 'note.html'), 'utf8');
+  var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
+  var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -410,6 +412,9 @@ function build() {
     articles: articles,
     articleCount: articles.length,
     projects: projects,
+    homeProjects: projects.filter(function (p) {
+      return p.status && /In progress|Ongoing|Maintained/i.test(p.status);
+    }).slice(0, 2),
     projectCount: projects.length,
     homeNotesHtml: homeNotesHtml,
     basePath: '',
@@ -486,8 +491,21 @@ function build() {
     console.log('[build] articles/' + slug + '/index.html');
   });
 
-  // 9. Build project pages
+  // 9. Build projects index
   mkdirp(path.join(DIST, 'projects'));
+  var projectsIndexData = Object.assign({}, siteData, {
+    projects: projects,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Projects — ' + siteData.title,
+    pageDescription: 'Projects by ' + siteData.ownerName + '.'
+  });
+  var projectsIndexContent = renderTemplate(projectsLayout, projectsIndexData);
+  var projectsIndexHtml = renderTemplate(baseLayout, Object.assign({}, projectsIndexData, { content: projectsIndexContent }));
+  fs.writeFileSync(path.join(DIST, 'projects', 'index.html'), projectsIndexHtml);
+  console.log('[build] projects/index.html');
+
+  // 9a. Build individual project pages
   projects.forEach(function (project) {
     var slug = project.slug;
     var projectDir = path.join(DIST, 'projects', slug);
@@ -495,20 +513,18 @@ function build() {
 
     var projectData = Object.assign({}, siteData, project, {
       basePath: '../../',
-      backHref: '#projects',
-      backLabel: 'Back to projects',
       iconSprite: iconSprite,
       pageTitle: project.title + ' — ' + siteData.title,
       pageDescription: project.summary
     });
 
-    var projectContent = renderTemplate(articleLayout, projectData);
+    var projectContent = renderTemplate(projectLayout, projectData);
     var projectHtml = renderTemplate(baseLayout, Object.assign({}, projectData, { content: projectContent }));
     fs.writeFileSync(path.join(projectDir, 'index.html'), projectHtml);
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + notes.length + 2;
+  var totalPages = articles.length + projects.length + notes.length + 3;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }
