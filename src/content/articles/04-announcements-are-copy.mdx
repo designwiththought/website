@@ -1,0 +1,51 @@
+---
+slug: announcements-are-copy
+kind: Study
+title: "Screen-reader announcements are copywriting"
+summary: "I timed 240 aria-live announcements across six apps. The good ones read like a tactful colleague. The bad ones read like a server log. The difference is craft."
+date: "22 February 2026"
+read: "14 min"
+tag1: "A11y"
+tag2: "Copy"
+tag3: "Study"
+toc:
+  - id: "the-method"
+    label: "The method"
+  - id: "the-pattern"
+    label: "The pattern"
+  - id: "the-fix"
+    label: "The fix"
+---
+
+Most teams treat `aria-live` as a plumbing decision. You pick the region, you decide between *polite* and *assertive*, you wire it up. The copy inside the region — the actual announcement a user hears — is usually an afterthought, written to whatever string was handy at the time.
+
+Over six weeks, I timed and transcribed 240 announcements across six products. The surface pattern was clear: the products with good reputations for accessibility had announcements that read like a tactful colleague. The products with bad reputations had announcements that read like a server log. The craft gap was not in the wiring. It was in the writing.
+
+## The method
+
+I ran each product through a short scripted session — send a message, delete a message, apply a filter, open a modal — with VoiceOver on macOS and NVDA on Windows. I recorded every utterance, timed it in seconds, and captured the corresponding HTML and ARIA so I could reconstruct why the screen reader had said what it said.
+
+Announcements fell into three broad buckets:
+
+- **Narrative** — "Message sent to Priya. Now in Sent." Reads like a colleague describing what happened.
+- **Mechanical** — "alert: message.sent: true" or "Snackbar: message_sent". Reads like a log line leaking out of the app.
+- **Redundant** — re-announcing the element you already have focus on, or repeating a label because two live regions both fired.
+
+Of the 240 announcements I captured, 61 were narrative, 104 were mechanical, and 75 were redundant or partially redundant. The products people liked using skewed narrative; the products people tolerated skewed mechanical.
+
+## The pattern
+
+The narrative announcements shared four small habits:
+
+1. **Verb first, subject known.** "Sent to Priya." Not "Message to Priya was sent."
+2. **Short.** Six to twelve words. Anything longer competes with the next action.
+3. **Names over nouns.** "Deleted the April invoice." Not "Deleted the item."
+4. **Quiet on success, loud on change of state.** If nothing surprising happened, the announcement was a receipt, not a fanfare.
+
+> The best announcement I recorded was four words long and told me my draft had been saved. The worst was thirty-one words long and told me the same thing in a tone that suggested legal liability.
+
+## The fix
+
+You don't need to rearchitect your ARIA to get this right. You need an editor in the loop. On the Superhuman team we now run every live-region string through the same review process as our UI copy — short brief, writing partner, read-aloud check, ship. The wiring stays where it is; the words get the attention they always needed.
+
+The next time you add an `aria-live` region, write the announcement out loud before you write it in code. If you can hear yourself saying it, it will probably read like prose. If you can't, rewrite.

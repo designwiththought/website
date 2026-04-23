@@ -1,0 +1,28 @@
+  <main id="main">
+    <div class="container section">
+      <header class="page-header page-header--left">
+        <span class="kicker">{{pageKicker}}</span>
+        <h1>{{pageHeading}}</h1>
+        <p class="lead">{{pageDek}}</p>
+      </header>
+
+      <div class="essay-list">
+        {{#each items}}
+        <a class="essay-card" href="{{basePath}}{{url}}">
+          <div class="essay-card__meta">
+            <span class="kicker">&sect; {{kind}}</span>
+            <span class="essay-card__date">{{date}} &middot; {{read}}</span>
+          </div>
+          <h3 class="essay-card__title">{{title}}</h3>
+          <p class="essay-card__dek">{{summary}}</p>
+          <div class="essay-card__tags">
+            {{#if tag1}}<span class="tag">{{tag1}}</span>{{/if}}
+            {{#if tag2}}<span class="tag">{{tag2}}</span>{{/if}}
+            {{#if tag3}}<span class="tag">{{tag3}}</span>{{/if}}
+          </div>
+        </a>
+        {{/each}}
+        {{emptyHtml}}
+      </div>
+    </div>
+  </main>

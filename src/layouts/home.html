@@ -18,7 +18,7 @@
             </p>
           </div>
           <div class="hero__cta">
-            <a class="btn btn--primary" href="#writing">Read the essays</a>
+            <a class="btn btn--primary" href="{{basePath}}essays/">Read the essays</a>
             <a class="btn btn--ghost" href="#now">See what I&rsquo;m up to now</a>
           </div>
         </div>
@@ -52,12 +52,13 @@
       <header class="section__head">
         <div>
           <span class="kicker">&sect; Essays</span>
-          <h2 class="section__title">Recent writing</h2>
+          <h2 class="section__title"><a href="{{basePath}}essays/" class="section__title-link">Recent writing</a></h2>
         </div>
+        <a class="btn btn--link" href="{{basePath}}essays/">All essays &#8599;</a>
       </header>
       <div class="grid grid--3">
-        {{#each articles}}
-        <a class="essay-card" href="{{basePath}}articles/{{slug}}/">
+        {{#each recentArticles}}
+        <a class="essay-card" href="{{basePath}}{{url}}">
           <div class="essay-card__meta">
             <span class="kicker">&sect; {{kind}}</span>
             <span class="essay-card__date">{{date}} &middot; {{read}}</span>

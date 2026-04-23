@@ -299,6 +299,7 @@ function build() {
   var noteLayout = fs.readFileSync(path.join(SRC, 'layouts', 'note.html'), 'utf8');
   var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
   var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
+  var writingIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'writing-index.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -338,6 +339,16 @@ function build() {
   var articles = parseMdxDir(path.join(SRC, 'content', 'articles'));
   var projects = parseMdxDir(path.join(SRC, 'content', 'projects'));
   var notes = parseMdxDir(path.join(SRC, 'content', 'notes'));
+
+  // Partition articles into essays and studies by kind. Each piece gets its
+  // own page at /essays/<slug>/ or /studies/<slug>/, so compute the url up
+  // front so every template that lists articles can reach the right place.
+  articles.forEach(function (a) {
+    var dir = a.kind === 'Study' ? 'studies' : 'essays';
+    a.url = dir + '/' + a.slug + '/';
+  });
+  var essays = articles.filter(function (a) { return a.kind !== 'Study'; });
+  var studies = articles.filter(function (a) { return a.kind === 'Study'; });
 
   // Pre-render the grouped notes list for the /notes/ index and the homepage.
   function renderNoteItem(n, hrefPrefix) {
@@ -409,9 +420,8 @@ function build() {
     '</ul>';
 
   var homeData = Object.assign({}, siteData, {
-    articles: articles,
+    recentArticles: articles.slice(0, 3),
     articleCount: articles.length,
-    projects: projects,
     homeProjects: projects.filter(function (p) {
       return p.status && /In progress|Ongoing|Maintained/i.test(p.status);
     }).slice(0, 2),
@@ -469,27 +479,65 @@ function build() {
     console.log('[build] notes/' + note.slug + '/index.html');
   });
 
-  // 8. Build article pages
-  mkdirp(path.join(DIST, 'articles'));
-  articles.forEach(function (article) {
-    var slug = article.slug;
-    var articleDir = path.join(DIST, 'articles', slug);
-    mkdirp(articleDir);
+  // 8. Build /essays/ and /studies/ indexes + their individual pages
 
-    var articleData = Object.assign({}, siteData, article, {
-      basePath: '../../',
-      backHref: '#writing',
-      backLabel: 'Back to writing',
+  function buildWritingIndex(dir, items, meta) {
+    mkdirp(path.join(DIST, dir));
+    var data = Object.assign({}, siteData, {
+      items: items,
+      pageKicker: meta.kicker,
+      pageHeading: meta.heading,
+      pageDek: meta.dek,
+      emptyHtml: items.length === 0
+        ? '<p class="empty-state">' + meta.empty + '</p>'
+        : '',
+      basePath: '../',
       iconSprite: iconSprite,
-      pageTitle: article.title + ' — ' + siteData.title,
-      pageDescription: article.summary
+      pageTitle: meta.heading + ' — ' + siteData.title,
+      pageDescription: meta.dek
     });
+    var content = renderTemplate(writingIndexLayout, data);
+    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
+    console.log('[build] ' + dir + '/index.html');
+  }
 
-    var articleContent = renderTemplate(articleLayout, articleData);
-    var articleHtml = renderTemplate(baseLayout, Object.assign({}, articleData, { content: articleContent }));
-    fs.writeFileSync(path.join(articleDir, 'index.html'), articleHtml);
-    console.log('[build] articles/' + slug + '/index.html');
+  function buildWritingReader(dir, items, meta) {
+    items.forEach(function (item) {
+      var itemDir = path.join(DIST, dir, item.slug);
+      mkdirp(itemDir);
+
+      var data = Object.assign({}, siteData, item, {
+        basePath: '../../',
+        backHref: dir + '/',
+        backLabel: meta.backLabel,
+        iconSprite: iconSprite,
+        pageTitle: item.title + ' — ' + siteData.title,
+        pageDescription: item.summary
+      });
+
+      var content = renderTemplate(articleLayout, data);
+      var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+      fs.writeFileSync(path.join(itemDir, 'index.html'), html);
+      console.log('[build] ' + dir + '/' + item.slug + '/index.html');
+    });
+  }
+
+  buildWritingIndex('essays', essays, {
+    kicker: '§ Essays',
+    heading: 'Essays',
+    dek: 'Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.',
+    empty: 'No essays yet.'
   });
+  buildWritingReader('essays', essays, { backLabel: 'All essays' });
+
+  buildWritingIndex('studies', studies, {
+    kicker: '§ Studies',
+    heading: 'Studies',
+    dek: 'Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.',
+    empty: 'No studies yet.'
+  });
+  buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
   // 9. Build projects index
   mkdirp(path.join(DIST, 'projects'));
@@ -524,7 +572,7 @@ function build() {
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + notes.length + 3;
+  var totalPages = articles.length + projects.length + notes.length + 5;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }
