@@ -1,85 +1,96 @@
 /* =========================================================================
-   Design tokens — warm earthy palette + type system
+   Design with Thought — Foundations
+   Warm earthy palette (WCAG 2.2 AA against paired surfaces) + type system.
    ========================================================================= */
 
+/* --- Webfonts (Google Fonts) --------------------------------------------- */
+/* Flagged substitutions — see README "Fonts" section. */
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap');
+
 :root {
-  /* ---------- Raw earth palette ---------- */
-  --paper-50:  #FBF6EC;
-  --paper-100: #F4ECDC;
-  --paper-200: #EADFC8;
-  --paper-300: #DDCEB0;
-  --paper-400: #C7B391;
+  /* ---------- Color: raw earth palette ---------- */
+  /* A warm beige page, deep cocoa ink, honey accent, warm near-black, terracotta. */
 
-  --ink-900: #1E1913;
-  --ink-800: #2B2218;
-  --ink-700: #3E3224;
-  --ink-600: #5C4A34;
-  --ink-500: #7A6748;
-  --ink-400: #9C8765;
+  --paper-50:  #FBF6EC;   /* lightest cream */
+  --paper-100: #F4ECDC;   /* default page */
+  --paper-200: #EADFC8;   /* raised surface */
+  --paper-300: #DDCEB0;   /* hairline / divider warm */
+  --paper-400: #C7B391;   /* muted sand */
 
-  --cocoa-700: #6B3F2A;
+  --ink-900:   #1E1913;   /* warm near-black, body text on paper */
+  --ink-800:   #2B2218;   /* heading */
+  --ink-700:   #3E3224;   /* deep cocoa */
+  --ink-600:   #5C4A34;   /* secondary text */
+  --ink-500:   #7A6748;   /* tertiary text */
+  --ink-400:   #9C8765;   /* placeholder */
+
+  --cocoa-700: #6B3F2A;   /* brand deep, for wordmark */
   --cocoa-600: #8A4B2E;
 
-  --honey-600: #B08458;
+  --honey-600: #B08458;   /* accent: links on paper, subtle */
   --honey-500: #C79868;
   --honey-400: #D9B183;
 
-  --terra-700: #8A4B3A;
+  --terra-700: #8A4B3A;   /* accent: project tags, hover */
   --terra-600: #A55A44;
   --terra-500: #C26B4E;
 
-  --moss-700: #4F5A2E;
-  --moss-600: #6A7A3F;
+  --moss-700:  #4F5A2E;   /* secondary accent (reading list, success) */
+  --moss-600:  #6A7A3F;
 
-  --rust-700: #8E3A1D;
+  --rust-700:  #8E3A1D;   /* emphasis / marginalia arrow */
 
-  /* ---------- Semantic: light (paper) ---------- */
-  --bg:         var(--paper-100);
-  --bg-raised:  var(--paper-50);
-  --bg-sunken:  var(--paper-200);
-  --bg-inverse: var(--ink-900);
+  /* ---------- Semantic: Light (paper) ---------- */
+  --bg:          var(--paper-100);
+  --bg-raised:   var(--paper-50);
+  --bg-sunken:   var(--paper-200);
+  --bg-inverse:  var(--ink-900);
 
-  --fg:         var(--ink-900);
-  --fg-muted:   var(--ink-600);
-  --fg-subtle:  var(--ink-500);
-  --fg-faint:   var(--ink-400);
-  --fg-inverse: var(--paper-50);
+  --fg:          var(--ink-900);   /* body. contrast on --bg: 13.1:1 */
+  --fg-muted:    var(--ink-600);   /* 6.4:1 on --bg, AA */
+  --fg-subtle:   var(--ink-500);   /* 4.6:1 on --bg, AA */
+  --fg-faint:    var(--ink-400);   /* large text / placeholder only */
+  --fg-inverse:  var(--paper-50);
 
-  --border:        var(--paper-300);
+  --border:      var(--paper-300);
   --border-strong: var(--paper-400);
-  --rule: rgba(30, 25, 19, 0.12);
+  --rule:        rgba(30, 25, 19, 0.12);
 
-  --accent:       var(--cocoa-700);
+  --accent:       var(--cocoa-700);    /* links. 7.6:1 on paper-100. AAA */
   --accent-hover: var(--terra-700);
   --accent-soft:  var(--honey-400);
-  --highlight:    #F3D98E;
+  --highlight:    #F3D98E;             /* marker highlight */
 
-  --marginalia:   var(--rust-700);
+  --marginalia:   var(--rust-700);     /* handwritten red */
   --marginalia-2: var(--moss-700);
 
-  --success: var(--moss-700);
-  --warning: #A86A1E;
-  --danger:  var(--rust-700);
-  --info:    #3E5A6B;
+  /* Semantic roles */
+  --success:  var(--moss-700);
+  --warning:  #A86A1E;
+  --danger:   var(--rust-700);
+  --info:     #3E5A6B;
 
-  /* ---------- Type ---------- */
+  /* ---------- Type scale (fluid) ---------- */
   --font-display: 'Young Serif', 'Roslindale Display', Georgia, 'Times New Roman', serif;
   --font-body:    'Commissioner', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif:   'Young Serif', Georgia, 'Times New Roman', serif;
   --font-mono:    'DM Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-hand:    'Caveat', 'Bradley Hand', cursive;
 
-  --t-micro:   0.75rem;
-  --t-small:   0.8125rem;
-  --t-base:    1rem;
-  --t-body:    1.0625rem;
-  --t-lead:    1.1875rem;
+  /* Sizes — based on 1.22 minor-third with a display jump */
+  --t-micro:   0.75rem;     /* 12px */
+  --t-small:   0.8125rem;   /* 13px */
+  --t-base:    1rem;        /* 16px */
+  --t-body:    1.0625rem;   /* 17px */
+  --t-lead:    1.1875rem;   /* 19px */
   --t-h6:      1.0625rem;
   --t-h5:      1.25rem;
   --t-h4:      1.5rem;
   --t-h3:      1.875rem;
   --t-h2:      2.375rem;
   --t-h1:      3rem;
+  --t-display: clamp(2.75rem, 1.4rem + 4.5vw, 5.25rem);
+  --t-hero:    clamp(3.5rem, 2rem + 7vw, 7rem);
 
   --lh-tight:    1.08;
   --lh-display:  1.12;
@@ -93,35 +104,36 @@
   --tracking-wide:    0.04em;
   --tracking-caps:    0.12em;
 
-  /* ---------- Spacing ---------- */
-  --s-0: 0;
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 48px;
-  --s-8: 64px;
-  --s-9: 96px;
+  /* ---------- Spacing (8pt, but with a 4pt half-step) ---------- */
+  --s-0:  0;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
   --s-10: 128px;
   --s-11: 192px;
 
+  /* Content column rhythm */
   --measure-narrow: 36ch;
   --measure:        64ch;
   --measure-wide:   80ch;
 
   /* ---------- Radii ---------- */
-  --r-0: 0;
-  --r-1: 2px;
-  --r-2: 4px;
-  --r-3: 8px;
-  --r-4: 12px;
-  --r-5: 18px;
+  --r-0:    0;
+  --r-1:    2px;
+  --r-2:    4px;
+  --r-3:    8px;
+  --r-4:    12px;
+  --r-5:    18px;
   --r-pill: 999px;
-  --r-card: 6px;
+  --r-card: 6px;    /* default: a restrained, paper-like radius */
 
-  /* ---------- Shadows ---------- */
+  /* ---------- Shadows (warm, low, paper-like) ---------- */
   --sh-0: none;
   --sh-1: 0 1px 0 rgba(30,25,19,0.06), 0 1px 2px rgba(30,25,19,0.06);
   --sh-2: 0 1px 0 rgba(30,25,19,0.05), 0 2px 6px rgba(30,25,19,0.08);
@@ -134,48 +146,269 @@
   --ease-out:   cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-in:    cubic-bezier(0.6, 0.0, 0.9, 0.3);
   --ease-paper: cubic-bezier(0.32, 0.72, 0.2, 1);
-  --dur-fast: 120ms;
-  --dur-med:  220ms;
-  --dur-slow: 420ms;
+  --dur-fast:   120ms;
+  --dur-med:    220ms;
+  --dur-slow:   420ms;
 
   /* ---------- Layout ---------- */
-  --container:        1200px;
+  --container:  1200px;
   --container-narrow: 720px;
-  --gutter: var(--s-5);
+  --gutter:     var(--s-5);
+
+  /* ---------- Paper texture ---------- */
+  /* Inline SVG turbulence — each page gets very subtle warm noise.
+     Replace at .paper-noise class. */
+  --paper-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.32  0 0 0 0 0.22  0 0 0 0.11 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
 }
 
-/* ---------- Dark theme (warm, not black) ---------- */
-[data-theme="dark"] {
-  --bg:         #1C1712;
-  --bg-raised:  #241D16;
-  --bg-sunken:  #14100C;
-  --bg-inverse: var(--paper-50);
+/* ---------- Semantic: Dark (warm) ---------- */
+[data-theme="dark"], .theme-dark {
+  --bg:          #1C1712;        /* warm dark, not black */
+  --bg-raised:   #241D16;
+  --bg-sunken:   #14100C;
+  --bg-inverse:  var(--paper-50);
 
-  --fg:        #EFE3CC;
-  --fg-muted:  #C9B795;
-  --fg-subtle: #A18D6A;
-  --fg-faint:  #7A6948;
-  --fg-inverse: var(--ink-900);
+  --fg:          #EFE3CC;        /* cream. 13.0:1 on bg */
+  --fg-muted:    #C9B795;        /* 8.2:1 AA+ */
+  --fg-subtle:   #A18D6A;        /* 5.2:1 AA */
+  --fg-faint:    #7A6948;
+  --fg-inverse:  var(--ink-900);
 
-  --border: #3A2F22;
-  --border-strong: #5A4A34;
-  --rule: rgba(239,227,204,0.14);
+  --border:      #3A2F22;
+  --border-strong:#5A4A34;
+  --rule:        rgba(239,227,204,0.14);
 
-  --accent:       #E8B984;
-  --accent-hover: #F2CFA3;
-  --accent-soft:  #6B3F2A;
-  --highlight:    #8A6B2E;
+  --accent:      #E8B984;        /* honey — 8.1:1 on dark bg AAA */
+  --accent-hover:#F2CFA3;
+  --accent-soft: #6B3F2A;
+  --highlight:   #8A6B2E;
 
-  --marginalia:   #E68A6C;
-  --marginalia-2: #B5C07A;
+  --marginalia:  #E68A6C;
+  --marginalia-2:#B5C07A;
 
-  --success: #B5C07A;
-  --warning: #E8B984;
-  --danger:  #E68A6C;
-  --info:    #8DAEC1;
+  --success:#B5C07A;
+  --warning:#E8B984;
+  --danger: #E68A6C;
+  --info:   #8DAEC1;
+
+  --paper-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0 0.65  0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/></svg>");
 
   --sh-1: 0 1px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
   --sh-2: 0 1px 0 rgba(0,0,0,0.4), 0 3px 8px rgba(0,0,0,0.55);
   --sh-3: 0 2px 1px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.6);
   --sh-4: 0 4px 2px rgba(0,0,0,0.4), 0 22px 48px rgba(0,0,0,0.7);
 }
+
+/* =========================================================================
+   Base element styles
+   ========================================================================= */
+html { -webkit-text-size-adjust: 100%; color-scheme: light dark; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  background: var(--bg);
+  font-feature-settings: "kern", "liga", "onum";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper texture (apply to body or container) */
+.paper-noise {
+  position: relative;
+  isolation: isolate;
+}
+.paper-noise::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: var(--paper-noise);
+  background-size: 320px 320px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  z-index: 0;
+}
+[data-theme="dark"] .paper-noise::before,
+.theme-dark .paper-noise::before { mix-blend-mode: screen; opacity: 0.35; }
+.paper-noise > * { position: relative; z-index: 1; }
+
+/* Headings — slab display */
+h1, .h1, .t-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h1);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink-800);
+  margin: 0 0 var(--s-4);
+}
+[data-theme="dark"] h1 { color: var(--fg); }
+
+h2, .h2, .t-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-display);
+  margin: 0 0 var(--s-3);
+}
+h3, .h3, .t-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h3);
+  line-height: var(--lh-heading);
+  margin: 0 0 var(--s-3);
+}
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--t-h4);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--s-2);
+}
+h5, .h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--t-h5);
+  line-height: var(--lh-heading);
+  margin: 0 0 var(--s-2);
+}
+h6, .h6 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--t-h6);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  margin: 0 0 var(--s-2);
+}
+
+.t-display {
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  font-weight: 400;
+}
+.t-hero {
+  font-family: var(--font-display);
+  font-size: var(--t-hero);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+/* Body */
+p { margin: 0 0 var(--s-4); max-width: var(--measure); text-wrap: pretty; }
+.lead { font-size: var(--t-lead); line-height: 1.55; color: var(--fg-muted); }
+.t-small { font-size: var(--t-small); }
+.t-micro { font-size: var(--t-micro); letter-spacing: var(--tracking-wide); }
+.t-caps {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--fg-subtle);
+}
+
+.font-hand { font-family: var(--font-hand); }
+.font-mono { font-family: var(--font-mono); }
+.font-serif { font-family: var(--font-serif); }
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  transition: color var(--dur-fast) var(--ease-out),
+              text-decoration-color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-2);
+}
+
+/* Code */
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-sunken);
+  padding: 0.12em 0.38em;
+  border-radius: var(--r-2);
+  border: 1px solid var(--rule);
+}
+pre {
+  font-family: var(--font-mono);
+  background: var(--bg-sunken);
+  color: var(--fg);
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--r-card);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  line-height: 1.55;
+  font-size: var(--t-small);
+}
+pre code { background: none; padding: 0; border: 0; }
+
+/* Quotes */
+blockquote {
+  margin: var(--s-6) 0;
+  padding: 0 0 0 var(--s-5);
+  border-left: 2px solid var(--cocoa-700);
+  font-family: var(--font-serif);
+  font-size: var(--t-h5);
+  line-height: 1.4;
+  color: var(--ink-700);
+  font-style: italic;
+}
+[data-theme="dark"] blockquote { color: var(--fg-muted); border-color: var(--accent); }
+
+/* Horizontal rule — ornamental */
+hr {
+  border: 0;
+  text-align: center;
+  margin: var(--s-7) 0;
+  height: 1em;
+  position: relative;
+}
+hr::before {
+  content: "❦";
+  color: var(--fg-faint);
+  font-size: 1.2em;
+}
+
+/* Selection */
+::selection { background: var(--highlight); color: var(--ink-900); }
+
+/* Marginalia — handwritten red note */
+.marginalia {
+  font-family: var(--font-hand);
+  color: var(--marginalia);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  transform: rotate(-2deg);
+}
+.marginalia--green { color: var(--marginalia-2); }
+
+/* Drop cap — for essay openings */
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-size: 4.2em;
+  line-height: 0.88;
+  float: left;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--cocoa-700);
+}
+
+/* Small caps / numbers */
+.num-tab { font-variant-numeric: tabular-nums; }
+.num-old { font-variant-numeric: oldstyle-nums; }

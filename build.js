@@ -137,11 +137,17 @@ function parseMarkdown(md) {
       continue;
     }
 
-    // Headings
+    // Headings — slugify to an id so TOC anchors work
     const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;
-      output.push('<h' + level + '>' + inlineFormat(headingMatch[2]) + '</h' + level + '>');
+      const text = headingMatch[2];
+      const id = text.toLowerCase()
+        .replace(/<[^>]+>/g, '')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+      output.push('<h' + level + ' id="' + id + '">' + inlineFormat(text) + '</h' + level + '>');
       continue;
     }
 
@@ -289,6 +295,10 @@ function build() {
   var baseLayout = fs.readFileSync(path.join(SRC, 'layouts', 'base.html'), 'utf8');
   var homeLayout = fs.readFileSync(path.join(SRC, 'layouts', 'home.html'), 'utf8');
   var articleLayout = fs.readFileSync(path.join(SRC, 'layouts', 'article.html'), 'utf8');
+  var notesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'notes.html'), 'utf8');
+  var noteLayout = fs.readFileSync(path.join(SRC, 'layouts', 'note.html'), 'utf8');
+  var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
+  var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -327,10 +337,54 @@ function build() {
 
   var articles = parseMdxDir(path.join(SRC, 'content', 'articles'));
   var projects = parseMdxDir(path.join(SRC, 'content', 'projects'));
+  var notes = parseMdxDir(path.join(SRC, 'content', 'notes'));
+
+  // Pre-render the grouped notes list for the /notes/ index and the homepage.
+  function renderNoteItem(n, hrefPrefix) {
+    var href = hrefPrefix + 'notes/' + n.slug + '/';
+    return '<li class="note-item">' +
+             '<span class="note-item__date">' + n.date + '</span>' +
+             '<div>' +
+               '<a href="' + href + '" class="note-item__link">' +
+                 '<p class="note-item__body">' + n.lede + '</p>' +
+               '</a>' +
+               (n.context ? '<div class="note-item__context">' + n.context + '</div>' : '') +
+             '</div>' +
+           '</li>';
+  }
+
+  // Pull the first paragraph out of each note's body as its lede preview.
+  notes.forEach(function (n) {
+    var m = n.bodyHtml.match(/<p>([\s\S]*?)<\/p>/);
+    n.lede = m ? m[1] : '';
+  });
+
+  // Group notes by month, preserving newest-first order.
+  var notesGroups = [];
+  var notesByMonth = {};
+  notes.forEach(function (n) {
+    var m = n.month || 'Notes';
+    if (!notesByMonth[m]) {
+      notesByMonth[m] = { month: m, notes: [] };
+      notesGroups.push(notesByMonth[m]);
+    }
+    notesByMonth[m].notes.push(n);
+  });
+
+  function renderNotesGroups(hrefPrefix) {
+    return notesGroups.map(function (g) {
+      return '<section class="notes-month">' +
+               '<h3 class="notes-month__label">' + g.month + '</h3>' +
+               '<ul class="note-list">' +
+                 g.notes.map(function (n) { return renderNoteItem(n, hrefPrefix); }).join('') +
+               '</ul>' +
+             '</section>';
+    }).join('\n');
+  }
 
   // 5. Concatenate CSS
   mkdirp(path.join(DIST, 'css'));
-  var cssOrder = ['tokens.css', 'reset.css', 'typography.css', 'layout.css', 'components.css', 'utilities.css'];
+  var cssOrder = ['tokens.css', 'kit.css', 'site.css'];
   var cssBundle = cssOrder.map(function (file) {
     return fs.readFileSync(path.join(SRC, 'css', file), 'utf8');
   }).join('\n\n');
@@ -349,11 +403,20 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'js', 'main.js'), jsBundle);
 
   // 7. Build home page
+  var recentNotes = notes.slice(0, 4);
+  var homeNotesHtml = '<ul class="note-list">' +
+    recentNotes.map(function (n) { return renderNoteItem(n, ''); }).join('') +
+    '</ul>';
+
   var homeData = Object.assign({}, siteData, {
     articles: articles,
     articleCount: articles.length,
     projects: projects,
+    homeProjects: projects.filter(function (p) {
+      return p.status && /In progress|Ongoing|Maintained/i.test(p.status);
+    }).slice(0, 2),
     projectCount: projects.length,
+    homeNotesHtml: homeNotesHtml,
     basePath: '',
     iconSprite: iconSprite,
     pageTitle: siteData.title,
@@ -364,6 +427,47 @@ function build() {
   var homeHtml = renderTemplate(baseLayout, Object.assign({}, homeData, { content: homeContent }));
   fs.writeFileSync(path.join(DIST, 'index.html'), homeHtml);
   console.log('[build] index.html');
+
+  // 7a. Build notes index
+  mkdirp(path.join(DIST, 'notes'));
+  var notesIndexData = Object.assign({}, siteData, {
+    notesGroupsHtml: renderNotesGroups('../'),
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Notes — ' + siteData.title,
+    pageDescription: 'Short thoughts and unfinished fragments by ' + siteData.ownerName + '.'
+  });
+  var notesIndexContent = renderTemplate(notesLayout, notesIndexData);
+  var notesIndexHtml = renderTemplate(baseLayout, Object.assign({}, notesIndexData, { content: notesIndexContent }));
+  fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), notesIndexHtml);
+  console.log('[build] notes/index.html');
+
+  // 7b. Build individual note pages (prev = older, next = newer)
+  notes.forEach(function (note, idx) {
+    var noteDir = path.join(DIST, 'notes', note.slug);
+    mkdirp(noteDir);
+
+    var newer = idx > 0 ? notes[idx - 1] : null;
+    var older = idx < notes.length - 1 ? notes[idx + 1] : null;
+    var related = notes.filter(function (n, i) { return i !== idx; }).slice(0, 3);
+
+    var noteData = Object.assign({}, siteData, note, {
+      prev: older ? { slug: older.slug, title: older.title, date: older.date } : null,
+      next: newer ? { slug: newer.slug, title: newer.title, date: newer.date } : null,
+      related: related.map(function (r) {
+        return { slug: r.slug, title: r.title, date: r.date };
+      }),
+      basePath: '../../',
+      iconSprite: iconSprite,
+      pageTitle: note.title + ' — ' + siteData.title,
+      pageDescription: note.title
+    });
+
+    var noteContent = renderTemplate(noteLayout, noteData);
+    var noteHtml = renderTemplate(baseLayout, Object.assign({}, noteData, { content: noteContent }));
+    fs.writeFileSync(path.join(noteDir, 'index.html'), noteHtml);
+    console.log('[build] notes/' + note.slug + '/index.html');
+  });
 
   // 8. Build article pages
   mkdirp(path.join(DIST, 'articles'));
@@ -387,8 +491,21 @@ function build() {
     console.log('[build] articles/' + slug + '/index.html');
   });
 
-  // 9. Build project pages
+  // 9. Build projects index
   mkdirp(path.join(DIST, 'projects'));
+  var projectsIndexData = Object.assign({}, siteData, {
+    projects: projects,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Projects — ' + siteData.title,
+    pageDescription: 'Projects by ' + siteData.ownerName + '.'
+  });
+  var projectsIndexContent = renderTemplate(projectsLayout, projectsIndexData);
+  var projectsIndexHtml = renderTemplate(baseLayout, Object.assign({}, projectsIndexData, { content: projectsIndexContent }));
+  fs.writeFileSync(path.join(DIST, 'projects', 'index.html'), projectsIndexHtml);
+  console.log('[build] projects/index.html');
+
+  // 9a. Build individual project pages
   projects.forEach(function (project) {
     var slug = project.slug;
     var projectDir = path.join(DIST, 'projects', slug);
@@ -396,20 +513,18 @@ function build() {
 
     var projectData = Object.assign({}, siteData, project, {
       basePath: '../../',
-      backHref: '#projects',
-      backLabel: 'Back to projects',
       iconSprite: iconSprite,
       pageTitle: project.title + ' — ' + siteData.title,
       pageDescription: project.summary
     });
 
-    var projectContent = renderTemplate(articleLayout, projectData);
+    var projectContent = renderTemplate(projectLayout, projectData);
     var projectHtml = renderTemplate(baseLayout, Object.assign({}, projectData, { content: projectContent }));
     fs.writeFileSync(path.join(projectDir, 'index.html'), projectHtml);
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + 1;
+  var totalPages = articles.length + projects.length + notes.length + 3;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

@@ -11,19 +11,16 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Icon sprite placeholder. Current design uses inline SVGs in layouts. -->
-
-
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav" aria-label="Primary">
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
     <a class="site-nav__brand" href="" aria-label="Home">
       <span class="brand-name">Home</span>
     </a>
     <div class="site-nav__links">
-      <button id="theme-toggle" class="site-nav__theme" aria-label="Toggle theme" type="button">
-        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
       <button
         id="menu-open"
@@ -34,7 +31,7 @@
         aria-controls="site-menu-dialog"
       >
         <span>Menu</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" style="margin-left:8px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </nav>
@@ -47,30 +44,30 @@
     aria-labelledby="site-menu-dialog-heading"
     hidden
   >
-    <div class="drawer__head">
+    <div class="drawer__head container">
       <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse the site</h2>
       <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
         <span>Close</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" style="margin-left:8px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div class="drawer__body">
+    <div class="drawer__body container">
       <section aria-labelledby="drawer-grp-writing">
-        <h3 id="drawer-grp-writing" class="drawer__group-title">§ Writing</h3>
+        <h3 id="drawer-grp-writing" class="drawer__group-title">&sect; Writing</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="#writing"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
           <li><a class="drawer__item" href="#writing"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
-          <li><a class="drawer__item" href="#notes"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
+          <li><a class="drawer__item" href="notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-making">
-        <h3 id="drawer-grp-making" class="drawer__group-title">§ Making</h3>
+        <h3 id="drawer-grp-making" class="drawer__group-title">&sect; Making</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="#projects"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
+          <li><a class="drawer__item" href="projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-enjoying">
-        <h3 id="drawer-grp-enjoying" class="drawer__group-title">§ Enjoying</h3>
+        <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="#reading"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
           <li><a class="drawer__item" href="#reading"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
@@ -80,14 +77,14 @@
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-learning">
-        <h3 id="drawer-grp-learning" class="drawer__group-title">§ Learning</h3>
+        <h3 id="drawer-grp-learning" class="drawer__group-title">&sect; Learning</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="#writing"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
           <li><a class="drawer__item" href="#writing"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-about">
-        <h3 id="drawer-grp-about" class="drawer__group-title">§ About</h3>
+        <h3 id="drawer-grp-about" class="drawer__group-title">&sect; About</h3>
         <ul class="drawer__list">
           <li><a class="drawer__item" href="#about"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
           <li><a class="drawer__item" href="#now"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
@@ -98,8 +95,8 @@
   </div>
 
     <main id="main" class="home">
-    <!-- Hero -->
-    <section class="hero">
+    <!-- Hero — a proper introduction, not a slogan -->
+    <section class="hero container">
       <div class="hero__grid">
         <div class="hero__primary">
           <div class="hero__eyebrow">
@@ -107,7 +104,7 @@
           </div>
           <div class="hero__prose">
             <p class="hero__lede">
-              I&rsquo;m <strong>Brian Hinton</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
+              I&rsquo;m <strong>Brian Hinton</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="#8E3A1D" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="#8E3A1D" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
             </p>
             <p class="hero__body">
               For years my online presence was rented space &mdash; social profiles and digital CVs on platforms I didn&rsquo;t own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open.
@@ -123,7 +120,7 @@
         </div>
 
         <aside class="hero__aside">
-          <span class="marginalia hero__aside-marginalia">on the desk, april &rsquo;26 &rarr;</span>
+          <span class="marginalia" style="display:block; margin-bottom:10px; transform:rotate(-3deg);">on the desk, april &rsquo;26 &rarr;</span>
           <div class="hero__aside-card">
             <div class="hero__aside-row">
               <span class="kicker">&sect; Writing</span>
@@ -137,7 +134,10 @@
               <span class="kicker">&sect; Reading</span>
               <p><em>The Craftsman</em>, second pass. <em>Design Justice</em>, slowly.</p>
             </div>
-            <a class="hero__aside-more" href="#now">See the now page &rarr;</a>
+            <a class="hero__aside-more" href="#now">
+              See the now page
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </a>
           </div>
         </aside>
       </div>
@@ -163,6 +163,7 @@
           <div class="essay-card__tags">
             <span class="tag">A11y</span>
             <span class="tag">Keyboard</span>
+            <span class="tag">Craft</span>
           </div>
         </a>
         
@@ -176,6 +177,7 @@
           <div class="essay-card__tags">
             <span class="tag">A11y</span>
             <span class="tag">Practice</span>
+            
           </div>
         </a>
         
@@ -189,6 +191,7 @@
           <div class="essay-card__tags">
             <span class="tag">Management</span>
             <span class="tag">Craft</span>
+            
           </div>
         </a>
         
@@ -203,39 +206,11 @@
         <header class="section__head section__head--flush">
           <div>
             <span class="kicker">&para; Notes</span>
-            <h2 class="section__title">From the notebook</h2>
+            <h2 class="section__title"><a href="notes/" class="section__title-link">From the notebook</a></h2>
           </div>
+          <a class="btn btn--link" href="notes/">All notes &#8599;</a>
         </header>
-        <ul class="note-list">
-          <li class="note-item">
-            <span class="note-item__date">Apr 14</span>
-            <div>
-              <p class="note-item__body">Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p>
-              <div class="note-item__context">office, tue</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 11</span>
-            <div>
-              <p class="note-item__body">Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.</p>
-              <div class="note-item__context">train home</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 07</span>
-            <div>
-              <p class="note-item__body">Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.</p>
-              <div class="note-item__context">midnight</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 02</span>
-            <div>
-              <p class="note-item__body">Mentorship conversation with J &mdash; she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.</p>
-              <div class="note-item__context">weekly 1:1</div>
-            </div>
-          </li>
-        </ul>
+        <ul class="note-list"><li class="note-item"><span class="note-item__date">Apr 14</span><div><a href="notes/watched-a-colleague-navigate/" class="note-item__link"><p class="note-item__body">Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p></a><div class="note-item__context">office, tue</div></div></li><li class="note-item"><span class="note-item__date">Apr 11</span><div><a href="notes/rereading-design-of-everyday-things/" class="note-item__link"><p class="note-item__body">Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.</p></a><div class="note-item__context">train home</div></div></li><li class="note-item"><span class="note-item__date">Apr 07</span><div><a href="notes/tiny-win-focus-visible/" class="note-item__link"><p class="note-item__body">Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.</p></a><div class="note-item__context">midnight</div></div></li><li class="note-item"><span class="note-item__date">Apr 02</span><div><a href="notes/mentorship-conversation-with-j/" class="note-item__link"><p class="note-item__body">Mentorship conversation with J — she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.</p></a><div class="note-item__context">weekly 1:1</div></div></li></ul>
       </div>
       <aside id="projects" class="section__aside">
         <div class="section__sub">
@@ -274,6 +249,7 @@
             </a>
             
           </div>
+          <a class="btn btn--link" style="margin-top: 12px; display: inline-block;" href="projects/">All projects &#8599;</a>
         </div>
       </aside>
     </section>
@@ -289,6 +265,7 @@
         </div>
       </header>
       <div class="reading-strip">
+        
         <div class="reading-card">
           <div class="reading-card__spine reading-card__spine--cocoa">
             <span class="reading-card__spine-title">The Craftsman</span>
@@ -299,6 +276,7 @@
             <p class="reading-card__note">Second read. The chapter on the hand is doing most of the work.</p>
           </div>
         </div>
+        
         <div class="reading-card">
           <div class="reading-card__spine reading-card__spine--terra">
             <span class="reading-card__spine-title">Design Justice</span>
@@ -306,9 +284,10 @@
           <div class="reading-card__body">
             <h4>Design Justice</h4>
             <div class="reading-card__author">Sasha Costanza-Chock</div>
-            <p class="reading-card__note">Slow read &mdash; one chapter a week, with notes.</p>
+            <p class="reading-card__note">Slow read — one chapter a week, with notes.</p>
           </div>
         </div>
+        
         <div class="reading-card">
           <div class="reading-card__spine reading-card__spine--moss">
             <span class="reading-card__spine-title">A Web for Everyone</span>
@@ -319,33 +298,8 @@
             <p class="reading-card__note">Rereading for a workshop.</p>
           </div>
         </div>
+        
       </div>
-    </section>
-
-    <!-- Now (short version) -->
-    <section id="now" class="container section">
-      <header class="section__head section__head--flush">
-        <div>
-          <span class="kicker">&sect; Now</span>
-          <h2 class="section__title">What I&rsquo;m up to, this month</h2>
-        </div>
-      </header>
-      <p class="lead" style="max-width: 56ch;">
-        Writing an essay on announcement copy. Building <strong>Prism</strong>, a perceptual contrast checker now alpha with four teams. Managing three designers and one a11y engineer at Superhuman. Avoiding new conference talks through the summer &mdash; writing instead.
-      </p>
-    </section>
-
-    <!-- About (short) -->
-    <section id="about" class="container section">
-      <header class="section__head section__head--flush">
-        <div>
-          <span class="kicker">&sect; About</span>
-          <h2 class="section__title">Hello.</h2>
-        </div>
-      </header>
-      <p class="lead" style="max-width: 56ch;">
-        I&rsquo;ve spent about equal time as a designer, a developer, and a manager of teams that include both. The longer I do this, the less those three labels feel like separate jobs &mdash; they feel like three rooms in the same house, with doors between them that I keep propped open.
-      </p>
     </section>
   </main>
 
@@ -354,33 +308,35 @@
     <div class="site-footer__inner container">
       <div class="site-footer__col site-footer__col--wide">
         <div class="site-footer__wordmark">Design with Thought</div>
-        <p class="site-footer__tag">A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.</p>
+        <p class="t-small" style="color: var(--fg-muted); max-width: 36ch; margin-top: 10px;">
+          A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.
+        </p>
         <ul class="site-footer__social">
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
-          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
-          <li><a href="#"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
+          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ Writing</h5>
+        <h5>&sect; Writing</h5>
         <ul>
           <li><a href="#writing">Essays</a></li>
           <li><a href="#writing">Studies</a></li>
-          <li><a href="#notes">Notes</a></li>
+          <li><a href="notes/">Notes</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ Making &amp; enjoying</h5>
+        <h5>&sect; Making &amp; enjoying</h5>
         <ul>
-          <li><a href="#projects">Projects</a></li>
+          <li><a href="projects/">Projects</a></li>
           <li><a href="#reading">Reading</a></li>
           <li><a href="#reading">Music</a></li>
           <li><a href="#reading">Movies</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
-        <h5>§ About</h5>
+        <h5>&sect; About</h5>
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#now">Now</a></li>

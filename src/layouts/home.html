@@ -1,6 +1,6 @@
   <main id="main" class="home">
-    <!-- Hero -->
-    <section class="hero">
+    <!-- Hero — a proper introduction, not a slogan -->
+    <section class="hero container">
       <div class="hero__grid">
         <div class="hero__primary">
           <div class="hero__eyebrow">
@@ -8,7 +8,7 @@
           </div>
           <div class="hero__prose">
             <p class="hero__lede">
-              I&rsquo;m <strong>{{ownerName}}</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
+              I&rsquo;m <strong>{{ownerName}}</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="#8E3A1D" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="#8E3A1D" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
             </p>
             <p class="hero__body">
               For years my online presence was rented space &mdash; social profiles and digital CVs on platforms I didn&rsquo;t own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open.
@@ -24,11 +24,11 @@
         </div>
 
         <aside class="hero__aside">
-          <span class="marginalia hero__aside-marginalia">on the desk, april &rsquo;26 &rarr;</span>
+          <span class="marginalia" style="display:block; margin-bottom:10px; transform:rotate(-3deg);">on the desk, april &rsquo;26 &rarr;</span>
           <div class="hero__aside-card">
             <div class="hero__aside-row">
               <span class="kicker">&sect; Writing</span>
-              <p>An essay on screen-reader announcements as copywriting.</p>
+              <p>{{heroAside.writing}}</p>
             </div>
             <div class="hero__aside-row">
               <span class="kicker">&sect; Building</span>
@@ -38,7 +38,10 @@
               <span class="kicker">&sect; Reading</span>
               <p><em>The Craftsman</em>, second pass. <em>Design Justice</em>, slowly.</p>
             </div>
-            <a class="hero__aside-more" href="#now">See the now page &rarr;</a>
+            <a class="hero__aside-more" href="#now">
+              See the now page
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </a>
           </div>
         </aside>
       </div>
@@ -62,8 +65,9 @@
           <h3 class="essay-card__title">{{title}}</h3>
           <p class="essay-card__dek">{{summary}}</p>
           <div class="essay-card__tags">
-            <span class="tag">{{tag1}}</span>
-            <span class="tag">{{tag2}}</span>
+            {{#if tag1}}<span class="tag">{{tag1}}</span>{{/if}}
+            {{#if tag2}}<span class="tag">{{tag2}}</span>{{/if}}
+            {{#if tag3}}<span class="tag">{{tag3}}</span>{{/if}}
           </div>
         </a>
         {{/each}}
@@ -78,46 +82,18 @@
         <header class="section__head section__head--flush">
           <div>
             <span class="kicker">&para; Notes</span>
-            <h2 class="section__title">From the notebook</h2>
+            <h2 class="section__title"><a href="{{basePath}}notes/" class="section__title-link">From the notebook</a></h2>
           </div>
+          <a class="btn btn--link" href="{{basePath}}notes/">All notes &#8599;</a>
         </header>
-        <ul class="note-list">
-          <li class="note-item">
-            <span class="note-item__date">Apr 14</span>
-            <div>
-              <p class="note-item__body">Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p>
-              <div class="note-item__context">office, tue</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 11</span>
-            <div>
-              <p class="note-item__body">Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.</p>
-              <div class="note-item__context">train home</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 07</span>
-            <div>
-              <p class="note-item__body">Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.</p>
-              <div class="note-item__context">midnight</div>
-            </div>
-          </li>
-          <li class="note-item">
-            <span class="note-item__date">Apr 02</span>
-            <div>
-              <p class="note-item__body">Mentorship conversation with J &mdash; she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.</p>
-              <div class="note-item__context">weekly 1:1</div>
-            </div>
-          </li>
-        </ul>
+        {{homeNotesHtml}}
       </div>
       <aside id="projects" class="section__aside">
         <div class="section__sub">
           <span class="kicker">&sect; Projects</span>
           <h3 class="section__title section__title--sm">Currently building</h3>
           <div class="project-stack">
-            {{#each projects}}
+            {{#each homeProjects}}
             <a class="project-tile project-tile--sm" href="{{basePath}}projects/{{slug}}/">
               <div class="project-tile__plate project-tile__plate--{{plate}}">
                 <div class="project-tile__glyph">{{glyph}}</div>
@@ -134,6 +110,7 @@
             </a>
             {{/each}}
           </div>
+          <a class="btn btn--link" style="margin-top: 12px; display: inline-block;" href="{{basePath}}projects/">All projects &#8599;</a>
         </div>
       </aside>
     </section>
@@ -149,62 +126,18 @@
         </div>
       </header>
       <div class="reading-strip">
+        {{#each reading}}
         <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--cocoa">
-            <span class="reading-card__spine-title">The Craftsman</span>
+          <div class="reading-card__spine reading-card__spine--{{spine}}">
+            <span class="reading-card__spine-title">{{title}}</span>
           </div>
           <div class="reading-card__body">
-            <h4>The Craftsman</h4>
-            <div class="reading-card__author">Richard Sennett</div>
-            <p class="reading-card__note">Second read. The chapter on the hand is doing most of the work.</p>
+            <h4>{{title}}</h4>
+            <div class="reading-card__author">{{author}}</div>
+            <p class="reading-card__note">{{note}}</p>
           </div>
         </div>
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--terra">
-            <span class="reading-card__spine-title">Design Justice</span>
-          </div>
-          <div class="reading-card__body">
-            <h4>Design Justice</h4>
-            <div class="reading-card__author">Sasha Costanza-Chock</div>
-            <p class="reading-card__note">Slow read &mdash; one chapter a week, with notes.</p>
-          </div>
-        </div>
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--moss">
-            <span class="reading-card__spine-title">A Web for Everyone</span>
-          </div>
-          <div class="reading-card__body">
-            <h4>A Web for Everyone</h4>
-            <div class="reading-card__author">Horton &amp; Quesenbery</div>
-            <p class="reading-card__note">Rereading for a workshop.</p>
-          </div>
-        </div>
+        {{/each}}
       </div>
-    </section>
-
-    <!-- Now (short version) -->
-    <section id="now" class="container section">
-      <header class="section__head section__head--flush">
-        <div>
-          <span class="kicker">&sect; Now</span>
-          <h2 class="section__title">What I&rsquo;m up to, this month</h2>
-        </div>
-      </header>
-      <p class="lead" style="max-width: 56ch;">
-        Writing an essay on announcement copy. Building <strong>Prism</strong>, a perceptual contrast checker now alpha with four teams. Managing three designers and one a11y engineer at Superhuman. Avoiding new conference talks through the summer &mdash; writing instead.
-      </p>
-    </section>
-
-    <!-- About (short) -->
-    <section id="about" class="container section">
-      <header class="section__head section__head--flush">
-        <div>
-          <span class="kicker">&sect; About</span>
-          <h2 class="section__title">Hello.</h2>
-        </div>
-      </header>
-      <p class="lead" style="max-width: 56ch;">
-        I&rsquo;ve spent about equal time as a designer, a developer, and a manager of teams that include both. The longer I do this, the less those three labels feel like separate jobs &mdash; they feel like three rooms in the same house, with doors between them that I keep propped open.
-      </p>
     </section>
   </main>

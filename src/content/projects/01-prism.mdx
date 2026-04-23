@@ -2,8 +2,6 @@
 slug: prism
 title: "Prism"
 summary: "An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer's own perception. Currently in preview."
-date: "2026"
-read: "Ongoing"
 kind: "Project"
 plate: "cocoa"
 glyph: "P"
@@ -11,8 +9,11 @@ label: "Contrast tool"
 status: "§ In progress"
 year: "2026"
 tag1: "A11y"
-tag2: "Open source"
+tag2: "Color"
+tag3: "Open source"
 ---
+
+## Premise
 
 There are a lot of contrast checkers. Almost all of them return a ratio and a pass/fail verdict against WCAG. What almost none of them tell you is whether the check is *meaningful* for the person actually using the product.
 
@@ -20,13 +21,19 @@ WCAG contrast is a helpful floor, not a ceiling. Two colour pairs can both pass 
 
 ## What it does
 
-Paste two colours (or a screenshot). Prism reports:
+Paste two colours — or a screenshot. Prism reports:
 
-- WCAG 2.2 ratio (baseline)
-- APCA Lc value (for body-text guidance)
-- A *perceptual* contrast score, adjusted for the colour pair's position on the warm/cool axis
-- An "ambient" simulation: what the pair looks like on a dim screen, a bright one, and through a yellow filter
+- WCAG 2.2 ratio, as the baseline
+- APCA Lc value, for body-text guidance
+- A *perceptual* contrast score, adjusted for the pair's position on the warm/cool axis — warm-dark pairs, we've found, need higher numerical contrast to read as confident
+- An "ambient" simulation: what the pair looks like on a dim screen, a bright one, and through a yellow filter (a stand-in for a slightly aged display)
+
+> The surprise wasn't that WCAG numbers lied. It's that they were honest — just answering a narrower question than anyone thought they were.
 
 ## Where it's going
 
 Prism is in alpha with four teams. The goal for this summer is a public web tool plus a small library (CLI + Node API). After that, a Figma plugin, if the interaction model holds up.
+
+## Credits
+
+Design and code by me. The perceptual scoring model was developed with M, a colour scientist at a large display manufacturer (she prefers not to be named, for now). Early feedback from the four alpha teams, whose patience has been considerable.

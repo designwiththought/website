@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiet Keys — Design with Thought</title>
-  <meta name="description" content="A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.">
+  <title>Watched a colleague navigate our app with VoiceOver this morning — Design with Thought</title>
+  <meta name="description" content="Watched a colleague navigate our app with VoiceOver this morning">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,45 +95,71 @@
   </div>
 
     <main id="main">
-    <article class="reader" style="max-width: 760px;">
-      <a class="btn btn--link reader__back" href="../../projects/">
+    <article class="container--narrow section note-reader">
+      <a class="btn btn--link reader__back" href="../../notes/">
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
-        <span class="reader__back-label">All projects</span>
+        <span class="reader__back-label">All notes</span>
       </a>
 
-      <div class="reader__kicker"><span class="kicker">§ Maintained</span></div>
-      <h1>Quiet Keys</h1>
-      <p class="lead">A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.</p>
-      <div class="reader__meta">
-        <span class="kicker">2025</span>
-        <span class="kicker">&middot; Keyboard</span>
-        <span class="kicker">&middot; Patterns</span>
-        
+      <header class="note-reader__head">
+        <div class="note-reader__meta">
+          <span class="kicker">&para; Note</span>
+          <span class="kicker">&middot; Apr 14</span>
+          <span class="kicker">&middot; office, tue</span>
+        </div>
+        <h1 class="note-reader__title">Watched a colleague navigate our app with VoiceOver this morning.</h1>
+      </header>
+
+      <div class="note-reader__body prose">
+        <p>Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p>
+<p>A day or two after I wrote this, the obvious follow-up arrived — the kind of second thought that only shows up once you have committed the first to the page. I left it in, rough. Notes are where the thinking happens; essays are where it settles.</p>
+        <hr class="note-reader__rule">
+        <p class="note-reader__sign">
+          &mdash; Filed under <em>office, tue</em>. Permalink <a href="#watched-a-colleague-navigate">#watched-a-colleague-navigate</a>.
+        </p>
       </div>
 
-      <div class="project-plate project-plate--terra">
-        <div class="project-plate__glyph">Q</div>
-        <div class="project-plate__label">Pattern lib</div>
-      </div>
+      <nav class="note-reader__nav" aria-label="Between notes">
+        <div>
+          
+          <a href="../../notes/rereading-design-of-everyday-things/" class="note-reader__nav-link">
+            <span class="kicker">&larr; Earlier</span>
+            <span>Rereading The Design of Everyday Things</span>
+          </a>
+          
+        </div>
+        <div class="note-reader__nav-right">
+          
+        </div>
+      </nav>
 
-      <div class="reader__body prose">
-        <h2 id="premise">Premise</h2>
-<p>Most keyboard shortcut designs are inherited, undocumented, and slightly wrong. People copy the shortcuts they know from other products, forget to test them with a screen reader, and ship — then a ticket arrives six months later from a user who cannot close a dialog without a mouse.</p>
-<p>Quiet Keys is a library I started maintaining as a centralised reference for the patterns that actually work, and the ones that quietly don't.</p>
-<h2 id="whats-in-it">What's in it</h2>
-<p>Forty-odd interaction patterns. Each entry has:</p>
-<ul>
-<li>The keybinding(s), and the combinations to avoid</li>
-<li>When to use it — and when not</li>
-<li>The screen-reader behaviour it produces on VoiceOver, NVDA, and JAWS</li>
-<li>Its <em>escape hatch</em>: the way out if you're caught in it</li>
-<li>Notes from production use, with receipts</li>
-</ul>
-<h2 id="the-goal">The goal</h2>
-<p>Stop designing keyboard shortcuts alone. Borrow from the library. Contribute back when you find something the library does not cover, or quietly gets wrong.</p>
-<h2 id="where-its-going">Where it's going</h2>
-<p>The next release folds in a small test harness — a set of scripts you can run against any component to confirm it implements the pattern correctly under a screen reader. Teams at three companies are using it. I'd like to hear from more.</p>
-      </div>
+      <aside class="note-reader__related">
+        <span class="kicker">&para; Nearby notes</span>
+        <ul class="note-reader__related-list">
+          
+          <li>
+            <a href="../../notes/rereading-design-of-everyday-things/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 11</span>
+              <span>Rereading The Design of Everyday Things</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="../../notes/tiny-win-focus-visible/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 07</span>
+              <span>Tiny win: we landed focus-visible across the product tonight</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="../../notes/mentorship-conversation-with-j/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 02</span>
+              <span>Mentorship conversation with J on when to stop investigating</span>
+            </a>
+          </li>
+          
+        </ul>
+      </aside>
     </article>
   </main>
 

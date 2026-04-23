@@ -2,5 +2,30 @@
   "title": "Design with Thought",
   "description": "Essays, studies, projects and notes by Brian Hinton — accessibility lead at Superhuman (formerly Grammarly).",
   "ownerName": "Brian Hinton",
-  "email": "hello@brian.is"
+  "email": "hello@brian.is",
+  "heroAside": {
+    "writing": "An essay on screen-reader announcements as copywriting.",
+    "building": "Prism — a perceptual contrast checker. Alpha with four teams.",
+    "reading": "The Craftsman, second pass. Design Justice, slowly."
+  },
+  "reading": [
+    {
+      "title": "The Craftsman",
+      "author": "Richard Sennett",
+      "note": "Second read. The chapter on the hand is doing most of the work.",
+      "spine": "cocoa"
+    },
+    {
+      "title": "Design Justice",
+      "author": "Sasha Costanza-Chock",
+      "note": "Slow read — one chapter a week, with notes.",
+      "spine": "terra"
+    },
+    {
+      "title": "A Web for Everyone",
+      "author": "Horton &amp; Quesenbery",
+      "note": "Rereading for a workshop.",
+      "spine": "moss"
+    }
+  ]
 }

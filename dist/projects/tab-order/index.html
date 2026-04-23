@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiet Keys — Design with Thought</title>
-  <meta name="description" content="A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.">
+  <title>tab-order.dev — Design with Thought</title>
+  <meta name="description" content="A browser extension that visualises tab order on any page as a numbered path. Used by a few thousand teams.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -101,38 +101,38 @@
         <span class="reader__back-label">All projects</span>
       </a>
 
-      <div class="reader__kicker"><span class="kicker">§ Maintained</span></div>
-      <h1>Quiet Keys</h1>
-      <p class="lead">A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.</p>
+      <div class="reader__kicker"><span class="kicker">§ Shipped</span></div>
+      <h1>tab-order.dev</h1>
+      <p class="lead">A browser extension that visualises tab order on any page as a numbered path. Used by a few thousand teams.</p>
       <div class="reader__meta">
-        <span class="kicker">2025</span>
-        <span class="kicker">&middot; Keyboard</span>
-        <span class="kicker">&middot; Patterns</span>
+        <span class="kicker">2022</span>
+        <span class="kicker">&middot; A11y</span>
+        <span class="kicker">&middot; Tools</span>
         
       </div>
 
       <div class="project-plate project-plate--terra">
-        <div class="project-plate__glyph">Q</div>
-        <div class="project-plate__label">Pattern lib</div>
+        <div class="project-plate__glyph">T</div>
+        <div class="project-plate__label">Dev tool</div>
       </div>
 
       <div class="reader__body prose">
         <h2 id="premise">Premise</h2>
-<p>Most keyboard shortcut designs are inherited, undocumented, and slightly wrong. People copy the shortcuts they know from other products, forget to test them with a screen reader, and ship — then a ticket arrives six months later from a user who cannot close a dialog without a mouse.</p>
-<p>Quiet Keys is a library I started maintaining as a centralised reference for the patterns that actually work, and the ones that quietly don't.</p>
-<h2 id="whats-in-it">What's in it</h2>
-<p>Forty-odd interaction patterns. Each entry has:</p>
+<p>The tab order of a web page is invisible until you break it. Most bugs in keyboard accessibility come from the tab order diverging — quietly, in a code review no one noticed — from the reading order of the page.</p>
+<p>tab-order.dev is a browser extension that draws the tab order directly onto the page as a numbered path. You click the toolbar icon, and the invisible becomes obvious.</p>
+<h2 id="what-it-does">What it does</h2>
 <ul>
-<li>The keybinding(s), and the combinations to avoid</li>
-<li>When to use it — and when not</li>
-<li>The screen-reader behaviour it produces on VoiceOver, NVDA, and JAWS</li>
-<li>Its <em>escape hatch</em>: the way out if you're caught in it</li>
-<li>Notes from production use, with receipts</li>
+<li>Numbers every focusable element in the order the browser would visit them.</li>
+<li>Draws arrows between consecutive elements so the path is legible at a glance.</li>
+<li>Flags the common anti-patterns: <code>tabindex</code> greater than zero, focusable containers with non-focusable children, hidden elements still in the tab path.</li>
+<li>Exports a PNG of the annotated page, for tickets.</li>
 </ul>
-<h2 id="the-goal">The goal</h2>
-<p>Stop designing keyboard shortcuts alone. Borrow from the library. Contribute back when you find something the library does not cover, or quietly gets wrong.</p>
-<h2 id="where-its-going">Where it's going</h2>
-<p>The next release folds in a small test harness — a set of scripts you can run against any component to confirm it implements the pattern correctly under a screen reader. Teams at three companies are using it. I'd like to hear from more.</p>
+<h2 id="where-it-runs">Where it runs</h2>
+<p>Chrome, Firefox, and Edge — the Safari port is on a shelf waiting for a free weekend. The source is open and the extension is free. There is no analytics, no telemetry; the only reason I know how many people use it is that Chrome tells me the install count.</p>
+<h2 id="what-id-do-differently">What I'd do differently</h2>
+<p>I'd have shipped the "export PNG" button sooner. The thing people actually want is a quick way to put the evidence in a Linear ticket, not a debugging session. Most of the value is in the shareable artifact.</p>
+<h2 id="credits">Credits</h2>
+<p>Solo project. Icon by a friend who accepted a beer in payment. The name was the last thing I picked and the easiest to explain, which, if you're starting a project, is a good sign.</p>
       </div>
     </article>
   </main>

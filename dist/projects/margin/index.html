@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiet Keys — Design with Thought</title>
-  <meta name="description" content="A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.">
+  <title>Margin — Design with Thought</title>
+  <meta name="description" content="A long-form reader with real marginalia. A prototype for what happens when you take annotation seriously as a first-class interaction.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -101,38 +101,37 @@
         <span class="reader__back-label">All projects</span>
       </a>
 
-      <div class="reader__kicker"><span class="kicker">§ Maintained</span></div>
-      <h1>Quiet Keys</h1>
-      <p class="lead">A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.</p>
+      <div class="reader__kicker"><span class="kicker">¶ Paused</span></div>
+      <h1>Margin</h1>
+      <p class="lead">A long-form reader with real marginalia. A prototype for what happens when you take annotation seriously as a first-class interaction.</p>
       <div class="reader__meta">
-        <span class="kicker">2025</span>
-        <span class="kicker">&middot; Keyboard</span>
-        <span class="kicker">&middot; Patterns</span>
+        <span class="kicker">2024</span>
+        <span class="kicker">&middot; Reading</span>
+        <span class="kicker">&middot; Prototype</span>
         
       </div>
 
-      <div class="project-plate project-plate--terra">
-        <div class="project-plate__glyph">Q</div>
-        <div class="project-plate__label">Pattern lib</div>
+      <div class="project-plate project-plate--honey">
+        <div class="project-plate__glyph">M</div>
+        <div class="project-plate__label">Prototype</div>
       </div>
 
       <div class="reader__body prose">
         <h2 id="premise">Premise</h2>
-<p>Most keyboard shortcut designs are inherited, undocumented, and slightly wrong. People copy the shortcuts they know from other products, forget to test them with a screen reader, and ship — then a ticket arrives six months later from a user who cannot close a dialog without a mouse.</p>
-<p>Quiet Keys is a library I started maintaining as a centralised reference for the patterns that actually work, and the ones that quietly don't.</p>
-<h2 id="whats-in-it">What's in it</h2>
-<p>Forty-odd interaction patterns. Each entry has:</p>
+<p>Digital reading tools treat annotation as a second-class citizen. Highlighting is a lasso. Comments are a sidebar. Notes are another app. The thing you actually do with a good book — you draw arrows, you underline unevenly, you write "hmm" in the margin — has no counterpart in the software.</p>
+<p>Margin was a prototype that asked: what if the margin were a first-class surface, with its own typography, its own gestures, its own rules?</p>
+<h2 id="what-it-did">What it did</h2>
 <ul>
-<li>The keybinding(s), and the combinations to avoid</li>
-<li>When to use it — and when not</li>
-<li>The screen-reader behaviour it produces on VoiceOver, NVDA, and JAWS</li>
-<li>Its <em>escape hatch</em>: the way out if you're caught in it</li>
-<li>Notes from production use, with receipts</li>
+<li>A two-column long-form reader, with the body on the left and a generous margin on the right.</li>
+<li>Marginalia — handwritten-feeling notes — that could be drawn, typed, or pulled from a short list of glyphs (arrow, circle, underline, question).</li>
+<li>A "quiet" mode that faded the body text and brought the marginalia to the front, for when you were re-reading what <em>you</em> had said.</li>
+<li>An export that preserved the annotations as a footnoted second document.</li>
 </ul>
-<h2 id="the-goal">The goal</h2>
-<p>Stop designing keyboard shortcuts alone. Borrow from the library. Contribute back when you find something the library does not cover, or quietly gets wrong.</p>
-<h2 id="where-its-going">Where it's going</h2>
-<p>The next release folds in a small test harness — a set of scripts you can run against any component to confirm it implements the pattern correctly under a screen reader. Teams at three companies are using it. I'd like to hear from more.</p>
+<h2 id="why-its-paused">Why it's paused</h2>
+<p>Two reasons. The first is that the interaction was good but the retention was not — people tried it once, made interesting marks, and then did not come back. A reader is not a habit unless it is also a library, and I did not want to build a library.</p>
+<p>The second is that a colleague's team at Superhuman is working on something related, and I'd rather help them than duplicate the work. The prototype source is public; if it inspires something, that is enough.</p>
+<h2 id="credits">Credits</h2>
+<p>Everything by me, with code review from V and handwriting samples from my own notebooks, digitised over a long weekend.</p>
       </div>
     </article>
   </main>

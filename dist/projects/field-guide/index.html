@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiet Keys — Design with Thought</title>
-  <meta name="description" content="A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.">
+  <title>Field Guide to Screen Readers — Design with Thought</title>
+  <meta name="description" content="A short, illustrated guide to what each major screen reader actually does differently. Free. 6,000 downloads since release.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -101,38 +101,36 @@
         <span class="reader__back-label">All projects</span>
       </a>
 
-      <div class="reader__kicker"><span class="kicker">§ Maintained</span></div>
-      <h1>Quiet Keys</h1>
-      <p class="lead">A keyboard-shortcut design pattern library. 40+ documented interactions with rationale, screen-reader behaviour, and escape hatches.</p>
+      <div class="reader__kicker"><span class="kicker">§ Shipped</span></div>
+      <h1>Field Guide to Screen Readers</h1>
+      <p class="lead">A short, illustrated guide to what each major screen reader actually does differently. Free. 6,000 downloads since release.</p>
       <div class="reader__meta">
-        <span class="kicker">2025</span>
-        <span class="kicker">&middot; Keyboard</span>
-        <span class="kicker">&middot; Patterns</span>
+        <span class="kicker">2023</span>
+        <span class="kicker">&middot; A11y</span>
+        <span class="kicker">&middot; Education</span>
         
       </div>
 
-      <div class="project-plate project-plate--terra">
-        <div class="project-plate__glyph">Q</div>
-        <div class="project-plate__label">Pattern lib</div>
+      <div class="project-plate project-plate--cocoa">
+        <div class="project-plate__glyph">F</div>
+        <div class="project-plate__label">Handbook</div>
       </div>
 
       <div class="reader__body prose">
         <h2 id="premise">Premise</h2>
-<p>Most keyboard shortcut designs are inherited, undocumented, and slightly wrong. People copy the shortcuts they know from other products, forget to test them with a screen reader, and ship — then a ticket arrives six months later from a user who cannot close a dialog without a mouse.</p>
-<p>Quiet Keys is a library I started maintaining as a centralised reference for the patterns that actually work, and the ones that quietly don't.</p>
+<p>Most teams I've worked with treat "screen readers" as a single thing. They are not. VoiceOver, NVDA, JAWS, TalkBack, Narrator, Orca, and ChromeVox all implement the same specification slightly differently — and the differences are precisely the places your product will break for someone.</p>
+<p>The field guide is a thirty-two page booklet that lays the differences out, side by side, with drawings. It is the document I wish a senior had handed me in my first week of accessibility work.</p>
 <h2 id="whats-in-it">What's in it</h2>
-<p>Forty-odd interaction patterns. Each entry has:</p>
 <ul>
-<li>The keybinding(s), and the combinations to avoid</li>
-<li>When to use it — and when not</li>
-<li>The screen-reader behaviour it produces on VoiceOver, NVDA, and JAWS</li>
-<li>Its <em>escape hatch</em>: the way out if you're caught in it</li>
-<li>Notes from production use, with receipts</li>
+<li>A short history of each screen reader (one page each), so you know who makes it and for whom.</li>
+<li>A comparison of how they announce the same ARIA patterns — dialogs, tabs, live regions, menus.</li>
+<li>A "here's what typically breaks" section for each, with the specific HTML or ARIA construct at fault.</li>
+<li>A glossary of the terminology each uses, because the names are not the same (is it a "heading list," an "outline," or a "rotor"?).</li>
 </ul>
-<h2 id="the-goal">The goal</h2>
-<p>Stop designing keyboard shortcuts alone. Borrow from the library. Contribute back when you find something the library does not cover, or quietly gets wrong.</p>
-<h2 id="where-its-going">Where it's going</h2>
-<p>The next release folds in a small test harness — a set of scripts you can run against any component to confirm it implements the pattern correctly under a screen reader. Teams at three companies are using it. I'd like to hear from more.</p>
+<h2 id="how-to-get-it">How to get it</h2>
+<p>PDF, free. Print-on-demand, at cost. 6,000 downloads since release, plus a few dozen printed copies sent to training programmes. I update it every spring.</p>
+<h2 id="credits">Credits</h2>
+<p>Words and diagrams by me. Technical review from four screen-reader users across three continents. Design of the printed edition by L.</p>
       </div>
     </article>
   </main>
