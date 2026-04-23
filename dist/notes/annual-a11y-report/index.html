@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The focus ring is a social contract — Design with Thought</title>
-  <meta name="description" content="When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.">
+  <title>Drafted the annual a11y report — Design with Thought</title>
+  <meta name="description" content="Drafted the annual a11y report">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,59 +95,77 @@
   </div>
 
     <main id="main">
-    <div class="reader-with-toc">
-      <article class="reader">
-        <a class="btn btn--link reader__back" href="../../#writing">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
-          <span class="reader__back-label">Back to writing</span>
-        </a>
-        <div class="reader__kicker"><span class="kicker">&sect; Essay</span></div>
-        <h1>The focus ring is a social contract</h1>
-        <p class="reader__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p>
-        <div class="reader__meta">
-          <span class="kicker">12 April 2026</span>
-          <span class="kicker">&middot; 9 min</span>
-          <span class="kicker">&middot; A11y</span>
-          <span class="kicker">&middot; Keyboard</span>
-          <span class="kicker">&middot; Craft</span>
-        </div>
-        <div class="reader__body prose">
-          <h2 id="opening">Opening</h2>
-<p>There is a small, persistent argument in our industry about the focus ring. One side says it is ugly — a blue smudge on an otherwise clean design. The other side says it is essential — the only way a keyboard user can tell where they are on a page. Both sides, I think, are missing the point.</p>
-<p>The focus ring is not a visual decision. It is a <em>social</em> one. When I show you where the focus is, I am promising that you can use this software with your hands on the keyboard. When I hide it, I am promising that I've thought about you — and deciding, quietly, that you are not this product's audience.</p>
-<blockquote>
-<p>A focus ring is the smallest, most visible contract a designer can make with a stranger. — from an internal talk, feb 2026</p>
-</blockquote>
-<h2 id="the-middle-move">The middle move</h2>
-<p>Over the last decade I've watched the same pattern play out, at every company I've worked with: someone redesigns the focus ring to match the brand. It becomes a warm honey outline, or a subtle drop shadow, or — most often — a <em>slightly</em> paler version of the default blue.</p>
-<p>And then, six months later, someone new joins the design team, notices that the focus ring is "a bit subtle," and strengthens it. And six months after that, someone else notices that it's "a bit aggressive," and softens it. This is a pendulum problem — it will not resolve itself through iteration, because the thing being iterated on is not what matters.</p>
-<p>What matters is the <em>agreement</em>. The focus ring says: wherever you are, I will show you. It does not have to be blue. It does not have to match Material Design. It has to be <strong>there</strong>, and it has to be <strong>honest</strong> — meaning, the thing it highlights is actually the thing that's going to respond.</p>
-<h2 id="landing">Landing</h2>
-<p>If you are a designer reading this: the next time someone suggests softening the focus ring, ask them what the benefit is, and who it's for. If they cannot name the person who benefits from a less visible focus indicator, you already have your answer.</p>
-<p>If you are an engineer reading this: <code>:focus-visible</code> is one of the kindest additions to CSS in the last ten years. It lets you show focus only when the user is navigating by keyboard, so the ring doesn't appear on mouse click. That is the whole argument, resolved. Please use it.</p>
-<p>And if you are a keyboard user reading this: I'm sorry for the decades of blurry, inconsistent, apologetic outlines. We are, slowly, getting better.</p>
-<h2 id="colophon">Colophon</h2>
-<p>Drafted on a train from Edinburgh to London, revised over two weeks. Thanks to R, J, and P for reading early drafts. Typeset in Young Serif and Commissioner. The pull quote is from a talk I gave at my team offsite — slides are not, and will not be, public.</p>
-        </div>
-      </article>
+    <article class="container--narrow section note-reader">
+      <a class="btn btn--link reader__back" href="../../notes/">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+        <span class="reader__back-label">All notes</span>
+      </a>
 
-      
-      <aside class="toc" aria-label="Table of contents">
-        <div class="toc__title">In this essay</div>
-        <ol>
+      <header class="note-reader__head">
+        <div class="note-reader__meta">
+          <span class="kicker">&para; Note</span>
+          <span class="kicker">&middot; Mar 22</span>
+          <span class="kicker">&middot; sat morning</span>
+        </div>
+        <h1 class="note-reader__title">Drafted the annual a11y report.</h1>
+      </header>
+
+      <div class="note-reader__body prose">
+        <p>Drafted the annual a11y report. 47 bugs closed, 11 new patterns, 2 partnerships. None of the numbers captures what I'm actually proud of, which is that four teams now ship with a screen reader open.</p>
+<p>The report will say what the report can measure. The culture shift is the part that happens in the margins — and it will, if we're lucky, go unreported for another five years.</p>
+        <hr class="note-reader__rule">
+        <p class="note-reader__sign">
+          &mdash; Filed under <em>sat morning</em>. Permalink <a href="#annual-a11y-report">#annual-a11y-report</a>.
+        </p>
+      </div>
+
+      <nav class="note-reader__nav" aria-label="Between notes">
+        <div>
           
-          <li><a href="#opening">Opening</a></li>
+          <a href="../../notes/home-from-a-long-flight/" class="note-reader__nav-link">
+            <span class="kicker">&larr; Earlier</span>
+            <span>Home from a long flight</span>
+          </a>
           
-          <li><a href="#the-middle-move">The middle move</a></li>
+        </div>
+        <div class="note-reader__nav-right">
           
-          <li><a href="#landing">Landing</a></li>
+          <a href="../../notes/frictionless-in-the-brief/" class="note-reader__nav-link note-reader__nav-link--right">
+            <span class="kicker">Later &rarr;</span>
+            <span>A PM described our new flow as frictionless in the brief</span>
+          </a>
           
-          <li><a href="#colophon">Colophon</a></li>
+        </div>
+      </nav>
+
+      <aside class="note-reader__related">
+        <span class="kicker">&para; Nearby notes</span>
+        <ul class="note-reader__related-list">
           
-        </ol>
+          <li>
+            <a href="../../notes/watched-a-colleague-navigate/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 14</span>
+              <span>Watched a colleague navigate our app with VoiceOver this morning</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="../../notes/rereading-design-of-everyday-things/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 11</span>
+              <span>Rereading The Design of Everyday Things</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="../../notes/tiny-win-focus-visible/">
+              <span class="t-small t-caps" style="color: var(--fg-subtle); margin-right: 10px;">Apr 07</span>
+              <span>Tiny win: we landed focus-visible across the product tonight</span>
+            </a>
+          </li>
+          
+        </ul>
       </aside>
-      
-    </div>
+    </article>
   </main>
 
 

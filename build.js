@@ -295,6 +295,8 @@ function build() {
   var baseLayout = fs.readFileSync(path.join(SRC, 'layouts', 'base.html'), 'utf8');
   var homeLayout = fs.readFileSync(path.join(SRC, 'layouts', 'home.html'), 'utf8');
   var articleLayout = fs.readFileSync(path.join(SRC, 'layouts', 'article.html'), 'utf8');
+  var notesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'notes.html'), 'utf8');
+  var noteLayout = fs.readFileSync(path.join(SRC, 'layouts', 'note.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -333,6 +335,50 @@ function build() {
 
   var articles = parseMdxDir(path.join(SRC, 'content', 'articles'));
   var projects = parseMdxDir(path.join(SRC, 'content', 'projects'));
+  var notes = parseMdxDir(path.join(SRC, 'content', 'notes'));
+
+  // Pre-render the grouped notes list for the /notes/ index and the homepage.
+  function renderNoteItem(n, hrefPrefix) {
+    var href = hrefPrefix + 'notes/' + n.slug + '/';
+    return '<li class="note-item">' +
+             '<span class="note-item__date">' + n.date + '</span>' +
+             '<div>' +
+               '<a href="' + href + '" class="note-item__link">' +
+                 '<p class="note-item__body">' + n.lede + '</p>' +
+               '</a>' +
+               (n.context ? '<div class="note-item__context">' + n.context + '</div>' : '') +
+             '</div>' +
+           '</li>';
+  }
+
+  // Pull the first paragraph out of each note's body as its lede preview.
+  notes.forEach(function (n) {
+    var m = n.bodyHtml.match(/<p>([\s\S]*?)<\/p>/);
+    n.lede = m ? m[1] : '';
+  });
+
+  // Group notes by month, preserving newest-first order.
+  var notesGroups = [];
+  var notesByMonth = {};
+  notes.forEach(function (n) {
+    var m = n.month || 'Notes';
+    if (!notesByMonth[m]) {
+      notesByMonth[m] = { month: m, notes: [] };
+      notesGroups.push(notesByMonth[m]);
+    }
+    notesByMonth[m].notes.push(n);
+  });
+
+  function renderNotesGroups(hrefPrefix) {
+    return notesGroups.map(function (g) {
+      return '<section class="notes-month">' +
+               '<h3 class="notes-month__label">' + g.month + '</h3>' +
+               '<ul class="note-list">' +
+                 g.notes.map(function (n) { return renderNoteItem(n, hrefPrefix); }).join('') +
+               '</ul>' +
+             '</section>';
+    }).join('\n');
+  }
 
   // 5. Concatenate CSS
   mkdirp(path.join(DIST, 'css'));
@@ -355,11 +401,17 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'js', 'main.js'), jsBundle);
 
   // 7. Build home page
+  var recentNotes = notes.slice(0, 4);
+  var homeNotesHtml = '<ul class="note-list">' +
+    recentNotes.map(function (n) { return renderNoteItem(n, ''); }).join('') +
+    '</ul>';
+
   var homeData = Object.assign({}, siteData, {
     articles: articles,
     articleCount: articles.length,
     projects: projects,
     projectCount: projects.length,
+    homeNotesHtml: homeNotesHtml,
     basePath: '',
     iconSprite: iconSprite,
     pageTitle: siteData.title,
@@ -370,6 +422,47 @@ function build() {
   var homeHtml = renderTemplate(baseLayout, Object.assign({}, homeData, { content: homeContent }));
   fs.writeFileSync(path.join(DIST, 'index.html'), homeHtml);
   console.log('[build] index.html');
+
+  // 7a. Build notes index
+  mkdirp(path.join(DIST, 'notes'));
+  var notesIndexData = Object.assign({}, siteData, {
+    notesGroupsHtml: renderNotesGroups('../'),
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Notes — ' + siteData.title,
+    pageDescription: 'Short thoughts and unfinished fragments by ' + siteData.ownerName + '.'
+  });
+  var notesIndexContent = renderTemplate(notesLayout, notesIndexData);
+  var notesIndexHtml = renderTemplate(baseLayout, Object.assign({}, notesIndexData, { content: notesIndexContent }));
+  fs.writeFileSync(path.join(DIST, 'notes', 'index.html'), notesIndexHtml);
+  console.log('[build] notes/index.html');
+
+  // 7b. Build individual note pages (prev = older, next = newer)
+  notes.forEach(function (note, idx) {
+    var noteDir = path.join(DIST, 'notes', note.slug);
+    mkdirp(noteDir);
+
+    var newer = idx > 0 ? notes[idx - 1] : null;
+    var older = idx < notes.length - 1 ? notes[idx + 1] : null;
+    var related = notes.filter(function (n, i) { return i !== idx; }).slice(0, 3);
+
+    var noteData = Object.assign({}, siteData, note, {
+      prev: older ? { slug: older.slug, title: older.title, date: older.date } : null,
+      next: newer ? { slug: newer.slug, title: newer.title, date: newer.date } : null,
+      related: related.map(function (r) {
+        return { slug: r.slug, title: r.title, date: r.date };
+      }),
+      basePath: '../../',
+      iconSprite: iconSprite,
+      pageTitle: note.title + ' — ' + siteData.title,
+      pageDescription: note.title
+    });
+
+    var noteContent = renderTemplate(noteLayout, noteData);
+    var noteHtml = renderTemplate(baseLayout, Object.assign({}, noteData, { content: noteContent }));
+    fs.writeFileSync(path.join(noteDir, 'index.html'), noteHtml);
+    console.log('[build] notes/' + note.slug + '/index.html');
+  });
 
   // 8. Build article pages
   mkdirp(path.join(DIST, 'articles'));
@@ -415,7 +508,7 @@ function build() {
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + 1;
+  var totalPages = articles.length + projects.length + notes.length + 2;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

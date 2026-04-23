@@ -8,28 +8,6 @@
     "building": "Prism — a perceptual contrast checker. Alpha with four teams.",
     "reading": "The Craftsman, second pass. Design Justice, slowly."
   },
-  "notes": [
-    {
-      "date": "Apr 14",
-      "body": "Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.",
-      "context": "office, tue"
-    },
-    {
-      "date": "Apr 11",
-      "body": "Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.",
-      "context": "train home"
-    },
-    {
-      "date": "Apr 07",
-      "body": "Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.",
-      "context": "midnight"
-    },
-    {
-      "date": "Apr 02",
-      "body": "Mentorship conversation with J — she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.",
-      "context": "weekly 1:1"
-    }
-  ],
   "reading": [
     {
       "title": "The Craftsman",
