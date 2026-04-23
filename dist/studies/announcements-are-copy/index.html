@@ -86,9 +86,9 @@
       <section aria-labelledby="drawer-grp-about">
         <h3 id="drawer-grp-about" class="drawer__group-title">&sect; About</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../#about"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
-          <li><a class="drawer__item" href="../../#now"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
-          <li><a class="drawer__item" href="../../#about"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
+          <li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
+          <li><a class="drawer__item" href="../../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
+          <li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
         </ul>
       </section>
     </div>
@@ -112,7 +112,7 @@
           <span class="kicker">&middot; Study</span>
         </div>
         <div class="reader__body prose">
-          <p>Most teams treat <code>aria-live</code> as a plumbing decision. You pick the region, you decide between <em>polite</em> and <em>assertive</em>, you wire it up. The copy inside the region — the actual announcement a user hears — is usually an afterthought, written to whatever string was handy at the time.</p>
+          <p class="dropcap" style="max-width:none">Most teams treat <code>aria-live</code> as a plumbing decision. You pick the region, you decide between <em>polite</em> and <em>assertive</em>, you wire it up. The copy inside the region — the actual announcement a user hears — is usually an afterthought, written to whatever string was handy at the time.</p>
 <p>Over six weeks, I timed and transcribed 240 announcements across six products. The surface pattern was clear: the products with good reputations for accessibility had announcements that read like a tactful colleague. The products with bad reputations had announcements that read like a server log. The craft gap was not in the wiring. It was in the writing.</p>
 <h2 id="the-method">The method</h2>
 <p>I ran each product through a short scripted session — send a message, delete a message, apply a filter, open a modal — with VoiceOver on macOS and NVDA on Windows. I recorded every utterance, timed it in seconds, and captured the corresponding HTML and ARIA so I could reconstruct why the screen reader had said what it said.</p>
@@ -129,13 +129,12 @@
 <p>2. <strong>Short.</strong> Six to twelve words. Anything longer competes with the next action.</p>
 <p>3. <strong>Names over nouns.</strong> "Deleted the April invoice." Not "Deleted the item."</p>
 <p>4. <strong>Quiet on success, loud on change of state.</strong> If nothing surprising happened, the announcement was a receipt, not a fanfare.</p>
-<blockquote>
-<p>The best announcement I recorded was four words long and told me my draft had been saved. The worst was thirty-one words long and told me the same thing in a tone that suggested legal liability.</p>
-</blockquote>
+<blockquote class="pullquote">The best announcement I recorded was four words long and told me my draft had been saved. The worst was thirty-one words long and told me the same thing in a tone that suggested legal liability.</blockquote>
 <h2 id="the-fix">The fix</h2>
 <p>You don't need to rearchitect your ARIA to get this right. You need an editor in the loop. On the Superhuman team we now run every live-region string through the same review process as our UI copy — short brief, writing partner, read-aloud check, ship. The wiring stays where it is; the words get the attention they always needed.</p>
 <p>The next time you add an <code>aria-live</code> region, write the announcement out loud before you write it in code. If you can hear yourself saying it, it will probably read like prose. If you can't, rewrite.</p>
         </div>
+        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../essays/focus-ring-contract/"><div class="essay-card__meta"><span class="kicker">&sect; Essay</span><span class="essay-card__date">12 April 2026 &middot; 9 min</span></div><h3 class="essay-card__title">The focus ring is a social contract</h3><p class="essay-card__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p><div class="essay-card__tags"><span class="tag">A11y</span><span class="tag">Keyboard</span><span class="tag">Craft</span></div></a><a class="essay-card essay-card--compact" href="../../essays/slow-accessibility/"><div class="essay-card__meta"><span class="kicker">&sect; Essay</span><span class="essay-card__date">28 March 2026 &middot; 12 min</span></div><h3 class="essay-card__title">Slow accessibility</h3><p class="essay-card__dek">Six years ago I was shipping a11y fixes in week-long sprints and calling it done. I was wrong. A note on working at the pace the work actually needs.</p><div class="essay-card__tags"><span class="tag">A11y</span><span class="tag">Practice</span></div></a></div></div>
       </article>
 
       
@@ -150,6 +149,7 @@
           <li><a href="#the-fix">The fix</a></li>
           
         </ol>
+        <div class="toc__aside"><span class="kicker">&para; Read next</span><ul class="toc__next"><li><a href="../../essays/focus-ring-contract/">The focus ring is a social contract</a></li><li><a href="../../essays/slow-accessibility/">Slow accessibility</a></li></ul></div>
       </aside>
       
     </div>
@@ -190,8 +190,8 @@
       <div class="site-footer__col">
         <h5>&sect; About</h5>
         <ul>
-          <li><a href="../../#about">About</a></li>
-          <li><a href="../../#now">Now</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../now/">Now</a></li>
           <li><a href="mailto:hello@brian.is">Email</a></li>
         </ul>
       </div>

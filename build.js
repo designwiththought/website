@@ -157,6 +157,15 @@ function parseMarkdown(md) {
       continue;
     }
 
+    // Raw HTML / JSX component tag at the start of a line — emit as-is so
+    // block-level elements (Pullquote, Dropcap, MarginaliaPin, manual <div>)
+    // are not wrapped in <p>. Matches lines that begin with `<TagName` where
+    // TagName starts with a letter.
+    if (/^\s*<[A-Za-z][\w-]*/.test(line)) {
+      output.push(line);
+      continue;
+    }
+
     // Blockquote
     if (line.startsWith('> ')) {
       if (!inBlockquote) { output.push('<blockquote>'); inBlockquote = true; }
@@ -211,7 +220,11 @@ function resolveComponents(html) {
   }
 
   // Match self-closing JSX components: <ComponentName prop="val" prop='val' />
-  return html.replace(/<(\w+)\s+([\s\S]*?)\/>/g, function (match, name, attrsStr) {
+  // Only component names starting with an uppercase letter — this keeps the
+  // match from leaking across a neighbouring lowercase HTML tag like
+  // `<div id="opening"></div>` while still letting attribute values contain
+  // inline HTML (`<code>`, `<em>`, etc.) because their tag names are lower.
+  return html.replace(/<([A-Z]\w*)\s+([\s\S]*?)\/>/g, function (match, name, attrsStr) {
     const template = components[name];
     if (!template) return match; // Leave unknown components as-is
 
@@ -290,6 +303,18 @@ function build() {
 
   // 1. Read site data
   var siteData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'site.json'), 'utf8'));
+  var nowData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'now.json'), 'utf8'));
+  var aboutData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'about.json'), 'utf8'));
+
+  // Pre-render each work entry's highlights bullet list — the template
+  // engine can't nest {{#each}} inside {{#each}}, so do it up front.
+  aboutData.work.forEach(function (w) {
+    if (w.highlights && w.highlights.length) {
+      w.highlightsHtml = w.highlights.map(function (h) {
+        return '<li>' + h + '</li>';
+      }).join('');
+    }
+  });
 
   // 2. Read layouts
   var baseLayout = fs.readFileSync(path.join(SRC, 'layouts', 'base.html'), 'utf8');
@@ -300,6 +325,8 @@ function build() {
   var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
   var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
   var writingIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'writing-index.html'), 'utf8');
+  var nowLayout = fs.readFileSync(path.join(SRC, 'layouts', 'now.html'), 'utf8');
+  var aboutLayout = fs.readFileSync(path.join(SRC, 'layouts', 'about.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -364,10 +391,19 @@ function build() {
            '</li>';
   }
 
-  // Pull the first paragraph out of each note's body as its lede preview.
+  // Pull the first paragraph out of each note's body as its lede preview,
+  // and keep any trailing paragraphs as the "afterthought" for the reader.
   notes.forEach(function (n) {
-    var m = n.bodyHtml.match(/<p>([\s\S]*?)<\/p>/);
-    n.lede = m ? m[1] : '';
+    var paras = [];
+    var re = /<p>([\s\S]*?)<\/p>/g;
+    var m;
+    while ((m = re.exec(n.bodyHtml)) !== null) {
+      paras.push(m[1]);
+    }
+    n.lede = paras[0] || '';
+    n.afterthoughtHtml = paras.slice(1).map(function (p) {
+      return '<p>' + p + '</p>';
+    }).join('\n');
   });
 
   // Group notes by month, preserving newest-first order.
@@ -481,6 +517,44 @@ function build() {
 
   // 8. Build /essays/ and /studies/ indexes + their individual pages
 
+  // Collect the union of tags across every published article so the tag bar on
+  // the index pages mirrors the design's "filter-bar--tags" — a static row of
+  // chips, one per distinct tag. The buttons don't filter (no JS) but the
+  // visual rhythm matches the reference.
+  var allTags = [];
+  articles.forEach(function (a) {
+    [a.tag1, a.tag2, a.tag3].forEach(function (t) {
+      if (t && allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+
+  function renderFilterRow(activeKind) {
+    // Static mirror of the design's kind + tag bars. Without JS the buttons
+    // don't filter, but the visual rhythm and the "which tab am I on" cue
+    // (is-active on Essays or Studies) match the reference. Navigation
+    // between /essays/ and /studies/ happens via the drawer + footer.
+    var kinds = [
+      { key: 'all',   label: 'All' },
+      { key: 'essay', label: 'Essays' },
+      { key: 'study', label: 'Studies' },
+    ];
+    var kindBtns = kinds.map(function (k) {
+      var cls = k.key === activeKind ? ' class="is-active"' : '';
+      return '<button type="button"' + cls + '>' + k.label + '</button>';
+    }).join('');
+
+    var tagBtns = ['<button type="button" class="is-active">All</button>']
+      .concat(allTags.map(function (t) {
+        return '<button type="button">' + t + '</button>';
+      }))
+      .join('');
+
+    return '<div class="filter-row">' +
+             '<div class="filter-bar">' + kindBtns + '</div>' +
+             '<div class="filter-bar filter-bar--tags">' + tagBtns + '</div>' +
+           '</div>';
+  }
+
   function buildWritingIndex(dir, items, meta) {
     mkdirp(path.join(DIST, dir));
     var data = Object.assign({}, siteData, {
@@ -488,6 +562,7 @@ function build() {
       pageKicker: meta.kicker,
       pageHeading: meta.heading,
       pageDek: meta.dek,
+      filterRowHtml: renderFilterRow(meta.activeKind),
       emptyHtml: items.length === 0
         ? '<p class="empty-state">' + meta.empty + '</p>'
         : '',
@@ -502,15 +577,58 @@ function build() {
     console.log('[build] ' + dir + '/index.html');
   }
 
+  // Pre-render the two "related" blocks a reader shows: the pair of compact
+  // essay cards under the body, and the "§ Read next" list inside the sticky
+  // TOC aside. The template engine can't nest {{#each}} inside {{#if}}, so do
+  // this once per piece and pass the finished HTML in.
+  function renderRelatedHtml(related) {
+    if (!related.length) return '';
+    var cards = related.map(function (r) {
+      var tagSpans = [r.tag1, r.tag2, r.tag3].filter(Boolean)
+        .map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('');
+      return '<a class="essay-card essay-card--compact" href="../../' + r.url + '">' +
+               '<div class="essay-card__meta">' +
+                 '<span class="kicker">&sect; ' + r.kind + '</span>' +
+                 '<span class="essay-card__date">' + r.date + (r.read ? ' &middot; ' + r.read : '') + '</span>' +
+               '</div>' +
+               '<h3 class="essay-card__title">' + r.title + '</h3>' +
+               '<p class="essay-card__dek">' + r.summary + '</p>' +
+               (tagSpans ? '<div class="essay-card__tags">' + tagSpans + '</div>' : '') +
+             '</a>';
+    }).join('');
+    return '<div class="reader__related">' +
+             '<h3 class="section__title section__title--sm">Related</h3>' +
+             '<div class="grid grid--2">' + cards + '</div>' +
+           '</div>';
+  }
+
+  function renderReadNextHtml(related) {
+    if (!related.length) return '';
+    var items = related.map(function (r) {
+      return '<li><a href="../../' + r.url + '">' + r.title + '</a></li>';
+    }).join('');
+    return '<div class="toc__aside">' +
+             '<span class="kicker">&para; Read next</span>' +
+             '<ul class="toc__next">' + items + '</ul>' +
+           '</div>';
+  }
+
   function buildWritingReader(dir, items, meta) {
     items.forEach(function (item) {
       var itemDir = path.join(DIST, dir, item.slug);
       mkdirp(itemDir);
 
+      // Two pieces that aren't this one, same pool the design picks from
+      // (all articles, not just essays or studies). Keeps the two lists in
+      // sync: compact cards under the body + link list in the TOC.
+      var related = articles.filter(function (a) { return a.slug !== item.slug; }).slice(0, 2);
+
       var data = Object.assign({}, siteData, item, {
         basePath: '../../',
         backHref: dir + '/',
         backLabel: meta.backLabel,
+        relatedHtml: renderRelatedHtml(related),
+        readNextHtml: renderReadNextHtml(related),
         iconSprite: iconSprite,
         pageTitle: item.title + ' — ' + siteData.title,
         pageDescription: item.summary
@@ -527,7 +645,8 @@ function build() {
     kicker: '§ Essays',
     heading: 'Essays',
     dek: 'Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.',
-    empty: 'No essays yet.'
+    empty: 'No essays yet.',
+    activeKind: 'essay'
   });
   buildWritingReader('essays', essays, { backLabel: 'All essays' });
 
@@ -535,7 +654,8 @@ function build() {
     kicker: '§ Studies',
     heading: 'Studies',
     dek: 'Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.',
-    empty: 'No studies yet.'
+    empty: 'No studies yet.',
+    activeKind: 'study'
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
@@ -559,9 +679,16 @@ function build() {
     var projectDir = path.join(DIST, 'projects', slug);
     mkdirp(projectDir);
 
+    // Join any frontmatter tags (tag1/tag2/tag3) into a single string so the
+    // reader__meta row matches the design reference — one kicker containing
+    // "tag · tag · tag" rather than several fragments.
+    var tags = [project.tag1, project.tag2, project.tag3].filter(function (t) { return !!t; });
+    var tagsJoined = tags.join(' · ');
+
     var projectData = Object.assign({}, siteData, project, {
       basePath: '../../',
       iconSprite: iconSprite,
+      tagsJoined: tagsJoined,
       pageTitle: project.title + ' — ' + siteData.title,
       pageDescription: project.summary
     });
@@ -572,7 +699,38 @@ function build() {
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + notes.length + 5;
+  // 10. Build /now/
+  mkdirp(path.join(DIST, 'now'));
+  var nowTemplateData = Object.assign({}, siteData, {
+    items: nowData.items,
+    nowUpdated: nowData.updated,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Now — ' + siteData.title,
+    pageDescription: 'What ' + siteData.ownerName + ' is up to this month.'
+  });
+  var nowContent = renderTemplate(nowLayout, nowTemplateData);
+  var nowHtml = renderTemplate(baseLayout, Object.assign({}, nowTemplateData, { content: nowContent }));
+  fs.writeFileSync(path.join(DIST, 'now', 'index.html'), nowHtml);
+  console.log('[build] now/index.html');
+
+  // 11. Build /about/
+  mkdirp(path.join(DIST, 'about'));
+  var aboutTemplateData = Object.assign({}, siteData, {
+    initials: aboutData.initials,
+    work: aboutData.work,
+    elsewhere: aboutData.elsewhere,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'About — ' + siteData.title,
+    pageDescription: 'About ' + siteData.ownerName + ' — designer, developer, accessibility lead.'
+  });
+  var aboutContent = renderTemplate(aboutLayout, aboutTemplateData);
+  var aboutHtml = renderTemplate(baseLayout, Object.assign({}, aboutTemplateData, { content: aboutContent }));
+  fs.writeFileSync(path.join(DIST, 'about', 'index.html'), aboutHtml);
+  console.log('[build] about/index.html');
+
+  var totalPages = articles.length + projects.length + notes.length + 7;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

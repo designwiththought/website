@@ -320,17 +320,24 @@ p { margin: 0 0 var(--s-4); max-width: var(--measure); text-wrap: pretty; }
 .font-mono { font-family: var(--font-mono); }
 .font-serif { font-family: var(--font-serif); }
 
-/* Links */
+/* Links — bare <a> is unadorned by default; prose contexts add an
+   underline back in site.css (essay body, hero prose, CV notes, etc.).
+   Every link, wherever it lives, underlines on hover and focus. */
 a {
   color: var(--accent);
-  text-decoration: underline;
+  text-decoration: none;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
   transition: color var(--dur-fast) var(--ease-out),
               text-decoration-color var(--dur-fast) var(--ease-out);
 }
-a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+a:hover,
+a:focus-visible {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
