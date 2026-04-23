@@ -1,0 +1,24 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Now</span>
+        <h1>What I&rsquo;m up to, this month.</h1>
+        <p class="lead">A <a href="https://nownownow.com" target="_blank" rel="noreferrer">now page</a>, in the spirit of Derek Sivers. Updated the first of each month. Last revised <strong>{{nowUpdated}}</strong>.</p>
+      </header>
+
+      <ul class="now-list">
+        {{#each items}}
+        <li class="now-item">
+          <div class="now-item__label">{{label}}</div>
+          <p class="now-item__body">{{body}}</p>
+        </li>
+        {{/each}}
+      </ul>
+
+      <div class="now-footer">
+        <p class="t-small" style="color: var(--fg-muted);">
+          &mdash; {{ownerName}}, from a café in the mission. If you&rsquo;re nearby and want coffee, <a href="mailto:{{email}}">say hello</a>.
+        </p>
+      </div>
+    </div>
+  </main>

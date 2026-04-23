@@ -290,6 +290,18 @@ function build() {
 
   // 1. Read site data
   var siteData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'site.json'), 'utf8'));
+  var nowData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'now.json'), 'utf8'));
+  var aboutData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'about.json'), 'utf8'));
+
+  // Pre-render each work entry's highlights bullet list — the template
+  // engine can't nest {{#each}} inside {{#each}}, so do it up front.
+  aboutData.work.forEach(function (w) {
+    if (w.highlights && w.highlights.length) {
+      w.highlightsHtml = w.highlights.map(function (h) {
+        return '<li>' + h + '</li>';
+      }).join('');
+    }
+  });
 
   // 2. Read layouts
   var baseLayout = fs.readFileSync(path.join(SRC, 'layouts', 'base.html'), 'utf8');
@@ -300,6 +312,8 @@ function build() {
   var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
   var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
   var writingIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'writing-index.html'), 'utf8');
+  var nowLayout = fs.readFileSync(path.join(SRC, 'layouts', 'now.html'), 'utf8');
+  var aboutLayout = fs.readFileSync(path.join(SRC, 'layouts', 'about.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -572,7 +586,38 @@ function build() {
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + notes.length + 5;
+  // 10. Build /now/
+  mkdirp(path.join(DIST, 'now'));
+  var nowTemplateData = Object.assign({}, siteData, {
+    items: nowData.items,
+    nowUpdated: nowData.updated,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Now — ' + siteData.title,
+    pageDescription: 'What ' + siteData.ownerName + ' is up to this month.'
+  });
+  var nowContent = renderTemplate(nowLayout, nowTemplateData);
+  var nowHtml = renderTemplate(baseLayout, Object.assign({}, nowTemplateData, { content: nowContent }));
+  fs.writeFileSync(path.join(DIST, 'now', 'index.html'), nowHtml);
+  console.log('[build] now/index.html');
+
+  // 11. Build /about/
+  mkdirp(path.join(DIST, 'about'));
+  var aboutTemplateData = Object.assign({}, siteData, {
+    initials: aboutData.initials,
+    work: aboutData.work,
+    elsewhere: aboutData.elsewhere,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'About — ' + siteData.title,
+    pageDescription: 'About ' + siteData.ownerName + ' — designer, developer, accessibility lead.'
+  });
+  var aboutContent = renderTemplate(aboutLayout, aboutTemplateData);
+  var aboutHtml = renderTemplate(baseLayout, Object.assign({}, aboutTemplateData, { content: aboutContent }));
+  fs.writeFileSync(path.join(DIST, 'about', 'index.html'), aboutHtml);
+  console.log('[build] about/index.html');
+
+  var totalPages = articles.length + projects.length + notes.length + 7;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

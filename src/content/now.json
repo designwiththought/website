@@ -1,0 +1,29 @@
+{
+  "updated": "01 April 2026",
+  "items": [
+    {
+      "label": "§ Writing",
+      "body": "An essay on announcement copy — how screen-reader output reads when you take it as prose."
+    },
+    {
+      "label": "§ Building",
+      "body": "<a href=\"../projects/prism/\">Prism</a>, a perceptual contrast checker. Alpha with four teams."
+    },
+    {
+      "label": "§ Reading",
+      "body": "<em>The Craftsman</em> (Sennett, second read) and <em>Design Justice</em> (Costanza-Chock)."
+    },
+    {
+      "label": "¶ Managing",
+      "body": "Three designers and one a11y engineer at Superhuman. Quarterly planning this week."
+    },
+    {
+      "label": "¶ Thinking about",
+      "body": "How to measure the quality of a screen-reader experience beyond \"does it work.\""
+    },
+    {
+      "label": "¶ Saying no to",
+      "body": "New conference talks through the summer — writing instead."
+    }
+  ]
+}

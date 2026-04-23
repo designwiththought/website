@@ -1,0 +1,63 @@
+  <main id="main" class="about">
+    <section class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; About</span>
+        <h1 class="about__title">Hello.</h1>
+      </header>
+
+      <div class="about__intro">
+        <div class="about__portrait" aria-hidden="true">
+          <div class="about__portrait-inner">
+            <div class="about__portrait-initials">{{initials}}</div>
+            <div class="about__portrait-label">portrait &mdash; placeholder</div>
+          </div>
+        </div>
+        <div class="about__copy">
+          <p class="lead">I&rsquo;m Brian. I lead accessibility at <strong>Superhuman</strong>, which some of you will still remember as <strong>Grammarly</strong>. Before that, I was a designer at Figma, an engineer at The Guardian, and &mdash; for a short, useful stretch &mdash; a two-person consultancy with a friend.</p>
+          <p>I&rsquo;ve spent about equal time as a designer, a developer, and a manager of teams that include both. The longer I do this, the less those three labels feel like separate jobs &mdash; they feel like three rooms in the same house, with doors between them that I keep propped open.</p>
+          <p>Most of what I care about, professionally, comes back to one word: <em>care</em>. Care for the people using the software. Care for the engineers who have to maintain it. Care for the systems &mdash; the words, the components, the processes &mdash; that hold a product together when the humans are busy elsewhere.</p>
+          <p>This site is where I think in public. <a href="{{basePath}}essays/">Essays</a> are the long stuff; <a href="{{basePath}}studies/">studies</a> are the investigated stuff; <a href="{{basePath}}notes/">notes</a> are the unfinished stuff. <a href="{{basePath}}projects/">Projects</a> are what I&rsquo;m actually building. <a href="{{basePath}}now/">The now page</a> is the short version.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <header class="about__section-head">
+        <span class="kicker">&sect; Work history</span>
+        <h2 class="section__title">What I&rsquo;ve done, in reverse.</h2>
+      </header>
+
+      <ol class="cv">
+        {{#each work}}
+        <li class="cv__item">
+          <div class="cv__period">
+            <div class="cv__period-main">{{period}}</div>
+            <div class="cv__period-sub">{{location}}</div>
+          </div>
+          <div class="cv__body">
+            <div class="cv__head">
+              <h3 class="cv__role">{{role}}</h3>
+              <div class="cv__company">{{company}}</div>
+            </div>
+            <p class="cv__note">{{note}}</p>
+            {{#if highlightsHtml}}<ul class="cv__highlights">{{highlightsHtml}}</ul>{{/if}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+
+    <section class="container--narrow section about__closing">
+      <h2 class="section__title">Elsewhere</h2>
+      <ul class="about__elsewhere">
+        {{#each elsewhere}}
+        <li><span class="kicker">{{label}}</span> <a href="{{href}}">{{value}}</a></li>
+        {{/each}}
+      </ul>
+
+      <p class="t-small" style="color: var(--fg-muted); margin-top: 48px;">
+        &mdash; Typeset in Young Serif and Commissioner. Hand-built, maintained when there is time.
+        The site is open-source; <a href="#">the source is here</a>.
+      </p>
+    </section>
+  </main>
