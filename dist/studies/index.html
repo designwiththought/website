@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All writing — Design with Thought</title>
-  <meta name="description" content="Essays and studies by Brian Hinton.">
+  <title>Studies — Design with Thought</title>
+  <meta name="description" content="Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -55,8 +55,8 @@
       <section aria-labelledby="drawer-grp-writing">
         <h3 id="drawer-grp-writing" class="drawer__group-title">&sect; Writing</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../articles/?filter=Essay"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
-          <li><a class="drawer__item" href="../articles/?filter=Study"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
+          <li><a class="drawer__item" href="../essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
+          <li><a class="drawer__item" href="../studies/"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
           <li><a class="drawer__item" href="../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
         </ul>
       </section>
@@ -97,78 +97,28 @@
     <main id="main">
     <div class="container section">
       <header class="page-header page-header--left">
-        <span class="kicker">&sect; Writing</span>
-        <h1>All writing</h1>
-        <p class="lead">Long-form essays and shorter studies. Published slowly, revised often. These are the ones I&rsquo;d still send to a friend.</p>
+        <span class="kicker">§ Studies</span>
+        <h1>Studies</h1>
+        <p class="lead">Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.</p>
       </header>
-
-      <div class="filter-row" id="filters">
-        <div class="filter-bar" data-filter-bar="kind">
-          <button class="is-active" type="button" data-filter="all">All</button>
-          <button type="button" data-filter="Essay">Essays</button>
-          <button type="button" data-filter="Study">Studies</button>
-        </div>
-        <div class="filter-bar filter-bar--tags" data-filter-bar="tag">
-          <button class="is-active" type="button" data-tag="all">All</button>
-          
-          <button type="button" data-tag="A11y">A11y</button>
-          
-          <button type="button" data-tag="Craft">Craft</button>
-          
-          <button type="button" data-tag="Keyboard">Keyboard</button>
-          
-          <button type="button" data-tag="Management">Management</button>
-          
-          <button type="button" data-tag="Practice">Practice</button>
-          
-        </div>
-      </div>
 
       <div class="essay-list">
         
-        <a class="essay-card" href="../articles/focus-ring-contract/" data-essay data-kind="Essay" data-tags="A11y|Keyboard|Craft">
+        <a class="essay-card" href="../studies/announcements-are-copy/">
           <div class="essay-card__meta">
-            <span class="kicker">&sect; Essay</span>
-            <span class="essay-card__date">12 April 2026 &middot; 9 min</span>
+            <span class="kicker">&sect; Study</span>
+            <span class="essay-card__date">22 February 2026 &middot; 14 min</span>
           </div>
-          <h3 class="essay-card__title">The focus ring is a social contract</h3>
-          <p class="essay-card__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p>
+          <h3 class="essay-card__title">Screen-reader announcements are copywriting</h3>
+          <p class="essay-card__dek">I timed 240 aria-live announcements across six apps. The good ones read like a tactful colleague. The bad ones read like a server log. The difference is craft.</p>
           <div class="essay-card__tags">
             <span class="tag">A11y</span>
-            <span class="tag">Keyboard</span>
-            <span class="tag">Craft</span>
+            <span class="tag">Copy</span>
+            <span class="tag">Study</span>
           </div>
         </a>
         
-        <a class="essay-card" href="../articles/slow-accessibility/" data-essay data-kind="Essay" data-tags="A11y|Practice">
-          <div class="essay-card__meta">
-            <span class="kicker">&sect; Essay</span>
-            <span class="essay-card__date">28 March 2026 &middot; 12 min</span>
-          </div>
-          <h3 class="essay-card__title">Slow accessibility</h3>
-          <p class="essay-card__dek">Six years ago I was shipping a11y fixes in week-long sprints and calling it done. I was wrong. A note on working at the pace the work actually needs.</p>
-          <div class="essay-card__tags">
-            <span class="tag">A11y</span>
-            <span class="tag">Practice</span>
-            
-          </div>
-        </a>
         
-        <a class="essay-card" href="../articles/managing-specialists/" data-essay data-kind="Essay" data-tags="Management|Craft">
-          <div class="essay-card__meta">
-            <span class="kicker">&sect; Essay</span>
-            <span class="essay-card__date">04 March 2026 &middot; 11 min</span>
-          </div>
-          <h3 class="essay-card__title">Managing specialists when you were one</h3>
-          <p class="essay-card__dek">The hardest part of moving from senior designer to manager of designers is that the skill that got you here will, gently, start to get in the way.</p>
-          <div class="essay-card__tags">
-            <span class="tag">Management</span>
-            <span class="tag">Craft</span>
-            
-          </div>
-        </a>
-        
-        <p class="empty-state" hidden data-empty-state>Nothing here yet. Try a different filter.</p>
       </div>
     </div>
   </main>
@@ -191,8 +141,8 @@
       <div class="site-footer__col">
         <h5>&sect; Writing</h5>
         <ul>
-          <li><a href="../articles/?filter=Essay">Essays</a></li>
-          <li><a href="../articles/?filter=Study">Studies</a></li>
+          <li><a href="../essays/">Essays</a></li>
+          <li><a href="../studies/">Studies</a></li>
           <li><a href="../notes/">Notes</a></li>
         </ul>
       </div>
