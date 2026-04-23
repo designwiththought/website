@@ -15,7 +15,8 @@
       </header>
 
       <div class="note-reader__body prose">
-        {{bodyHtml}}
+        <p class="note-reader__lede">{{lede}}</p>
+        {{afterthoughtHtml}}
         <hr class="note-reader__rule">
         <p class="note-reader__sign">
           &mdash; Filed under <em>{{context}}</em>. Permalink <a href="#{{slug}}">#{{slug}}</a>.

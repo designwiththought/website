@@ -378,10 +378,19 @@ function build() {
            '</li>';
   }
 
-  // Pull the first paragraph out of each note's body as its lede preview.
+  // Pull the first paragraph out of each note's body as its lede preview,
+  // and keep any trailing paragraphs as the "afterthought" for the reader.
   notes.forEach(function (n) {
-    var m = n.bodyHtml.match(/<p>([\s\S]*?)<\/p>/);
-    n.lede = m ? m[1] : '';
+    var paras = [];
+    var re = /<p>([\s\S]*?)<\/p>/g;
+    var m;
+    while ((m = re.exec(n.bodyHtml)) !== null) {
+      paras.push(m[1]);
+    }
+    n.lede = paras[0] || '';
+    n.afterthoughtHtml = paras.slice(1).map(function (p) {
+      return '<p>' + p + '</p>';
+    }).join('\n');
   });
 
   // Group notes by month, preserving newest-first order.
@@ -573,9 +582,16 @@ function build() {
     var projectDir = path.join(DIST, 'projects', slug);
     mkdirp(projectDir);
 
+    // Join any frontmatter tags (tag1/tag2/tag3) into a single string so the
+    // reader__meta row matches the design reference — one kicker containing
+    // "tag · tag · tag" rather than several fragments.
+    var tags = [project.tag1, project.tag2, project.tag3].filter(function (t) { return !!t; });
+    var tagsJoined = tags.join(' · ');
+
     var projectData = Object.assign({}, siteData, project, {
       basePath: '../../',
       iconSprite: iconSprite,
+      tagsJoined: tagsJoined,
       pageTitle: project.title + ' — ' + siteData.title,
       pageDescription: project.summary
     });
