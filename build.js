@@ -299,6 +299,7 @@ function build() {
   var noteLayout = fs.readFileSync(path.join(SRC, 'layouts', 'note.html'), 'utf8');
   var projectsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'projects.html'), 'utf8');
   var projectLayout = fs.readFileSync(path.join(SRC, 'layouts', 'project.html'), 'utf8');
+  var articlesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'articles.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -338,6 +339,18 @@ function build() {
   var articles = parseMdxDir(path.join(SRC, 'content', 'articles'));
   var projects = parseMdxDir(path.join(SRC, 'content', 'projects'));
   var notes = parseMdxDir(path.join(SRC, 'content', 'notes'));
+
+  // Build a pipe-joined tag string per article (for data-tags) and the
+  // deduplicated set of all tags used across articles (for the tag bar).
+  var articleTagSet = {};
+  articles.forEach(function (a) {
+    var list = [a.tag1, a.tag2, a.tag3].filter(Boolean);
+    a.tagList = list.join('|');
+    list.forEach(function (t) { articleTagSet[t] = true; });
+  });
+  var articleTags = Object.keys(articleTagSet).sort().map(function (t) {
+    return { name: t };
+  });
 
   // Pre-render the grouped notes list for the /notes/ index and the homepage.
   function renderNoteItem(n, hrefPrefix) {
@@ -392,7 +405,7 @@ function build() {
 
   // 6. Concatenate JS
   mkdirp(path.join(DIST, 'js'));
-  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js'];
+  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js', 'articles-filter.js'];
   var jsBundle = jsOrder.map(function (file) {
     var filePath = path.join(SRC, 'js', file);
     if (fs.existsSync(filePath)) {
@@ -469,8 +482,22 @@ function build() {
     console.log('[build] notes/' + note.slug + '/index.html');
   });
 
-  // 8. Build article pages
+  // 8. Build articles index (/articles/) and individual article pages
   mkdirp(path.join(DIST, 'articles'));
+
+  var articlesIndexData = Object.assign({}, siteData, {
+    articles: articles,
+    tags: articleTags,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'All writing — ' + siteData.title,
+    pageDescription: 'Essays and studies by ' + siteData.ownerName + '.'
+  });
+  var articlesIndexContent = renderTemplate(articlesLayout, articlesIndexData);
+  var articlesIndexHtml = renderTemplate(baseLayout, Object.assign({}, articlesIndexData, { content: articlesIndexContent }));
+  fs.writeFileSync(path.join(DIST, 'articles', 'index.html'), articlesIndexHtml);
+  console.log('[build] articles/index.html');
+
   articles.forEach(function (article) {
     var slug = article.slug;
     var articleDir = path.join(DIST, 'articles', slug);
@@ -478,8 +505,8 @@ function build() {
 
     var articleData = Object.assign({}, siteData, article, {
       basePath: '../../',
-      backHref: '#writing',
-      backLabel: 'Back to writing',
+      backHref: 'articles/',
+      backLabel: 'All writing',
       iconSprite: iconSprite,
       pageTitle: article.title + ' — ' + siteData.title,
       pageDescription: article.summary
@@ -524,7 +551,7 @@ function build() {
     console.log('[build] projects/' + slug + '/index.html');
   });
 
-  var totalPages = articles.length + projects.length + notes.length + 3;
+  var totalPages = articles.length + projects.length + notes.length + 4;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

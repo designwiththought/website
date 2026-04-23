@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes — Design with Thought</title>
-  <meta name="description" content="Short thoughts and unfinished fragments by Brian Hinton.">
+  <title>All writing — Design with Thought</title>
+  <meta name="description" content="Essays and studies by Brian Hinton.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,19 +95,81 @@
   </div>
 
     <main id="main">
-    <div class="container--narrow section">
+    <div class="container section">
       <header class="page-header page-header--left">
-        <span class="kicker">&para; Notes</span>
-        <h1>Notes</h1>
-        <p class="lead">Short thoughts and unfinished fragments. Published as they happen, mostly unedited. If an essay is a paragraph, a note is a sentence.</p>
+        <span class="kicker">&sect; Writing</span>
+        <h1>All writing</h1>
+        <p class="lead">Long-form essays and shorter studies. Published slowly, revised often. These are the ones I&rsquo;d still send to a friend.</p>
       </header>
 
-      <section class="notes-month"><h3 class="notes-month__label">April 2026</h3><ul class="note-list"><li class="note-item"><span class="note-item__date">Apr 14</span><div><a href="../notes/watched-a-colleague-navigate/" class="note-item__link"><p class="note-item__body">Watched a colleague navigate our app with VoiceOver this morning. They reached the compose button in 19 tab stops. Our target was 4. There is a month of work in that gap.</p></a><div class="note-item__context">office, tue</div></div></li><li class="note-item"><span class="note-item__date">Apr 11</span><div><a href="../notes/rereading-design-of-everyday-things/" class="note-item__link"><p class="note-item__body">Rereading <em>The Design of Everyday Things</em>. Norman is still right about almost everything, and still wrong about the same few things. I think the wrong bits are the most useful.</p></a><div class="note-item__context">train home</div></div></li><li class="note-item"><span class="note-item__date">Apr 07</span><div><a href="../notes/tiny-win-focus-visible/" class="note-item__link"><p class="note-item__body">Tiny win: we landed focus-visible across the product tonight. 214 components. One PR. Twelve months of groundwork.</p></a><div class="note-item__context">midnight</div></div></li><li class="note-item"><span class="note-item__date">Apr 02</span><div><a href="../notes/mentorship-conversation-with-j/" class="note-item__link"><p class="note-item__body">Mentorship conversation with J — she asked how to know when to stop investigating and start shipping. I said: when the next investigation would only rearrange the doubt, not reduce it.</p></a><div class="note-item__context">weekly 1:1</div></div></li></ul></section>
-<section class="notes-month"><h3 class="notes-month__label">March 2026</h3><ul class="note-list"><li class="note-item"><span class="note-item__date">Mar 28</span><div><a href="../notes/frictionless-in-the-brief/" class="note-item__link"><p class="note-item__body">A PM described our new flow as "frictionless" in the brief. I have started replacing the word with what it usually means: "we haven't timed it yet."</p></a><div class="note-item__context">draft feedback</div></div></li><li class="note-item"><span class="note-item__date">Mar 22</span><div><a href="../notes/annual-a11y-report/" class="note-item__link"><p class="note-item__body">Drafted the annual a11y report. 47 bugs closed, 11 new patterns, 2 partnerships. None of the numbers captures what I'm actually proud of, which is that four teams now ship with a screen reader open.</p></a><div class="note-item__context">sat morning</div></div></li><li class="note-item"><span class="note-item__date">Mar 15</span><div><a href="../notes/home-from-a-long-flight/" class="note-item__link"><p class="note-item__body">Home from a long flight. In-flight entertainment: remains the worst-designed software most people ever touch. I wrote three pages in the margin of a paperback about it.</p></a><div class="note-item__context">SFO to JFK</div></div></li><li class="note-item"><span class="note-item__date">Mar 09</span><div><a href="../notes/half-the-usefulness-of-a-design-system/" class="note-item__link"><p class="note-item__body">Half the usefulness of a design system is that it gives teams a <em>vocabulary</em>. The other half is that it takes design questions off the critical path.</p></a><div class="note-item__context">monday standup</div></div></li></ul></section>
+      <div class="filter-row" id="filters">
+        <div class="filter-bar" data-filter-bar="kind">
+          <button class="is-active" type="button" data-filter="all">All</button>
+          <button type="button" data-filter="Essay">Essays</button>
+          <button type="button" data-filter="Study">Studies</button>
+        </div>
+        <div class="filter-bar filter-bar--tags" data-filter-bar="tag">
+          <button class="is-active" type="button" data-tag="all">All</button>
+          
+          <button type="button" data-tag="A11y">A11y</button>
+          
+          <button type="button" data-tag="Craft">Craft</button>
+          
+          <button type="button" data-tag="Keyboard">Keyboard</button>
+          
+          <button type="button" data-tag="Management">Management</button>
+          
+          <button type="button" data-tag="Practice">Practice</button>
+          
+        </div>
+      </div>
 
-      <p class="t-small" style="color: var(--fg-subtle); text-align: center; margin-top: 40px;">
-        &#10086; older notes in <a href="#">the archive</a> &#10086;
-      </p>
+      <div class="essay-list">
+        
+        <a class="essay-card" href="../articles/focus-ring-contract/" data-essay data-kind="Essay" data-tags="A11y|Keyboard|Craft">
+          <div class="essay-card__meta">
+            <span class="kicker">&sect; Essay</span>
+            <span class="essay-card__date">12 April 2026 &middot; 9 min</span>
+          </div>
+          <h3 class="essay-card__title">The focus ring is a social contract</h3>
+          <p class="essay-card__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p>
+          <div class="essay-card__tags">
+            <span class="tag">A11y</span>
+            <span class="tag">Keyboard</span>
+            <span class="tag">Craft</span>
+          </div>
+        </a>
+        
+        <a class="essay-card" href="../articles/slow-accessibility/" data-essay data-kind="Essay" data-tags="A11y|Practice">
+          <div class="essay-card__meta">
+            <span class="kicker">&sect; Essay</span>
+            <span class="essay-card__date">28 March 2026 &middot; 12 min</span>
+          </div>
+          <h3 class="essay-card__title">Slow accessibility</h3>
+          <p class="essay-card__dek">Six years ago I was shipping a11y fixes in week-long sprints and calling it done. I was wrong. A note on working at the pace the work actually needs.</p>
+          <div class="essay-card__tags">
+            <span class="tag">A11y</span>
+            <span class="tag">Practice</span>
+            
+          </div>
+        </a>
+        
+        <a class="essay-card" href="../articles/managing-specialists/" data-essay data-kind="Essay" data-tags="Management|Craft">
+          <div class="essay-card__meta">
+            <span class="kicker">&sect; Essay</span>
+            <span class="essay-card__date">04 March 2026 &middot; 11 min</span>
+          </div>
+          <h3 class="essay-card__title">Managing specialists when you were one</h3>
+          <p class="essay-card__dek">The hardest part of moving from senior designer to manager of designers is that the skill that got you here will, gently, start to get in the way.</p>
+          <div class="essay-card__tags">
+            <span class="tag">Management</span>
+            <span class="tag">Craft</span>
+            
+          </div>
+        </a>
+        
+        <p class="empty-state" hidden data-empty-state>Nothing here yet. Try a different filter.</p>
+      </div>
     </div>
   </main>
 
