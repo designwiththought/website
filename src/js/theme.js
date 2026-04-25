@@ -11,17 +11,8 @@
     } else {
       root.removeAttribute('data-theme');
     }
-    var moon = document.querySelector('.theme-toggle__moon');
-    var sun = document.querySelector('.theme-toggle__sun');
-    if (moon && sun) {
-      if (theme === 'dark') {
-        moon.style.display = 'none';
-        sun.style.display = '';
-      } else {
-        moon.style.display = '';
-        sun.style.display = 'none';
-      }
-    }
+    // Sun/moon visibility is driven by CSS based on the data-theme attribute
+    // (.theme-toggle__sun / .theme-toggle__moon rules in site.css).
     try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
   }
 

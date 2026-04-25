@@ -8,37 +8,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap');
 
 :root {
-  /* ---------- Color: raw earth palette ---------- */
-  /* A warm beige page, deep cocoa ink, honey accent, warm near-black, terracotta. */
+  /* ---------- Color: raw earth palette (OKLCH) ---------- */
+  /* A warm beige page, deep cocoa ink, honey accent, warm near-black, terracotta.
+     Stored as OKLCH for perceptually-even ramps and clean color-mix() blends. */
 
-  --paper-50:  #FBF6EC;   /* lightest cream */
-  --paper-100: #F4ECDC;   /* default page */
-  --paper-200: #EADFC8;   /* raised surface */
-  --paper-300: #DDCEB0;   /* hairline / divider warm */
-  --paper-400: #C7B391;   /* muted sand */
+  --paper-50:  oklch(97.43% 0.0143 84.58);   /* lightest cream */
+  --paper-100: oklch(94.50% 0.0229 84.59);   /* default page */
+  --paper-200: oklch(90.63% 0.0329 85.48);   /* raised surface */
+  --paper-300: oklch(85.59% 0.0435 84.56);   /* hairline / divider warm */
+  --paper-400: oklch(77.51% 0.0516 80.89);   /* muted sand */
 
-  --ink-900:   #1E1913;   /* warm near-black, body text on paper */
-  --ink-800:   #2B2218;   /* heading */
-  --ink-700:   #3E3224;   /* deep cocoa */
-  --ink-600:   #5C4A34;   /* secondary text */
-  --ink-500:   #7A6748;   /* tertiary text */
-  --ink-400:   #9C8765;   /* placeholder */
+  --ink-900:   oklch(21.72% 0.0138 72.07);   /* warm near-black, body text on paper */
+  --ink-800:   oklch(25.92% 0.0224 69.54);   /* heading */
+  --ink-700:   oklch(32.61% 0.0290 70.84);   /* deep cocoa */
+  --ink-600:   oklch(42.18% 0.0418 71.90);   /* secondary text */
+  --ink-500:   oklch(52.41% 0.0512 79.48);   /* tertiary text */
+  --ink-400:   oklch(63.39% 0.0542 79.50);   /* placeholder */
 
-  --cocoa-700: #6B3F2A;   /* brand deep, for wordmark */
-  --cocoa-600: #8A4B2E;
+  --cocoa-700: oklch(41.55% 0.0699 45.80);   /* brand deep, for wordmark */
+  --cocoa-600: oklch(48.27% 0.0952 44.57);
 
-  --honey-600: #B08458;   /* accent: links on paper, subtle */
-  --honey-500: #C79868;
-  --honey-400: #D9B183;
+  --honey-600: oklch(64.61% 0.0806 65.58);   /* accent: links on paper, subtle */
+  --honey-500: oklch(71.31% 0.0852 66.34);
+  --honey-400: oklch(78.52% 0.0767 70.25);
 
-  --terra-700: #8A4B3A;   /* accent: project tags, hover */
-  --terra-600: #A55A44;
-  --terra-500: #C26B4E;
+  --terra-700: oklch(48.47% 0.0899 36.01);   /* accent: project tags, hover */
+  --terra-600: oklch(55.06% 0.1043 37.18);
+  --terra-500: oklch(62.05% 0.1188 39.09);
 
-  --moss-700:  #4F5A2E;   /* secondary accent (reading list, success) */
-  --moss-600:  #6A7A3F;
+  --moss-700:  oklch(44.67% 0.0669 120.69);  /* secondary accent (reading list, success) */
+  --moss-600:  oklch(55.21% 0.0853 121.70);
 
-  --rust-700:  #8E3A1D;   /* emphasis / marginalia arrow */
+  --rust-700:  oklch(45.87% 0.1217 38.78);   /* emphasis / marginalia arrow */
 
   /* ---------- Semantic: Light (paper) ---------- */
   --bg:          var(--paper-100);
@@ -54,21 +55,21 @@
 
   --border:      var(--paper-300);
   --border-strong: var(--paper-400);
-  --rule:        rgba(30, 25, 19, 0.12);
+  --rule:        oklch(21.72% 0.0138 72.07 / 0.12);  /* ink-900 @ 12% */
 
   --accent:       var(--cocoa-700);    /* links. 7.6:1 on paper-100. AAA */
   --accent-hover: var(--terra-700);
   --accent-soft:  var(--honey-400);
-  --highlight:    #F3D98E;             /* marker highlight */
+  --highlight:    oklch(89.03% 0.0983 91.06);        /* marker highlight */
 
   --marginalia:   var(--rust-700);     /* handwritten red */
   --marginalia-2: var(--moss-700);
 
   /* Semantic roles */
   --success:  var(--moss-700);
-  --warning:  #A86A1E;
+  --warning:  oklch(57.90% 0.1169 66.02);
   --danger:   var(--rust-700);
-  --info:     #3E5A6B;
+  --info:     oklch(45.24% 0.0435 235.67);
 
   /* ---------- Type scale (fluid) ---------- */
   --font-display: 'Young Serif', 'Roslindale Display', Georgia, 'Times New Roman', serif;
@@ -134,13 +135,15 @@
   --r-card: 6px;    /* default: a restrained, paper-like radius */
 
   /* ---------- Shadows (warm, low, paper-like) ---------- */
+  /* Tinted off ink-900 / paper-50 in OKLCH so the shadows pick up the
+     same warmth as the rest of the palette rather than going neutral grey. */
   --sh-0: none;
-  --sh-1: 0 1px 0 rgba(30,25,19,0.06), 0 1px 2px rgba(30,25,19,0.06);
-  --sh-2: 0 1px 0 rgba(30,25,19,0.05), 0 2px 6px rgba(30,25,19,0.08);
-  --sh-3: 0 2px 1px rgba(30,25,19,0.04), 0 6px 16px rgba(30,25,19,0.12);
-  --sh-4: 0 4px 2px rgba(30,25,19,0.04), 0 18px 40px rgba(30,25,19,0.18);
-  --sh-inset: inset 0 1px 0 rgba(251,246,236,0.5), inset 0 -1px 0 rgba(30,25,19,0.08);
-  --sh-press: inset 0 1px 2px rgba(30,25,19,0.18);
+  --sh-1: 0 1px 0 oklch(21.72% 0.0138 72.07 / 0.06), 0 1px 2px oklch(21.72% 0.0138 72.07 / 0.06);
+  --sh-2: 0 1px 0 oklch(21.72% 0.0138 72.07 / 0.05), 0 2px 6px oklch(21.72% 0.0138 72.07 / 0.08);
+  --sh-3: 0 2px 1px oklch(21.72% 0.0138 72.07 / 0.04), 0 6px 16px oklch(21.72% 0.0138 72.07 / 0.12);
+  --sh-4: 0 4px 2px oklch(21.72% 0.0138 72.07 / 0.04), 0 18px 40px oklch(21.72% 0.0138 72.07 / 0.18);
+  --sh-inset: inset 0 1px 0 oklch(97.43% 0.0143 84.58 / 0.5), inset 0 -1px 0 oklch(21.72% 0.0138 72.07 / 0.08);
+  --sh-press: inset 0 1px 2px oklch(21.72% 0.0138 72.07 / 0.18);
 
   /* ---------- Motion ---------- */
   --ease-out:   cubic-bezier(0.2, 0.7, 0.1, 1);
@@ -163,40 +166,40 @@
 
 /* ---------- Semantic: Dark (warm) ---------- */
 [data-theme="dark"], .theme-dark {
-  --bg:          #1C1712;        /* warm dark, not black */
-  --bg-raised:   #241D16;
-  --bg-sunken:   #14100C;
+  --bg:          oklch(20.88% 0.0125 67.05);   /* warm dark, not black */
+  --bg-raised:   oklch(23.66% 0.0169 66.86);
+  --bg-sunken:   oklch(17.65% 0.0104 67.07);
   --bg-inverse:  var(--paper-50);
 
-  --fg:          #EFE3CC;        /* cream. 13.0:1 on bg */
-  --fg-muted:    #C9B795;        /* 8.2:1 AA+ */
-  --fg-subtle:   #A18D6A;        /* 5.2:1 AA */
-  --fg-faint:    #7A6948;
+  --fg:          oklch(91.93% 0.0332 83.71);   /* cream. 13.0:1 on bg */
+  --fg-muted:    oklch(78.59% 0.0504 83.28);   /* 8.2:1 AA+ */
+  --fg-subtle:   oklch(65.25% 0.0545 81.38);   /* 5.2:1 AA */
+  --fg-faint:    oklch(52.85% 0.0524 83.52);
   --fg-inverse:  var(--ink-900);
 
-  --border:      #3A2F22;
-  --border-strong:#5A4A34;
-  --rule:        rgba(239,227,204,0.14);
+  --border:      oklch(31.34% 0.0271 71.25);
+  --border-strong: oklch(41.95% 0.0403 75.15);
+  --rule:        oklch(91.93% 0.0332 83.71 / 0.14);  /* fg @ 14% */
 
-  --accent:      #E8B984;        /* honey — 8.1:1 on dark bg AAA */
-  --accent-hover:#F2CFA3;
-  --accent-soft: #6B3F2A;
-  --highlight:   #8A6B2E;
+  --accent:      oklch(81.57% 0.0877 69.46);   /* honey — 8.1:1 on dark bg AAA */
+  --accent-hover: oklch(87.36% 0.0697 73.07);
+  --accent-soft: oklch(41.55% 0.0699 45.80);
+  --highlight:   oklch(54.62% 0.0878 81.91);
 
-  --marginalia:  #E68A6C;
-  --marginalia-2:#B5C07A;
+  --marginalia:  oklch(72.40% 0.1207 38.80);
+  --marginalia-2: oklch(78.27% 0.0931 115.88);
 
-  --success:#B5C07A;
-  --warning:#E8B984;
-  --danger: #E68A6C;
-  --info:   #8DAEC1;
+  --success: oklch(78.27% 0.0931 115.88);
+  --warning: oklch(81.57% 0.0877 69.46);
+  --danger:  oklch(72.40% 0.1207 38.80);
+  --info:    oklch(73.27% 0.0454 233.46);
 
   --paper-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0 0.65  0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/></svg>");
 
-  --sh-1: 0 1px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
-  --sh-2: 0 1px 0 rgba(0,0,0,0.4), 0 3px 8px rgba(0,0,0,0.55);
-  --sh-3: 0 2px 1px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.6);
-  --sh-4: 0 4px 2px rgba(0,0,0,0.4), 0 22px 48px rgba(0,0,0,0.7);
+  --sh-1: 0 1px 0 oklch(0% 0 0 / 0.4), 0 1px 2px oklch(0% 0 0 / 0.5);
+  --sh-2: 0 1px 0 oklch(0% 0 0 / 0.4), 0 3px 8px oklch(0% 0 0 / 0.55);
+  --sh-3: 0 2px 1px oklch(0% 0 0 / 0.4), 0 8px 20px oklch(0% 0 0 / 0.6);
+  --sh-4: 0 4px 2px oklch(0% 0 0 / 0.4), 0 22px 48px oklch(0% 0 0 / 0.7);
 }
 
 /* =========================================================================
@@ -328,7 +331,7 @@ a {
   text-decoration: none;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  text-decoration-color: color-mix(in oklch, var(--accent) 45%, transparent);
   transition: color var(--dur-fast) var(--ease-out),
               text-decoration-color var(--dur-fast) var(--ease-out);
 }

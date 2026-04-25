@@ -1,0 +1,22 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Learning</span>
+        <h1>What I&rsquo;m chasing.</h1>
+        <p class="lead">A standing log of what I am trying to get better at, why it feels worth the time, and the resources I keep returning to. Updated quarterly.</p>
+      </header>
+
+      {{#each topics}}
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">{{topic}}</h2>
+          <span class="learning-topic__stage">&middot; {{stage}}</span>
+        </div>
+        <p class="learning-topic__why">{{why}}</p>
+        <ul class="learning-resources">
+          {{resourcesHtml}}
+        </ul>
+      </section>
+      {{/each}}
+    </div>
+  </main>

@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "label": "§ Type",
+      "value": "Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia."
+    },
+    {
+      "label": "§ Palette",
+      "value": "A warm paper and cocoa system. Every surface pair tested to WCAG 2.2 AA."
+    },
+    {
+      "label": "§ Hand-built with",
+      "value": "HTML, CSS, and React — no framework, no CMS. Content lives in a single JS file I edit by hand."
+    },
+    {
+      "label": "§ Writing",
+      "value": "Drafted in iA Writer, cross-checked in VoiceOver and NVDA before publishing."
+    },
+    {
+      "label": "§ Hosted on",
+      "value": "A static host, behind Cloudflare. No trackers. No cookies beyond theme preference."
+    },
+    {
+      "label": "§ Source",
+      "value": "The site is open-source and in the slow-burn phase of life. PRs accepted with patience."
+    },
+    {
+      "label": "§ Built on",
+      "value": "Unceded Ohlone land, in Oakland, California. I try to acknowledge this on the pages that count."
+    }
+  ]
+}

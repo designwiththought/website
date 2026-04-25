@@ -1,0 +1,53 @@
+{
+  "topics": [
+    {
+      "topic": "Screen-reader voice design",
+      "stage": "Active",
+      "why": "I want our announcements to read like a tactful colleague, not a server log. That means understanding the grammar screen readers impose, and where we can gently disobey it.",
+      "resources": [
+        { "kind": "book", "label": "Accessibility for Everyone", "author": "Laura Kalbag" },
+        { "kind": "course", "label": "Deque University — Screen Readers", "author": "Deque" },
+        { "kind": "talk", "label": "What the heck is ARIA?", "author": "Eric Bailey" },
+        { "kind": "paper", "label": "Announcing Intent in Dynamic UIs", "author": "Internal WIP" }
+      ]
+    },
+    {
+      "topic": "Perceptual contrast (beyond WCAG)",
+      "stage": "Active",
+      "why": "WCAG 2.x contrast ratios predate most of the design we now ship. APCA and the work around it is finally giving us a better measuring stick. I want to know where it still falls short.",
+      "resources": [
+        { "kind": "reading", "label": "APCA working draft", "author": "Andrew Somers" },
+        { "kind": "reading", "label": "Readability Algorithms Compared", "author": "Stripe Engineering" },
+        { "kind": "tool", "label": "Sim Daltonism", "author": "Michel Fortin" }
+      ]
+    },
+    {
+      "topic": "Management as craft",
+      "stage": "Ongoing",
+      "why": "The longer I manage, the more I think it is a distinct craft rather than a promotion from design. Trying to read and practice accordingly.",
+      "resources": [
+        { "kind": "book", "label": "Resilient Management", "author": "Lara Hogan" },
+        { "kind": "book", "label": "An Elegant Puzzle", "author": "Will Larson" },
+        { "kind": "newsletter", "label": "LeadDev", "author": "Various" }
+      ]
+    },
+    {
+      "topic": "Static type systems for UI",
+      "stage": "Dabbling",
+      "why": "I have been writing more TypeScript again this year. I want to stop defaulting to \"any\" when I reach the edges of my understanding.",
+      "resources": [
+        { "kind": "book", "label": "Effective TypeScript", "author": "Dan Vanderkam" },
+        { "kind": "course", "label": "Total TypeScript — Beginner", "author": "Matt Pocock" }
+      ]
+    },
+    {
+      "topic": "Low-vision empathy (not simulation)",
+      "stage": "Backburner",
+      "why": "Simulators lie. I want to spend more time with low-vision users directly, and less time squinting through a filter and pretending I understand.",
+      "resources": [
+        { "kind": "community", "label": "Fable Tech Labs", "author": "Fable" },
+        { "kind": "event", "label": "CSUN assistive tech conference", "author": "CSUN" }
+      ]
+    }
+  ]
+}

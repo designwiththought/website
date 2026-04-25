@@ -43,7 +43,7 @@
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  text-decoration-color: color-mix(in oklch, var(--accent) 45%, transparent);
   font-weight: 500;
 }
 .btn--link:hover { color: var(--accent-hover); text-decoration-color: currentColor; background: none; }
@@ -62,8 +62,8 @@
   letter-spacing: 0.02em;
   border: 1px solid var(--rule);
 }
-.tag--moss { background: color-mix(in oklab, var(--moss-600) 18%, var(--bg)); color: var(--moss-700); }
-.tag--terra { background: color-mix(in oklab, var(--terra-600) 14%, var(--bg)); color: var(--terra-700); }
+.tag--moss { background: color-mix(in oklch, var(--moss-600) 18%, var(--bg)); color: var(--moss-700); }
+.tag--terra { background: color-mix(in oklch, var(--terra-600) 14%, var(--bg)); color: var(--terra-700); }
 
 .kicker {
   font-family: var(--font-mono);
@@ -95,7 +95,7 @@
 }
 .input:focus, .input.is-focus {
   border-color: var(--ink-700);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 22%, transparent);
 }
 textarea.input { font-family: var(--font-body); line-height: 1.5; resize: vertical; }
 select.input { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--fg-muted) 50%),
@@ -191,10 +191,10 @@ mark { background: var(--highlight); color: inherit; padding: 0.05em 0.2em; bord
   position: relative;
   overflow: hidden;
 }
-.project-tile__plate--cocoa { background: linear-gradient(135deg, #8A4B2E, #6B3F2A); color: var(--paper-50); }
-.project-tile__plate--terra { background: linear-gradient(135deg, #C26B4E, #8A4B3A); color: var(--paper-50); }
-.project-tile__plate--moss { background: linear-gradient(135deg, #6A7A3F, #4F5A2E); color: var(--paper-50); }
-.project-tile__plate--honey { background: linear-gradient(135deg, #D9B183, #B08458); color: var(--ink-800); }
+.project-tile__plate--cocoa { background: linear-gradient(135deg, var(--cocoa-600), var(--cocoa-700)); color: var(--paper-50); }
+.project-tile__plate--terra { background: linear-gradient(135deg, var(--terra-500), var(--terra-700)); color: var(--paper-50); }
+.project-tile__plate--moss  { background: linear-gradient(135deg, var(--moss-600), var(--moss-700)); color: var(--paper-50); }
+.project-tile__plate--honey { background: linear-gradient(135deg, var(--honey-400), var(--honey-600)); color: var(--ink-800); }
 .project-tile__body { padding: 14px 16px 18px; }
 .project-tile__title { font-family: var(--font-display); font-size: 19px; margin: 4px 0 4px; color: var(--ink-800); line-height: 1.2; }
 [data-theme="dark"] .project-tile__title { color: var(--fg); }
@@ -205,7 +205,7 @@ mark { background: var(--highlight); color: inherit; padding: 0.05em 0.2em; bord
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 28px;
   border-bottom: 1px solid var(--rule);
-  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  background: color-mix(in oklch, var(--bg) 92%, transparent);
   backdrop-filter: blur(8px);
   position: sticky; top: 0; z-index: 10;
 }

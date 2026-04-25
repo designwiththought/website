@@ -1,0 +1,51 @@
+  <main id="main">
+    <article class="container--narrow section reader reader--wide podcast-reader">
+      <a class="btn btn--link reader__back" href="{{basePath}}enjoying/">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+        <span class="reader__back-label">All enjoying</span>
+      </a>
+
+      <header class="reader__head">
+        <div class="reader__kicker">
+          <span class="kicker">&sect; Podcast</span>
+          {{#if status}}<span class="kicker">&middot; {{status}}</span>{{/if}}
+        </div>
+        <h1>{{title}}</h1>
+        <div class="reader__meta">
+          <span class="kicker">Host: {{host}}</span>
+        </div>
+      </header>
+
+      <div class="podcast-card podcast-card--single cover-frame cover-frame--podcast">
+        <div class="podcast-card__cover">
+          <div class="cover-placeholder cover-placeholder--paper cover-placeholder--square">
+            {{title}}
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p class="lead">{{note}}</p>
+        {{afterthoughtHtml}}
+      </div>
+
+      <nav class="note-reader__nav" aria-label="Between entries">
+        <div>
+          {{#if prev}}
+          <a href="{{basePath}}podcasts/{{prev.slug}}/" class="note-reader__nav-link">
+            <span class="kicker">&larr; Earlier</span>
+            <span>{{prev.title}}</span>
+          </a>
+          {{/if}}
+        </div>
+        <div class="note-reader__nav-right">
+          {{#if next}}
+          <a href="{{basePath}}podcasts/{{next.slug}}/" class="note-reader__nav-link note-reader__nav-link--right">
+            <span class="kicker">Later &rarr;</span>
+            <span>{{next.title}}</span>
+          </a>
+          {{/if}}
+        </div>
+      </nav>
+    </article>
+  </main>

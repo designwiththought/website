@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A static site that builds on a phone — Design with Thought</title>
+  <meta name="description" content="How this site is put together — a short walk through a zero-dependency Node build, three CSS files, and a hundred lines of JavaScript. Nothing that needs npm install, nothing that needs a fan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
+    <a class="site-nav__brand" href="../../" aria-label="Home">
+      <span class="brand-name">Home</span>
+    </a>
+    <div class="site-nav__links">
+      <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button
+        id="menu-open"
+        class="site-nav__menu-btn"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="site-menu-dialog"
+      >
+        <span>Menu</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="site-menu-dialog"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-menu-dialog-heading"
+    hidden
+  >
+    <div class="drawer__head container">
+      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse the site</h2>
+      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body container">
+      <section aria-labelledby="drawer-grp-writing">
+        <h3 id="drawer-grp-writing" class="drawer__group-title">&sect; Writing</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../../essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
+          <li><a class="drawer__item" href="../../studies/"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
+          <li><a class="drawer__item" href="../../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-making">
+        <h3 id="drawer-grp-making" class="drawer__group-title">&sect; Making</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../../projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-enjoying">
+        <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
+          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
+          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
+          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
+          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-learning">
+        <h3 id="drawer-grp-learning" class="drawer__group-title">&sect; Learning</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../../learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
+          <li><a class="drawer__item" href="../../gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-about">
+        <h3 id="drawer-grp-about" class="drawer__group-title">&sect; About</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
+          <li><a class="drawer__item" href="../../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
+          <li><a class="drawer__item" href="../../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+    <main id="main">
+    <div class="reader-with-toc">
+      <article class="reader">
+        <a class="btn btn--link reader__back" href="../../essays/">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+          <span class="reader__back-label">All essays</span>
+        </a>
+        <div class="reader__kicker"><span class="kicker">&sect; Essay</span></div>
+        <h1>A static site that builds on a phone</h1>
+        <p class="reader__dek">How this site is put together — a short walk through a zero-dependency Node build, three CSS files, and a hundred lines of JavaScript. Nothing that needs npm install, nothing that needs a fan.</p>
+        <div class="reader__meta">
+          <span class="kicker">25 April 2026</span>
+          <span class="kicker">&middot; 8 min</span>
+          <span class="kicker">&middot; Craft</span>
+          <span class="kicker">&middot; Build</span>
+          <span class="kicker">&middot; Static</span>
+        </div>
+        <div class="reader__body prose">
+          <p class="dropcap">The repo for this site contains no package.json. No node_modules. No webpack, esbuild, vite, parcel, rollup, gulp, grunt, or fabric of any other generation. There is one build script. It is six hundred lines of Node, in a single file, and it uses two modules: <code>fs</code> and <code>path</code>.</p>
+<p>The first time I built it, I built it on a train, on an iPad, in a single-file editor with <code>node build.js</code> typed at a shell prompt. The second time, I built it on my phone — iSH, an emulator that runs Alpine Linux in a tab. It took 90 milliseconds. Both builds produced bytewise-identical output to the build that runs on GitHub Pages.</p>
+<p>I want to talk about how that's possible, because I think the answer is interesting in a small way. Most of the writing in our industry assumes a tooling pyramid. You install a framework; the framework needs a bundler; the bundler needs a transformer; the transformer needs a compiler. By the time you ship a paragraph of writing, you have a quarter-gigabyte of dependencies and a six-line GitHub Actions file that knows how to bring them down before it can bring them up.</p>
+<p>I do not, in general, mind that. There are jobs the pyramid is good at. But for a personal site — for somewhere I wanted to put essays, notes, projects, and the occasional album — it felt like a shape that didn't fit. So I tried the smallest version I could think of, and the smallest version turned out to be enough.</p>
+<h2 id="the-shape-of-it">The shape of it</h2>
+<p>Three directories matter. <code>src/</code> is where the source lives. <code>dist/</code> is where the build output goes. <code>.github/workflows/pages.yml</code> runs <code>node build.js</code> on every push to <code>main</code> and uploads <code>./dist</code> to GitHub Pages.</p>
+<p>Inside <code>src/</code> there are five subdirectories you'll keep coming back to.</p>
+<ul>
+<li><strong><code>src/content/</code></strong> holds the writing. It's mostly MDX (markdown with custom components in JSX-like syntax) plus three JSON files (<code>site.json</code>, <code>now.json</code>, <code>about.json</code>) for content that's structured rather than narrative. Each piece of writing — essay, study, project case, note, book, album, movie, podcast — is one MDX file with YAML frontmatter and a body.</li>
+<li><strong><code>src/layouts/</code></strong> holds the HTML templates. There's one per page type: home, writing-index (essays + studies share it), article reader, project index + reader, notes index + reader, the per-kind cultural readers (reading, music, movies, podcasts, bookshelf), the unified <code>enjoying</code> paginated index, plus <code>now</code>, <code>about</code>, <code>learning</code>, <code>gear</code>, <code>colophon</code>. Each template uses <code>{{var}}</code>, <code>{{#each}}…{{/each}}</code>, and <code>{{#if}}…{{/if}}</code> — three forms, no nesting.</li>
+<li><strong><code>src/components/</code></strong> holds the MDX component templates: <code>Dropcap.html</code>, <code>Pullquote.html</code>, <code>PullquoteNoCite.html</code>, <code>MarginaliaPin.html</code>, <code>Footnote.html</code>. Each is a tiny HTML fragment with <code>{{prop}}</code> substitutions, resolved when an MDX file references the component.</li>
+<li><strong><code>src/css/</code></strong> is three files: <code>tokens.css</code> (the design system — palette, type, spacing, motion), <code>kit.css</code> (reusable UI components — buttons, cards, nav, footer, hero, reader shell), and <code>site.css</code> (everything else — page-specific blocks, marginalia, drawer, the dark-mode quirks).</li>
+<li><strong><code>src/js/</code></strong> is the runtime — five tiny scripts that I'll describe in a minute.</li>
+</ul>
+<p>The build is the act of folding <code>src/</code> into <code>dist/</code>.</p>
+<h2 id="the-build">The build</h2>
+<p><code>build.js</code> does, roughly, this, in order.</p>
+<p>It reads <code>site.json</code>, <code>now.json</code>, <code>about.json</code> — the structured content. It reads every MDX file under <code>src/content/</code> into memory. For each MDX file it splits frontmatter from body, parses the frontmatter (a YAML-lite parser that handles strings and arrays-of-objects, which is all the frontmatter ever needs to be), and runs <code>resolveComponents</code> on the body. That step substitutes <code><p class="dropcap">…</p></code> and friends for their HTML templates from <code>src/components/</code>, before the markdown parser runs, so the parser sees real HTML and leaves it alone.</p>
+<blockquote class="pullquote">The markdown parser is forty lines. It handles paragraphs, headings, lists, blockquotes, horizontal rules, links, bold, italic, and inline code. That is the only markdown this site needs.<span class="pullquote__cite">— from the source, lines 124–193 of build.js</span></blockquote>
+<p>It auto-slugs every <code>##</code> heading into an <code>id</code> so the table-of-contents anchors resolve. It then renders the layout for each page through a tiny template engine that walks the templates and replaces <code>{{var}}</code> with values from the data, runs <code>{{#each items}}…{{/each}}</code> blocks against arrays, and gates <code>{{#if name}}…{{/if}}</code> blocks on truthiness. The engine doesn't support nested loops; when a page needs them, the outer loop is pre-rendered to HTML in <code>build.js</code> and passed in as a single variable. This is a shape limitation that turns out to keep the templates honest — when a layout starts wanting nested loops, the right answer is usually a smaller component, not a smarter template.</p>
+<p>It concatenates the three CSS files in order — <code>tokens.css</code> then <code>kit.css</code> then <code>site.css</code> — into a single <code>dist/css/style.css</code>. It concatenates the five JS files in order into <code>dist/js/main.js</code>. It writes one <code>index.html</code> per page into the right directory under <code>dist/</code>.</p>
+<p>That's the build. On my laptop it runs in about 50 milliseconds for 80 pages. On the iPhone — iSH, no JIT — it's 200 milliseconds. Either way, by the time you've moved your hand, the site has rebuilt.</p>
+<h2 id="the-javascript">The JavaScript</h2>
+<p>There's a runtime, but it does almost nothing. Five files, ~150 lines together.</p>
+<ul>
+<li><strong><code>theme.js</code></strong> — flips a <code>data-theme="dark"</code> attribute on <code><html></code> based on the user's last choice in <code>localStorage</code>. The visual swap (sun icon vs. moon, palette inversion) is all in CSS, keyed off that attribute. It runs synchronously before paint to avoid the dark-mode flash, and the click handler is six lines long.</li>
+<li><strong><code>nav.js</code></strong> — opens and closes the menu drawer. It's the longest of the five files at ~80 lines, and the length is mostly accessibility plumbing: it traps focus inside the dialog while it's open, marks the rest of the page <code>inert</code> and <code>aria-hidden</code> so screen readers don't wander into the background, returns focus to the trigger on close, and listens for <code>Escape</code>. None of that is interesting individually; together it's the minimum a modal dialog has to do to be honest.</li>
+<li><strong><code>accessibility.js</code></strong> — three lines. It listens for the first <code>Tab</code> keypress and adds a <code>using-keyboard</code> class to the body. The CSS uses that to refine focus rings. After the first mouse click it removes the class.</li>
+<li><strong><code>texture.js</code></strong> — two lines. It applies the warm paper noise texture to the body once on load. Could be CSS-only; lives in JS so the noise can be turned off for users who prefer reduced motion (it isn't yet, but the hook is there).</li>
+<li><strong><code>floorboards.js</code></strong> — two lines. It exists because the site's tagline calls the JavaScript "creaky floorboards I coded" and I wanted at least one creaky floorboard. It logs a single line to the console.</li>
+</ul>
+<p>Concatenated, the runtime is ~3 kilobytes. There is no framework. There is no router — every page is a real HTML file at a real URL. There is no hydration step. There is no client-side rendering.</p>
+<p>When you click a link, the browser fetches the next HTML file. When you reload, you get the same HTML the build wrote. When you view source, you see the entire page. When you hit Pages on a Sunday morning and the server is slow, the browser shows you the cached HTML it already has, because there is nothing else for it to wait for.</p>
+<h2 id="the-payoff">The payoff</h2>
+<p>The payoff is that the site builds anywhere Node runs. It builds on a desktop. It builds on a laptop. It builds on a phone, in a Linux emulator, on the train. It builds on GitHub Actions in 4 seconds, because the slowest part is <code>actions/checkout</code>. It builds when the wifi is bad, because there's nothing to download. It builds in 2030, because <code>fs</code>, <code>path</code>, and standards-track CSS will still be there.</p>
+<p>There are real costs. I do not get hot module reload, fancy syntax highlighting, image optimization, or RSS without writing it myself. I do not get type checking on the templates, so a typo in <code>{{ownerName}}</code> becomes an empty string in the rendered HTML. I do not get any of the things a modern toolchain gives you, because I am not running a modern toolchain.</p>
+<p>For a personal site, those trades have all gone the way I wanted. The thing I most enjoy about working on this codebase is that I never have to think about the build. There is nothing between me and the writing, and on the days when the writing is the hard part — which is most days — that turns out to matter.</p>
+<p>If you have been meaning to start a personal site and you have been put off by the toolchain, consider this a small note in the margin: you can make one with <code>fs</code>, <code>path</code>, three CSS files, and the patience to write a forty-line markdown parser. It even builds on your phone.</p>
+        </div>
+        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../essays/focus-ring-contract/"><div class="essay-card__meta"><span class="kicker">&sect; Essay</span><span class="essay-card__date">12 April 2026 &middot; 9 min</span></div><h3 class="essay-card__title">The focus ring is a social contract</h3><p class="essay-card__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience. Here is how I stopped apologising for them.</p><div class="essay-card__tags"><span class="tag">A11y</span><span class="tag">Keyboard</span><span class="tag">Craft</span></div></a><a class="essay-card essay-card--compact" href="../../essays/slow-accessibility/"><div class="essay-card__meta"><span class="kicker">&sect; Essay</span><span class="essay-card__date">28 March 2026 &middot; 12 min</span></div><h3 class="essay-card__title">Slow accessibility</h3><p class="essay-card__dek">Six years ago I was shipping a11y fixes in week-long sprints and calling it done. I was wrong. A note on working at the pace the work actually needs.</p><div class="essay-card__tags"><span class="tag">A11y</span><span class="tag">Practice</span></div></a></div></div>
+      </article>
+
+      
+      <aside class="toc" aria-label="Table of contents">
+        <div class="toc__title">In this essay</div>
+        <ol>
+          
+          <li><a href="#the-shape-of-it">The shape of it</a></li>
+          
+          <li><a href="#the-build">The build</a></li>
+          
+          <li><a href="#the-javascript">The JavaScript</a></li>
+          
+          <li><a href="#the-payoff">The payoff</a></li>
+          
+        </ol>
+        <div class="toc__aside"><span class="kicker">&para; Read next</span><ul class="toc__next"><li><a href="../../essays/focus-ring-contract/">The focus ring is a social contract</a></li><li><a href="../../essays/slow-accessibility/">Slow accessibility</a></li></ul></div>
+      </aside>
+      
+    </div>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="site-footer__inner container">
+      <div class="site-footer__col site-footer__col--wide">
+        <div class="site-footer__wordmark">Design with Thought</div>
+        <p class="t-small site-footer__tagline">
+          A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.
+        </p>
+        <ul class="site-footer__social">
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
+          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
+          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>&sect; Writing</h5>
+        <ul>
+          <li><a href="../../essays/">Essays</a></li>
+          <li><a href="../../studies/">Studies</a></li>
+          <li><a href="../../notes/">Notes</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>&sect; Making &amp; enjoying</h5>
+        <ul>
+          <li><a href="../../projects/">Projects</a></li>
+          <li><a href="../../enjoying/">Reading</a></li>
+          <li><a href="../../enjoying/">Music</a></li>
+          <li><a href="../../enjoying/">Movies</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>&sect; About</h5>
+        <ul>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../now/">Now</a></li>
+          <li><a href="mailto:hello@brian.is">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__rule container">
+      <span>&copy; 2021&ndash;2026 Brian Hinton</span>
+      <span class="site-footer__rule-sep">&middot;</span>
+      <span>Set in Young Serif &amp; Commissioner</span>
+      <span class="site-footer__rule-sep">&middot;</span>
+      <span>Hand-built, maintained slowly</span>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>
