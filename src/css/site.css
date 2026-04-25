@@ -1615,3 +1615,125 @@ h6, .h6 {
   .podcast-card { grid-template-columns: 110px 1fr; gap: 14px; }
   .podcast-card__cover svg { width: 110px; height: 110px; }
 }
+
+
+/* =========================================================================
+   Refactored from inline styles — BEM utilities + page-specific blocks
+   ========================================================================= */
+
+/* Reader column: wider variant used by per-kind cultural readers + /projects/<slug>/ */
+.reader--wide { max-width: 760px; margin: 0 auto; }
+
+/* Inline-icon spacing inside link/button text */
+.reader__back svg,
+.btn--link svg { margin-right: 4px; }
+.icon--leading { margin-right: 4px; }
+.icon--trailing { margin-left: 4px; }
+
+/* Cover placeholder (per-kind reader covers, until covers.jsx is ported).
+   Base sets layout only — paint comes from --paper or from a sibling
+   class like .reading-card__spine--cocoa. */
+.cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  text-align: center;
+}
+.cover-placeholder--paper {
+  background: var(--paper-200);
+  font-family: var(--font-display);
+  color: var(--ink-800);
+}
+.cover-placeholder--book   { aspect-ratio: 2 / 3; }
+.cover-placeholder--poster { aspect-ratio: 2 / 3; }
+.cover-placeholder--square { aspect-ratio: 1 / 1; }
+
+/* Single-cover frames inside readers — sets margin + width per medium */
+.cover-frame { margin: 28px 0 36px; }
+.cover-frame--book    { max-width: 320px; }
+.cover-frame--album   { max-width: 320px; }
+.cover-frame--poster  { max-width: 240px; }
+.cover-frame--podcast { max-width: 220px; }
+
+/* t-small variants */
+.t-small--muted  { color: var(--fg-muted); }
+.t-small--subtle { color: var(--fg-subtle); }
+.t-small--centered { text-align: center; }
+
+/* Site footer tagline (was inline) */
+.site-footer__tagline {
+  color: var(--fg-muted);
+  max-width: 36ch;
+  margin-top: 10px;
+}
+
+/* Hero aside marginalia variant */
+.marginalia--block { display: block; margin-bottom: 10px; }
+.marginalia--tilt-3-neg { transform: rotate(-3deg); }
+
+/* MarginaliaPin rotation: confine the data-driven inline footprint to a
+   single CSS custom property; the actual transform lives here. */
+.marginalia--rotated { transform: rotate(var(--marginalia-rotate, -2deg)); }
+
+/* Notes index "older notes in the archive" closing line */
+.notes-archive-line {
+  color: var(--fg-subtle);
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Note reader related list date prefix */
+.note-reader__related-date {
+  color: var(--fg-subtle);
+  margin-right: 10px;
+}
+
+/* About page closing source-note */
+.about__source-note {
+  color: var(--fg-muted);
+  margin-top: 48px;
+}
+
+/* Colophon sign-off ornament */
+.colophon__signoff {
+  color: var(--fg-subtle);
+  margin-top: 56px;
+  font-style: italic;
+}
+
+/* Movie reader title-year parenthetical */
+.movie-reader__year {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--fg-muted);
+  font-size: 0.7em;
+}
+
+/* Home: All projects link below the project stack */
+.btn--link-block {
+  margin-top: 12px;
+  display: inline-block;
+}
+
+/* Enjoying paginated index footer nav */
+.enjoying-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 760px;
+  margin: 32px auto 0;
+}
+.enjoying-pagination__status {
+  color: var(--fg-subtle);
+}
+
+/* Theme toggle: replace inline display:none with class-based hide/show.
+   theme.js still flips data-theme="dark" on the documentElement. */
+.theme-toggle__sun  { display: none; }
+[data-theme="dark"] .theme-toggle__moon { display: none; }
+[data-theme="dark"] .theme-toggle__sun  { display: inline-block; }
+
+/* Dropcap p — already gets max-width:none from .reader p, but
+   guarantee it for any prose context that uses .dropcap directly. */
+.dropcap { max-width: none; }
