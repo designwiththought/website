@@ -353,10 +353,10 @@ h6, .h6 {
   letter-spacing: 0.1em; text-transform: uppercase;
   margin-top: 8px; opacity: 0.7;
 }
-.project-tile__plate--cocoa { background: linear-gradient(135deg, #8A4B2E, #6B3F2A); color: var(--paper-50); }
-.project-tile__plate--terra { background: linear-gradient(135deg, #C26B4E, #8A4B3A); color: var(--paper-50); }
-.project-tile__plate--moss  { background: linear-gradient(135deg, #6A7A3F, #4F5A2E); color: var(--paper-50); }
-.project-tile__plate--honey { background: linear-gradient(135deg, #D9B183, #B08458); color: var(--ink-800); }
+.project-tile__plate--cocoa { background: linear-gradient(135deg, var(--cocoa-600), var(--cocoa-700)); color: var(--paper-50); }
+.project-tile__plate--terra { background: linear-gradient(135deg, var(--terra-500), var(--terra-700)); color: var(--paper-50); }
+.project-tile__plate--moss  { background: linear-gradient(135deg, var(--moss-600), var(--moss-700)); color: var(--paper-50); }
+.project-tile__plate--honey { background: linear-gradient(135deg, var(--honey-400), var(--honey-600)); color: var(--ink-800); }
 
 .project-tile__body { padding: 16px 18px 20px; }
 .project-tile__meta {
@@ -443,10 +443,10 @@ h6, .h6 {
   letter-spacing: 0.14em; text-transform: uppercase;
   margin-top: 12px; color: var(--paper-50); opacity: 0.8;
 }
-.project-plate--cocoa { background: linear-gradient(135deg, #8A4B2E, #6B3F2A); }
-.project-plate--terra { background: linear-gradient(135deg, #C26B4E, #8A4B3A); }
-.project-plate--moss  { background: linear-gradient(135deg, #6A7A3F, #4F5A2E); }
-.project-plate--honey { background: linear-gradient(135deg, #D9B183, #B08458); }
+.project-plate--cocoa { background: linear-gradient(135deg, var(--cocoa-600), var(--cocoa-700)); }
+.project-plate--terra { background: linear-gradient(135deg, var(--terra-500), var(--terra-700)); }
+.project-plate--moss  { background: linear-gradient(135deg, var(--moss-600), var(--moss-700)); }
+.project-plate--honey { background: linear-gradient(135deg, var(--honey-400), var(--honey-600)); }
 .project-plate--honey .project-plate__glyph,
 .project-plate--honey .project-plate__label { color: var(--ink-800); }
 
@@ -483,10 +483,10 @@ h6, .h6 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.reading-card__spine--cocoa { background: #6B3F2A; }
-.reading-card__spine--terra { background: #8A4B3A; }
-.reading-card__spine--moss  { background: #4F5A2E; }
-.reading-card__spine--honey { background: #B08458; }
+.reading-card__spine--cocoa { background: var(--cocoa-700); }
+.reading-card__spine--terra { background: var(--terra-700); }
+.reading-card__spine--moss  { background: var(--moss-700); }
+.reading-card__spine--honey { background: var(--honey-600); }
 .reading-card__body { padding: 14px 16px 14px 0; }
 .reading-card__body h4 { font-family: var(--font-display); font-size: 17px; margin: 0 0 2px; color: var(--ink-800); line-height: 1.2; }
 [data-theme="dark"] .reading-card__body h4 { color: var(--fg); }
@@ -687,7 +687,7 @@ h6, .h6 {
   margin-top: 80px;
   padding: 56px 0 32px;
   border-top: 1px solid var(--rule);
-  background: color-mix(in oklab, var(--bg-sunken) 40%, transparent);
+  background: color-mix(in oklch, var(--bg-sunken) 40%, transparent);
   display: block;
 }
 .site-footer__inner {
@@ -1274,7 +1274,7 @@ h6, .h6 {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 22%, transparent);
   transition: none;
 }
 /* Fallback for browsers without :focus-visible */
@@ -1284,7 +1284,7 @@ h6, .h6 {
 /* Dark mode — same token, already high contrast */
 [data-theme="dark"] :where(a, button, input, select, textarea, summary, [tabindex], [role="button"]):focus-visible {
   outline-color: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 30%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 30%, transparent);
 }
 
 /* Links in prose and navigation always show an underline on hover/focus
@@ -1362,7 +1362,7 @@ h6, .h6 {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  text-decoration-color: color-mix(in oklch, var(--accent) 50%, transparent);
 }
 .prose a:hover,
 .prose a:focus-visible,
@@ -1404,8 +1404,8 @@ h6, .h6 {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
   box-shadow:
-    0 0 0 5px color-mix(in oklab, var(--accent) 35%, transparent),
-    var(--sh-2, 0 4px 12px rgba(0,0,0,0.18));
+    0 0 0 5px color-mix(in oklch, var(--accent) 35%, transparent),
+    var(--sh-2, 0 4px 12px oklch(0% 0 0 / 0.18));
 }
 
 /* Respect Windows high-contrast / forced-colors mode */
@@ -1522,7 +1522,7 @@ h6, .h6 {
    § Cover-art layouts — albums, movies, podcasts, books
    ================================================================ */
 
-.cover { display: block; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 20px -8px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.15); }
+.cover { display: block; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 20px -8px oklch(0% 0 0 / 0.45), 0 1px 2px oklch(0% 0 0 / 0.15); }
 .cover--album { border-radius: 3px; }
 .cover--poster { border-radius: 2px; }
 .cover--podcast { border-radius: 8px; }
