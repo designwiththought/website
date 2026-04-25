@@ -943,7 +943,8 @@ h6, .h6 {
   text-decoration: none;
 }
 .essay-card:hover, .essay-card:focus-visible { text-decoration: none; }
-.grid .essay-card { max-width: none; width: 100%; box-sizing: border-box; }
+.grid .essay-card,
+.essay-list .essay-card { max-width: none; width: 100%; box-sizing: border-box; }
 .grid { grid-auto-rows: 1fr; align-items: stretch; }
 .essay-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .essay-card__tags {
@@ -955,6 +956,7 @@ h6, .h6 {
 .essay-list {
   display: flex; flex-direction: column; gap: 20px;
   max-width: 760px; margin: 0 auto;
+  list-style: none; padding: 0;
 }
 
 /* ============ PAGE HEADERS ============ */
