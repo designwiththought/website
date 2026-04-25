@@ -69,11 +69,12 @@
       <section aria-labelledby="drawer-grp-enjoying">
         <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
+          <li><a class="drawer__item" href="../bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
+          <li><a class="drawer__item" href="../music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
+          <li><a class="drawer__item" href="../movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
+          <li><a class="drawer__item" href="../podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All five, mixed</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-learning">
@@ -102,11 +103,11 @@
         <p class="lead">Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.</p>
       </header>
 
-      <div class="filter-row"><div class="filter-bar"><button type="button">All</button><button type="button">Essays</button><button type="button" class="is-active">Studies</button></div><div class="filter-bar filter-bar--tags"><button type="button" class="is-active">All</button><button type="button">A11y</button><button type="button">Keyboard</button><button type="button">Craft</button><button type="button">Practice</button><button type="button">Management</button><button type="button">Copy</button><button type="button">Study</button><button type="button">Build</button><button type="button">Static</button></div></div>
+      <div class="filter-row" data-tag-filter><span id="tag-filter-label-studies" class="filter-row__label">Filter studies by tag</span><div class="filter-bar filter-bar--tags" role="group" aria-labelledby="tag-filter-label-studies"><a class="filter-bar__btn is-active" href="" data-tag="all" aria-pressed="true" aria-current="page">All</a><a class="filter-bar__btn" href="tag/a11y/" data-tag="A11y" aria-pressed="false">A11y</a><a class="filter-bar__btn" href="tag/copy/" data-tag="Copy" aria-pressed="false">Copy</a><a class="filter-bar__btn" href="tag/study/" data-tag="Study" aria-pressed="false">Study</a></div><p id="tag-filter-live-studies" class="visually-hidden" aria-live="polite" aria-atomic="true"></p></div>
 
-      <div class="essay-list">
+      <div class="essay-list" data-tag-target>
         
-        <a class="essay-card" href="../studies/announcements-are-copy/">
+        <a class="essay-card" href="../studies/announcements-are-copy/" data-tags="A11y|Copy|Study" >
           <div class="essay-card__meta">
             <span class="kicker">&sect; Study</span>
             <span class="essay-card__date">22 February 2026 &middot; 14 min</span>
@@ -121,6 +122,7 @@
         </a>
         
         
+        <p class="empty-state" data-tag-empty hidden>No items match that tag. <a class="btn btn--link" data-tag-reset href="">Show all</a></p>
       </div>
     </div>
   </main>
@@ -152,9 +154,9 @@
         <h5>&sect; Making &amp; enjoying</h5>
         <ul>
           <li><a href="../projects/">Projects</a></li>
-          <li><a href="../enjoying/">Reading</a></li>
-          <li><a href="../enjoying/">Music</a></li>
-          <li><a href="../enjoying/">Movies</a></li>
+          <li><a href="../reading/">Reading</a></li>
+          <li><a href="../music/">Music</a></li>
+          <li><a href="../movies/">Movies</a></li>
         </ul>
       </div>
       <div class="site-footer__col">

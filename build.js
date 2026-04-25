@@ -368,6 +368,7 @@ function build() {
   var podcastsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'podcasts.html'), 'utf8');
   var bookshelfLayout = fs.readFileSync(path.join(SRC, 'layouts', 'bookshelf.html'), 'utf8');
   var enjoyingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'enjoying.html'), 'utf8');
+  var kindIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'kind-index.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -513,7 +514,7 @@ function build() {
 
   // 6. Concatenate JS
   mkdirp(path.join(DIST, 'js'));
-  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js'];
+  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js', 'tag-filter.js'];
   var jsBundle = jsOrder.map(function (file) {
     var filePath = path.join(SRC, 'js', file);
     if (fs.existsSync(filePath)) {
@@ -591,53 +592,83 @@ function build() {
 
   // 8. Build /essays/ and /studies/ indexes + their individual pages
 
-  // Collect the union of tags across every published article so the tag bar on
-  // the index pages mirrors the design's "filter-bar--tags" — a static row of
-  // chips, one per distinct tag. The buttons don't filter (no JS) but the
-  // visual rhythm matches the reference.
-  var allTags = [];
+  // Each article gets a pipe-joined tagList (e.g. "A11y|Keyboard|Craft") that
+  // the writing-index template stamps onto the card as data-tags. The
+  // tag-filter runtime reads it to decide what to show/hide.
   articles.forEach(function (a) {
-    [a.tag1, a.tag2, a.tag3].forEach(function (t) {
-      if (t && allTags.indexOf(t) === -1) allTags.push(t);
-    });
+    a.tagList = [a.tag1, a.tag2, a.tag3].filter(Boolean).join('|');
   });
 
-  function renderFilterRow(activeKind) {
-    // Static mirror of the design's kind + tag bars. Without JS the buttons
-    // don't filter, but the visual rhythm and the "which tab am I on" cue
-    // (is-active on Essays or Studies) match the reference. Navigation
-    // between /essays/ and /studies/ happens via the drawer + footer.
-    var kinds = [
-      { key: 'all',   label: 'All' },
-      { key: 'essay', label: 'Essays' },
-      { key: 'study', label: 'Studies' },
-    ];
-    var kindBtns = kinds.map(function (k) {
-      var cls = k.key === activeKind ? ' class="is-active"' : '';
-      return '<button type="button"' + cls + '>' + k.label + '</button>';
+  function slugifyTag(t) {
+    return String(t).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function renderFilterRow(allItems, kindLabel, chipBase, activeTag) {
+    // Per-page tag bar. Each /essays/ and /studies/ index emits its own —
+    // the kind is already implied by the route, so no kind chips here.
+    // Tags come from the union across all items in the kind so the same
+    // chip set appears on the kind index and every tag page.
+    //
+    // Chips are real <a> links to /<kind>/tag/<slug>/. With JS the
+    // tag-filter runtime hijacks the click and filters in place via the
+    // hidden attribute; without JS, the click navigates and the static
+    // tag page renders a pre-filtered DOM.
+    if (!allItems.length) return '';
+    var tagSet = {};
+    allItems.forEach(function (it) {
+      [it.tag1, it.tag2, it.tag3].filter(Boolean).forEach(function (t) {
+        tagSet[t] = true;
+      });
+    });
+    var tags = Object.keys(tagSet).sort();
+    if (!tags.length) return '';
+
+    function chip(href, label, tag, isActive) {
+      var cls = 'filter-bar__btn' + (isActive ? ' is-active' : '');
+      var ariaPressed = isActive ? 'true' : 'false';
+      var ariaCurrent = isActive ? ' aria-current="page"' : '';
+      return '<a class="' + cls + '" href="' + href + '"' +
+             ' data-tag="' + tag + '" aria-pressed="' + ariaPressed + '"' +
+             ariaCurrent + '>' + label + '</a>';
+    }
+
+    var allActive = !activeTag;
+    var allHref = chipBase;  // back to /<kind>/
+    var allChip = chip(allHref, 'All', 'all', allActive);
+
+    var tagChips = tags.map(function (t) {
+      var slug = slugifyTag(t);
+      return chip(chipBase + 'tag/' + slug + '/', t, t, activeTag === t);
     }).join('');
 
-    var tagBtns = ['<button type="button" class="is-active">All</button>']
-      .concat(allTags.map(function (t) {
-        return '<button type="button">' + t + '</button>';
-      }))
-      .join('');
+    var labelId = 'tag-filter-label-' + kindLabel.toLowerCase();
+    var liveId  = 'tag-filter-live-'  + kindLabel.toLowerCase();
 
-    return '<div class="filter-row">' +
-             '<div class="filter-bar">' + kindBtns + '</div>' +
-             '<div class="filter-bar filter-bar--tags">' + tagBtns + '</div>' +
+    return '<div class="filter-row" data-tag-filter>' +
+             '<span id="' + labelId + '" class="filter-row__label">Filter ' + kindLabel + ' by tag</span>' +
+             '<div class="filter-bar filter-bar--tags" role="group" aria-labelledby="' + labelId + '">' +
+               allChip + tagChips +
+             '</div>' +
+             '<p id="' + liveId + '" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>' +
            '</div>';
   }
 
-  function buildWritingIndex(dir, items, meta) {
+  function buildWritingIndex(dir, allItems, meta) {
     mkdirp(path.join(DIST, dir));
+
+    // Kind index — render every item visible. The filter row's "All"
+    // chip is current; tag chips link to /<dir>/tag/<slug>/.
+    var displayed = allItems.map(function (it) {
+      return Object.assign({}, it, { hiddenAttr: '' });
+    });
+
     var data = Object.assign({}, siteData, {
-      items: items,
+      items: displayed,
       pageKicker: meta.kicker,
       pageHeading: meta.heading,
       pageDek: meta.dek,
-      filterRowHtml: renderFilterRow(meta.activeKind),
-      emptyHtml: items.length === 0
+      filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '', null),
+      emptyHtml: allItems.length === 0
         ? '<p class="empty-state">' + meta.empty + '</p>'
         : '',
       basePath: '../',
@@ -649,6 +680,49 @@ function build() {
     var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
     fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
     console.log('[build] ' + dir + '/index.html');
+
+    // Per-tag pages — every item is in DOM, but non-matching items get a
+    // server-rendered hidden attribute so the no-JS view shows only the
+    // tagged subset, while the JS runtime can swap visibility instantly
+    // when the user picks another chip.
+    var tagSet = {};
+    allItems.forEach(function (it) {
+      [it.tag1, it.tag2, it.tag3].filter(Boolean).forEach(function (t) {
+        tagSet[t] = true;
+      });
+    });
+    var tags = Object.keys(tagSet);
+    if (tags.length) mkdirp(path.join(DIST, dir, 'tag'));
+    tags.forEach(function (tag) {
+      var slug = slugifyTag(tag);
+      var tagDir = path.join(DIST, dir, 'tag', slug);
+      mkdirp(tagDir);
+
+      var tagged = allItems.map(function (it) {
+        var matches = [it.tag1, it.tag2, it.tag3].indexOf(tag) !== -1;
+        return Object.assign({}, it, { hiddenAttr: matches ? '' : 'hidden' });
+      });
+      var matchCount = tagged.filter(function (it) { return !it.hiddenAttr; }).length;
+
+      var tagData = Object.assign({}, siteData, {
+        items: tagged,
+        pageKicker: meta.kicker,
+        pageHeading: meta.heading + ' · ' + tag,
+        pageDek: 'Filtered to ' + tag + '. ' + meta.dek,
+        filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '../', tag),
+        emptyHtml: matchCount === 0
+          ? '<p class="empty-state">No ' + meta.kindLabel + ' tagged ' + tag + '.</p>'
+          : '',
+        basePath: '../../../',
+        iconSprite: iconSprite,
+        pageTitle: meta.heading + ' · ' + tag + ' — ' + siteData.title,
+        pageDescription: 'Filtered to ' + tag + '. ' + meta.dek
+      });
+      var tagContent = renderTemplate(writingIndexLayout, tagData);
+      var tagHtml = renderTemplate(baseLayout, Object.assign({}, tagData, { content: tagContent }));
+      fs.writeFileSync(path.join(tagDir, 'index.html'), tagHtml);
+      console.log('[build] ' + dir + '/tag/' + slug + '/index.html');
+    });
   }
 
   // Pre-render the two "related" blocks a reader shows: the pair of compact
@@ -720,7 +794,7 @@ function build() {
     heading: 'Essays',
     dek: 'Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.',
     empty: 'No essays yet.',
-    activeKind: 'essay'
+    kindLabel: 'essays'
   });
   buildWritingReader('essays', essays, { backLabel: 'All essays' });
 
@@ -729,7 +803,7 @@ function build() {
     heading: 'Studies',
     dek: 'Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.',
     empty: 'No studies yet.',
-    activeKind: 'study'
+    kindLabel: 'studies'
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
@@ -881,7 +955,7 @@ function build() {
   buildEntryPages('podcasts', podcasts, podcastsLayout);
   buildEntryPages('bookshelf', bookshelf, bookshelfLayout);
 
-  // 16. Aggregate /enjoying/ index, paginated.
+  // Shared shape for both the per-kind indexes and the aggregate /enjoying/ stream.
   function enjoyingItem(kindLabel, kindPath, e, byline, subMeta) {
     return {
       kindLabel: kindLabel,
@@ -893,6 +967,66 @@ function build() {
       note: e.note || ''
     };
   }
+
+  // 16a. Per-kind indexes (/reading/, /music/, /movies/, /podcasts/, /bookshelf/).
+  // Each is a flat list of cards linking to /<kind>/<slug>/, with a tail
+  // link back into the unified /enjoying/ stream.
+  function buildKindIndex(dir, items, meta) {
+    if (!items.length) return;
+    mkdirp(path.join(DIST, dir));
+    var data = Object.assign({}, siteData, {
+      items: items,
+      pageKicker: meta.kicker,
+      pageHeading: meta.heading,
+      pageDek: meta.dek,
+      basePath: '../',
+      iconSprite: iconSprite,
+      pageTitle: meta.heading + ' — ' + siteData.title,
+      pageDescription: meta.dek
+    });
+    var content = renderTemplate(kindIndexLayout, data);
+    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
+    console.log('[build] ' + dir + '/index.html');
+  }
+
+  buildKindIndex('reading', reading.map(function (r) {
+    return enjoyingItem('Reading', 'reading', r, r.author, r.statusLabel);
+  }), {
+    kicker: '§ Reading',
+    heading: 'Reading list',
+    dek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.'
+  });
+  buildKindIndex('music', music.map(function (m) {
+    return enjoyingItem('Music', 'music', m, m.artist, String(m.year));
+  }), {
+    kicker: '§ Music',
+    heading: 'Albums that mattered',
+    dek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.'
+  });
+  buildKindIndex('movies', movies.map(function (m) {
+    return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);
+  }), {
+    kicker: '§ Movies',
+    heading: 'A viewing diary',
+    dek: 'Most recent first. Five-star scale, honestly used. Re-watches marked in the note.'
+  });
+  buildKindIndex('podcasts', podcasts.map(function (p) {
+    return enjoyingItem('Podcast', 'podcasts', p, 'Host: ' + p.host, p.status);
+  }), {
+    kicker: '§ Podcasts',
+    heading: 'In rotation',
+    dek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.'
+  });
+  buildKindIndex('bookshelf', bookshelf.map(function (b) {
+    return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
+  }), {
+    kicker: '§ Bookshelf',
+    heading: 'Books that earned a permanent spot',
+    dek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.'
+  });
+
+  // 16. Aggregate /enjoying/ index, paginated.
   var enjoyingItems = [].concat(
     movies.map(function (m) {
       return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);

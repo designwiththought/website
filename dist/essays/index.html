@@ -69,11 +69,12 @@
       <section aria-labelledby="drawer-grp-enjoying">
         <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
+          <li><a class="drawer__item" href="../bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
+          <li><a class="drawer__item" href="../music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
+          <li><a class="drawer__item" href="../movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
+          <li><a class="drawer__item" href="../podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All five, mixed</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-learning">
@@ -102,11 +103,11 @@
         <p class="lead">Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.</p>
       </header>
 
-      <div class="filter-row"><div class="filter-bar"><button type="button">All</button><button type="button" class="is-active">Essays</button><button type="button">Studies</button></div><div class="filter-bar filter-bar--tags"><button type="button" class="is-active">All</button><button type="button">A11y</button><button type="button">Keyboard</button><button type="button">Craft</button><button type="button">Practice</button><button type="button">Management</button><button type="button">Copy</button><button type="button">Study</button><button type="button">Build</button><button type="button">Static</button></div></div>
+      <div class="filter-row" data-tag-filter><span id="tag-filter-label-essays" class="filter-row__label">Filter essays by tag</span><div class="filter-bar filter-bar--tags" role="group" aria-labelledby="tag-filter-label-essays"><a class="filter-bar__btn is-active" href="" data-tag="all" aria-pressed="true" aria-current="page">All</a><a class="filter-bar__btn" href="tag/a11y/" data-tag="A11y" aria-pressed="false">A11y</a><a class="filter-bar__btn" href="tag/build/" data-tag="Build" aria-pressed="false">Build</a><a class="filter-bar__btn" href="tag/craft/" data-tag="Craft" aria-pressed="false">Craft</a><a class="filter-bar__btn" href="tag/keyboard/" data-tag="Keyboard" aria-pressed="false">Keyboard</a><a class="filter-bar__btn" href="tag/management/" data-tag="Management" aria-pressed="false">Management</a><a class="filter-bar__btn" href="tag/practice/" data-tag="Practice" aria-pressed="false">Practice</a><a class="filter-bar__btn" href="tag/static/" data-tag="Static" aria-pressed="false">Static</a></div><p id="tag-filter-live-essays" class="visually-hidden" aria-live="polite" aria-atomic="true"></p></div>
 
-      <div class="essay-list">
+      <div class="essay-list" data-tag-target>
         
-        <a class="essay-card" href="../essays/focus-ring-contract/">
+        <a class="essay-card" href="../essays/focus-ring-contract/" data-tags="A11y|Keyboard|Craft" >
           <div class="essay-card__meta">
             <span class="kicker">&sect; Essay</span>
             <span class="essay-card__date">12 April 2026 &middot; 9 min</span>
@@ -120,7 +121,7 @@
           </div>
         </a>
         
-        <a class="essay-card" href="../essays/slow-accessibility/">
+        <a class="essay-card" href="../essays/slow-accessibility/" data-tags="A11y|Practice" >
           <div class="essay-card__meta">
             <span class="kicker">&sect; Essay</span>
             <span class="essay-card__date">28 March 2026 &middot; 12 min</span>
@@ -134,7 +135,7 @@
           </div>
         </a>
         
-        <a class="essay-card" href="../essays/managing-specialists/">
+        <a class="essay-card" href="../essays/managing-specialists/" data-tags="Management|Craft" >
           <div class="essay-card__meta">
             <span class="kicker">&sect; Essay</span>
             <span class="essay-card__date">04 March 2026 &middot; 11 min</span>
@@ -148,7 +149,7 @@
           </div>
         </a>
         
-        <a class="essay-card" href="../essays/a-static-site-that-builds-on-a-phone/">
+        <a class="essay-card" href="../essays/a-static-site-that-builds-on-a-phone/" data-tags="Craft|Build|Static" >
           <div class="essay-card__meta">
             <span class="kicker">&sect; Essay</span>
             <span class="essay-card__date">25 April 2026 &middot; 8 min</span>
@@ -163,6 +164,7 @@
         </a>
         
         
+        <p class="empty-state" data-tag-empty hidden>No items match that tag. <a class="btn btn--link" data-tag-reset href="">Show all</a></p>
       </div>
     </div>
   </main>
@@ -194,9 +196,9 @@
         <h5>&sect; Making &amp; enjoying</h5>
         <ul>
           <li><a href="../projects/">Projects</a></li>
-          <li><a href="../enjoying/">Reading</a></li>
-          <li><a href="../enjoying/">Music</a></li>
-          <li><a href="../enjoying/">Movies</a></li>
+          <li><a href="../reading/">Reading</a></li>
+          <li><a href="../music/">Music</a></li>
+          <li><a href="../movies/">Movies</a></li>
         </ul>
       </div>
       <div class="site-footer__col">

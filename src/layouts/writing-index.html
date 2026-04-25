@@ -8,9 +8,9 @@
 
       {{filterRowHtml}}
 
-      <div class="essay-list">
+      <div class="essay-list" data-tag-target>
         {{#each items}}
-        <a class="essay-card" href="{{basePath}}{{url}}">
+        <a class="essay-card" href="{{basePath}}{{url}}" data-tags="{{tagList}}" {{hiddenAttr}}>
           <div class="essay-card__meta">
             <span class="kicker">&sect; {{kind}}</span>
             <span class="essay-card__date">{{date}} &middot; {{read}}</span>
@@ -25,6 +25,7 @@
         </a>
         {{/each}}
         {{emptyHtml}}
+        <p class="empty-state" data-tag-empty hidden>No items match that tag. <a class="btn btn--link" data-tag-reset href="">Show all</a></p>
       </div>
     </div>
   </main>

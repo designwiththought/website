@@ -241,17 +241,42 @@ h6, .h6 {
 }
 .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .filter-bar--tags { padding-top: 4px; }
-.filter-bar button {
+.filter-bar__btn,
+.filter-bar button,
+.filter-bar a {
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.06em; text-transform: uppercase;
   padding: 5px 11px; border-radius: var(--r-pill);
   border: 1px solid var(--border); background: transparent;
   color: var(--fg-muted); cursor: pointer;
+  text-decoration: none;
   transition: all var(--dur-fast) var(--ease-out);
 }
-.filter-bar button:hover { color: var(--fg); border-color: var(--border-strong); }
-.filter-bar button.is-active { background: var(--cocoa-700); color: var(--paper-50); border-color: var(--cocoa-700); }
-[data-theme="dark"] .filter-bar button.is-active { background: var(--accent); color: var(--ink-900); border-color: var(--accent); }
+.filter-bar__btn:hover,
+.filter-bar button:hover,
+.filter-bar a:hover { color: var(--fg); border-color: var(--border-strong); text-decoration: none; }
+.filter-bar__btn.is-active,
+.filter-bar button.is-active,
+.filter-bar a.is-active { background: var(--cocoa-700); color: var(--paper-50); border-color: var(--cocoa-700); }
+[data-theme="dark"] .filter-bar__btn.is-active,
+[data-theme="dark"] .filter-bar button.is-active,
+[data-theme="dark"] .filter-bar a.is-active { background: var(--accent); color: var(--ink-900); border-color: var(--accent); }
+.filter-row__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+/* Visually hidden helper — reachable by AT, removed from layout. */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
 
 .empty-state { text-align: center; color: var(--fg-muted); padding: 48px 0; }
 
@@ -1737,3 +1762,11 @@ h6, .h6 {
 /* Dropcap p — already gets max-width:none from .reader p, but
    guarantee it for any prose context that uses .dropcap directly. */
 .dropcap { max-width: none; }
+
+/* Per-kind enjoying index — cross-link to the unified /enjoying/ stream */
+.kind-index__cross-link {
+  font-size: var(--t-small);
+  color: var(--fg-subtle);
+  text-align: center;
+  margin-top: 32px;
+}
