@@ -362,6 +362,12 @@ function build() {
   var learningLayout = fs.readFileSync(path.join(SRC, 'layouts', 'learning.html'), 'utf8');
   var gearLayout = fs.readFileSync(path.join(SRC, 'layouts', 'gear.html'), 'utf8');
   var colophonLayout = fs.readFileSync(path.join(SRC, 'layouts', 'colophon.html'), 'utf8');
+  var readingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'reading.html'), 'utf8');
+  var musicLayout = fs.readFileSync(path.join(SRC, 'layouts', 'music.html'), 'utf8');
+  var moviesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'movies.html'), 'utf8');
+  var podcastsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'podcasts.html'), 'utf8');
+  var bookshelfLayout = fs.readFileSync(path.join(SRC, 'layouts', 'bookshelf.html'), 'utf8');
+  var enjoyingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'enjoying.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -401,6 +407,39 @@ function build() {
   var articles = parseMdxDir(path.join(SRC, 'content', 'articles'));
   var projects = parseMdxDir(path.join(SRC, 'content', 'projects'));
   var notes = parseMdxDir(path.join(SRC, 'content', 'notes'));
+  var reading = parseMdxDir(path.join(SRC, 'content', 'reading'));
+  var music = parseMdxDir(path.join(SRC, 'content', 'music'));
+  var movies = parseMdxDir(path.join(SRC, 'content', 'movies'));
+  var podcasts = parseMdxDir(path.join(SRC, 'content', 'podcasts'));
+  var bookshelf = parseMdxDir(path.join(SRC, 'content', 'bookshelf'));
+
+  // Split each entry's body into a lede + afterthoughtHtml, mirroring notes.
+  function splitLede(entries) {
+    entries.forEach(function (e) {
+      var paras = (e.bodyHtml || '').match(/<p>[\s\S]*?<\/p>/g) || [];
+      e.lede = paras.length ? paras[0].replace(/^<p>|<\/p>$/g, '') : '';
+      e.afterthoughtHtml = paras.slice(1).join('\n');
+    });
+  }
+  splitLede(reading);
+  splitLede(music);
+  splitLede(movies);
+  splitLede(podcasts);
+  splitLede(bookshelf);
+
+  // Reading: status → display label.
+  var readingStatusLabel = { now: 'Now reading', next: 'Queued', done: 'Finished' };
+  reading.forEach(function (r) {
+    r.statusLabel = readingStatusLabel[r.status] || r.status;
+  });
+
+  // Movies: pre-render the 5-star rating block.
+  movies.forEach(function (m) {
+    var rating = parseInt(m.rating, 10) || 0;
+    var filled = '★'.repeat(Math.max(0, Math.min(5, rating)));
+    var empty = '★'.repeat(5 - filled.length);
+    m.starsHtml = filled + (empty ? '<span class="movie-row__rating-empty">' + empty + '</span>' : '');
+  });
 
   // Partition articles into essays and studies by kind. Each piece gets its
   // own page at /essays/<slug>/ or /studies/<slug>/, so compute the url up
@@ -807,7 +846,114 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'colophon', 'index.html'), colophonHtml);
   console.log('[build] colophon/index.html');
 
-  var totalPages = articles.length + projects.length + notes.length + 10;
+  // 15. Per-entry pages for the cultural kinds (reading, music, movies,
+  // podcasts, bookshelf). Each is browseable with prev/next neighbours,
+  // mirroring the notes reader pattern.
+  function buildEntryPages(dir, items, layout) {
+    if (!items.length) return;
+    mkdirp(path.join(DIST, dir));
+    items.forEach(function (item, idx) {
+      var slug = item.slug;
+      var entryDir = path.join(DIST, dir, slug);
+      mkdirp(entryDir);
+
+      var prev = idx > 0 ? items[idx - 1] : null;
+      var next = idx < items.length - 1 ? items[idx + 1] : null;
+
+      var data = Object.assign({}, siteData, item, {
+        prev: prev ? { slug: prev.slug, title: prev.title } : null,
+        next: next ? { slug: next.slug, title: next.title } : null,
+        basePath: '../../',
+        iconSprite: iconSprite,
+        pageTitle: item.title + ' — ' + siteData.title,
+        pageDescription: item.note || item.title
+      });
+
+      var content = renderTemplate(layout, data);
+      var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+      fs.writeFileSync(path.join(entryDir, 'index.html'), html);
+      console.log('[build] ' + dir + '/' + slug + '/index.html');
+    });
+  }
+  buildEntryPages('reading', reading, readingLayout);
+  buildEntryPages('music', music, musicLayout);
+  buildEntryPages('movies', movies, moviesLayout);
+  buildEntryPages('podcasts', podcasts, podcastsLayout);
+  buildEntryPages('bookshelf', bookshelf, bookshelfLayout);
+
+  // 16. Aggregate /enjoying/ index, paginated.
+  function enjoyingItem(kindLabel, kindPath, e, byline, subMeta) {
+    return {
+      kindLabel: kindLabel,
+      kindPath: kindPath,
+      slug: e.slug,
+      title: e.title,
+      byline: byline,
+      subMeta: subMeta,
+      note: e.note || ''
+    };
+  }
+  var enjoyingItems = [].concat(
+    movies.map(function (m) {
+      return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);
+    }),
+    music.map(function (m) {
+      return enjoyingItem('Music', 'music', m, m.artist, String(m.year));
+    }),
+    reading.map(function (r) {
+      return enjoyingItem('Reading', 'reading', r, r.author, r.statusLabel);
+    }),
+    podcasts.map(function (p) {
+      return enjoyingItem('Podcast', 'podcasts', p, 'Host: ' + p.host, p.status);
+    }),
+    bookshelf.map(function (b) {
+      return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
+    })
+  );
+
+  var ENJOYING_PER_PAGE = 12;
+  var enjoyingPages = Math.max(1, Math.ceil(enjoyingItems.length / ENJOYING_PER_PAGE));
+  mkdirp(path.join(DIST, 'enjoying'));
+  for (var page = 1; page <= enjoyingPages; page++) {
+    var start = (page - 1) * ENJOYING_PER_PAGE;
+    var slice = enjoyingItems.slice(start, start + ENJOYING_PER_PAGE);
+    var basePath = page === 1 ? '../' : '../../';
+    var pageDir = page === 1
+      ? path.join(DIST, 'enjoying')
+      : path.join(DIST, 'enjoying', String(page));
+    if (page > 1) mkdirp(pageDir);
+
+    function pageHref(n) {
+      // Build a relative href from the current page to page n.
+      if (page === 1) return n === 1 ? '' : (String(n) + '/');
+      // From /enjoying/<page>/, prev is either /enjoying/ (n=1) or /enjoying/<n>/
+      return n === 1 ? '../' : ('../' + String(n) + '/');
+    }
+
+    var data = Object.assign({}, siteData, {
+      items: slice,
+      pageNumber: page,
+      totalPages: enjoyingPages,
+      prevHref: page > 1 ? pageHref(page - 1) : '',
+      nextHref: page < enjoyingPages ? pageHref(page + 1) : '',
+      pageKicker: '§ Enjoying',
+      pageHeading: 'Enjoying',
+      pageDek: 'Books, records, films, podcasts. The things I keep coming back to, lightly annotated.',
+      basePath: basePath,
+      iconSprite: iconSprite,
+      pageTitle: (page === 1 ? 'Enjoying' : 'Enjoying — page ' + page) + ' — ' + siteData.title,
+      pageDescription: 'Reading, music, movies, podcasts, bookshelf — ' + siteData.ownerName + '.'
+    });
+
+    var content = renderTemplate(enjoyingLayout, data);
+    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    fs.writeFileSync(path.join(pageDir, 'index.html'), html);
+    console.log('[build] enjoying' + (page === 1 ? '' : '/' + page) + '/index.html');
+  }
+
+  var totalPages = articles.length + projects.length + notes.length + 10
+    + reading.length + music.length + movies.length + podcasts.length + bookshelf.length
+    + enjoyingPages;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }
