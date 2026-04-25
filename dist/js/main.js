@@ -131,24 +131,29 @@
 
 /* Accessible tag filter for the writing index pages (/essays/, /studies/).
  *
+ * Progressive enhancement: chips are real <a> links to /<kind>/tag/<slug>/.
+ * When JS is on, this script hijacks clicks and filters in place via the
+ * hidden attribute, pushing the new URL with history.pushState so the
+ * back/forward buttons restore the prior filter. When JS is off, clicks
+ * navigate normally and each tag has a static page that pre-renders the
+ * matching subset.
+ *
  * Markup contract (rendered by build.js renderFilterRow + writing-index.html):
  *   <div class="filter-row" data-tag-filter>
  *     <span id="tag-filter-label-…" class="filter-row__label">…</span>
  *     <div class="filter-bar filter-bar--tags" role="group" aria-labelledby="…">
- *       <button data-tag="all"   aria-pressed="true"  class="filter-bar__btn is-active">All</button>
- *       <button data-tag="A11y"  aria-pressed="false" class="filter-bar__btn">A11y</button>
+ *       <a data-tag="all"  href="…/" aria-pressed="true"  aria-current="page" class="filter-bar__btn is-active">All</a>
+ *       <a data-tag="A11y" href="…/tag/a11y/" aria-pressed="false" class="filter-bar__btn">A11y</a>
  *       …
  *     </div>
  *     <p id="tag-filter-live-…" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>
  *   </div>
  *   <div class="essay-list" data-tag-target>
- *     <a class="essay-card" data-tags="A11y|Keyboard|Craft">…</a>
+ *     <a class="essay-card" data-tags="A11y|Keyboard|Craft" hidden>…</a>
+ *     <a class="essay-card" data-tags="A11y|Practice">…</a>
  *     …
  *     <p class="empty-state" data-tag-empty hidden>…</p>
  *   </div>
- *
- * One filter per page (each /essays/ and /studies/ index gets its own).
- * Without JS: every chip stays inert and every card is visible.
  */
 (function () {
   'use strict';
@@ -165,25 +170,35 @@
     var cards = Array.prototype.slice.call(list.querySelectorAll('[data-tags]'));
     if (!bar || !cards.length) return;
 
-    function applyTag(tag) {
+    function chipFor(tag) {
+      return bar.querySelector('[data-tag="' + (tag === 'all' ? 'all' : cssEscape(tag)) + '"]');
+    }
+
+    // Tiny CSS.escape fallback so attribute selectors with spaces/punctuation work.
+    function cssEscape(s) {
+      if (window.CSS && CSS.escape) return CSS.escape(s);
+      return String(s).replace(/[^a-zA-Z0-9_-]/g, function (c) {
+        return '\\' + c;
+      });
+    }
+
+    function applyTag(tag, opts) {
       var visible = 0;
       cards.forEach(function (card) {
         var tags = (card.getAttribute('data-tags') || '').split('|');
         var match = tag === 'all' || tags.indexOf(tag) !== -1;
-        if (match) {
-          card.hidden = false;
-          visible++;
-        } else {
-          card.hidden = true;
-        }
+        card.hidden = !match;
+        if (match) visible++;
       });
 
-      // Reflect pressed state on every chip so screen readers hear the change.
-      var btns = bar.querySelectorAll('[data-tag]');
-      Array.prototype.forEach.call(btns, function (b) {
-        var on = b.getAttribute('data-tag') === tag;
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        b.classList.toggle('is-active', on);
+      // Reflect pressed + current state on every chip.
+      var chips = bar.querySelectorAll('[data-tag]');
+      Array.prototype.forEach.call(chips, function (c) {
+        var on = c.getAttribute('data-tag') === tag;
+        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        c.classList.toggle('is-active', on);
+        if (on) c.setAttribute('aria-current', 'page');
+        else c.removeAttribute('aria-current');
       });
 
       if (emptyState) emptyState.hidden = visible !== 0;
@@ -195,32 +210,61 @@
           : 'Showing ' + visible + ' ' + noun + ' tagged ' + tag + '.';
         live.textContent = msg;
       }
+
+      if (opts && opts.push) {
+        var chip = chipFor(tag);
+        if (chip && history.pushState) {
+          history.pushState({ tag: tag }, '', chip.getAttribute('href'));
+        }
+      }
     }
 
     bar.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-tag]');
-      if (!btn) return;
-      applyTag(btn.getAttribute('data-tag'));
+      var chip = e.target.closest('[data-tag]');
+      if (!chip || !bar.contains(chip)) return;
+      // Allow modified clicks (cmd/ctrl/middle-click) to behave normally.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      applyTag(chip.getAttribute('data-tag'), { push: true });
     });
 
     bar.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      var btns = Array.prototype.slice.call(bar.querySelectorAll('[data-tag]'));
-      var idx = btns.indexOf(document.activeElement);
+      var chips = Array.prototype.slice.call(bar.querySelectorAll('[data-tag]'));
+      var idx = chips.indexOf(document.activeElement);
       if (idx === -1) return;
       e.preventDefault();
       var next = e.key === 'ArrowRight'
-        ? btns[(idx + 1) % btns.length]
-        : btns[(idx - 1 + btns.length) % btns.length];
+        ? chips[(idx + 1) % chips.length]
+        : chips[(idx - 1 + chips.length) % chips.length];
       next.focus();
     });
 
     if (resetBtn) {
-      resetBtn.addEventListener('click', function () {
-        applyTag('all');
-        var allBtn = bar.querySelector('[data-tag="all"]');
-        if (allBtn) allBtn.focus();
+      resetBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        applyTag('all', { push: true });
+        var allChip = bar.querySelector('[data-tag="all"]');
+        if (allChip) allChip.focus();
       });
+    }
+
+    window.addEventListener('popstate', function (e) {
+      var tag = (e.state && e.state.tag) || readTagFromUrl();
+      applyTag(tag, { push: false });
+    });
+
+    function readTagFromUrl() {
+      // /essays/tag/a11y/  →  match the chip whose href ends that way.
+      var path = window.location.pathname;
+      var chips = bar.querySelectorAll('[data-tag]');
+      for (var i = 0; i < chips.length; i++) {
+        var href = chips[i].getAttribute('href');
+        if (!href) continue;
+        var resolved = new URL(href, window.location.href).pathname;
+        if (resolved === path) return chips[i].getAttribute('data-tag');
+      }
+      return 'all';
     }
   });
 })();

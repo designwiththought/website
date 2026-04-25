@@ -599,13 +599,23 @@ function build() {
     a.tagList = [a.tag1, a.tag2, a.tag3].filter(Boolean).join('|');
   });
 
-  function renderFilterRow(items, kindLabel) {
+  function slugifyTag(t) {
+    return String(t).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function renderFilterRow(allItems, kindLabel, chipBase, activeTag) {
     // Per-page tag bar. Each /essays/ and /studies/ index emits its own —
     // the kind is already implied by the route, so no kind chips here.
-    // Tags are derived from the items actually present on the page.
-    if (!items.length) return '';
+    // Tags come from the union across all items in the kind so the same
+    // chip set appears on the kind index and every tag page.
+    //
+    // Chips are real <a> links to /<kind>/tag/<slug>/. With JS the
+    // tag-filter runtime hijacks the click and filters in place via the
+    // hidden attribute; without JS, the click navigates and the static
+    // tag page renders a pre-filtered DOM.
+    if (!allItems.length) return '';
     var tagSet = {};
-    items.forEach(function (it) {
+    allItems.forEach(function (it) {
       [it.tag1, it.tag2, it.tag3].filter(Boolean).forEach(function (t) {
         tagSet[t] = true;
       });
@@ -613,11 +623,22 @@ function build() {
     var tags = Object.keys(tagSet).sort();
     if (!tags.length) return '';
 
-    var allBtn = '<button type="button" class="filter-bar__btn is-active"' +
-                 ' data-tag="all" aria-pressed="true">All</button>';
-    var tagBtns = tags.map(function (t) {
-      return '<button type="button" class="filter-bar__btn"' +
-             ' data-tag="' + t + '" aria-pressed="false">' + t + '</button>';
+    function chip(href, label, tag, isActive) {
+      var cls = 'filter-bar__btn' + (isActive ? ' is-active' : '');
+      var ariaPressed = isActive ? 'true' : 'false';
+      var ariaCurrent = isActive ? ' aria-current="page"' : '';
+      return '<a class="' + cls + '" href="' + href + '"' +
+             ' data-tag="' + tag + '" aria-pressed="' + ariaPressed + '"' +
+             ariaCurrent + '>' + label + '</a>';
+    }
+
+    var allActive = !activeTag;
+    var allHref = chipBase;  // back to /<kind>/
+    var allChip = chip(allHref, 'All', 'all', allActive);
+
+    var tagChips = tags.map(function (t) {
+      var slug = slugifyTag(t);
+      return chip(chipBase + 'tag/' + slug + '/', t, t, activeTag === t);
     }).join('');
 
     var labelId = 'tag-filter-label-' + kindLabel.toLowerCase();
@@ -626,21 +647,28 @@ function build() {
     return '<div class="filter-row" data-tag-filter>' +
              '<span id="' + labelId + '" class="filter-row__label">Filter ' + kindLabel + ' by tag</span>' +
              '<div class="filter-bar filter-bar--tags" role="group" aria-labelledby="' + labelId + '">' +
-               allBtn + tagBtns +
+               allChip + tagChips +
              '</div>' +
              '<p id="' + liveId + '" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>' +
            '</div>';
   }
 
-  function buildWritingIndex(dir, items, meta) {
+  function buildWritingIndex(dir, allItems, meta) {
     mkdirp(path.join(DIST, dir));
+
+    // Kind index — render every item visible. The filter row's "All"
+    // chip is current; tag chips link to /<dir>/tag/<slug>/.
+    var displayed = allItems.map(function (it) {
+      return Object.assign({}, it, { hiddenAttr: '' });
+    });
+
     var data = Object.assign({}, siteData, {
-      items: items,
+      items: displayed,
       pageKicker: meta.kicker,
       pageHeading: meta.heading,
       pageDek: meta.dek,
-      filterRowHtml: renderFilterRow(items, meta.kindLabel),
-      emptyHtml: items.length === 0
+      filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '', null),
+      emptyHtml: allItems.length === 0
         ? '<p class="empty-state">' + meta.empty + '</p>'
         : '',
       basePath: '../',
@@ -652,6 +680,49 @@ function build() {
     var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
     fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
     console.log('[build] ' + dir + '/index.html');
+
+    // Per-tag pages — every item is in DOM, but non-matching items get a
+    // server-rendered hidden attribute so the no-JS view shows only the
+    // tagged subset, while the JS runtime can swap visibility instantly
+    // when the user picks another chip.
+    var tagSet = {};
+    allItems.forEach(function (it) {
+      [it.tag1, it.tag2, it.tag3].filter(Boolean).forEach(function (t) {
+        tagSet[t] = true;
+      });
+    });
+    var tags = Object.keys(tagSet);
+    if (tags.length) mkdirp(path.join(DIST, dir, 'tag'));
+    tags.forEach(function (tag) {
+      var slug = slugifyTag(tag);
+      var tagDir = path.join(DIST, dir, 'tag', slug);
+      mkdirp(tagDir);
+
+      var tagged = allItems.map(function (it) {
+        var matches = [it.tag1, it.tag2, it.tag3].indexOf(tag) !== -1;
+        return Object.assign({}, it, { hiddenAttr: matches ? '' : 'hidden' });
+      });
+      var matchCount = tagged.filter(function (it) { return !it.hiddenAttr; }).length;
+
+      var tagData = Object.assign({}, siteData, {
+        items: tagged,
+        pageKicker: meta.kicker,
+        pageHeading: meta.heading + ' · ' + tag,
+        pageDek: 'Filtered to ' + tag + '. ' + meta.dek,
+        filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '../', tag),
+        emptyHtml: matchCount === 0
+          ? '<p class="empty-state">No ' + meta.kindLabel + ' tagged ' + tag + '.</p>'
+          : '',
+        basePath: '../../../',
+        iconSprite: iconSprite,
+        pageTitle: meta.heading + ' · ' + tag + ' — ' + siteData.title,
+        pageDescription: 'Filtered to ' + tag + '. ' + meta.dek
+      });
+      var tagContent = renderTemplate(writingIndexLayout, tagData);
+      var tagHtml = renderTemplate(baseLayout, Object.assign({}, tagData, { content: tagContent }));
+      fs.writeFileSync(path.join(tagDir, 'index.html'), tagHtml);
+      console.log('[build] ' + dir + '/tag/' + slug + '/index.html');
+    });
   }
 
   // Pre-render the two "related" blocks a reader shows: the pair of compact
