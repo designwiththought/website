@@ -1,0 +1,18 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Gear</span>
+        <h1>The tools, honestly.</h1>
+        <p class="lead">No affiliate links. No carousels. The things I actually use and why, updated when something changes &mdash; which is rarely.</p>
+      </header>
+
+      {{#each sections}}
+      <section class="gear-section">
+        <h3>{{section}}</h3>
+        <ul class="gear-list">
+          {{itemsHtml}}
+        </ul>
+      </section>
+      {{/each}}
+    </div>
+  </main>

@@ -305,6 +305,9 @@ function build() {
   var siteData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'site.json'), 'utf8'));
   var nowData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'now.json'), 'utf8'));
   var aboutData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'about.json'), 'utf8'));
+  var learningData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'learning.json'), 'utf8'));
+  var gearData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'gear.json'), 'utf8'));
+  var colophonData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'colophon.json'), 'utf8'));
 
   // Pre-render each work entry's highlights bullet list — the template
   // engine can't nest {{#each}} inside {{#each}}, so do it up front.
@@ -314,6 +317,35 @@ function build() {
         return '<li>' + h + '</li>';
       }).join('');
     }
+  });
+
+  // Pre-render learning resources per topic.
+  var learningKindLabel = {
+    book: 'Book', course: 'Course', talk: 'Talk', paper: 'Paper',
+    reading: 'Reading', tool: 'Tool', newsletter: 'Letter',
+    community: 'Community', event: 'Event'
+  };
+  learningData.topics.forEach(function (t) {
+    t.resourcesHtml = (t.resources || []).map(function (r) {
+      var kind = learningKindLabel[r.kind] || r.kind;
+      return '<li class="learning-resource">' +
+               '<span class="learning-resource__kind">' + kind + '</span>' +
+               '<span>' +
+                 '<span class="learning-resource__label">' + r.label + '</span>' +
+                 '<span class="learning-resource__author">— ' + r.author + '</span>' +
+               '</span>' +
+             '</li>';
+    }).join('');
+  });
+
+  // Pre-render gear items per section.
+  gearData.sections.forEach(function (s) {
+    s.itemsHtml = (s.items || []).map(function (g) {
+      return '<li class="gear-row">' +
+               '<span class="gear-row__name">' + g.name + '</span>' +
+               '<p class="gear-row__note">' + g.note + '</p>' +
+             '</li>';
+    }).join('');
   });
 
   // 2. Read layouts
@@ -327,6 +359,9 @@ function build() {
   var writingIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'writing-index.html'), 'utf8');
   var nowLayout = fs.readFileSync(path.join(SRC, 'layouts', 'now.html'), 'utf8');
   var aboutLayout = fs.readFileSync(path.join(SRC, 'layouts', 'about.html'), 'utf8');
+  var learningLayout = fs.readFileSync(path.join(SRC, 'layouts', 'learning.html'), 'utf8');
+  var gearLayout = fs.readFileSync(path.join(SRC, 'layouts', 'gear.html'), 'utf8');
+  var colophonLayout = fs.readFileSync(path.join(SRC, 'layouts', 'colophon.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -730,7 +765,49 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'about', 'index.html'), aboutHtml);
   console.log('[build] about/index.html');
 
-  var totalPages = articles.length + projects.length + notes.length + 7;
+  // 12. Build /learning/
+  mkdirp(path.join(DIST, 'learning'));
+  var learningTemplateData = Object.assign({}, siteData, {
+    topics: learningData.topics,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Learning — ' + siteData.title,
+    pageDescription: 'What ' + siteData.ownerName + ' is chasing — accessibility, perceptual contrast, management as craft.'
+  });
+  var learningContent = renderTemplate(learningLayout, learningTemplateData);
+  var learningHtml = renderTemplate(baseLayout, Object.assign({}, learningTemplateData, { content: learningContent }));
+  fs.writeFileSync(path.join(DIST, 'learning', 'index.html'), learningHtml);
+  console.log('[build] learning/index.html');
+
+  // 13. Build /gear/
+  mkdirp(path.join(DIST, 'gear'));
+  var gearTemplateData = Object.assign({}, siteData, {
+    sections: gearData.sections,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Gear — ' + siteData.title,
+    pageDescription: 'The tools ' + siteData.ownerName + ' actually uses.'
+  });
+  var gearContent = renderTemplate(gearLayout, gearTemplateData);
+  var gearHtml = renderTemplate(baseLayout, Object.assign({}, gearTemplateData, { content: gearContent }));
+  fs.writeFileSync(path.join(DIST, 'gear', 'index.html'), gearHtml);
+  console.log('[build] gear/index.html');
+
+  // 14. Build /colophon/
+  mkdirp(path.join(DIST, 'colophon'));
+  var colophonTemplateData = Object.assign({}, siteData, {
+    items: colophonData.items,
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Colophon — ' + siteData.title,
+    pageDescription: 'How ' + siteData.ownerName + '’s site is made.'
+  });
+  var colophonContent = renderTemplate(colophonLayout, colophonTemplateData);
+  var colophonHtml = renderTemplate(baseLayout, Object.assign({}, colophonTemplateData, { content: colophonContent }));
+  fs.writeFileSync(path.join(DIST, 'colophon', 'index.html'), colophonHtml);
+  console.log('[build] colophon/index.html');
+
+  var totalPages = articles.length + projects.length + notes.length + 10;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

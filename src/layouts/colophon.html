@@ -1,0 +1,22 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Colophon</span>
+        <h1>How this site is made.</h1>
+        <p class="lead">A personal site has a duty to declare its methods. This one does too.</p>
+      </header>
+
+      <ul class="colophon-list">
+        {{#each items}}
+        <li class="colophon-row">
+          <span class="colophon-row__label">{{label}}</span>
+          <p class="colophon-row__value">{{value}}</p>
+        </li>
+        {{/each}}
+      </ul>
+
+      <p class="t-small" style="color: var(--fg-subtle); margin-top: 56px; font-style: italic;">
+        &#10086; Thanks for reading the small print. &#10086;
+      </p>
+    </div>
+  </main>

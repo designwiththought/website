@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studies — Design with Thought</title>
-  <meta name="description" content="Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.">
+  <title>Learning — Design with Thought</title>
+  <meta name="description" content="What Brian Hinton is chasing — accessibility, perceptual contrast, management as craft.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,33 +95,69 @@
   </div>
 
     <main id="main">
-    <div class="container section">
+    <div class="container--narrow section">
       <header class="page-header page-header--left">
-        <span class="kicker">§ Studies</span>
-        <h1>Studies</h1>
-        <p class="lead">Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.</p>
+        <span class="kicker">&sect; Learning</span>
+        <h1>What I&rsquo;m chasing.</h1>
+        <p class="lead">A standing log of what I am trying to get better at, why it feels worth the time, and the resources I keep returning to. Updated quarterly.</p>
       </header>
 
-      <div class="filter-row"><div class="filter-bar"><button type="button">All</button><button type="button">Essays</button><button type="button" class="is-active">Studies</button></div><div class="filter-bar filter-bar--tags"><button type="button" class="is-active">All</button><button type="button">A11y</button><button type="button">Keyboard</button><button type="button">Craft</button><button type="button">Practice</button><button type="button">Management</button><button type="button">Copy</button><button type="button">Study</button></div></div>
-
-      <div class="essay-list">
-        
-        <a class="essay-card" href="../studies/announcements-are-copy/">
-          <div class="essay-card__meta">
-            <span class="kicker">&sect; Study</span>
-            <span class="essay-card__date">22 February 2026 &middot; 14 min</span>
-          </div>
-          <h3 class="essay-card__title">Screen-reader announcements are copywriting</h3>
-          <p class="essay-card__dek">I timed 240 aria-live announcements across six apps. The good ones read like a tactful colleague. The bad ones read like a server log. The difference is craft.</p>
-          <div class="essay-card__tags">
-            <span class="tag">A11y</span>
-            <span class="tag">Copy</span>
-            <span class="tag">Study</span>
-          </div>
-        </a>
-        
-        
-      </div>
+      
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">Screen-reader voice design</h2>
+          <span class="learning-topic__stage">&middot; Active</span>
+        </div>
+        <p class="learning-topic__why">I want our announcements to read like a tactful colleague, not a server log. That means understanding the grammar screen readers impose, and where we can gently disobey it.</p>
+        <ul class="learning-resources">
+          <li class="learning-resource"><span class="learning-resource__kind">Book</span><span><span class="learning-resource__label">Accessibility for Everyone</span><span class="learning-resource__author">— Laura Kalbag</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Course</span><span><span class="learning-resource__label">Deque University — Screen Readers</span><span class="learning-resource__author">— Deque</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Talk</span><span><span class="learning-resource__label">What the heck is ARIA?</span><span class="learning-resource__author">— Eric Bailey</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Paper</span><span><span class="learning-resource__label">Announcing Intent in Dynamic UIs</span><span class="learning-resource__author">— Internal WIP</span></span></li>
+        </ul>
+      </section>
+      
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">Perceptual contrast (beyond WCAG)</h2>
+          <span class="learning-topic__stage">&middot; Active</span>
+        </div>
+        <p class="learning-topic__why">WCAG 2.x contrast ratios predate most of the design we now ship. APCA and the work around it is finally giving us a better measuring stick. I want to know where it still falls short.</p>
+        <ul class="learning-resources">
+          <li class="learning-resource"><span class="learning-resource__kind">Reading</span><span><span class="learning-resource__label">APCA working draft</span><span class="learning-resource__author">— Andrew Somers</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Reading</span><span><span class="learning-resource__label">Readability Algorithms Compared</span><span class="learning-resource__author">— Stripe Engineering</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Tool</span><span><span class="learning-resource__label">Sim Daltonism</span><span class="learning-resource__author">— Michel Fortin</span></span></li>
+        </ul>
+      </section>
+      
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">Management as craft</h2>
+          <span class="learning-topic__stage">&middot; Ongoing</span>
+        </div>
+        <p class="learning-topic__why">The longer I manage, the more I think it is a distinct craft rather than a promotion from design. Trying to read and practice accordingly.</p>
+        <ul class="learning-resources">
+          <li class="learning-resource"><span class="learning-resource__kind">Book</span><span><span class="learning-resource__label">Resilient Management</span><span class="learning-resource__author">— Lara Hogan</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Book</span><span><span class="learning-resource__label">An Elegant Puzzle</span><span class="learning-resource__author">— Will Larson</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Letter</span><span><span class="learning-resource__label">LeadDev</span><span class="learning-resource__author">— Various</span></span></li>
+        </ul>
+      </section>
+      
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">Static type systems for UI</h2>
+          <span class="learning-topic__stage">&middot; Dabbling</span>
+        </div>
+        <p class="learning-topic__why">I have been writing more TypeScript again this year. I want to stop defaulting to "any" when I reach the edges of my understanding.</p>
+        <ul class="learning-resources">
+          <li class="learning-resource"><span class="learning-resource__kind">Book</span><span><span class="learning-resource__label">Effective TypeScript</span><span class="learning-resource__author">— Dan Vanderkam</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Course</span><span><span class="learning-resource__label">Total TypeScript — Beginner</span><span class="learning-resource__author">— Matt Pocock</span></span></li>
+        </ul>
+      </section>
+      
+      <section class="learning-topic">
+        <div class="learning-topic__head">
+          <h2 class="learning-topic__title">Low-vision empathy (not simulation)</h2>
+          <span class="learning-topic__stage">&middot; Backburner</span>
+        </div>
+        <p class="learning-topic__why">Simulators lie. I want to spend more time with low-vision users directly, and less time squinting through a filter and pretending I understand.</p>
+        <ul class="learning-resources">
+          <li class="learning-resource"><span class="learning-resource__kind">Community</span><span><span class="learning-resource__label">Fable Tech Labs</span><span class="learning-resource__author">— Fable</span></span></li><li class="learning-resource"><span class="learning-resource__kind">Event</span><span><span class="learning-resource__label">CSUN assistive tech conference</span><span class="learning-resource__author">— CSUN</span></span></li>
+        </ul>
+      </section>
+      
     </div>
   </main>
 
