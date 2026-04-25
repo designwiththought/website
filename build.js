@@ -368,6 +368,7 @@ function build() {
   var podcastsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'podcasts.html'), 'utf8');
   var bookshelfLayout = fs.readFileSync(path.join(SRC, 'layouts', 'bookshelf.html'), 'utf8');
   var enjoyingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'enjoying.html'), 'utf8');
+  var kindIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'kind-index.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -513,7 +514,7 @@ function build() {
 
   // 6. Concatenate JS
   mkdirp(path.join(DIST, 'js'));
-  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js'];
+  var jsOrder = ['theme.js', 'accessibility.js', 'nav.js', 'texture.js', 'floorboards.js', 'tag-filter.js'];
   var jsBundle = jsOrder.map(function (file) {
     var filePath = path.join(SRC, 'js', file);
     if (fs.existsSync(filePath)) {
@@ -591,41 +592,43 @@ function build() {
 
   // 8. Build /essays/ and /studies/ indexes + their individual pages
 
-  // Collect the union of tags across every published article so the tag bar on
-  // the index pages mirrors the design's "filter-bar--tags" — a static row of
-  // chips, one per distinct tag. The buttons don't filter (no JS) but the
-  // visual rhythm matches the reference.
-  var allTags = [];
+  // Each article gets a pipe-joined tagList (e.g. "A11y|Keyboard|Craft") that
+  // the writing-index template stamps onto the card as data-tags. The
+  // tag-filter runtime reads it to decide what to show/hide.
   articles.forEach(function (a) {
-    [a.tag1, a.tag2, a.tag3].forEach(function (t) {
-      if (t && allTags.indexOf(t) === -1) allTags.push(t);
-    });
+    a.tagList = [a.tag1, a.tag2, a.tag3].filter(Boolean).join('|');
   });
 
-  function renderFilterRow(activeKind) {
-    // Static mirror of the design's kind + tag bars. Without JS the buttons
-    // don't filter, but the visual rhythm and the "which tab am I on" cue
-    // (is-active on Essays or Studies) match the reference. Navigation
-    // between /essays/ and /studies/ happens via the drawer + footer.
-    var kinds = [
-      { key: 'all',   label: 'All' },
-      { key: 'essay', label: 'Essays' },
-      { key: 'study', label: 'Studies' },
-    ];
-    var kindBtns = kinds.map(function (k) {
-      var cls = k.key === activeKind ? ' class="is-active"' : '';
-      return '<button type="button"' + cls + '>' + k.label + '</button>';
+  function renderFilterRow(items, kindLabel) {
+    // Per-page tag bar. Each /essays/ and /studies/ index emits its own —
+    // the kind is already implied by the route, so no kind chips here.
+    // Tags are derived from the items actually present on the page.
+    if (!items.length) return '';
+    var tagSet = {};
+    items.forEach(function (it) {
+      [it.tag1, it.tag2, it.tag3].filter(Boolean).forEach(function (t) {
+        tagSet[t] = true;
+      });
+    });
+    var tags = Object.keys(tagSet).sort();
+    if (!tags.length) return '';
+
+    var allBtn = '<button type="button" class="filter-bar__btn is-active"' +
+                 ' data-tag="all" aria-pressed="true">All</button>';
+    var tagBtns = tags.map(function (t) {
+      return '<button type="button" class="filter-bar__btn"' +
+             ' data-tag="' + t + '" aria-pressed="false">' + t + '</button>';
     }).join('');
 
-    var tagBtns = ['<button type="button" class="is-active">All</button>']
-      .concat(allTags.map(function (t) {
-        return '<button type="button">' + t + '</button>';
-      }))
-      .join('');
+    var labelId = 'tag-filter-label-' + kindLabel.toLowerCase();
+    var liveId  = 'tag-filter-live-'  + kindLabel.toLowerCase();
 
-    return '<div class="filter-row">' +
-             '<div class="filter-bar">' + kindBtns + '</div>' +
-             '<div class="filter-bar filter-bar--tags">' + tagBtns + '</div>' +
+    return '<div class="filter-row" data-tag-filter>' +
+             '<span id="' + labelId + '" class="filter-row__label">Filter ' + kindLabel + ' by tag</span>' +
+             '<div class="filter-bar filter-bar--tags" role="group" aria-labelledby="' + labelId + '">' +
+               allBtn + tagBtns +
+             '</div>' +
+             '<p id="' + liveId + '" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>' +
            '</div>';
   }
 
@@ -636,7 +639,7 @@ function build() {
       pageKicker: meta.kicker,
       pageHeading: meta.heading,
       pageDek: meta.dek,
-      filterRowHtml: renderFilterRow(meta.activeKind),
+      filterRowHtml: renderFilterRow(items, meta.kindLabel),
       emptyHtml: items.length === 0
         ? '<p class="empty-state">' + meta.empty + '</p>'
         : '',
@@ -720,7 +723,7 @@ function build() {
     heading: 'Essays',
     dek: 'Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.',
     empty: 'No essays yet.',
-    activeKind: 'essay'
+    kindLabel: 'essays'
   });
   buildWritingReader('essays', essays, { backLabel: 'All essays' });
 
@@ -729,7 +732,7 @@ function build() {
     heading: 'Studies',
     dek: 'Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.',
     empty: 'No studies yet.',
-    activeKind: 'study'
+    kindLabel: 'studies'
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
@@ -881,7 +884,7 @@ function build() {
   buildEntryPages('podcasts', podcasts, podcastsLayout);
   buildEntryPages('bookshelf', bookshelf, bookshelfLayout);
 
-  // 16. Aggregate /enjoying/ index, paginated.
+  // Shared shape for both the per-kind indexes and the aggregate /enjoying/ stream.
   function enjoyingItem(kindLabel, kindPath, e, byline, subMeta) {
     return {
       kindLabel: kindLabel,
@@ -893,6 +896,66 @@ function build() {
       note: e.note || ''
     };
   }
+
+  // 16a. Per-kind indexes (/reading/, /music/, /movies/, /podcasts/, /bookshelf/).
+  // Each is a flat list of cards linking to /<kind>/<slug>/, with a tail
+  // link back into the unified /enjoying/ stream.
+  function buildKindIndex(dir, items, meta) {
+    if (!items.length) return;
+    mkdirp(path.join(DIST, dir));
+    var data = Object.assign({}, siteData, {
+      items: items,
+      pageKicker: meta.kicker,
+      pageHeading: meta.heading,
+      pageDek: meta.dek,
+      basePath: '../',
+      iconSprite: iconSprite,
+      pageTitle: meta.heading + ' — ' + siteData.title,
+      pageDescription: meta.dek
+    });
+    var content = renderTemplate(kindIndexLayout, data);
+    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
+    console.log('[build] ' + dir + '/index.html');
+  }
+
+  buildKindIndex('reading', reading.map(function (r) {
+    return enjoyingItem('Reading', 'reading', r, r.author, r.statusLabel);
+  }), {
+    kicker: '§ Reading',
+    heading: 'Reading list',
+    dek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.'
+  });
+  buildKindIndex('music', music.map(function (m) {
+    return enjoyingItem('Music', 'music', m, m.artist, String(m.year));
+  }), {
+    kicker: '§ Music',
+    heading: 'Albums that mattered',
+    dek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.'
+  });
+  buildKindIndex('movies', movies.map(function (m) {
+    return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);
+  }), {
+    kicker: '§ Movies',
+    heading: 'A viewing diary',
+    dek: 'Most recent first. Five-star scale, honestly used. Re-watches marked in the note.'
+  });
+  buildKindIndex('podcasts', podcasts.map(function (p) {
+    return enjoyingItem('Podcast', 'podcasts', p, 'Host: ' + p.host, p.status);
+  }), {
+    kicker: '§ Podcasts',
+    heading: 'In rotation',
+    dek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.'
+  });
+  buildKindIndex('bookshelf', bookshelf.map(function (b) {
+    return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
+  }), {
+    kicker: '§ Bookshelf',
+    heading: 'Books that earned a permanent spot',
+    dek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.'
+  });
+
+  // 16. Aggregate /enjoying/ index, paginated.
   var enjoyingItems = [].concat(
     movies.map(function (m) {
       return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);
