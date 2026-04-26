@@ -368,7 +368,11 @@ function build() {
   var podcastsLayout = fs.readFileSync(path.join(SRC, 'layouts', 'podcasts.html'), 'utf8');
   var bookshelfLayout = fs.readFileSync(path.join(SRC, 'layouts', 'bookshelf.html'), 'utf8');
   var enjoyingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'enjoying.html'), 'utf8');
-  var kindIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'kind-index.html'), 'utf8');
+  var readingIndexLayout   = fs.readFileSync(path.join(SRC, 'layouts', 'reading-index.html'), 'utf8');
+  var musicIndexLayout     = fs.readFileSync(path.join(SRC, 'layouts', 'music-index.html'), 'utf8');
+  var moviesIndexLayout    = fs.readFileSync(path.join(SRC, 'layouts', 'movies-index.html'), 'utf8');
+  var podcastsIndexLayout  = fs.readFileSync(path.join(SRC, 'layouts', 'podcasts-index.html'), 'utf8');
+  var bookshelfIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'bookshelf-index.html'), 'utf8');
 
   // 3. Read icon sprite
   var iconSprite = fs.readFileSync(path.join(SRC, 'assets', 'icons.svg'), 'utf8');
@@ -971,59 +975,131 @@ function build() {
   // 16a. Per-kind indexes (/reading/, /music/, /movies/, /podcasts/, /bookshelf/).
   // Each is a flat list of cards linking to /<kind>/<slug>/, with a tail
   // link back into the unified /enjoying/ stream.
-  function buildKindIndex(dir, items, meta) {
-    if (!items.length) return;
+  // Generic per-kind emitter — takes a layout, the data shape that
+  // layout expects, and writes /<dir>/index.html.
+  function writeKindIndex(dir, layout, data) {
+    if (!data || !data.itemCount) return;
     mkdirp(path.join(DIST, dir));
-    var data = Object.assign({}, siteData, {
-      items: items,
-      pageKicker: meta.kicker,
-      pageHeading: meta.heading,
-      pageDek: meta.dek,
+    var fullData = Object.assign({}, siteData, data, {
       basePath: '../',
       iconSprite: iconSprite,
-      pageTitle: meta.heading + ' — ' + siteData.title,
-      pageDescription: meta.dek
+      pageTitle: data.pageHeading + ' — ' + siteData.title,
+      pageDescription: data.pageDek
     });
-    var content = renderTemplate(kindIndexLayout, data);
-    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    var content = renderTemplate(layout, fullData);
+    var html = renderTemplate(baseLayout, Object.assign({}, fullData, { content: content }));
     fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
     console.log('[build] ' + dir + '/index.html');
   }
 
-  buildKindIndex('reading', reading.map(function (r) {
-    return enjoyingItem('Reading', 'reading', r, r.author, r.statusLabel);
-  }), {
-    kicker: '§ Reading',
-    heading: 'Reading list',
-    dek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.'
+  // 16a-i. Reading — grouped by status (now → next → done), each group is
+  // a .reading-group with a .book-grid of .book-card items.
+  function renderReadingBook(r) {
+    return '<li class="book-card">' +
+             '<a class="book-card__link" href="../reading/' + r.slug + '/">' +
+               '<div class="book-card__cover">' +
+                 '<div class="cover-placeholder cover-placeholder--book reading-card__spine reading-card__spine--' + r.spine + '">' +
+                   '<span class="reading-card__spine-title">' + r.title + '</span>' +
+                 '</div>' +
+               '</div>' +
+               '<h4 class="book-card__title">' + r.title + '</h4>' +
+               '<div class="book-card__author">' + r.author + '</div>' +
+               '<p class="book-card__note">' + r.note + '</p>' +
+             '</a>' +
+           '</li>';
+  }
+  var readingGroupsOrder = [
+    { status: 'now',  label: 'Now reading' },
+    { status: 'next', label: 'Queued' },
+    { status: 'done', label: 'Finished, recently' }
+  ];
+  var readingGroupsHtml = readingGroupsOrder.map(function (g) {
+    var group = reading.filter(function (r) { return r.status === g.status; });
+    if (!group.length) return '';
+    return '<section class="reading-group">' +
+             '<h3 class="notes-month__label">' + g.label +
+               ' <span class="reading-group__count">' + group.length + '</span>' +
+             '</h3>' +
+             '<ul class="book-grid">' + group.map(renderReadingBook).join('') + '</ul>' +
+           '</section>';
+  }).join('');
+  writeKindIndex('reading', readingIndexLayout, {
+    pageKicker: '§ Reading',
+    pageHeading: 'Reading list',
+    pageDek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.',
+    groupsHtml: readingGroupsHtml,
+    itemCount: reading.length
   });
-  buildKindIndex('music', music.map(function (m) {
-    return enjoyingItem('Music', 'music', m, m.artist, String(m.year));
-  }), {
-    kicker: '§ Music',
-    heading: 'Albums that mattered',
-    dek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.'
+
+  // 16a-ii. Music — flat .album-grid of .album-card; movie/album markup
+  // shapes match the design's components.
+  writeKindIndex('music', musicIndexLayout, {
+    pageKicker: '§ Music',
+    pageHeading: 'Albums that mattered',
+    pageDek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.',
+    items: music,
+    itemCount: music.length
   });
-  buildKindIndex('movies', movies.map(function (m) {
-    return enjoyingItem('Movie', 'movies', m, 'dir. ' + m.director, m.date);
-  }), {
-    kicker: '§ Movies',
-    heading: 'A viewing diary',
-    dek: 'Most recent first. Five-star scale, honestly used. Re-watches marked in the note.'
+
+  // 16a-iii. Movies — letterboxd-style .movies-diary rows: poster + body +
+  // 5★ rating column.
+  writeKindIndex('movies', moviesIndexLayout, {
+    pageKicker: '§ Movies',
+    pageHeading: 'A viewing diary',
+    pageDek: 'Most recent first. Five-star scale, honestly used. Re-watches marked in the note.',
+    items: movies,
+    itemCount: movies.length
   });
-  buildKindIndex('podcasts', podcasts.map(function (p) {
-    return enjoyingItem('Podcast', 'podcasts', p, 'Host: ' + p.host, p.status);
-  }), {
-    kicker: '§ Podcasts',
-    heading: 'In rotation',
-    dek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.'
+
+  // 16a-iv. Podcasts — .podcast-grid two-up cards (cover left, body right).
+  writeKindIndex('podcasts', podcastsIndexLayout, {
+    pageKicker: '§ Podcasts',
+    pageHeading: 'In rotation',
+    pageDek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.',
+    items: podcasts,
+    itemCount: podcasts.length
   });
-  buildKindIndex('bookshelf', bookshelf.map(function (b) {
-    return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
-  }), {
-    kicker: '§ Bookshelf',
-    heading: 'Books that earned a permanent spot',
-    dek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.'
+
+  // 16a-v. Bookshelf — grouped by section (Craft / Working / Fiction /
+  // Essays), each section is a .bookshelf-section with a .book-grid.
+  function renderBookshelfBook(b) {
+    return '<li class="book-card">' +
+             '<a class="book-card__link" href="../bookshelf/' + b.slug + '/">' +
+               '<div class="book-card__cover">' +
+                 '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' +
+                   b.title +
+                 '</div>' +
+               '</div>' +
+               '<h4 class="book-card__title">' + b.title + '</h4>' +
+               '<div class="book-card__author">' + b.author +
+                 ' <span class="book-card__year">&middot; ' + b.year + '</span>' +
+               '</div>' +
+               '<p class="book-card__note">' + b.note + '</p>' +
+             '</a>' +
+           '</li>';
+  }
+  // Group preserving first-encounter order from the MDX file numbering.
+  var bookshelfSections = [];
+  var bookshelfBySection = {};
+  bookshelf.forEach(function (b) {
+    if (!bookshelfBySection[b.section]) {
+      bookshelfBySection[b.section] = { name: b.section, books: [] };
+      bookshelfSections.push(bookshelfBySection[b.section]);
+    }
+    bookshelfBySection[b.section].books.push(b);
+  });
+  var bookshelfSectionsHtml = bookshelfSections.map(function (s) {
+    return '<section class="bookshelf-section">' +
+             '<h3 class="bookshelf-section__title">' + s.name + '</h3>' +
+             '<ul class="book-grid">' + s.books.map(renderBookshelfBook).join('') + '</ul>' +
+           '</section>';
+  }).join('');
+  writeKindIndex('bookshelf', bookshelfIndexLayout, {
+    pageKicker: '§ Bookshelf',
+    pageHeading: 'Books that earned a permanent spot',
+    pageDek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.',
+    sectionsHtml: bookshelfSectionsHtml,
+    itemCount: bookshelf.length
   });
 
   // 16. Aggregate /enjoying/ index, paginated.
