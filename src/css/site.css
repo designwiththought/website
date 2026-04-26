@@ -273,10 +273,11 @@ h6, .h6 {
 
 /* The HTML `hidden` attribute means "remove from layout and a11y tree" — but
    any author CSS that sets a more specific display value (.essay-card uses
-   display: flex, .note-item uses display: grid, etc.) beats the user-agent's
-   default [hidden] { display: none }. The tag filter relies on toggling
-   .hidden to swap card visibility, so guarantee the contract here. */
-[hidden] { display: none !important; }
+   display: flex, .note-item uses display: grid, etc.) ties or beats the
+   user-agent's default [hidden] { display: none }. Doubling the attribute
+   selector bumps specificity to 0,0,2,0 so [hidden] wins over single-class
+   rules without reaching for !important. */
+[hidden][hidden] { display: none; }
 
 /* Visually hidden helper — reachable by AT, removed from layout. */
 .visually-hidden {
