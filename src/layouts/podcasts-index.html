@@ -1,0 +1,33 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">{{pageKicker}}</span>
+        <h1>{{pageHeading}}</h1>
+        <p class="lead">{{pageDek}}</p>
+      </header>
+
+      <ul class="podcast-grid">
+        {{#each items}}
+        <li class="podcast-card">
+          <a class="podcast-card__link" href="{{basePath}}podcasts/{{slug}}/">
+            <div class="podcast-card__cover">
+              <div class="cover-placeholder cover-placeholder--paper cover-placeholder--square">
+                {{title}}
+              </div>
+            </div>
+            <div class="podcast-card__body">
+              <h3 class="podcast-card__title">{{title}}</h3>
+              <div class="podcast-card__host">{{host}}</div>
+              <p class="podcast-card__note">{{note}}</p>
+              <span class="podcast-card__status">&middot; {{status}}</span>
+            </div>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+
+      <p class="kind-index__cross-link">
+        Or browse <a href="{{basePath}}enjoying/">everything in one stream &#8599;</a>
+      </p>
+    </div>
+  </main>

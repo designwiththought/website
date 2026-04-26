@@ -1,0 +1,38 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">{{pageKicker}}</span>
+        <h1>{{pageHeading}}</h1>
+        <p class="lead">{{pageDek}}</p>
+      </header>
+
+      <ul class="movies-diary">
+        {{#each items}}
+        <li class="movie-row">
+          <a class="movie-row__link" href="{{basePath}}movies/{{slug}}/">
+            <div class="movie-row__poster">
+              <div class="cover-placeholder cover-placeholder--paper cover-placeholder--poster">
+                {{title}}
+              </div>
+            </div>
+            <div class="movie-row__body">
+              <span class="movie-row__date">{{date}}</span>
+              <h3 class="movie-row__title">
+                {{title}} <em>({{year}})</em>
+              </h3>
+              <div class="movie-row__director">dir. {{director}}</div>
+              <p class="movie-row__note">{{note}}</p>
+            </div>
+            <div class="movie-row__rating" aria-label="{{rating}} of 5">
+              {{starsHtml}}
+            </div>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+
+      <p class="kind-index__cross-link">
+        Or browse <a href="{{basePath}}enjoying/">everything in one stream &#8599;</a>
+      </p>
+    </div>
+  </main>

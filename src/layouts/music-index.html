@@ -1,0 +1,38 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">{{pageKicker}}</span>
+        <h1>{{pageHeading}}</h1>
+        <p class="lead">{{pageDek}}</p>
+      </header>
+
+      <ul class="album-grid">
+        {{#each items}}
+        <li class="album-card">
+          <a class="album-card__link" href="{{basePath}}music/{{slug}}/">
+            <div class="album-card__cover">
+              <div class="cover-placeholder cover-placeholder--paper cover-placeholder--square">
+                {{title}}
+              </div>
+            </div>
+            <div class="album-card__meta">
+              <span class="album-card__year">{{year}}</span>
+              {{#if tag}}<span class="album-card__tag">&middot; {{tag}}</span>{{/if}}
+            </div>
+            <h3 class="album-card__title">{{title}}</h3>
+            <div class="album-card__artist">{{artist}}</div>
+            <p class="album-card__note">{{note}}</p>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+
+      <p class="t-small t-small--subtle t-small--centered kind-index__archive-line">
+        &#10086; Forty-odd more on the long list &mdash; pruned out of kindness &#10086;
+      </p>
+
+      <p class="kind-index__cross-link">
+        Or browse <a href="{{basePath}}enjoying/">everything in one stream &#8599;</a>
+      </p>
+    </div>
+  </main>
