@@ -1,0 +1,25 @@
+---
+slug: roma-leather-fawn-tan
+title: "Roma Leather, Fawn Tan"
+url: "https://vibae.com/products/roma-leather-fawn-tan"
+imageAlt: "A leather Roma bag in fawn tan."
+price: ""
+note: "A placeholder product entry. Replace this with a short note on why this object earned a spot on the list."
+tag1: "Bag"
+tag2: "Leather"
+---
+
+The body of a product MDX page is for any longer commentary you want — how you came to it, what makes it different, how it holds up.
+
+Frontmatter fields:
+
+- `slug` — controls the URL at `/products/<slug>/`.
+- `title` — display title.
+- `url` — where to buy. Used for the "Buy from …" button and as the source the build script tries to fetch a hero image from.
+- `imageUrl` — optional. If set, used directly as the image source instead of scraping `url` for an `og:image`.
+- `imageAlt` — alt text for the hero image. Required for accessibility.
+- `price` — optional, displayed as a kicker.
+- `note` — short blurb shown on the index card and as the lead on the reader page.
+- `tag1`, `tag2` — optional taxonomy labels.
+
+If the build can't find an image (the source URL blocks scrapers, no `og:image` tag, network failure, etc.), the cover renders as a paper-coloured placeholder with the title centred in display type, and the build prints a warning telling you where to drop the image manually.

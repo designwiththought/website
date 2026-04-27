@@ -3,27 +3,27 @@
   "items": [
     {
       "label": "§ Writing",
-      "body": "What you're writing this month."
+      "bodyHtml": "What you're writing this month."
     },
     {
       "label": "§ Building",
-      "body": "What you're building. Inline links use HTML — <a href=\"../projects/your-first-project/\">like this</a>."
+      "bodyHtml": "What you're building. Inline links use HTML — <a href=\"../projects/your-first-project/\">like this</a>."
     },
     {
       "label": "§ Reading",
-      "body": "What you're reading."
+      "bodyHtml": "What you're reading."
     },
     {
       "label": "¶ Managing",
-      "body": "Who or what you're responsible for."
+      "bodyHtml": "Who or what you're responsible for."
     },
     {
       "label": "¶ Thinking about",
-      "body": "Open questions, half-thoughts."
+      "bodyHtml": "Open questions, half-thoughts."
     },
     {
       "label": "¶ Saying no to",
-      "body": "What you're protecting your attention from."
+      "bodyHtml": "What you're protecting your attention from."
     }
   ]
 }

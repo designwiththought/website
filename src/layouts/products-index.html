@@ -1,0 +1,24 @@
+  <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Products</span>
+        <h1>Things I&rsquo;m into</h1>
+        <p class="lead">A small list of products I keep coming back to. Each links out to where you can find it.</p>
+      </header>
+
+      <ul class="product-grid">
+        {{#each items}}
+        <li>
+          <a class="product-card" href="{{basePath}}products/{{slug}}/">
+            <div class="product-card__cover">
+              {{coverHtml}}
+            </div>
+            <h3 class="product-card__title">{{title}}</h3>
+            {{#if price}}<div class="product-card__price">{{price}}</div>{{/if}}
+            <p class="product-card__note">{{note}}</p>
+          </a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </main>

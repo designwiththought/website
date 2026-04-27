@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{pageTitle}}</title>
-  <meta name="description" content="{{pageDescription}}">
+  <title>Products — Your site title</title>
+  <meta name="description" content="A short list of products worth recommending.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{basePath}}css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
   <nav class="site-nav site-nav--drawer" aria-label="Primary">
-    <a class="site-nav__brand" href="{{basePath}}" aria-label="Home">
+    <a class="site-nav__brand" href="../" aria-label="Home">
       <span class="brand-name">Home</span>
     </a>
     <div class="site-nav__links">
@@ -55,59 +55,83 @@
       <section aria-labelledby="drawer-grp-writing">
         <h3 id="drawer-grp-writing" class="drawer__group-title">&sect; Writing</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="{{basePath}}essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}studies/"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
+          <li><a class="drawer__item" href="../essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
+          <li><a class="drawer__item" href="../studies/"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
+          <li><a class="drawer__item" href="../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-making">
         <h3 id="drawer-grp-making" class="drawer__group-title">&sect; Making</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="{{basePath}}projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
+          <li><a class="drawer__item" href="../projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
+          <li><a class="drawer__item" href="../products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-enjoying">
         <h3 id="drawer-grp-enjoying" class="drawer__group-title">&sect; Enjoying</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="{{basePath}}reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All five, mixed</span></a></li>
+          <li><a class="drawer__item" href="../reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
+          <li><a class="drawer__item" href="../bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
+          <li><a class="drawer__item" href="../music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
+          <li><a class="drawer__item" href="../movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
+          <li><a class="drawer__item" href="../podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All five, mixed</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-learning">
         <h3 id="drawer-grp-learning" class="drawer__group-title">&sect; Learning</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="{{basePath}}learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
+          <li><a class="drawer__item" href="../learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
+          <li><a class="drawer__item" href="../gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-about">
         <h3 id="drawer-grp-about" class="drawer__group-title">&sect; About</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="{{basePath}}about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
-          <li><a class="drawer__item" href="{{basePath}}colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
+          <li><a class="drawer__item" href="../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
+          <li><a class="drawer__item" href="../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
+          <li><a class="drawer__item" href="../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
         </ul>
       </section>
     </div>
   </div>
 
-  {{content}}
+    <main id="main">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Products</span>
+        <h1>Things I&rsquo;m into</h1>
+        <p class="lead">A small list of products I keep coming back to. Each links out to where you can find it.</p>
+      </header>
+
+      <ul class="product-grid">
+        
+        <li>
+          <a class="product-card" href="../products/roma-leather-fawn-tan/">
+            <div class="product-card__cover">
+              <div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">Roma Leather, Fawn Tan</div>
+            </div>
+            <h3 class="product-card__title">Roma Leather, Fawn Tan</h3>
+            
+            <p class="product-card__note">A placeholder product entry. Replace this with a short note on why this object earned a spot on the list.</p>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </main>
+
 
   <footer class="site-footer">
     <div class="site-footer__inner container">
       <div class="site-footer__col site-footer__col--wide">
         <div class="site-footer__wordmark">Design with Thought</div>
         <p class="t-small site-footer__tagline">
-          A writing-and-projects site by {{ownerName}}. Essays arrive slowly. Notes, more often.
+          A writing-and-projects site by Your Name. Essays arrive slowly. Notes, more often.
         </p>
         <ul class="site-footer__social">
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
-          <li><a href="mailto:{{email}}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
+          <li><a href="mailto:you@yourdomain.com"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
         </ul>
@@ -115,32 +139,32 @@
       <div class="site-footer__col">
         <h5>&sect; Writing</h5>
         <ul>
-          <li><a href="{{basePath}}essays/">Essays</a></li>
-          <li><a href="{{basePath}}studies/">Studies</a></li>
-          <li><a href="{{basePath}}notes/">Notes</a></li>
+          <li><a href="../essays/">Essays</a></li>
+          <li><a href="../studies/">Studies</a></li>
+          <li><a href="../notes/">Notes</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
         <h5>&sect; Making &amp; enjoying</h5>
         <ul>
-          <li><a href="{{basePath}}projects/">Projects</a></li>
-          <li><a href="{{basePath}}products/">Products</a></li>
-          <li><a href="{{basePath}}reading/">Reading</a></li>
-          <li><a href="{{basePath}}music/">Music</a></li>
-          <li><a href="{{basePath}}movies/">Movies</a></li>
+          <li><a href="../projects/">Projects</a></li>
+          <li><a href="../products/">Products</a></li>
+          <li><a href="../reading/">Reading</a></li>
+          <li><a href="../music/">Music</a></li>
+          <li><a href="../movies/">Movies</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
         <h5>&sect; About</h5>
         <ul>
-          <li><a href="{{basePath}}about/">About</a></li>
-          <li><a href="{{basePath}}now/">Now</a></li>
-          <li><a href="mailto:{{email}}">Email</a></li>
+          <li><a href="../about/">About</a></li>
+          <li><a href="../now/">Now</a></li>
+          <li><a href="mailto:you@yourdomain.com">Email</a></li>
         </ul>
       </div>
     </div>
     <div class="site-footer__rule container">
-      <span>&copy; 2021&ndash;2026 {{ownerName}}</span>
+      <span>&copy; 2021&ndash;2026 Your Name</span>
       <span class="site-footer__rule-sep">&middot;</span>
       <span>Set in Young Serif &amp; Commissioner</span>
       <span class="site-footer__rule-sep">&middot;</span>
@@ -148,6 +172,6 @@
     </div>
   </footer>
 
-  <script src="{{basePath}}js/main.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>

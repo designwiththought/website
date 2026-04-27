@@ -141,13 +141,12 @@ function watchDir(dir) {
     if (rebuildTimeout) clearTimeout(rebuildTimeout);
     rebuildTimeout = setTimeout(function () {
       console.log('[watch] Change detected: ' + filename);
-      try {
-        build();
+      build().then(function () {
         sendReload();
         console.log('[watch] Rebuilt & reloaded');
-      } catch (e) {
+      }).catch(function (e) {
         console.error('[watch] Build error:', e.message);
-      }
+      });
     }, 150);
   });
 }
@@ -156,13 +155,11 @@ function watchDir(dir) {
 // Start
 // ---------------------------------------------------------------------------
 console.log('[serve] Building...');
-try {
-  build();
-} catch (e) {
+build().catch(function (e) {
   console.error('[serve] Initial build failed:', e.message);
   console.error(e.stack);
   process.exit(1);
-}
+});
 
 watchDir(SRC);
 
