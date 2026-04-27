@@ -995,8 +995,8 @@ function build() {
   // 16a-i. Reading — grouped by status (now → next → done), each group is
   // a .reading-group with a .book-grid of .book-card items.
   function renderReadingBook(r) {
-    return '<li class="book-card">' +
-             '<a class="book-card__link" href="../reading/' + r.slug + '/">' +
+    return '<li>' +
+             '<a class="book-card" href="../reading/' + r.slug + '/">' +
                '<div class="book-card__cover">' +
                  '<div class="cover-placeholder cover-placeholder--book reading-card__spine reading-card__spine--' + r.spine + '">' +
                    '<span class="reading-card__spine-title">' + r.title + '</span>' +
@@ -1063,8 +1063,8 @@ function build() {
   // 16a-v. Bookshelf — grouped by section (Craft / Working / Fiction /
   // Essays), each section is a .bookshelf-section with a .book-grid.
   function renderBookshelfBook(b) {
-    return '<li class="book-card">' +
-             '<a class="book-card__link" href="../bookshelf/' + b.slug + '/">' +
+    return '<li>' +
+             '<a class="book-card" href="../bookshelf/' + b.slug + '/">' +
                '<div class="book-card__cover">' +
                  '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' +
                    b.title +

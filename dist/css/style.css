@@ -2524,3 +2524,38 @@ h6, .h6 {
   text-align: center;
   margin-top: 32px;
 }
+
+/* When the cultural cards become <a> elements (so the whole row is clickable),
+   suppress the global hover-underline on the wrapper — only the title text
+   inside should underline on hover, matching the .essay-card behaviour. */
+.album-card,
+.movie-row,
+.podcast-card,
+.book-card { color: inherit; text-decoration: none; }
+.album-card:hover,
+.album-card:focus-visible,
+.movie-row:hover,
+.movie-row:focus-visible,
+.podcast-card:hover,
+.podcast-card:focus-visible,
+.book-card:hover,
+.book-card:focus-visible { text-decoration: none; }
+.album-card:hover .album-card__title,
+.album-card:focus-visible .album-card__title,
+.movie-row:hover .movie-row__title,
+.movie-row:focus-visible .movie-row__title,
+.podcast-card:hover .podcast-card__title,
+.podcast-card:focus-visible .podcast-card__title,
+.book-card:hover .book-card__title,
+.book-card:focus-visible .book-card__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* The album/podcast/book grids and the movies-diary are <ul> wrappers — make
+   sure the <li>s don't carry the browser's default list bullet/indent. */
+.album-grid,
+.podcast-grid,
+.book-grid,
+.movies-diary { list-style: none; padding: 0; }
