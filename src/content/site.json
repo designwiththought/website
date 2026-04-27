@@ -1,6 +1,6 @@
 {
   "title": "Your site title",
-  "description": "A short description of the site — appears in <meta name=\"description\"> and as the default page description.",
+  "description": "A short description of the site, used in the meta description tag and as the default page description.",
   "ownerName": "Your Name",
   "email": "you@yourdomain.com",
   "heroAside": {
