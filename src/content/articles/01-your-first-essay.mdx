@@ -1,0 +1,31 @@
+---
+slug: your-first-essay
+kind: Essay
+title: "Your first essay"
+summary: "A short sentence that previews the piece — appears under the title on the index page and on the reader."
+date: "01 January 2026"
+read: "5 min"
+tag1: "Tag one"
+tag2: "Tag two"
+toc:
+  - id: "section-one"
+    label: "Section one"
+  - id: "section-two"
+    label: "Section two"
+---
+
+<Dropcap text="Replace this paragraph with your opening — the dropcap component takes a single text prop and renders the first letter as a display-typeface drop cap, with the rest of the paragraph wrapping around it." />
+
+The body of an essay can use markdown — paragraphs, headings, lists, blockquotes, inline `code`, and links. It can also use the four MDX components defined in `src/components/`: `<Dropcap>`, `<Pullquote>`, `<PullquoteNoCite>`, and `<MarginaliaPin>`.
+
+## Section one
+
+The headings on this page get auto-generated `id` slugs — match them in the `toc:` frontmatter array to drive the in-page table of contents.
+
+<Pullquote text="Pull quotes use the Pullquote component when you want to attribute the quote, and PullquoteNoCite when the quote stands on its own." cite="— a hint for the writer" />
+
+## Section two
+
+You can drop a `<MarginaliaPin>` next to a paragraph for a handwritten margin note that appears in the right gutter on wide viewports and hides below 1200px.
+
+To add another essay, drop a new `.mdx` file in `src/content/articles/` with `kind: Essay`. It'll appear at `/essays/<slug>/` automatically. Set `kind: Study` to land it at `/studies/<slug>/` instead.
