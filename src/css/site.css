@@ -1096,7 +1096,6 @@ h6, .h6 {
   font-family: var(--font-display); font-size: 18px; letter-spacing: 2px;
   white-space: nowrap;
 }
-.movie-row__rating-empty { opacity: 0.18; }
 
 /* Podcasts */
 .podcast-list { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 0; }
@@ -1601,7 +1600,6 @@ h6, .h6 {
 .movie-row__director { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--fg-muted); margin: 2px 0 10px; }
 .movie-row__note { font-family: var(--font-serif); font-size: 15px; line-height: 1.55; color: var(--fg); margin: 0; max-width: 58ch; text-wrap: pretty; }
 .movie-row__rating { font-family: var(--font-body); font-size: 15px; color: var(--accent); letter-spacing: 2px; white-space: nowrap; }
-.movie-row__rating-empty { color: var(--fg-subtle); }
 
 /* ---- Podcast grid ---- */
 .podcast-grid {
