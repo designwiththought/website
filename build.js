@@ -439,12 +439,16 @@ function build() {
     r.statusLabel = readingStatusLabel[r.status] || r.status;
   });
 
-  // Movies: pre-render the 5-star rating block.
+  // Movies: pre-render the 5-star rating block. Use the WHITE STAR ☆ for
+  // unfilled positions so the empty state reads as an outlined star
+  // shape instead of a faded fill — visible to low-vision users and in
+  // glare. The parent .movie-row__rating carries an aria-label, so the
+  // glyphs themselves are wrapped in aria-hidden to keep AT clean.
   movies.forEach(function (m) {
-    var rating = parseInt(m.rating, 10) || 0;
-    var filled = '★'.repeat(Math.max(0, Math.min(5, rating)));
-    var empty = '★'.repeat(5 - filled.length);
-    m.starsHtml = filled + (empty ? '<span class="movie-row__rating-empty">' + empty + '</span>' : '');
+    var rating = Math.max(0, Math.min(5, parseInt(m.rating, 10) || 0));
+    var filled = '★'.repeat(rating);
+    var empty = '☆'.repeat(5 - rating);
+    m.starsHtml = '<span aria-hidden="true">' + filled + empty + '</span>';
   });
 
   // Partition articles into essays and studies by kind. Each piece gets its
