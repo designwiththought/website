@@ -10,9 +10,76 @@
 
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+const https = require('https');
 
 const SRC = path.join(__dirname, 'src');
 const DIST = path.join(__dirname, 'dist');
+
+// ---------------------------------------------------------------------------
+// HTTP fetch helpers — used by the /products/ build-time image grabber.
+// Pure Node, no dependencies. Browser-like UA so we get past the laziest
+// scrapers; anything stricter (Cloudflare, etc.) falls through to the
+// placeholder path with a console warning.
+// ---------------------------------------------------------------------------
+function fetchUrl(url, opts) {
+  opts = opts || {};
+  return new Promise(function (resolve, reject) {
+    var lib = url.startsWith('https:') ? https : http;
+    var req = lib.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15',
+        'Accept': opts.binary ? 'image/*,*/*;q=0.8' : 'text/html,application/xhtml+xml,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9'
+      }
+    }, function (res) {
+      // Follow redirects (max 5)
+      if ([301, 302, 303, 307, 308].indexOf(res.statusCode) !== -1 && res.headers.location) {
+        var depth = (opts._depth || 0) + 1;
+        if (depth > 5) return reject(new Error('too many redirects'));
+        var next = new URL(res.headers.location, url).toString();
+        return fetchUrl(next, Object.assign({}, opts, { _depth: depth })).then(resolve, reject);
+      }
+      if (res.statusCode !== 200) {
+        res.resume();
+        return reject(new Error('HTTP ' + res.statusCode));
+      }
+      var chunks = [];
+      res.on('data', function (c) { chunks.push(c); });
+      res.on('end', function () {
+        var buf = Buffer.concat(chunks);
+        if (opts.binary) {
+          resolve({ buf: buf, contentType: res.headers['content-type'] || '' });
+        } else {
+          resolve(buf.toString('utf8'));
+        }
+      });
+    });
+    req.setTimeout(8000, function () { req.destroy(new Error('timeout')); });
+    req.on('error', reject);
+  });
+}
+
+function extractImageUrlFromHtml(html, baseUrl) {
+  // og:image (either attribute order), then twitter:image, then first <img>.
+  var m = html.match(/<meta[^>]+property=["']og:image(?::secure_url)?["'][^>]*content=["']([^"']+)["']/i)
+       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]*property=["']og:image(?::secure_url)?["']/i);
+  if (m) return new URL(m[1], baseUrl).toString();
+  m = html.match(/<meta[^>]+name=["']twitter:image["'][^>]*content=["']([^"']+)["']/i);
+  if (m) return new URL(m[1], baseUrl).toString();
+  m = html.match(/<img[^>]+src=["']([^"']+\.(?:jpe?g|png|webp|avif))["']/i);
+  if (m) return new URL(m[1], baseUrl).toString();
+  return null;
+}
+
+function extFromContentType(ct) {
+  ct = (ct || '').toLowerCase();
+  if (ct.indexOf('png') !== -1)  return '.png';
+  if (ct.indexOf('webp') !== -1) return '.webp';
+  if (ct.indexOf('avif') !== -1) return '.avif';
+  if (ct.indexOf('gif') !== -1)  return '.gif';
+  return '.jpg';
+}
 
 // ---------------------------------------------------------------------------
 // Utility: recursive mkdir
@@ -331,7 +398,49 @@ function renderTemplate(template, data) {
 // ---------------------------------------------------------------------------
 // Build Process
 // ---------------------------------------------------------------------------
-function build() {
+async function ensureProductImage(product) {
+  // Where the cached image lives long-term — committed alongside the rest
+  // of src/assets so it survives the dist clean and skips re-fetching on
+  // every build.
+  var cacheDir = path.join(SRC, 'assets', 'products');
+  mkdirp(cacheDir);
+
+  // 1. Use a manually-saved image if it's already on disk.
+  var exts = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'];
+  for (var i = 0; i < exts.length; i++) {
+    var p = path.join(cacheDir, product.slug + exts[i]);
+    if (fs.existsSync(p)) {
+      product.imageRel = 'assets/products/' + product.slug + exts[i];
+      return;
+    }
+  }
+
+  // 2. Pick an image source: explicit override > og:image scraped from the URL.
+  try {
+    var imageUrl = product.imageUrl;
+    if (!imageUrl) {
+      if (!product.url) throw new Error('no product url');
+      var html = await fetchUrl(product.url);
+      imageUrl = extractImageUrlFromHtml(html, product.url);
+      if (!imageUrl) throw new Error('no og:image in page');
+    }
+    var fetched = await fetchUrl(imageUrl, { binary: true });
+    var ext = extFromContentType(fetched.contentType);
+    var outPath = path.join(cacheDir, product.slug + ext);
+    fs.writeFileSync(outPath, fetched.buf);
+    product.imageRel = 'assets/products/' + product.slug + ext;
+    console.log('[products] fetched image for "' + product.slug + '" → ' + product.imageRel);
+  } catch (err) {
+    product.imageRel = '';
+    console.warn(
+      '[products] could not fetch image for "' + product.slug + '": ' + err.message + '\n' +
+      '           Add one manually at src/assets/products/' + product.slug + '.{jpg,png,webp} ' +
+      'and the next build will pick it up.'
+    );
+  }
+}
+
+async function build() {
   var startTime = Date.now();
   console.log('[build] Starting...');
 
@@ -399,6 +508,8 @@ function build() {
   var gearLayout = fs.readFileSync(path.join(SRC, 'layouts', 'gear.html'), 'utf8');
   var colophonLayout = fs.readFileSync(path.join(SRC, 'layouts', 'colophon.html'), 'utf8');
   var stylesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'styles.html'), 'utf8');
+  var productsIndexLayout = fs.readFileSync(path.join(SRC, 'layouts', 'products-index.html'), 'utf8');
+  var productLayout = fs.readFileSync(path.join(SRC, 'layouts', 'product.html'), 'utf8');
   var readingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'reading.html'), 'utf8');
   var musicLayout = fs.readFileSync(path.join(SRC, 'layouts', 'music.html'), 'utf8');
   var moviesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'movies.html'), 'utf8');
@@ -1215,15 +1326,83 @@ function build() {
     console.log('[build] enjoying' + (page === 1 ? '' : '/' + page) + '/index.html');
   }
 
+  // 17. Products — index + per-product readers, with build-time image fetch.
+  var products = parseMdxDir(path.join(SRC, 'content', 'products'));
+
+  // Fetch / verify each product's hero image once, in parallel. Failures
+  // log a clear console warning and the layout falls through to a paper
+  // placeholder.
+  await Promise.all(products.map(ensureProductImage));
+
+  // For each product: copy the cached image into dist (if any), pre-render
+  // the cover HTML and the human-readable host string for the buy button.
+  products.forEach(function (p) {
+    if (p.imageRel) {
+      var srcPath = path.join(SRC, p.imageRel);
+      var dstPath = path.join(DIST, p.imageRel);
+      mkdirp(path.dirname(dstPath));
+      fs.copyFileSync(srcPath, dstPath);
+    }
+    p.coverHtml = p.imageRel
+      ? '<img class="product-card__img" src="' + '../' + p.imageRel + '" alt="' + escapeHtml(p.imageAlt || p.title) + '">'
+      : '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' + escapeHtml(p.title) + '</div>';
+    if (p.url) {
+      try { p.urlHost = new URL(p.url).hostname.replace(/^www\./, ''); }
+      catch (e) { p.urlHost = ''; }
+    }
+  });
+
+  if (products.length) {
+    mkdirp(path.join(DIST, 'products'));
+
+    // /products/ index
+    var productsIndexData = Object.assign({}, siteData, {
+      items: products,
+      basePath: '../',
+      iconSprite: iconSprite,
+      pageTitle: 'Products — ' + siteData.title,
+      pageDescription: 'A short list of products worth recommending.'
+    });
+    var productsIndexContent = renderTemplate(productsIndexLayout, productsIndexData);
+    var productsIndexHtml = renderTemplate(baseLayout, Object.assign({}, productsIndexData, { content: productsIndexContent }));
+    fs.writeFileSync(path.join(DIST, 'products', 'index.html'), productsIndexHtml);
+    console.log('[build] products/index.html');
+
+    // /products/<slug>/ reader. Cover HTML for the deeper page needs an
+    // extra `../` prefix to climb out of the slug directory.
+    products.forEach(function (p) {
+      var pCover = p.imageRel
+        ? '<img class="product-card__img" src="' + '../../' + p.imageRel + '" alt="' + escapeHtml(p.imageAlt || p.title) + '">'
+        : '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' + escapeHtml(p.title) + '</div>';
+      var data = Object.assign({}, siteData, p, {
+        coverHtml: pCover,
+        basePath: '../../',
+        iconSprite: iconSprite,
+        pageTitle: p.title + ' — ' + siteData.title,
+        pageDescription: p.note || p.title
+      });
+      var content = renderTemplate(productLayout, data);
+      var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+      var dir = path.join(DIST, 'products', p.slug);
+      mkdirp(dir);
+      fs.writeFileSync(path.join(dir, 'index.html'), html);
+      console.log('[build] products/' + p.slug + '/index.html');
+    });
+  }
+
   var totalPages = articles.length + projects.length + notes.length + 10
     + reading.length + music.length + movies.length + podcasts.length + bookshelf.length
+    + products.length + (products.length ? 1 : 0)
     + enjoyingPages;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }
 
 // Run
-build();
+build().catch(function (err) {
+  console.error('[build] failed:', err);
+  process.exit(1);
+});
 
 // Export for use by serve.js
 module.exports = { build };

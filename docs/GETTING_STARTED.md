@@ -142,6 +142,54 @@ Frontmatter shapes — see the placeholder files for full examples:
 `/reading/` groups by `status:`. `/bookshelf/` groups by `section:`. Sections
 render in the order they first appear in the file numbering.
 
+## Add a product
+
+Products are external links — things you'd recommend, with a hero image, a
+short note, and a "Buy from …" button that opens the source page in a new
+tab. They live at `/products/` and `/products/<slug>/`.
+
+```md
+---
+slug: a-thing-i-like
+title: "A thing I like"
+url: "https://example.com/products/the-thing"
+imageUrl: ""                 # optional manual override
+imageAlt: "A photo of the thing on a desk."
+price: "$120"                # optional
+note: "One-sentence preview."
+tag1: "Tool"
+---
+
+Optional longer commentary.
+```
+
+### How the image works
+
+On every build, `build.js` walks each product MDX file and tries, in order:
+
+1. **A cached image on disk.** If `src/assets/products/<slug>.<ext>` already
+   exists (committed alongside the rest of the site), use it. Skip the fetch.
+2. **An explicit `imageUrl`.** If frontmatter sets it, fetch that URL and
+   save it to the cache path above.
+3. **`og:image` from the product URL.** Fetch the product page, parse it for
+   `<meta property="og:image">` (then `twitter:image`, then the first `<img>`),
+   fetch that, save it to the cache path.
+
+If all three fail (HTTP 403 from a Cloudflare-protected site, no `og:image`,
+broken image URL, network timeout) the build prints a warning that names the
+exact path you should drop a file at, and the page renders with a paper-coloured
+placeholder showing the title:
+
+```
+[products] could not fetch image for "a-thing-i-like": HTTP 403
+           Add one manually at src/assets/products/a-thing-i-like.{jpg,png,webp}
+           and the next build will pick it up.
+```
+
+So the failure mode is just a one-step fix: save your own image at the named
+path, run the build again, image appears. The cache file is committed, so the
+fetch only ever runs once per product.
+
 ## Edit the structured pages
 
 `/now/`, `/about/`, `/learning/`, `/gear/`, and `/colophon/` are driven by their
