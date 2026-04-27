@@ -1,0 +1,242 @@
+  <main id="main" class="styles">
+    <div class="container--narrow section">
+      <header class="page-header page-header--left">
+        <span class="kicker">&sect; Design system</span>
+        <h1>Styles</h1>
+        <p class="lead">The palette, type, and components this site is built from. Every block on this page is a live specimen &mdash; change a token in <code>src/css/tokens.css</code> and these examples change with it. A companion piece to the <a href="{{basePath}}colophon/">colophon</a>.</p>
+      </header>
+    </div>
+
+    <div class="container section">
+
+      <section class="styles-section" aria-labelledby="palette-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Palette</span>
+          <h2 id="palette-heading" class="section__title">Palette</h2>
+          <p>Stored as OKLCH for perceptually&ndash;even ramps and clean <code>color-mix()</code> blends. Every primitive aliases into the semantic tokens (<code>--bg</code>, <code>--fg</code>, <code>--accent</code>&hellip;).</p>
+        </header>
+
+        <h3 class="styles-section__group">Paper</h3>
+        <ul class="swatch-grid">
+          <li class="swatch swatch--paper-50"><span class="swatch__name">paper-50</span></li>
+          <li class="swatch swatch--paper-100"><span class="swatch__name">paper-100</span></li>
+          <li class="swatch swatch--paper-200"><span class="swatch__name">paper-200</span></li>
+          <li class="swatch swatch--paper-300"><span class="swatch__name">paper-300</span></li>
+          <li class="swatch swatch--paper-400"><span class="swatch__name">paper-400</span></li>
+        </ul>
+
+        <h3 class="styles-section__group">Ink</h3>
+        <ul class="swatch-grid">
+          <li class="swatch swatch--ink-400"><span class="swatch__name">ink-400</span></li>
+          <li class="swatch swatch--ink-500"><span class="swatch__name">ink-500</span></li>
+          <li class="swatch swatch--ink-600"><span class="swatch__name">ink-600</span></li>
+          <li class="swatch swatch--ink-700"><span class="swatch__name">ink-700</span></li>
+          <li class="swatch swatch--ink-800"><span class="swatch__name">ink-800</span></li>
+          <li class="swatch swatch--ink-900"><span class="swatch__name">ink-900</span></li>
+        </ul>
+
+        <h3 class="styles-section__group">Cocoa &middot; Honey &middot; Terra &middot; Moss &middot; Rust</h3>
+        <ul class="swatch-grid">
+          <li class="swatch swatch--cocoa-700"><span class="swatch__name">cocoa-700</span></li>
+          <li class="swatch swatch--cocoa-600"><span class="swatch__name">cocoa-600</span></li>
+          <li class="swatch swatch--honey-600"><span class="swatch__name">honey-600</span></li>
+          <li class="swatch swatch--honey-500"><span class="swatch__name">honey-500</span></li>
+          <li class="swatch swatch--honey-400"><span class="swatch__name">honey-400</span></li>
+          <li class="swatch swatch--terra-700"><span class="swatch__name">terra-700</span></li>
+          <li class="swatch swatch--terra-600"><span class="swatch__name">terra-600</span></li>
+          <li class="swatch swatch--terra-500"><span class="swatch__name">terra-500</span></li>
+          <li class="swatch swatch--moss-700"><span class="swatch__name">moss-700</span></li>
+          <li class="swatch swatch--moss-600"><span class="swatch__name">moss-600</span></li>
+          <li class="swatch swatch--rust-700"><span class="swatch__name">rust-700</span></li>
+        </ul>
+
+        <h3 class="styles-section__group">Semantic</h3>
+        <ul class="swatch-grid">
+          <li class="swatch swatch--bg"><span class="swatch__name">bg</span></li>
+          <li class="swatch swatch--bg-raised"><span class="swatch__name">bg-raised</span></li>
+          <li class="swatch swatch--bg-sunken"><span class="swatch__name">bg-sunken</span></li>
+          <li class="swatch swatch--fg"><span class="swatch__name">fg</span></li>
+          <li class="swatch swatch--fg-muted"><span class="swatch__name">fg-muted</span></li>
+          <li class="swatch swatch--fg-subtle"><span class="swatch__name">fg-subtle</span></li>
+          <li class="swatch swatch--accent"><span class="swatch__name">accent</span></li>
+          <li class="swatch swatch--accent-hover"><span class="swatch__name">accent-hover</span></li>
+          <li class="swatch swatch--marginalia"><span class="swatch__name">marginalia</span></li>
+        </ul>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="type-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Typography</span>
+          <h2 id="type-heading" class="section__title">Typography</h2>
+          <p>Young Serif for display and pull quotes, Commissioner for body, DM Mono for kickers and meta, Caveat for marginalia.</p>
+        </header>
+
+        <div class="type-specimen">
+          <span class="kicker">Display &middot; Young Serif &middot; t-display</span>
+          <p class="t-display">A diary, not a portfolio.</p>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">h1 &middot; Young Serif</span>
+          <h1 class="h1">The focus ring is a social contract</h1>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">h2 &middot; Young Serif</span>
+          <h2 class="h2">From the notebook</h2>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">h3 &middot; Young Serif</span>
+          <h3 class="h3">A slower cadence</h3>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">Lead &middot; serif italic on body</span>
+          <p class="lead">Long-form writing. Published slowly, revised often. The ones I&rsquo;d still send to a friend.</p>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">Body &middot; Commissioner</span>
+          <p>The first month with NVDA always sounds like a fire alarm. The sixth month sounds like a colleague, politely listing what you&rsquo;ve broken. That gap, in either direction, is where craft lives — neither in the wiring nor in the words, but in the patience to hear both.</p>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">Mono &middot; DM Mono &middot; t-small</span>
+          <p class="t-small font-mono">var(--font-mono) &middot; <code>aria-pressed="true"</code></p>
+        </div>
+
+        <div class="type-specimen">
+          <span class="kicker">Hand &middot; Caveat &middot; marginalia</span>
+          <p><span class="marginalia">on the desk, april &rsquo;26 &rarr;</span></p>
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="buttons-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Buttons</span>
+          <h2 id="buttons-heading" class="section__title">Buttons</h2>
+          <p>One <code>.btn</code> base, three flavours.</p>
+        </header>
+
+        <div class="styles-row">
+          <a class="btn btn--primary" href="#styles">Primary</a>
+          <a class="btn btn--ghost" href="#styles">Ghost</a>
+          <a class="btn btn--link" href="#styles">Link button</a>
+          <a class="btn btn--primary btn--sm" href="#styles">Primary, small</a>
+          <a class="btn btn--ghost btn--lg" href="#styles">Ghost, large</a>
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="tags-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Tags &amp; kickers</span>
+          <h2 id="tags-heading" class="section__title">Tags &amp; kickers</h2>
+          <p>Mono caps for orientation labels; pill tags for taxonomies.</p>
+        </header>
+
+        <div class="styles-row">
+          <span class="tag">A11y</span>
+          <span class="tag">Keyboard</span>
+          <span class="tag tag--moss">Moss tint</span>
+          <span class="tag tag--terra">Terra tint</span>
+        </div>
+        <div class="styles-row">
+          <span class="kicker">&sect; Kicker</span>
+          <span class="kicker">&para; Pilcrow kicker</span>
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="prose-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Prose decorations</span>
+          <h2 id="prose-heading" class="section__title">Prose decorations</h2>
+          <p>Used inside essay readers to set mood without cluttering the page.</p>
+        </header>
+
+        <p class="dropcap">Drop cap openers introduce an essay with a single oversized letterform that floats against the first paragraph. The rest of the paragraph wraps around it and recovers its normal weight by the second sentence, which is when most readers settle in.</p>
+
+        <blockquote class="pullquote">
+          A focus ring is the smallest, most visible contract a designer can make with a stranger.
+          <span class="pullquote__cite">&mdash; from an internal talk, feb 2026</span>
+        </blockquote>
+
+        <p>Inline marginalia in the right gutter, hidden below 1200px:</p>
+        <p class="styles-marginalia-host">
+          <span class="marginalia-pin marginalia-pin--right">
+            <span class="marginalia marginalia--rotated">this is the &ldquo;taste&rdquo; trap</span>
+          </span>
+          When in doubt, write what would you say to a colleague and then take a third of it out. The shape that remains is usually the essay.
+        </p>
+
+        <p><mark>Highlighted text</mark> uses the warm honey highlight token.</p>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="cards-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Cards</span>
+          <h2 id="cards-heading" class="section__title">Cards</h2>
+          <p>Linked surfaces. Each is its own anchor; only the title underlines on hover.</p>
+        </header>
+
+        <h3 class="styles-section__group">Essay card</h3>
+        <a class="essay-card" href="#styles">
+          <div class="essay-card__meta">
+            <span class="kicker">&sect; Essay</span>
+            <span class="essay-card__date">12 April 2026 &middot; 9 min</span>
+          </div>
+          <h3 class="essay-card__title">The focus ring is a social contract</h3>
+          <p class="essay-card__dek">When you remove a focus ring, you are not tidying the design — you are telling keyboard users they are not your audience.</p>
+          <div class="essay-card__tags">
+            <span class="tag">A11y</span>
+            <span class="tag">Keyboard</span>
+            <span class="tag">Craft</span>
+          </div>
+        </a>
+
+        <h3 class="styles-section__group">Project tile</h3>
+        <a class="project-tile" href="#styles">
+          <div class="project-tile__plate project-tile__plate--cocoa">
+            <div class="project-tile__glyph">P</div>
+            <div class="project-tile__plate-label">Contrast tool</div>
+          </div>
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="kicker">&sect; In progress</span>
+              <span class="project-tile__year">2026</span>
+            </div>
+            <h4 class="project-tile__title">Prism</h4>
+            <p class="project-tile__blurb">An open-source contrast checker that accounts for ambient lighting, display calibration, and the viewer&rsquo;s own perception.</p>
+          </div>
+        </a>
+      </section>
+
+      <hr>
+
+      <section class="styles-section" aria-labelledby="surfaces-heading">
+        <header class="styles-section__head">
+          <span class="kicker">&para; Surfaces</span>
+          <h2 id="surfaces-heading" class="section__title">Surfaces</h2>
+          <p>Warm, paper-low shadows. Tinted off ink-900 in OKLCH.</p>
+        </header>
+
+        <ul class="surface-grid">
+          <li class="surface surface--sh-1"><span class="surface__name">sh-1</span></li>
+          <li class="surface surface--sh-2"><span class="surface__name">sh-2</span></li>
+          <li class="surface surface--sh-3"><span class="surface__name">sh-3</span></li>
+          <li class="surface surface--sh-4"><span class="surface__name">sh-4</span></li>
+        </ul>
+      </section>
+
+    </div>
+  </main>

@@ -362,6 +362,7 @@ function build() {
   var learningLayout = fs.readFileSync(path.join(SRC, 'layouts', 'learning.html'), 'utf8');
   var gearLayout = fs.readFileSync(path.join(SRC, 'layouts', 'gear.html'), 'utf8');
   var colophonLayout = fs.readFileSync(path.join(SRC, 'layouts', 'colophon.html'), 'utf8');
+  var stylesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'styles.html'), 'utf8');
   var readingLayout = fs.readFileSync(path.join(SRC, 'layouts', 'reading.html'), 'utf8');
   var musicLayout = fs.readFileSync(path.join(SRC, 'layouts', 'music.html'), 'utf8');
   var moviesLayout = fs.readFileSync(path.join(SRC, 'layouts', 'movies.html'), 'utf8');
@@ -923,6 +924,19 @@ function build() {
   var colophonHtml = renderTemplate(baseLayout, Object.assign({}, colophonTemplateData, { content: colophonContent }));
   fs.writeFileSync(path.join(DIST, 'colophon', 'index.html'), colophonHtml);
   console.log('[build] colophon/index.html');
+
+  // 14a. Styles — design-system specimen page, linked from the colophon.
+  mkdirp(path.join(DIST, 'styles'));
+  var stylesData = Object.assign({}, siteData, {
+    basePath: '../',
+    iconSprite: iconSprite,
+    pageTitle: 'Styles — ' + siteData.title,
+    pageDescription: 'A live specimen of the palette, type, and components this site is built from.'
+  });
+  var stylesContent = renderTemplate(stylesLayout, stylesData);
+  var stylesHtml = renderTemplate(baseLayout, Object.assign({}, stylesData, { content: stylesContent }));
+  fs.writeFileSync(path.join(DIST, 'styles', 'index.html'), stylesHtml);
+  console.log('[build] styles/index.html');
 
   // 15. Per-entry pages for the cultural kinds (reading, music, movies,
   // podcasts, bookshelf). Each is browseable with prev/next neighbours,

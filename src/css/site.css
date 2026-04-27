@@ -1815,3 +1815,149 @@ h6, .h6 {
 .podcast-grid,
 .book-grid,
 .movies-diary { list-style: none; padding: 0; }
+
+/* =========================================================================
+   Styles page — design-system specimen
+   ========================================================================= */
+
+.styles-section { margin: 0 0 64px; max-width: 880px; }
+.styles-section__head { margin-bottom: 32px; max-width: 64ch; }
+.styles-section__head h2 { margin-top: 6px; }
+.styles-section__head p { color: var(--fg-muted); }
+.styles-section__group {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  font-weight: 500;
+  margin: 28px 0 14px;
+}
+
+/* Swatches */
+.swatch-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+.swatch {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-card);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.swatch__name {
+  display: block;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  padding: 6px 8px;
+  background: color-mix(in oklch, var(--bg) 78%, transparent);
+  color: var(--fg);
+  border-top: 1px solid var(--rule);
+}
+
+/* Per-token backgrounds — primitives */
+.swatch--paper-50  { background: var(--paper-50); }
+.swatch--paper-100 { background: var(--paper-100); }
+.swatch--paper-200 { background: var(--paper-200); }
+.swatch--paper-300 { background: var(--paper-300); }
+.swatch--paper-400 { background: var(--paper-400); }
+.swatch--ink-400   { background: var(--ink-400); }
+.swatch--ink-500   { background: var(--ink-500); }
+.swatch--ink-600   { background: var(--ink-600); }
+.swatch--ink-700   { background: var(--ink-700); }
+.swatch--ink-800   { background: var(--ink-800); }
+.swatch--ink-900   { background: var(--ink-900); }
+.swatch--cocoa-600 { background: var(--cocoa-600); }
+.swatch--cocoa-700 { background: var(--cocoa-700); }
+.swatch--honey-400 { background: var(--honey-400); }
+.swatch--honey-500 { background: var(--honey-500); }
+.swatch--honey-600 { background: var(--honey-600); }
+.swatch--terra-500 { background: var(--terra-500); }
+.swatch--terra-600 { background: var(--terra-600); }
+.swatch--terra-700 { background: var(--terra-700); }
+.swatch--moss-600  { background: var(--moss-600); }
+.swatch--moss-700  { background: var(--moss-700); }
+.swatch--rust-700  { background: var(--rust-700); }
+
+/* Semantic (resolve through the cascade so dark mode flips them) */
+.swatch--bg          { background: var(--bg); }
+.swatch--bg-raised   { background: var(--bg-raised); }
+.swatch--bg-sunken   { background: var(--bg-sunken); }
+.swatch--fg          { background: var(--fg); }
+.swatch--fg-muted    { background: var(--fg-muted); }
+.swatch--fg-subtle   { background: var(--fg-subtle); }
+.swatch--accent      { background: var(--accent); }
+.swatch--accent-hover{ background: var(--accent-hover); }
+.swatch--marginalia  { background: var(--marginalia); }
+
+/* Type specimen */
+.type-specimen {
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+}
+.type-specimen:last-child { border-bottom: 1px solid var(--rule); }
+.type-specimen .kicker { display: block; margin-bottom: 10px; }
+.type-specimen p,
+.type-specimen .h1,
+.type-specimen .h2,
+.type-specimen .h3 { margin: 0; }
+
+/* Row of inline specimens (buttons, tags, etc.) */
+.styles-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 16px;
+}
+
+/* Marginalia host paragraph — give the pin a positioned ancestor so its
+   absolute right offset has somewhere to anchor against. */
+.styles-marginalia-host { position: relative; max-width: 56ch; }
+
+/* Surface specimen */
+.surface-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 32px;
+}
+.surface {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+}
+.surface--sh-1 { box-shadow: var(--sh-1); }
+.surface--sh-2 { box-shadow: var(--sh-2); }
+.surface--sh-3 { box-shadow: var(--sh-3); }
+.surface--sh-4 { box-shadow: var(--sh-4); }
+.surface__name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-subtle);
+  letter-spacing: 0.04em;
+}
+
+/* Colophon → /styles/ link */
+.colophon__styles-link {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-muted);
+  font-size: var(--t-small);
+}
