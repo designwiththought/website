@@ -246,6 +246,42 @@ function resolveComponents(html) {
 }
 
 // ---------------------------------------------------------------------------
+// HTML escaping for {{var}} substitutions.
+//
+// By default every {{var}} substitution is HTML-escaped — characters that
+// would close an attribute (") or open a tag (<, >) become entities. This
+// stops user content from leaking into the surrounding markup.
+//
+// Two opt-outs for raw passthrough:
+//   1. Naming convention: vars whose name ends in "Html" pass through.
+//      Used for blocks pre-rendered by build.js (bodyHtml, starsHtml,
+//      filterRowHtml, …).
+//   2. Whitelist: a small set of structural slots that are always raw
+//      regardless of name (the page-content slot, the icon sprite).
+// ---------------------------------------------------------------------------
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+var RAW_KEYS = new Set(['content', 'iconSprite']);
+
+function isRawKey(name) {
+  // Last segment of a dot-path drives the rule for nested lookups.
+  var leaf = name.indexOf('.') === -1 ? name : name.split('.').pop();
+  return /Html$/.test(leaf) || RAW_KEYS.has(leaf);
+}
+
+function renderValue(name, value) {
+  if (value === undefined || value === null) return '';
+  return isRawKey(name) ? String(value) : escapeHtml(value);
+}
+
+// ---------------------------------------------------------------------------
 // Template Engine
 // Supports: {{variable}}, {{nested.variable}},
 // {{#each arrayName}}...{{/each}}, {{#if condition}}...{{/if}}
@@ -281,12 +317,12 @@ function renderTemplate(template, data) {
         return '';
       }
     }
-    return val !== undefined ? String(val) : '';
+    return renderValue(keyPath, val);
   });
 
   // {{key}}
   output = output.replace(/\{\{(\w+)\}\}/g, function (_, key) {
-    return data[key] !== undefined ? String(data[key]) : '';
+    return renderValue(key, data[key]);
   });
 
   return output;
@@ -423,7 +459,7 @@ function build() {
   function splitLede(entries) {
     entries.forEach(function (e) {
       var paras = (e.bodyHtml || '').match(/<p>[\s\S]*?<\/p>/g) || [];
-      e.lede = paras.length ? paras[0].replace(/^<p>|<\/p>$/g, '') : '';
+      e.ledeHtml = paras.length ? paras[0].replace(/^<p>|<\/p>$/g, '') : '';
       e.afterthoughtHtml = paras.slice(1).join('\n');
     });
   }
@@ -468,7 +504,7 @@ function build() {
              '<span class="note-item__date">' + n.date + '</span>' +
              '<div>' +
                '<a href="' + href + '" class="note-item__link">' +
-                 '<p class="note-item__body">' + n.lede + '</p>' +
+                 '<p class="note-item__body">' + n.ledeHtml + '</p>' +
                '</a>' +
                (n.context ? '<div class="note-item__context">' + n.context + '</div>' : '') +
              '</div>' +
@@ -484,7 +520,7 @@ function build() {
     while ((m = re.exec(n.bodyHtml)) !== null) {
       paras.push(m[1]);
     }
-    n.lede = paras[0] || '';
+    n.ledeHtml = paras[0] || '';
     n.afterthoughtHtml = paras.slice(1).map(function (p) {
       return '<p>' + p + '</p>';
     }).join('\n');
