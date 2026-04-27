@@ -23,7 +23,11 @@
               <div class="movie-row__director">dir. {{director}}</div>
               <p class="movie-row__note">{{note}}</p>
             </div>
-            <div class="movie-row__rating" aria-label="{{rating}} of 5">
+            <!-- TODO(a11y): plain <div> can't carry aria-label per the ARIA spec.
+                 Pick one: either give this an explicit role="img" with the
+                 aria-label, or leave the visual stars and add a sibling
+                 <span class="visually-hidden">{{rating}} of 5</span>. -->
+            <div class="movie-row__rating">
               {{starsHtml}}
             </div>
           </a>

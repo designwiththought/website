@@ -120,7 +120,11 @@
               <div class="movie-row__director">dir. Director name</div>
               <p class="movie-row__note">What you took away from it. Re-watches go in the note as well.</p>
             </div>
-            <div class="movie-row__rating" aria-label="4 of 5">
+            <!-- TODO(a11y): plain <div> can't carry aria-label per the ARIA spec.
+                 Pick one: either give this an explicit role="img" with the
+                 aria-label, or leave the visual stars and add a sibling
+                 <span class="visually-hidden">4 of 5</span>. -->
+            <div class="movie-row__rating">
               <span aria-hidden="true">★★★★☆</span>
             </div>
           </a>

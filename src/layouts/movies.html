@@ -13,7 +13,10 @@
         <h1>{{title}} <em class="movie-reader__year">({{year}})</em></h1>
         <div class="reader__meta">
           <span class="kicker">dir. {{director}}</span>
-          <span class="kicker">&middot; <span class="movie-row__rating" aria-label="{{rating}} of 5">{{starsHtml}}</span></span>
+          <!-- TODO(a11y): plain <span> without a role can't carry aria-label
+               reliably. Add role="img" + aria-label, or surface the rating
+               via a sibling visually-hidden span. -->
+          <span class="kicker">&middot; <span class="movie-row__rating">{{starsHtml}}</span></span>
         </div>
       </header>
 
