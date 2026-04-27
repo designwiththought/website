@@ -1,29 +1,29 @@
 {
-  "updated": "01 April 2026",
+  "updated": "01 January 2026",
   "items": [
     {
       "label": "§ Writing",
-      "body": "An essay on announcement copy — how screen-reader output reads when you take it as prose."
+      "body": "What you're writing this month."
     },
     {
       "label": "§ Building",
-      "body": "<a href=\"../projects/prism/\">Prism</a>, a perceptual contrast checker. Alpha with four teams."
+      "body": "What you're building. Inline links use HTML — <a href=\"../projects/your-first-project/\">like this</a>."
     },
     {
       "label": "§ Reading",
-      "body": "<em>The Craftsman</em> (Sennett, second read) and <em>Design Justice</em> (Costanza-Chock)."
+      "body": "What you're reading."
     },
     {
       "label": "¶ Managing",
-      "body": "Three designers and one a11y engineer at Superhuman. Quarterly planning this week."
+      "body": "Who or what you're responsible for."
     },
     {
       "label": "¶ Thinking about",
-      "body": "About how to measure the quality of a screen-reader experience beyond \"does it work.\""
+      "body": "Open questions, half-thoughts."
     },
     {
       "label": "¶ Saying no to",
-      "body": "New conference talks through the summer — writing instead."
+      "body": "What you're protecting your attention from."
     }
   ]
 }

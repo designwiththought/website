@@ -1,76 +1,34 @@
 {
-  "initials": "BH",
+  "initials": "YN",
   "work": [
     {
-      "company": "Superhuman",
-      "role": "Accessibility Lead",
+      "company": "Current company",
+      "role": "Your role",
       "period": "2024 — present",
-      "location": "Remote",
-      "note": "Following the Grammarly acquisition. Leading accessibility across the Superhuman surface: keyboard-first interaction model, screen-reader coverage, a cross-functional a11y council of 12. Shipping an annual external accessibility report.",
+      "location": "City / Remote",
+      "note": "A short paragraph on what you do here. The reader sees this under your role and company.",
       "highlights": [
-        "Moved the flagship inbox from partial WCAG 2.1 AA to verified 2.2 AA across desktop and web",
-        "Hired and grew a dedicated a11y engineering partner",
-        "Published the \"Accessible by default\" internal playbook — now mandatory reading for new PMs"
+        "A specific outcome — quantified if you can.",
+        "Another specific outcome.",
+        "A third, optional."
       ]
     },
     {
-      "company": "Grammarly",
-      "role": "Staff Designer → Accessibility Lead",
+      "company": "Previous company",
+      "role": "Previous role",
       "period": "2020 — 2024",
-      "location": "San Francisco & remote",
-      "note": "Joined as a staff product designer on the writing assistant. Moved into an accessibility-lead role in 2022, partnering with engineering and research across five product surfaces.",
+      "location": "City",
+      "note": "A short paragraph on the previous role.",
       "highlights": [
-        "Redesigned the suggestion card interaction for non-visual use — reduced average tab cost from 9 to 3",
-        "Ran a 14-person cross-functional council; shipped tokenised motion & contrast primitives",
-        "Coached six ICs into senior roles"
+        "A specific outcome.",
+        "Another specific outcome."
       ]
-    },
-    {
-      "company": "Figma",
-      "role": "Senior Designer, Platform",
-      "period": "2018 — 2020",
-      "location": "San Francisco",
-      "note": "Platform design — plugins, the component system, and the library model. Quietly began the company's first accessibility working group.",
-      "highlights": [
-        "Shipped the plugin-permissions model, still in use today",
-        "Founded an internal a11y working group with five volunteers"
-      ]
-    },
-    {
-      "company": "Independent",
-      "role": "Design + engineering consultancy",
-      "period": "2016 — 2018",
-      "location": "London → SF",
-      "note": "Two-person shop. Product design and frontend engineering for early-stage teams. Shipped eight products; half are still running.",
-      "highlights": [
-        "Designed & built the initial web app for a healthtech startup now serving 2M users",
-        "Wrote a small design-system library that went on to have a surprisingly long tail on GitHub"
-      ]
-    },
-    {
-      "company": "The Guardian",
-      "role": "Frontend Engineer, Interactive team",
-      "period": "2013 — 2016",
-      "location": "London",
-      "note": "My first real job. Long-form interactive storytelling. Learned to ship on deadlines I did not set, for audiences that did not know I existed.",
-      "highlights": [
-        "Built 30+ interactive features; two were nominated for a Malofiej",
-        "First introduction to accessibility, through a project with a blind sports correspondent"
-      ]
-    },
-    {
-      "company": "University of Edinburgh",
-      "role": "MSc, Human-Computer Interaction",
-      "period": "2012 — 2013",
-      "location": "Edinburgh",
-      "note": "Thesis on non-visual navigation of complex documents. Where I fell in love with the work I still do."
     }
   ],
   "elsewhere": [
-    { "label": "GitHub", "value": "github.com/brianhinton", "href": "https://github.com/brianhinton" },
-    { "label": "Mastodon", "value": "@brian@front-end.social", "href": "https://front-end.social/@brian" },
-    { "label": "LinkedIn", "value": "linkedin.com/in/brian-hinton", "href": "https://linkedin.com/in/brian-hinton" },
-    { "label": "Speaking", "value": "CSUN 2024, Config 2023, AxeCon 2022", "href": "#" },
-    { "label": "Email", "value": "hello@brian.is", "href": "mailto:hello@brian.is" }
+    { "label": "GitHub", "value": "github.com/your-handle", "href": "https://github.com/your-handle" },
+    { "label": "Mastodon", "value": "@you@instance.social", "href": "https://instance.social/@you" },
+    { "label": "LinkedIn", "value": "linkedin.com/in/your-handle", "href": "https://linkedin.com/in/your-handle" },
+    { "label": "Email", "value": "you@yourdomain.com", "href": "mailto:you@yourdomain.com" }
   ]
 }

@@ -2,31 +2,27 @@
   "items": [
     {
       "label": "§ Type",
-      "value": "Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia."
+      "value": "Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia. Edit the imports in src/css/tokens.css to swap them."
     },
     {
       "label": "§ Palette",
-      "value": "A warm paper and cocoa system. Every surface pair tested to WCAG 2.2 AA."
+      "value": "A warm paper and cocoa system stored as OKLCH. Tokens live in src/css/tokens.css; see /styles/ for the full specimen."
     },
     {
-      "label": "§ Hand-built with",
-      "value": "HTML, CSS, and React — no framework, no CMS. Content lives in a single JS file I edit by hand."
+      "label": "§ Built with",
+      "value": "Node.js standard library only — no framework, no bundler, no dependencies. The whole build is in build.js."
     },
     {
       "label": "§ Writing",
-      "value": "Drafted in iA Writer, cross-checked in VoiceOver and NVDA before publishing."
+      "value": "Markdown with a small set of MDX components (Dropcap, Pullquote, MarginaliaPin, Footnote). Files in src/content/."
     },
     {
       "label": "§ Hosted on",
-      "value": "A static host, behind Cloudflare. No trackers. No cookies beyond theme preference."
+      "value": "GitHub Pages, deployed by .github/workflows/pages.yml on every push to main."
     },
     {
       "label": "§ Source",
-      "value": "The site is open-source and in the slow-burn phase of life. PRs accepted with patience."
-    },
-    {
-      "label": "§ Built on",
-      "value": "Unceded Ohlone land, in Oakland, California. I try to acknowledge this on the pages that count."
+      "value": "Open source. PRs welcome."
     }
   ]
 }

@@ -1,30 +1,30 @@
 {
-  "title": "Design with Thought",
-  "description": "Essays, studies, projects and notes by Brian Hinton — accessibility lead at Superhuman (formerly Grammarly).",
-  "ownerName": "Brian Hinton",
-  "email": "hello@brian.is",
+  "title": "Your site title",
+  "description": "A short description of the site — appears in <meta name=\"description\"> and as the default page description.",
+  "ownerName": "Your Name",
+  "email": "you@yourdomain.com",
   "heroAside": {
-    "writing": "An essay on screen-reader announcements as copywriting.",
-    "building": "Prism — a perceptual contrast checker. Alpha with four teams.",
-    "reading": "The Craftsman, second pass. Design Justice, slowly."
+    "writing": "What you're writing now.",
+    "building": "What you're building now.",
+    "reading": "What you're reading now."
   },
   "reading": [
     {
-      "title": "The Craftsman",
-      "author": "Richard Sennett",
-      "note": "Second read. The chapter on the hand is doing most of the work.",
+      "title": "Book on the shelf",
+      "author": "Author",
+      "note": "A line on why it's there.",
       "spine": "cocoa"
     },
     {
-      "title": "Design Justice",
-      "author": "Sasha Costanza-Chock",
-      "note": "Slow read — one chapter a week, with notes.",
+      "title": "Another book",
+      "author": "Author",
+      "note": "A line on why it's there.",
       "spine": "terra"
     },
     {
-      "title": "A Web for Everyone",
-      "author": "Horton &amp; Quesenbery",
-      "note": "Rereading for a workshop.",
+      "title": "A third book",
+      "author": "Author",
+      "note": "A line on why it's there.",
       "spine": "moss"
     }
   ]

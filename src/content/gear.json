@@ -3,36 +3,22 @@
     {
       "section": "Daily carry",
       "items": [
-        { "name": "iPhone 15 Pro", "note": "Mostly so I can test our product with VoiceOver without booking a lab." },
-        { "name": "Leuchtturm1917 A5 dotted", "note": "Three a year. I write the date on the spine; I keep the old ones." },
-        { "name": "Uni-ball Signo 0.38", "note": "The only pen I buy in bulk." }
+        { "name": "Item one", "note": "Why you carry it. A sentence is enough." },
+        { "name": "Item two", "note": "Why you carry it." }
       ]
     },
     {
       "section": "Desk",
       "items": [
-        { "name": "MacBook Pro 14\" M3", "note": "On this since March 2024. The fan has run once." },
-        { "name": "Studio Display", "note": "Matte. Worth the upcharge." },
-        { "name": "HHKB Professional Hybrid", "note": "I have tried keyboards. This is my keyboard." },
-        { "name": "Herman Miller Aeron, size B", "note": "Secondhand. A decade old. Has outlasted two companies." }
+        { "name": "Computer", "note": "Make and model, plus a sentence on how it's held up." },
+        { "name": "Keyboard", "note": "What you've settled on." }
       ]
     },
     {
       "section": "Software",
       "items": [
-        { "name": "Linear", "note": "For the work I do, which is mostly work about other people&rsquo;s work." },
-        { "name": "Figma", "note": "Grudging. It is what it is." },
-        { "name": "iA Writer", "note": "For first drafts. The lack of features is the feature." },
-        { "name": "VoiceOver / NVDA / JAWS", "note": "Open somewhere on my desk at all times." },
-        { "name": "Obsidian", "note": "A second brain I have almost convinced to stay organised." }
-      ]
-    },
-    {
-      "section": "Reading / listening",
-      "items": [
-        { "name": "Kobo Libra 2", "note": "Escape route from Amazon. Fine. Not great." },
-        { "name": "Sony WH-1000XM5", "note": "Open-plan survival kit." },
-        { "name": "AirPods Pro (2nd gen)", "note": "Transparency mode is the best accessibility feature Apple ships." }
+        { "name": "Editor", "note": "The one you write in." },
+        { "name": "Terminal", "note": "What you ship from." }
       ]
     }
   ]

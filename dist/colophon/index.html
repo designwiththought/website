@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colophon — Design with Thought</title>
-  <meta name="description" content="How Brian Hinton’s site is made.">
+  <title>Colophon — Your site title</title>
+  <meta name="description" content="How Your Name’s site is made.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Commissioner:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -107,40 +107,39 @@
         
         <li class="colophon-row">
           <span class="colophon-row__label">§ Type</span>
-          <p class="colophon-row__value">Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia.</p>
+          <p class="colophon-row__value">Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia. Edit the imports in src/css/tokens.css to swap them.</p>
         </li>
         
         <li class="colophon-row">
           <span class="colophon-row__label">§ Palette</span>
-          <p class="colophon-row__value">A warm paper and cocoa system. Every surface pair tested to WCAG 2.2 AA.</p>
+          <p class="colophon-row__value">A warm paper and cocoa system stored as OKLCH. Tokens live in src/css/tokens.css; see /styles/ for the full specimen.</p>
         </li>
         
         <li class="colophon-row">
-          <span class="colophon-row__label">§ Hand-built with</span>
-          <p class="colophon-row__value">HTML, CSS, and React — no framework, no CMS. Content lives in a single JS file I edit by hand.</p>
+          <span class="colophon-row__label">§ Built with</span>
+          <p class="colophon-row__value">Node.js standard library only — no framework, no bundler, no dependencies. The whole build is in build.js.</p>
         </li>
         
         <li class="colophon-row">
           <span class="colophon-row__label">§ Writing</span>
-          <p class="colophon-row__value">Drafted in iA Writer, cross-checked in VoiceOver and NVDA before publishing.</p>
+          <p class="colophon-row__value">Markdown with a small set of MDX components (Dropcap, Pullquote, MarginaliaPin, Footnote). Files in src/content/.</p>
         </li>
         
         <li class="colophon-row">
           <span class="colophon-row__label">§ Hosted on</span>
-          <p class="colophon-row__value">A static host, behind Cloudflare. No trackers. No cookies beyond theme preference.</p>
+          <p class="colophon-row__value">GitHub Pages, deployed by .github/workflows/pages.yml on every push to main.</p>
         </li>
         
         <li class="colophon-row">
           <span class="colophon-row__label">§ Source</span>
-          <p class="colophon-row__value">The site is open-source and in the slow-burn phase of life. PRs accepted with patience.</p>
-        </li>
-        
-        <li class="colophon-row">
-          <span class="colophon-row__label">§ Built on</span>
-          <p class="colophon-row__value">Unceded Ohlone land, in Oakland, California. I try to acknowledge this on the pages that count.</p>
+          <p class="colophon-row__value">Open source. PRs welcome.</p>
         </li>
         
       </ul>
+
+      <p class="colophon__styles-link">
+        For a live specimen of the palette, type, and components &mdash; <a href="../styles/">see the design system &#8599;</a>
+      </p>
 
       <p class="t-small colophon__signoff">
         &#10086; Thanks for reading the small print. &#10086;
@@ -154,11 +153,11 @@
       <div class="site-footer__col site-footer__col--wide">
         <div class="site-footer__wordmark">Design with Thought</div>
         <p class="t-small site-footer__tagline">
-          A writing-and-projects site by Brian Hinton. Essays arrive slowly. Notes, more often.
+          A writing-and-projects site by Your Name. Essays arrive slowly. Notes, more often.
         </p>
         <ul class="site-footer__social">
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
-          <li><a href="mailto:hello@brian.is"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
+          <li><a href="mailto:you@yourdomain.com"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
           <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
         </ul>
@@ -185,12 +184,12 @@
         <ul>
           <li><a href="../about/">About</a></li>
           <li><a href="../now/">Now</a></li>
-          <li><a href="mailto:hello@brian.is">Email</a></li>
+          <li><a href="mailto:you@yourdomain.com">Email</a></li>
         </ul>
       </div>
     </div>
     <div class="site-footer__rule container">
-      <span>&copy; 2021&ndash;2026 Brian Hinton</span>
+      <span>&copy; 2021&ndash;2026 Your Name</span>
       <span class="site-footer__rule-sep">&middot;</span>
       <span>Set in Young Serif &amp; Commissioner</span>
       <span class="site-footer__rule-sep">&middot;</span>
