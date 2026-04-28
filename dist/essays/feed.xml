@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://yourdomain.example/feed.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Your site title — Essays</title>
+  <subtitle>Long-form writing.</subtitle>
+  <link href="https://yourdomain.example/essays/" />
+  <link rel="self" type="application/atom+xml" href="https://yourdomain.example/essays/feed.xml" />
+  <id>https://yourdomain.example/essays/feed.xml</id>
+  <updated>2026-01-01T00:00:00.000Z</updated>
+  <author>
+    <name>Your Name</name>
+    <email>you@yourdomain.com</email>
+  </author>
+  <entry>
+    <title>Your first essay</title>
+    <link href="https://yourdomain.example/essays/your-first-essay/" />
+    <id>https://yourdomain.example/essays/your-first-essay/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>A short sentence that previews the piece — appears under the title on the index page and on the reader.</summary>
+  </entry>
+</feed>

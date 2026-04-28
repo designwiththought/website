@@ -2060,3 +2060,71 @@ h6, .h6 {
   align-items: center;
 }
 .projects-group__count { color: var(--fg-faint); font-family: var(--font-mono); }
+
+/* =========================================================================
+   RSS / Atom feed XSL preview (rendered by /feed.xsl when the user opens
+   a feed URL in a browser).
+   ========================================================================= */
+
+.feed-banner {
+  margin: 28px 0 12px;
+  padding: 18px 22px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+}
+.feed-banner p { margin: 0 0 10px; max-width: none; color: var(--fg-muted); }
+.feed-banner p:last-child { margin-bottom: 0; }
+.feed-banner__url {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: var(--bg-sunken);
+  font-size: var(--t-small);
+  word-break: break-all;
+}
+.feed-banner__home { font-family: var(--font-body); }
+
+.feed-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+.feed-entry {
+  padding: 22px 0;
+  border-top: 1px solid var(--rule);
+}
+.feed-entry:last-child { border-bottom: 1px solid var(--rule); }
+.feed-entry__link { text-decoration: none; color: inherit; }
+.feed-entry__link:hover .feed-entry__title,
+.feed-entry__link:focus-visible .feed-entry__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.feed-entry__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 0.6vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 6px;
+  color: var(--ink-800);
+  text-wrap: balance;
+}
+[data-theme="dark"] .feed-entry__title { color: var(--fg); }
+.feed-entry__date {
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--fg-subtle);
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+}
+.feed-entry__summary {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}

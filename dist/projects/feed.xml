@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://yourdomain.example/feed.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Your site title — Projects</title>
+  <subtitle>Things I’ve made or am still making.</subtitle>
+  <link href="https://yourdomain.example/projects/" />
+  <link rel="self" type="application/atom+xml" href="https://yourdomain.example/projects/feed.xml" />
+  <id>https://yourdomain.example/projects/feed.xml</id>
+  <updated>2026-01-01T00:00:00.000Z</updated>
+  <author>
+    <name>Your Name</name>
+    <email>you@yourdomain.com</email>
+  </author>
+  <entry>
+    <title>Your first project</title>
+    <link href="https://yourdomain.example/projects/your-first-project/" />
+    <id>https://yourdomain.example/projects/your-first-project/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>A short blurb that previews the project — appears on the projects index card and on the case-study reader.</summary>
+  </entry>
+</feed>
