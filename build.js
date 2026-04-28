@@ -1500,7 +1500,12 @@ async function build() {
 
     var lines = [];
     lines.push('<?xml version="1.0" encoding="UTF-8"?>');
-    lines.push('<?xml-stylesheet type="text/xsl" href="' + siteUrl + '/feed.xsl"?>');
+    // Root-relative href so the XSL applies on every host the site is
+    // served from — browsers only honour an <?xml-stylesheet?> PI when
+    // the stylesheet is same-origin with the XML, so an absolute URL
+    // built off siteUrl fails the moment siteUrl points anywhere other
+    // than the host the user is currently visiting.
+    lines.push('<?xml-stylesheet type="text/xsl" href="/feed.xsl"?>');
     lines.push('<feed xmlns="http://www.w3.org/2005/Atom">');
     lines.push('  <title>' + escapeXml(meta.title) + '</title>');
     lines.push('  <subtitle>' + escapeXml(meta.subtitle || '') + '</subtitle>');
