@@ -2128,3 +2128,34 @@ h6, .h6 {
   max-width: 64ch;
   text-wrap: pretty;
 }
+
+/* Section-feed pill — sits inside the page header beneath the lead.
+   Visually distinct from the footer's small RSS social link: a pill-
+   shaped chip with the section name in the label, mono-cased so it
+   reads as a deliberate "subscribe" affordance, not an icon row. */
+.page-header__feed { margin: 18px 0 0; }
+.page-feed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--bg-raised);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+.page-feed-link:hover,
+.page-feed-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-sunken);
+  text-decoration: none;
+}
+.page-feed-link__icon { flex-shrink: 0; }
