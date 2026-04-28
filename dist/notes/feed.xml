@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://yourdomain.example/feed.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Your site title — Notes</title>
+  <subtitle>Short fragments and unfinished thoughts.</subtitle>
+  <link href="https://yourdomain.example/notes/" />
+  <link rel="self" type="application/atom+xml" href="https://yourdomain.example/notes/feed.xml" />
+  <id>https://yourdomain.example/notes/feed.xml</id>
+  <updated>2001-01-02T00:00:00.000Z</updated>
+  <author>
+    <name>Your Name</name>
+    <email>you@yourdomain.com</email>
+  </author>
+  <entry>
+    <title>Your second note</title>
+    <link href="https://yourdomain.example/notes/your-second-note/" />
+    <id>https://yourdomain.example/notes/your-second-note/</id>
+    <updated>2001-01-02T00:00:00.000Z</updated>
+    <summary>Add as many MDX files as you like to src/content/notes/ . They render in file order — keep the numeric 01- , 02- prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</summary>
+  </entry>
+  <entry>
+    <title>Your first note</title>
+    <link href="https://yourdomain.example/notes/your-first-note/" />
+    <id>https://yourdomain.example/notes/your-first-note/</id>
+    <updated>2001-01-01T00:00:00.000Z</updated>
+    <summary>A note is a short fragment — usually one paragraph, sometimes two. The first paragraph becomes the lede on the reader page; subsequent paragraphs become the afterthought. Notes are grouped by month: on /notes/ and surface as the four most recent on the homepage&apos;s &quot;From the…</summary>
+  </entry>
+</feed>

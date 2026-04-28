@@ -217,6 +217,32 @@ on `/essays/`. Same for studies.
 See `/styles/` (linked from `/colophon/`) for a live specimen of every token and
 component.
 
+## Feeds
+
+Every section gets its own Atom feed, and the global feed combines them:
+
+| URL | What's in it |
+|---|---|
+| `/feed.xml` | Everything across the site, newest 30 |
+| `/essays/feed.xml` | Essays only |
+| `/studies/feed.xml` | Studies only |
+| `/notes/feed.xml` | Notes |
+| `/projects/feed.xml` | Project case studies |
+| `/products/feed.xml` | Products |
+| `/reading/feed.xml`, `/music/feed.xml`, `/movies/feed.xml`, `/podcasts/feed.xml`, `/bookshelf/feed.xml` | Each cultural kind |
+
+All feeds reference `/feed.xsl` via an `<?xml-stylesheet?>` processing
+instruction, so opening a feed URL in a browser renders a friendly preview
+(title + description + entry list with summaries) instead of raw XML.
+
+The `<head>` of every page links the global feed via
+`<link rel="alternate" type="application/atom+xml">` for feed-reader
+discovery. The footer RSS link points at the same.
+
+The base URL the feed uses for absolute `<link>` and `<id>` values comes
+from `siteUrl` in `site.json`. Set this to your real domain before
+deploying — feed-reader behaviour depends on stable `<id>` values.
+
 ## Deploy
 
 `.github/workflows/pages.yml` runs `node build.js` on every push to `main` (and

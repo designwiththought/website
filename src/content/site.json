@@ -3,6 +3,7 @@
   "description": "A short description of the site, used in the meta description tag and as the default page description.",
   "ownerName": "Your Name",
   "email": "you@yourdomain.com",
+  "siteUrl": "https://yourdomain.example",
   "heroAside": {
     "writing": "What you're writing now.",
     "building": "What you're building now.",

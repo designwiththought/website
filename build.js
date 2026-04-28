@@ -337,6 +337,39 @@ function escapeHtml(s) {
 
 var RAW_KEYS = new Set(['content', 'iconSprite']);
 
+// XML escaping for feed payloads. Same set as HTML escape plus apostrophe →
+// &apos;, which is the XML-correct entity. Escaping all five keeps Atom
+// validators happy.
+function escapeXml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+// Parse the site's free-form date strings to ISO. Falls back to "now" so
+// feeds always have a valid <updated> even when frontmatter dates are
+// missing or formatted oddly ("Apr 14", "2026 →", etc.).
+function toIsoDate(s) {
+  if (!s) return new Date().toISOString();
+  var t = Date.parse(String(s));
+  if (!isNaN(t)) return new Date(t).toISOString();
+  return new Date().toISOString();
+}
+
+// Strip HTML tags + collapse whitespace for plain-text summaries.
+function plainSummary(html, maxLen) {
+  var s = String(html || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (maxLen && s.length > maxLen) s = s.slice(0, maxLen).replace(/\s+\S*$/, '') + '…';
+  return s;
+}
+
 function isRawKey(name) {
   // Last segment of a dot-path drives the rule for nested lookups.
   var leaf = name.indexOf('.') === -1 ? name : name.split('.').pop();
@@ -565,6 +598,17 @@ async function build() {
   var movies = parseMdxDir(path.join(SRC, 'content', 'movies'));
   var podcasts = parseMdxDir(path.join(SRC, 'content', 'podcasts'));
   var bookshelf = parseMdxDir(path.join(SRC, 'content', 'bookshelf'));
+  var products = parseMdxDir(path.join(SRC, 'content', 'products'));
+
+  // Derive each product's url host once, so it's available both in the
+  // aggregate /enjoying/ feed (used as the byline) and on the per-product
+  // reader's "Buy from …" button.
+  products.forEach(function (p) {
+    if (p.url) {
+      try { p.urlHost = new URL(p.url).hostname.replace(/^www\./, ''); }
+      catch (e) { p.urlHost = ''; }
+    }
+  });
 
   // Split each entry's body into a lede + afterthoughtHtml, mirroring notes.
   function splitLede(entries) {
@@ -963,10 +1007,54 @@ async function build() {
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
-  // 9. Build projects index
+  // 9. Build projects index — grouped by lifecycle status so visitors can
+  // see what's alive at a glance instead of hunting through dates. The
+  // status: frontmatter field carries a leading symbol (§ / ¶); strip it
+  // before bucketing.
+  function projectStatusBucket(status) {
+    var s = String(status || '').toLowerCase();
+    if (/in progress|ongoing|maintained/.test(s)) return 'in-flight';
+    if (/shipped/.test(s))                        return 'shipped';
+    if (/paused|shelved|archived/.test(s))        return 'paused';
+    return 'in-flight'; // sensible default — un-tagged work is treated as live
+  }
+
+  function renderProjectTile(p) {
+    return '<a class="project-tile" href="../projects/' + p.slug + '/">' +
+             '<div class="project-tile__plate project-tile__plate--' + (p.plate || 'cocoa') + '">' +
+               '<div class="project-tile__glyph">' + escapeHtml(p.glyph || '') + '</div>' +
+               '<div class="project-tile__plate-label">' + escapeHtml(p.label || '') + '</div>' +
+             '</div>' +
+             '<div class="project-tile__body">' +
+               '<div class="project-tile__meta">' +
+                 '<span class="kicker">' + escapeHtml(p.status || '') + '</span>' +
+                 '<span class="project-tile__year">' + escapeHtml(p.year || '') + '</span>' +
+               '</div>' +
+               '<h4 class="project-tile__title">' + escapeHtml(p.title || '') + '</h4>' +
+               '<p class="project-tile__blurb">' + escapeHtml(p.summary || '') + '</p>' +
+             '</div>' +
+           '</a>';
+  }
+
+  var PROJECT_GROUPS = [
+    { key: 'in-flight', label: 'In flight' },
+    { key: 'shipped',   label: 'Shipped' },
+    { key: 'paused',    label: 'Paused' }
+  ];
+  var projectGroupsHtml = PROJECT_GROUPS.map(function (g) {
+    var members = projects.filter(function (p) { return projectStatusBucket(p.status) === g.key; });
+    if (!members.length) return '';
+    return '<section class="projects-group">' +
+             '<h3 class="projects-group__label">' + g.label +
+               ' <span class="projects-group__count">' + members.length + '</span>' +
+             '</h3>' +
+             '<div class="grid grid--projects">' + members.map(renderProjectTile).join('') + '</div>' +
+           '</section>';
+  }).join('');
+
   mkdirp(path.join(DIST, 'projects'));
   var projectsIndexData = Object.assign({}, siteData, {
-    projects: projects,
+    groupsHtml: projectGroupsHtml,
     basePath: '../',
     iconSprite: iconSprite,
     pageTitle: 'Projects — ' + siteData.title,
@@ -1283,6 +1371,9 @@ async function build() {
     }),
     bookshelf.map(function (b) {
       return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
+    }),
+    products.map(function (p) {
+      return enjoyingItem('Product', 'products', p, p.urlHost || '', p.price || '');
     })
   );
 
@@ -1326,16 +1417,13 @@ async function build() {
     console.log('[build] enjoying' + (page === 1 ? '' : '/' + page) + '/index.html');
   }
 
-  // 17. Products — index + per-product readers, with build-time image fetch.
-  var products = parseMdxDir(path.join(SRC, 'content', 'products'));
-
-  // Fetch / verify each product's hero image once, in parallel. Failures
-  // log a clear console warning and the layout falls through to a paper
-  // placeholder.
+  // 17. Products — index + per-product readers. Hero images are fetched at
+  // build time (already deferred until here so the /enjoying/ aggregate
+  // doesn't wait on the network).
   await Promise.all(products.map(ensureProductImage));
 
-  // For each product: copy the cached image into dist (if any), pre-render
-  // the cover HTML and the human-readable host string for the buy button.
+  // Copy each cached image into dist and pre-render cover HTML at the
+  // depth used by the products index (one level deep — basePath '../').
   products.forEach(function (p) {
     if (p.imageRel) {
       var srcPath = path.join(SRC, p.imageRel);
@@ -1346,10 +1434,6 @@ async function build() {
     p.coverHtml = p.imageRel
       ? '<img class="product-card__img" src="' + '../' + p.imageRel + '" alt="' + escapeHtml(p.imageAlt || p.title) + '">'
       : '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' + escapeHtml(p.title) + '</div>';
-    if (p.url) {
-      try { p.urlHost = new URL(p.url).hostname.replace(/^www\./, ''); }
-      catch (e) { p.urlHost = ''; }
-    }
   });
 
   if (products.length) {
@@ -1390,10 +1474,107 @@ async function build() {
     });
   }
 
+  // 18. Atom feeds — one per section + a global combined feed. Each feed
+  // points at the shared /feed.xsl stylesheet so opening the URL in a
+  // browser renders a friendly HTML preview instead of a wall of XML.
+  var siteUrl = String(siteData.siteUrl || '').replace(/\/$/, '');
+
+  function entryFromItem(item, sectionPath) {
+    var url = siteUrl + '/' + sectionPath + '/' + item.slug + '/';
+    var summary = item.summary || item.note || item.dek || plainSummary(item.bodyHtml, 280) || '';
+    return {
+      title: item.title || '(untitled)',
+      link: url,
+      id: url,
+      updated: toIsoDate(item.date || item.year || item.month),
+      summary: plainSummary(summary, 280)
+    };
+  }
+
+  function renderAtomFeed(meta, entries) {
+    var ordered = entries.slice().sort(function (a, b) {
+      return b.updated.localeCompare(a.updated);
+    }).slice(0, 30);
+    var feedUrl = siteUrl + meta.path + 'feed.xml';
+    var sectionUrl = siteUrl + meta.path;
+
+    var lines = [];
+    lines.push('<?xml version="1.0" encoding="UTF-8"?>');
+    lines.push('<?xml-stylesheet type="text/xsl" href="' + siteUrl + '/feed.xsl"?>');
+    lines.push('<feed xmlns="http://www.w3.org/2005/Atom">');
+    lines.push('  <title>' + escapeXml(meta.title) + '</title>');
+    lines.push('  <subtitle>' + escapeXml(meta.subtitle || '') + '</subtitle>');
+    lines.push('  <link href="' + escapeXml(sectionUrl) + '" />');
+    lines.push('  <link rel="self" type="application/atom+xml" href="' + escapeXml(feedUrl) + '" />');
+    lines.push('  <id>' + escapeXml(feedUrl) + '</id>');
+    lines.push('  <updated>' + (ordered[0] ? ordered[0].updated : new Date().toISOString()) + '</updated>');
+    lines.push('  <author>');
+    lines.push('    <name>' + escapeXml(siteData.ownerName) + '</name>');
+    lines.push('    <email>' + escapeXml(siteData.email) + '</email>');
+    lines.push('  </author>');
+    ordered.forEach(function (e) {
+      lines.push('  <entry>');
+      lines.push('    <title>' + escapeXml(e.title) + '</title>');
+      lines.push('    <link href="' + escapeXml(e.link) + '" />');
+      lines.push('    <id>' + escapeXml(e.id) + '</id>');
+      lines.push('    <updated>' + e.updated + '</updated>');
+      if (e.summary) lines.push('    <summary>' + escapeXml(e.summary) + '</summary>');
+      lines.push('  </entry>');
+    });
+    lines.push('</feed>');
+    return lines.join('\n') + '\n';
+  }
+
+  function writeFeed(sectionDir, meta, entries) {
+    var dir = sectionDir ? path.join(DIST, sectionDir) : DIST;
+    mkdirp(dir);
+    var feedXml = renderAtomFeed(meta, entries);
+    fs.writeFileSync(path.join(dir, 'feed.xml'), feedXml);
+    console.log('[build] ' + (sectionDir ? sectionDir + '/' : '') + 'feed.xml');
+  }
+
+  // Per-section feeds. Reuse the entry shape per kind so each feed has a
+  // section URL, title, subtitle, and a list of items.
+  var essaysEntries  = essays.map(function (a)  { return entryFromItem(a, 'essays'); });
+  var studiesEntries = studies.map(function (a) { return entryFromItem(a, 'studies'); });
+  var notesEntries   = notes.map(function (n)   { return entryFromItem(n, 'notes'); });
+  var projectsEntries = projects.map(function (p) { return entryFromItem(p, 'projects'); });
+  var productsEntries = products.map(function (p) { return entryFromItem(p, 'products'); });
+  var readingEntries  = reading.map(function (r)  { return entryFromItem(r, 'reading'); });
+  var musicEntries    = music.map(function (m)    { return entryFromItem(m, 'music'); });
+  var moviesEntries   = movies.map(function (m)   { return entryFromItem(m, 'movies'); });
+  var podcastsEntries = podcasts.map(function (p) { return entryFromItem(p, 'podcasts'); });
+  var bookshelfEntries = bookshelf.map(function (b) { return entryFromItem(b, 'bookshelf'); });
+
+  writeFeed('essays',    { path: '/essays/',    title: siteData.title + ' — Essays',    subtitle: 'Long-form writing.' },                      essaysEntries);
+  writeFeed('studies',   { path: '/studies/',   title: siteData.title + ' — Studies',   subtitle: 'Short, investigated pieces.' },             studiesEntries);
+  writeFeed('notes',     { path: '/notes/',     title: siteData.title + ' — Notes',     subtitle: 'Short fragments and unfinished thoughts.' }, notesEntries);
+  writeFeed('projects',  { path: '/projects/',  title: siteData.title + ' — Projects',  subtitle: 'Things I’ve made or am still making.' },     projectsEntries);
+  writeFeed('products',  { path: '/products/',  title: siteData.title + ' — Products',  subtitle: 'Things I recommend.' },                      productsEntries);
+  writeFeed('reading',   { path: '/reading/',   title: siteData.title + ' — Reading',   subtitle: 'Books currently / queued / finished.' },     readingEntries);
+  writeFeed('music',     { path: '/music/',     title: siteData.title + ' — Music',     subtitle: 'Albums that mattered.' },                    musicEntries);
+  writeFeed('movies',    { path: '/movies/',    title: siteData.title + ' — Movies',    subtitle: 'A viewing diary.' },                         moviesEntries);
+  writeFeed('podcasts',  { path: '/podcasts/',  title: siteData.title + ' — Podcasts',  subtitle: 'In rotation.' },                             podcastsEntries);
+  writeFeed('bookshelf', { path: '/bookshelf/', title: siteData.title + ' — Bookshelf', subtitle: 'Books that earned a permanent spot.' },      bookshelfEntries);
+
+  // Global feed — concat everything, sort by updated desc, keep newest 30.
+  var globalEntries = [].concat(
+    essaysEntries, studiesEntries, notesEntries, projectsEntries, productsEntries,
+    readingEntries, musicEntries, moviesEntries, podcastsEntries, bookshelfEntries
+  );
+  writeFeed('', { path: '/', title: siteData.title, subtitle: siteData.description }, globalEntries);
+
+  // Copy the XSL stylesheet alongside the feeds.
+  fs.copyFileSync(path.join(SRC, 'feed.xsl'), path.join(DIST, 'feed.xsl'));
+  console.log('[build] feed.xsl');
+
+  var feedCount = 11; // 10 per-section + 1 global
+
   var totalPages = articles.length + projects.length + notes.length + 10
     + reading.length + music.length + movies.length + podcasts.length + bookshelf.length
     + products.length + (products.length ? 1 : 0)
-    + enjoyingPages;
+    + enjoyingPages
+    + feedCount;
   var elapsed = Date.now() - startTime;
   console.log('[build] Done in ' + elapsed + 'ms (' + totalPages + ' pages)');
 }

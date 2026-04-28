@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://yourdomain.example/feed.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Your site title</title>
+  <subtitle>A short description of the site, used in the meta description tag and as the default page description.</subtitle>
+  <link href="https://yourdomain.example/" />
+  <link rel="self" type="application/atom+xml" href="https://yourdomain.example/feed.xml" />
+  <id>https://yourdomain.example/feed.xml</id>
+  <updated>2026-04-28T08:07:07.155Z</updated>
+  <author>
+    <name>Your Name</name>
+    <email>you@yourdomain.com</email>
+  </author>
+  <entry>
+    <title>Roma Leather, Fawn Tan</title>
+    <link href="https://yourdomain.example/products/roma-leather-fawn-tan/" />
+    <id>https://yourdomain.example/products/roma-leather-fawn-tan/</id>
+    <updated>2026-04-28T08:07:07.155Z</updated>
+    <summary>A placeholder product entry. Replace this with a short note on why this object earned a spot on the list.</summary>
+  </entry>
+  <entry>
+    <title>What you&apos;re reading now</title>
+    <link href="https://yourdomain.example/reading/current-read/" />
+    <id>https://yourdomain.example/reading/current-read/</id>
+    <updated>2026-04-28T08:07:07.155Z</updated>
+    <summary>A sentence or two on what made you pick it up. Appears on the cover and on the index.</summary>
+  </entry>
+  <entry>
+    <title>Something on the to-read pile</title>
+    <link href="https://yourdomain.example/reading/queued-read/" />
+    <id>https://yourdomain.example/reading/queued-read/</id>
+    <updated>2026-04-28T08:07:07.155Z</updated>
+    <summary>A line about why it&apos;s queued — borrowed, recommended, found in a charity shop.</summary>
+  </entry>
+  <entry>
+    <title>Something you finished recently</title>
+    <link href="https://yourdomain.example/reading/finished-read/" />
+    <id>https://yourdomain.example/reading/finished-read/</id>
+    <updated>2026-04-28T08:07:07.155Z</updated>
+    <summary>A short opinion now that you&apos;ve read it. The &apos;Finished, recently&apos; group on /reading/ is for the most recent reads only.</summary>
+  </entry>
+  <entry>
+    <title>Podcast title</title>
+    <link href="https://yourdomain.example/podcasts/a-podcast/" />
+    <id>https://yourdomain.example/podcasts/a-podcast/</id>
+    <updated>2026-04-28T08:07:07.155Z</updated>
+    <summary>What you reach for it for. Status is freeform — &apos;Subscribed&apos;, &apos;Seasonal&apos;, &apos;Occasional&apos;.</summary>
+  </entry>
+  <entry>
+    <title>Your first essay</title>
+    <link href="https://yourdomain.example/essays/your-first-essay/" />
+    <id>https://yourdomain.example/essays/your-first-essay/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>A short sentence that previews the piece — appears under the title on the index page and on the reader.</summary>
+  </entry>
+  <entry>
+    <title>Your first study</title>
+    <link href="https://yourdomain.example/studies/your-first-study/" />
+    <id>https://yourdomain.example/studies/your-first-study/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>Studies are shorter than essays — typically a single investigated question with a small data set or a focused observation.</summary>
+  </entry>
+  <entry>
+    <title>Your first project</title>
+    <link href="https://yourdomain.example/projects/your-first-project/" />
+    <id>https://yourdomain.example/projects/your-first-project/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>A short blurb that previews the project — appears on the projects index card and on the case-study reader.</summary>
+  </entry>
+  <entry>
+    <title>Album title</title>
+    <link href="https://yourdomain.example/music/an-album/" />
+    <id>https://yourdomain.example/music/an-album/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>What this record does for you in one or two sentences. The tag is freeform — &apos;Current rotation&apos;, &apos;Grief record&apos;, &apos;Formative&apos;.</summary>
+  </entry>
+  <entry>
+    <title>Film title</title>
+    <link href="https://yourdomain.example/movies/a-film/" />
+    <id>https://yourdomain.example/movies/a-film/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>What you took away from it. Re-watches go in the note as well.</summary>
+  </entry>
+  <entry>
+    <title>A novel</title>
+    <link href="https://yourdomain.example/bookshelf/fiction-book/" />
+    <id>https://yourdomain.example/bookshelf/fiction-book/</id>
+    <updated>2022-01-01T00:00:00.000Z</updated>
+    <summary>What it does to you. Notes can be one sentence; resist the urge to summarise.</summary>
+  </entry>
+  <entry>
+    <title>A book about craft</title>
+    <link href="https://yourdomain.example/bookshelf/craft-book/" />
+    <id>https://yourdomain.example/bookshelf/craft-book/</id>
+    <updated>2020-01-01T00:00:00.000Z</updated>
+    <summary>Why it earned a permanent spot. /bookshelf/ groups by section — match the section value across files to put books in the same group.</summary>
+  </entry>
+  <entry>
+    <title>A book about working</title>
+    <link href="https://yourdomain.example/bookshelf/management-book/" />
+    <id>https://yourdomain.example/bookshelf/management-book/</id>
+    <updated>2018-01-01T00:00:00.000Z</updated>
+    <summary>What it teaches. Sections render in the order they first appear in the file numbering, so 01- determines section order.</summary>
+  </entry>
+  <entry>
+    <title>Your second note</title>
+    <link href="https://yourdomain.example/notes/your-second-note/" />
+    <id>https://yourdomain.example/notes/your-second-note/</id>
+    <updated>2001-01-02T00:00:00.000Z</updated>
+    <summary>Add as many MDX files as you like to src/content/notes/ . They render in file order — keep the numeric 01- , 02- prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</summary>
+  </entry>
+  <entry>
+    <title>Your first note</title>
+    <link href="https://yourdomain.example/notes/your-first-note/" />
+    <id>https://yourdomain.example/notes/your-first-note/</id>
+    <updated>2001-01-01T00:00:00.000Z</updated>
+    <summary>A note is a short fragment — usually one paragraph, sometimes two. The first paragraph becomes the lede on the reader page; subsequent paragraphs become the afterthought. Notes are grouped by month: on /notes/ and surface as the four most recent on the homepage&apos;s &quot;From the…</summary>
+  </entry>
+  <entry>
+    <title>A book of essays</title>
+    <link href="https://yourdomain.example/bookshelf/essays-book/" />
+    <id>https://yourdomain.example/bookshelf/essays-book/</id>
+    <updated>1985-01-01T00:00:00.000Z</updated>
+    <summary>Why it stays on the shelf. Older books are welcome — the year is just for context.</summary>
+  </entry>
+</feed>
