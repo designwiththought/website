@@ -2042,3 +2042,21 @@ h6, .h6 {
   border-top: 1px solid var(--rule);
 }
 .product-reader__buy .btn { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Projects index — grouped by status (in-flight / shipped / paused). */
+.projects-group { margin-bottom: 56px; }
+.projects-group:last-of-type { margin-bottom: 0; }
+.projects-group__label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.projects-group__count { color: var(--fg-faint); font-family: var(--font-mono); }

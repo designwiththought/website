@@ -565,6 +565,17 @@ async function build() {
   var movies = parseMdxDir(path.join(SRC, 'content', 'movies'));
   var podcasts = parseMdxDir(path.join(SRC, 'content', 'podcasts'));
   var bookshelf = parseMdxDir(path.join(SRC, 'content', 'bookshelf'));
+  var products = parseMdxDir(path.join(SRC, 'content', 'products'));
+
+  // Derive each product's url host once, so it's available both in the
+  // aggregate /enjoying/ feed (used as the byline) and on the per-product
+  // reader's "Buy from …" button.
+  products.forEach(function (p) {
+    if (p.url) {
+      try { p.urlHost = new URL(p.url).hostname.replace(/^www\./, ''); }
+      catch (e) { p.urlHost = ''; }
+    }
+  });
 
   // Split each entry's body into a lede + afterthoughtHtml, mirroring notes.
   function splitLede(entries) {
@@ -963,10 +974,54 @@ async function build() {
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
-  // 9. Build projects index
+  // 9. Build projects index — grouped by lifecycle status so visitors can
+  // see what's alive at a glance instead of hunting through dates. The
+  // status: frontmatter field carries a leading symbol (§ / ¶); strip it
+  // before bucketing.
+  function projectStatusBucket(status) {
+    var s = String(status || '').toLowerCase();
+    if (/in progress|ongoing|maintained/.test(s)) return 'in-flight';
+    if (/shipped/.test(s))                        return 'shipped';
+    if (/paused|shelved|archived/.test(s))        return 'paused';
+    return 'in-flight'; // sensible default — un-tagged work is treated as live
+  }
+
+  function renderProjectTile(p) {
+    return '<a class="project-tile" href="../projects/' + p.slug + '/">' +
+             '<div class="project-tile__plate project-tile__plate--' + (p.plate || 'cocoa') + '">' +
+               '<div class="project-tile__glyph">' + escapeHtml(p.glyph || '') + '</div>' +
+               '<div class="project-tile__plate-label">' + escapeHtml(p.label || '') + '</div>' +
+             '</div>' +
+             '<div class="project-tile__body">' +
+               '<div class="project-tile__meta">' +
+                 '<span class="kicker">' + escapeHtml(p.status || '') + '</span>' +
+                 '<span class="project-tile__year">' + escapeHtml(p.year || '') + '</span>' +
+               '</div>' +
+               '<h4 class="project-tile__title">' + escapeHtml(p.title || '') + '</h4>' +
+               '<p class="project-tile__blurb">' + escapeHtml(p.summary || '') + '</p>' +
+             '</div>' +
+           '</a>';
+  }
+
+  var PROJECT_GROUPS = [
+    { key: 'in-flight', label: 'In flight' },
+    { key: 'shipped',   label: 'Shipped' },
+    { key: 'paused',    label: 'Paused' }
+  ];
+  var projectGroupsHtml = PROJECT_GROUPS.map(function (g) {
+    var members = projects.filter(function (p) { return projectStatusBucket(p.status) === g.key; });
+    if (!members.length) return '';
+    return '<section class="projects-group">' +
+             '<h3 class="projects-group__label">' + g.label +
+               ' <span class="projects-group__count">' + members.length + '</span>' +
+             '</h3>' +
+             '<div class="grid grid--projects">' + members.map(renderProjectTile).join('') + '</div>' +
+           '</section>';
+  }).join('');
+
   mkdirp(path.join(DIST, 'projects'));
   var projectsIndexData = Object.assign({}, siteData, {
-    projects: projects,
+    groupsHtml: projectGroupsHtml,
     basePath: '../',
     iconSprite: iconSprite,
     pageTitle: 'Projects — ' + siteData.title,
@@ -1283,6 +1338,9 @@ async function build() {
     }),
     bookshelf.map(function (b) {
       return enjoyingItem('Bookshelf', 'bookshelf', b, b.author, b.section);
+    }),
+    products.map(function (p) {
+      return enjoyingItem('Product', 'products', p, p.urlHost || '', p.price || '');
     })
   );
 
@@ -1326,16 +1384,13 @@ async function build() {
     console.log('[build] enjoying' + (page === 1 ? '' : '/' + page) + '/index.html');
   }
 
-  // 17. Products — index + per-product readers, with build-time image fetch.
-  var products = parseMdxDir(path.join(SRC, 'content', 'products'));
-
-  // Fetch / verify each product's hero image once, in parallel. Failures
-  // log a clear console warning and the layout falls through to a paper
-  // placeholder.
+  // 17. Products — index + per-product readers. Hero images are fetched at
+  // build time (already deferred until here so the /enjoying/ aggregate
+  // doesn't wait on the network).
   await Promise.all(products.map(ensureProductImage));
 
-  // For each product: copy the cached image into dist (if any), pre-render
-  // the cover HTML and the human-readable host string for the buy button.
+  // Copy each cached image into dist and pre-render cover HTML at the
+  // depth used by the products index (one level deep — basePath '../').
   products.forEach(function (p) {
     if (p.imageRel) {
       var srcPath = path.join(SRC, p.imageRel);
@@ -1346,10 +1401,6 @@ async function build() {
     p.coverHtml = p.imageRel
       ? '<img class="product-card__img" src="' + '../' + p.imageRel + '" alt="' + escapeHtml(p.imageAlt || p.title) + '">'
       : '<div class="cover-placeholder cover-placeholder--paper cover-placeholder--book">' + escapeHtml(p.title) + '</div>';
-    if (p.url) {
-      try { p.urlHost = new URL(p.url).hostname.replace(/^www\./, ''); }
-      catch (e) { p.urlHost = ''; }
-    }
   });
 
   if (products.length) {
