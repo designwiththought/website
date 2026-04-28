@@ -2903,3 +2903,11 @@ h6, .h6 {
   text-decoration: none;
 }
 .page-feed-link__icon { flex-shrink: 0; }
+
+/* /styles/ specimen sizing — bound a single bare card to a representative
+   width since cards normally inherit width from their grid wrapper. */
+.styles-card { display: block; max-width: 320px; }
+.styles-card--xs { max-width: 200px; }
+.styles-card--sm { max-width: 240px; }
+.styles-card--md { max-width: 260px; }
+.styles-card--lg { max-width: 360px; }
