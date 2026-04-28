@@ -6,7 +6,7 @@
   <link href="https://yourdomain.example/reading/" />
   <link rel="self" type="application/atom+xml" href="https://yourdomain.example/reading/feed.xml" />
   <id>https://yourdomain.example/reading/feed.xml</id>
-  <updated>2026-04-28T09:20:04.344Z</updated>
+  <updated>2026-04-28T09:24:57.695Z</updated>
   <author>
     <name>Your Name</name>
     <email>you@yourdomain.com</email>
@@ -15,21 +15,21 @@
     <title>What you&apos;re reading now</title>
     <link href="https://yourdomain.example/reading/current-read/" />
     <id>https://yourdomain.example/reading/current-read/</id>
-    <updated>2026-04-28T09:20:04.344Z</updated>
+    <updated>2026-04-28T09:24:57.695Z</updated>
     <summary>A sentence or two on what made you pick it up. Appears on the cover and on the index.</summary>
   </entry>
   <entry>
     <title>Something on the to-read pile</title>
     <link href="https://yourdomain.example/reading/queued-read/" />
     <id>https://yourdomain.example/reading/queued-read/</id>
-    <updated>2026-04-28T09:20:04.344Z</updated>
+    <updated>2026-04-28T09:24:57.695Z</updated>
     <summary>A line about why it&apos;s queued — borrowed, recommended, found in a charity shop.</summary>
   </entry>
   <entry>
     <title>Something you finished recently</title>
     <link href="https://yourdomain.example/reading/finished-read/" />
     <id>https://yourdomain.example/reading/finished-read/</id>
-    <updated>2026-04-28T09:20:04.344Z</updated>
+    <updated>2026-04-28T09:24:57.695Z</updated>
     <summary>A short opinion now that you&apos;ve read it. The &apos;Finished, recently&apos; group on /reading/ is for the most recent reads only.</summary>
   </entry>
 </feed>

@@ -370,6 +370,20 @@ function plainSummary(html, maxLen) {
   return s;
 }
 
+// Pill-style "Subscribe to <label>" feed link rendered into each section
+// index's page-header. Lives on its own line so it reads as a quiet
+// invitation, visually distinct from the small footer RSS social link.
+function renderFeedLinkHtml(href, label) {
+  return '<p class="page-header__feed">' +
+           '<a class="page-feed-link" href="' + href + '">' +
+             '<svg class="page-feed-link__icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+               '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>' +
+             '</svg>' +
+             '<span>Subscribe to ' + escapeHtml(label) + '</span>' +
+           '</a>' +
+         '</p>';
+}
+
 function isRawKey(name) {
   // Last segment of a dot-path drives the rule for nested lookups.
   var leaf = name.indexOf('.') === -1 ? name : name.split('.').pop();
@@ -738,6 +752,7 @@ async function build() {
     }).slice(0, 2),
     projectCount: projects.length,
     homeNotesHtml: homeNotesHtml,
+    feedLinkHtml: renderFeedLinkHtml('feed.xml', 'all updates'),
     basePath: '',
     iconSprite: iconSprite,
     pageTitle: siteData.title,
@@ -753,6 +768,7 @@ async function build() {
   mkdirp(path.join(DIST, 'notes'));
   var notesIndexData = Object.assign({}, siteData, {
     notesGroupsHtml: renderNotesGroups('../'),
+    feedLinkHtml: renderFeedLinkHtml('feed.xml', 'notes'),
     basePath: '../',
     iconSprite: iconSprite,
     pageTitle: 'Notes — ' + siteData.title,
@@ -867,6 +883,7 @@ async function build() {
       pageKicker: meta.kicker,
       pageHeading: meta.heading,
       pageDek: meta.dek,
+      feedLinkHtml: renderFeedLinkHtml('feed.xml', meta.kindLabel),
       filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '', null),
       emptyHtml: allItems.length === 0
         ? '<p class="empty-state">' + meta.empty + '</p>'
@@ -909,6 +926,7 @@ async function build() {
         pageKicker: meta.kicker,
         pageHeading: meta.heading + ' · ' + tag,
         pageDek: 'Filtered to ' + tag + '. ' + meta.dek,
+        feedLinkHtml: renderFeedLinkHtml('../feed.xml', meta.kindLabel),
         filterRowHtml: renderFilterRow(allItems, meta.kindLabel, '../', tag),
         emptyHtml: matchCount === 0
           ? '<p class="empty-state">No ' + meta.kindLabel + ' tagged ' + tag + '.</p>'
@@ -1055,6 +1073,7 @@ async function build() {
   mkdirp(path.join(DIST, 'projects'));
   var projectsIndexData = Object.assign({}, siteData, {
     groupsHtml: projectGroupsHtml,
+    feedLinkHtml: renderFeedLinkHtml('feed.xml', 'projects'),
     basePath: '../',
     iconSprite: iconSprite,
     pageTitle: 'Projects — ' + siteData.title,
@@ -1234,6 +1253,7 @@ async function build() {
     if (!data || !data.itemCount) return;
     mkdirp(path.join(DIST, dir));
     var fullData = Object.assign({}, siteData, data, {
+      feedLinkHtml: renderFeedLinkHtml('feed.xml', dir),
       basePath: '../',
       iconSprite: iconSprite,
       pageTitle: data.pageHeading + ' — ' + siteData.title,
@@ -1442,6 +1462,7 @@ async function build() {
     // /products/ index
     var productsIndexData = Object.assign({}, siteData, {
       items: products,
+      feedLinkHtml: renderFeedLinkHtml('feed.xml', 'products'),
       basePath: '../',
       iconSprite: iconSprite,
       pageTitle: 'Products — ' + siteData.title,
