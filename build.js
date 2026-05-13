@@ -944,7 +944,7 @@ async function build() {
   }
 
   // Pre-render the two "related" blocks a reader shows: the pair of compact
-  // essay cards under the body, and the "§ Read next" list inside the sticky
+  // essay cards under the body, and the "Read next" list inside the sticky
   // TOC aside. The template engine can't nest {{#each}} inside {{#if}}, so do
   // this once per piece and pass the finished HTML in.
   function renderRelatedHtml(related) {
@@ -954,7 +954,7 @@ async function build() {
         .map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('');
       return '<a class="essay-card essay-card--compact" href="../../' + r.url + '">' +
                '<div class="essay-card__meta">' +
-                 '<span class="kicker">&sect; ' + r.kind + '</span>' +
+                 '<span class="kicker">' + r.kind + '</span>' +
                  '<span class="essay-card__date">' + r.date + (r.read ? ' &middot; ' + r.read : '') + '</span>' +
                '</div>' +
                '<h3 class="essay-card__title">' + r.title + '</h3>' +
@@ -974,7 +974,7 @@ async function build() {
       return '<li><a href="../../' + r.url + '">' + r.title + '</a></li>';
     }).join('');
     return '<div class="toc__aside">' +
-             '<span class="kicker">&para; Read next</span>' +
+             '<span class="kicker">Read next</span>' +
              '<ul class="toc__next">' + items + '</ul>' +
            '</div>';
   }
@@ -1008,7 +1008,7 @@ async function build() {
   }
 
   buildWritingIndex('essays', essays, {
-    kicker: '§ Essays',
+    kicker: 'Essays',
     heading: 'Essays',
     dek: 'Long-form writing. Published slowly, revised often. The ones I’d still send to a friend.',
     empty: 'No essays yet.',
@@ -1017,7 +1017,7 @@ async function build() {
   buildWritingReader('essays', essays, { backLabel: 'All essays' });
 
   buildWritingIndex('studies', studies, {
-    kicker: '§ Studies',
+    kicker: 'Studies',
     heading: 'Studies',
     dek: 'Short, investigated pieces. Each one answers a specific question, usually with a small data set and a stronger opinion than the data deserves.',
     empty: 'No studies yet.',
@@ -1027,7 +1027,7 @@ async function build() {
 
   // 9. Build projects index — grouped by lifecycle status so visitors can
   // see what's alive at a glance instead of hunting through dates. The
-  // status: frontmatter field carries a leading symbol (§ / ¶); strip it
+  // status: frontmatter field may carry a leading symbol; strip it
   // before bucketing.
   function projectStatusBucket(status) {
     var s = String(status || '').toLowerCase();
@@ -1297,7 +1297,7 @@ async function build() {
            '</section>';
   }).join('');
   writeKindIndex('reading', readingIndexLayout, {
-    pageKicker: '§ Reading',
+    pageKicker: 'Reading',
     pageHeading: 'Reading list',
     pageDek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.',
     groupsHtml: readingGroupsHtml,
@@ -1307,7 +1307,7 @@ async function build() {
   // 16a-ii. Music — flat .album-grid of .album-card; movie/album markup
   // shapes match the design's components.
   writeKindIndex('music', musicIndexLayout, {
-    pageKicker: '§ Music',
+    pageKicker: 'Music',
     pageHeading: 'Albums that mattered',
     pageDek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.',
     items: music,
@@ -1317,7 +1317,7 @@ async function build() {
   // 16a-iii. Movies — letterboxd-style .movies-diary rows: poster + body +
   // 5★ rating column.
   writeKindIndex('movies', moviesIndexLayout, {
-    pageKicker: '§ Movies',
+    pageKicker: 'Movies',
     pageHeading: 'A viewing diary',
     pageDek: 'Most recent first. Five-star scale, honestly used. Re-watches marked in the note.',
     items: movies,
@@ -1326,7 +1326,7 @@ async function build() {
 
   // 16a-iv. Podcasts — .podcast-grid two-up cards (cover left, body right).
   writeKindIndex('podcasts', podcastsIndexLayout, {
-    pageKicker: '§ Podcasts',
+    pageKicker: 'Podcasts',
     pageHeading: 'In rotation',
     pageDek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.',
     items: podcasts,
@@ -1368,7 +1368,7 @@ async function build() {
            '</section>';
   }).join('');
   writeKindIndex('bookshelf', bookshelfIndexLayout, {
-    pageKicker: '§ Bookshelf',
+    pageKicker: 'Bookshelf',
     pageHeading: 'Books that earned a permanent spot',
     pageDek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.',
     sectionsHtml: bookshelfSectionsHtml,
@@ -1422,7 +1422,7 @@ async function build() {
       totalPages: enjoyingPages,
       prevHref: page > 1 ? pageHref(page - 1) : '',
       nextHref: page < enjoyingPages ? pageHref(page + 1) : '',
-      pageKicker: '§ Enjoying',
+      pageKicker: 'Enjoying',
       pageHeading: 'Enjoying',
       pageDek: 'Books, records, films, podcasts. The things I keep coming back to, lightly annotated.',
       basePath: basePath,
