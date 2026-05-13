@@ -135,7 +135,7 @@ select.input {
    no shadow, no padding box. */
 .essay-card {
   display: block;
-  padding: var(--s-5) 0;
+  padding: var(--s-6) 0;
   background: none;
   border: 0;
   border-top: 1px solid var(--rule);
@@ -228,7 +228,7 @@ mark {
    The plate becomes a small inline glyph; the body is the link. */
 .project-tile {
   display: block;
-  padding: var(--s-5) 0;
+  padding: var(--s-6) 0;
   background: none;
   border: 0;
   border-top: 1px solid var(--rule);
