@@ -146,8 +146,22 @@ select.input {
   transition: color var(--dur-fast) var(--ease-out);
   max-width: 640px;
 }
-.essay-card:hover { box-shadow: none; transform: none; text-decoration: none; }
-.essay-card:hover .essay-card__title { color: var(--accent); }
+.essay-card:hover,
+.essay-card__link:hover { box-shadow: none; transform: none; text-decoration: none; }
+.essay-card:hover .essay-card__title,
+.essay-card__link:hover .essay-card__title { color: var(--accent); }
+
+.essay-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.essay-card__author {
+  font-style: italic;
+  color: var(--fg-muted);
+  font-size: 0.9375rem;
+  margin-bottom: 4px;
+}
 .essay-card__meta { display: flex; gap: 10px; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; }
 .essay-card__date { font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); letter-spacing: 0; }
 .essay-card__title {

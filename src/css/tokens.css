@@ -359,6 +359,18 @@ a:focus-visible {
   border-radius: var(--r-2);
 }
 
+/* Wrapping anchors — anchors around a whole card, row, or list item should
+   not underline themselves or their descendants. Hover-tinting the inner
+   title provides the affordance. */
+a:where(:has(h1, h2, h3, h4, h5, h6, p, ul, ol, figure, article, section, header, div)) {
+  text-decoration: none;
+  color: inherit;
+}
+a:where(:has(h1, h2, h3, h4, h5, h6, p, ul, ol, figure, article, section, header, div)):hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Code */
 code, kbd, samp {
   font-family: var(--font-mono);
