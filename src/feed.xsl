@@ -19,7 +19,7 @@
         <main id="main">
           <div class="container--narrow section">
             <header class="page-header page-header--left">
-              <span class="kicker">¶ Atom feed</span>
+              <span class="kicker">Atom feed</span>
               <h1><xsl:value-of select="atom:title"/></h1>
               <p class="lead"><xsl:value-of select="atom:subtitle"/></p>
 

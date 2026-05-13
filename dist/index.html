@@ -7,160 +7,64 @@
   <meta name="description" content="Notes, essays, and projects by Thought Grain.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="alternate" type="application/atom+xml" title="Thought Grain — all updates" href="feed.xml">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav site-nav--drawer" aria-label="Primary">
-    <a class="site-nav__brand" href="" aria-label="Home">
-      <span class="brand-name">Home</span>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__brand" href="" aria-label="Thought Grain — home">
+      <span class="brand-name">Thought Grain</span>
     </a>
     <div class="site-nav__links">
+      <a class="site-nav__link" href="essays/">Writing</a>
+      <a class="site-nav__link" href="projects/">Making</a>
+      <a class="site-nav__link" href="enjoying/">Enjoying</a>
+      <a class="site-nav__link" href="about/">About</a>
       <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
-        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      </button>
-      <button
-        id="menu-open"
-        class="site-nav__menu-btn"
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls="site-menu-dialog"
-      >
-        <span>Menu</span>
-        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
     </div>
   </nav>
 
-  <div
-    id="site-menu-dialog"
-    class="drawer"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="site-menu-dialog-heading"
-    hidden
-  >
-    <div class="drawer__head container">
-      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse the site</h2>
-      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
-        <span>Close</span>
-        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="drawer__body container">
-      <section aria-labelledby="drawer-grp-writing">
-        <h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
-          <li><a class="drawer__item" href="studies/"><span class="drawer__item-label">Studies</span><span class="drawer__item-note">Small evidence</span></a></li>
-          <li><a class="drawer__item" href="notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-making">
-        <h3 id="drawer-grp-making" class="drawer__group-title">Making</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-enjoying">
-        <h3 id="drawer-grp-enjoying" class="drawer__group-title">Enjoying</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
-          <li><a class="drawer__item" href="products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
-          <li><a class="drawer__item" href="enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All of the above, mixed</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-learning">
-        <h3 id="drawer-grp-learning" class="drawer__group-title">Learning</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
-          <li><a class="drawer__item" href="gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-about">
-        <h3 id="drawer-grp-about" class="drawer__group-title">About</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
-          <li><a class="drawer__item" href="now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
-          <li><a class="drawer__item" href="colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
-        </ul>
-      </section>
-    </div>
-  </div>
-
     <main id="main" class="home">
     <!-- Hero — a proper introduction, not a slogan -->
-    <section class="hero container">
-      <div class="hero__grid">
-        <div class="hero__primary">
-          <div class="hero__eyebrow">
-            <span class="kicker">Hello</span>
-          </div>
-          <div class="hero__prose">
-            <p class="hero__lede">
-              I&rsquo;m <strong>Thought Grain</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="#8E3A1D" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="#8E3A1D" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
-            </p>
-            <p class="hero__body">
-              For years my online presence was rented space &mdash; social profiles and digital CVs on platforms I didn&rsquo;t own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open.
-            </p>
-            <p class="hero__body">
-              It&rsquo;s a place to slow down and share ideas that invite reflection rather than consumption &mdash; on design systems, accessibility, leadership, and whatever I&rsquo;m paying attention to now.
-            </p>
-          </div>
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="essays/">Read the essays</a>
-            <a class="btn btn--ghost" href="now/">See what I&rsquo;m up to now</a>
-          </div>
-          <p class="page-header__feed"><a class="page-feed-link" href="feed.xml"><svg class="page-feed-link__icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span>Subscribe to all updates</span></a></p>
-        </div>
-
-        <aside class="hero__aside">
-          <span class="marginalia marginalia--block marginalia--tilt-3-neg">on the desk, april &rsquo;26 &rarr;</span>
-          <div class="hero__aside-card">
-            <div class="hero__aside-row">
-              <span class="kicker">Writing</span>
-              <p>What you&#39;re writing now.</p>
-            </div>
-            <div class="hero__aside-row">
-              <span class="kicker">Building</span>
-              <p><a href="projects/prism/">Prism</a> &mdash; a perceptual contrast checker. Alpha with four teams.</p>
-            </div>
-            <div class="hero__aside-row">
-              <span class="kicker">Reading</span>
-              <p><em>The Craftsman</em>, second pass. <em>Design Justice</em>, slowly.</p>
-            </div>
-            <a class="hero__aside-more" href="now/">
-              See the now page
-              <svg class="icon icon--trailing" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-            </a>
-          </div>
-        </aside>
+    <section class="hero">
+      <p class="hero__lede">
+        Notes, essays, and projects on design as a form of <em>care</em> &mdash;
+        by Thought Grain.
+      </p>
+      <p class="hero__body">
+        I&rsquo;m accessibility lead at Superhuman (formerly known as Grammarly).
+        Most of my writing is about what happens when you treat design as care:
+        for the people using the software, for the engineers building it, and
+        for the systems that hold it all together.
+      </p>
+      <p class="hero__body">
+        This site is a slow place &mdash; ideas to reflect on, not consume.
+        On design systems, accessibility, leadership, and whatever has my
+        attention this month.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="essays/">Read the essays</a>
+        <a class="btn btn--ghost" href="now/">What I&rsquo;m up to now</a>
       </div>
+      <p class="page-header__feed"><a class="page-feed-link" href="feed.xml"><svg class="page-feed-link__icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span>Subscribe to all updates</span></a></p>
     </section>
 
-    <!-- Recent essays -->
+    <!-- Recent writing -->
     <section id="writing" class="container section">
       <header class="section__head">
-        <div>
-          <span class="kicker">Essays</span>
-          <h2 class="section__title">Recent writing</h2>
-        </div>
-        <a class="btn btn--link" href="essays/">All essays &#8599;</a>
+        <h2 class="section__title">Recent writing</h2>
+        <a class="btn btn--link" href="essays/">All essays</a>
       </header>
-      <div class="grid grid--3">
+      <div class="essay-list">
         
         <a class="essay-card" href="essays/your-first-essay/">
           <div class="essay-card__meta">
-            <span class="kicker">Essay</span>
             <span class="essay-card__date">01 January 2026 &middot; 5 min</span>
           </div>
           <h3 class="essay-card__title">Your first essay</h3>
@@ -174,7 +78,6 @@
         
         <a class="essay-card" href="studies/your-first-study/">
           <div class="essay-card__meta">
-            <span class="kicker">Study</span>
             <span class="essay-card__date">01 January 2026 &middot; 8 min</span>
           </div>
           <h3 class="essay-card__title">Your first study</h3>
@@ -189,144 +92,85 @@
       </div>
     </section>
 
-    <div class="container"><hr></div>
-
-    <!-- Notes + Projects -->
-    <section id="notes" class="container section section--split">
-      <div>
-        <header class="section__head section__head--flush">
-          <div>
-            <span class="kicker">Notes</span>
-            <h2 class="section__title">From the notebook</h2>
-          </div>
-          <a class="btn btn--link" href="notes/">All notes &#8599;</a>
-        </header>
-        <ul class="note-list"><li class="note-item"><span class="note-item__date">Jan 01</span><div><a href="notes/your-first-note/" class="note-item__link"><p class="note-item__body">A note is a short fragment — usually one paragraph, sometimes two. The first paragraph becomes the lede on the reader page; subsequent paragraphs become the afterthought.</p></a><div class="note-item__context">where it was written</div></div></li><li class="note-item"><span class="note-item__date">Jan 02</span><div><a href="notes/your-second-note/" class="note-item__link"><p class="note-item__body">Add as many MDX files as you like to <code>src/content/notes/</code>. They render in file order — keep the numeric <code>01-</code>, <code>02-</code> prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</p></a><div class="note-item__context">another scribbled-on day</div></div></li></ul>
-      </div>
-      <aside id="projects" class="section__aside">
-        <div class="section__sub">
-          <span class="kicker">Projects</span>
-          <h3 class="section__title section__title--sm">Currently building</h3>
-          <div class="project-stack">
-            
-            <a class="project-tile project-tile--sm" href="projects/your-first-project/">
-              <div class="project-tile__plate project-tile__plate--cocoa">
-                <div class="project-tile__glyph">P</div>
-                <div class="project-tile__plate-label">Project type</div>
-              </div>
-              <div class="project-tile__body">
-                <div class="project-tile__meta">
-                  <span class="kicker">§ In progress</span>
-                  <span class="project-tile__year">2026</span>
-                </div>
-                <h4 class="project-tile__title">Your first project</h4>
-                <p class="project-tile__blurb">A short blurb that previews the project — appears on the projects index card and on the case-study reader.</p>
-              </div>
-            </a>
-            
-          </div>
-          <a class="btn btn--link btn--link-block" href="projects/">All projects &#8599;</a>
-        </div>
-      </aside>
+    <!-- Notes -->
+    <section id="notes" class="container section">
+      <header class="section__head">
+        <h2 class="section__title">From the notebook</h2>
+        <a class="btn btn--link" href="notes/">All notes</a>
+      </header>
+      <ul class="note-list"><li class="note-item"><span class="note-item__date">Jan 01</span><div><a href="notes/your-first-note/" class="note-item__link"><p class="note-item__body">A note is a short fragment — usually one paragraph, sometimes two. The first paragraph becomes the lede on the reader page; subsequent paragraphs become the afterthought.</p></a><div class="note-item__context">where it was written</div></div></li><li class="note-item"><span class="note-item__date">Jan 02</span><div><a href="notes/your-second-note/" class="note-item__link"><p class="note-item__body">Add as many MDX files as you like to <code>src/content/notes/</code>. They render in file order — keep the numeric <code>01-</code>, <code>02-</code> prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</p></a><div class="note-item__context">another scribbled-on day</div></div></li></ul>
     </section>
 
-    <div class="container"><hr></div>
-
-    <!-- Reading strip -->
-    <section id="reading" class="container section">
+    <!-- Projects -->
+    <section id="projects" class="container section">
       <header class="section__head">
-        <div>
-          <span class="kicker">Reading</span>
-          <h2 class="section__title">On the shelf, this month</h2>
-        </div>
+        <h2 class="section__title">Currently building</h2>
+        <a class="btn btn--link" href="projects/">All projects</a>
       </header>
-      <div class="reading-strip">
+      <div class="project-list">
         
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--cocoa">
-            <span class="reading-card__spine-title">Book on the shelf</span>
+        <a class="project-tile" href="projects/your-first-project/">
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="project-tile__status">In progress</span>
+              <span class="project-tile__year">2026</span>
+            </div>
+            <h3 class="project-tile__title">Your first project</h3>
+            <p class="project-tile__blurb">A short blurb that previews the project — appears on the projects index card and on the case-study reader.</p>
           </div>
-          <div class="reading-card__body">
-            <h4>Book on the shelf</h4>
-            <div class="reading-card__author">Author</div>
-            <p class="reading-card__note">A line on why it&#39;s there.</p>
-          </div>
-        </div>
-        
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--terra">
-            <span class="reading-card__spine-title">Another book</span>
-          </div>
-          <div class="reading-card__body">
-            <h4>Another book</h4>
-            <div class="reading-card__author">Author</div>
-            <p class="reading-card__note">A line on why it&#39;s there.</p>
-          </div>
-        </div>
-        
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--moss">
-            <span class="reading-card__spine-title">A third book</span>
-          </div>
-          <div class="reading-card__body">
-            <h4>A third book</h4>
-            <div class="reading-card__author">Author</div>
-            <p class="reading-card__note">A line on why it&#39;s there.</p>
-          </div>
-        </div>
+        </a>
         
       </div>
+    </section>
+
+    <!-- Reading -->
+    <section id="reading" class="container section">
+      <header class="section__head">
+        <h2 class="section__title">On the shelf, this month</h2>
+        <a class="btn btn--link" href="reading/">All reading</a>
+      </header>
+      <ul class="reading-list-simple">
+        
+        <li>
+          <span class="reading-list-simple__title">Book on the shelf</span>
+          <span class="reading-list-simple__author">Author</span>
+          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
+        </li>
+        
+        <li>
+          <span class="reading-list-simple__title">Another book</span>
+          <span class="reading-list-simple__author">Author</span>
+          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
+        </li>
+        
+        <li>
+          <span class="reading-list-simple__title">A third book</span>
+          <span class="reading-list-simple__author">Author</span>
+          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
+        </li>
+        
+      </ul>
     </section>
   </main>
 
 
   <footer class="site-footer">
-    <div class="site-footer__inner container">
-      <div class="site-footer__col site-footer__col--wide">
-        <div class="site-footer__wordmark">Thought Grain</div>
-        <p class="t-small site-footer__tagline">
-          A writing-and-projects site by Thought Grain. Essays arrive slowly. Notes, more often.
-        </p>
-        <ul class="site-footer__social">
-          <li><a href="feed.xml"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a></li>
-          <li><a href="mailto:you@yourdomain.com"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Letter, monthly</a></li>
-          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
-          <li><a href="#"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Mastodon</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <h5>Writing</h5>
-        <ul>
-          <li><a href="essays/">Essays</a></li>
-          <li><a href="studies/">Studies</a></li>
-          <li><a href="notes/">Notes</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <h5>Making &amp; enjoying</h5>
-        <ul>
-          <li><a href="projects/">Projects</a></li>
-          <li><a href="reading/">Reading</a></li>
-          <li><a href="music/">Music</a></li>
-          <li><a href="movies/">Movies</a></li>
-          <li><a href="products/">Products</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <h5>About</h5>
-        <ul>
-          <li><a href="about/">About</a></li>
-          <li><a href="now/">Now</a></li>
-          <li><a href="mailto:you@yourdomain.com">Email</a></li>
-        </ul>
-      </div>
+    <div class="site-footer__row">
+      <span class="site-footer__wordmark">Thought Grain</span>
+      <ul class="site-footer__links">
+        <li><a href="essays/">Writing</a></li>
+        <li><a href="projects/">Making</a></li>
+        <li><a href="enjoying/">Enjoying</a></li>
+        <li><a href="about/">About</a></li>
+        <li><a href="colophon/">Colophon</a></li>
+        <li><a href="feed.xml">RSS</a></li>
+        <li><a href="mailto:you@yourdomain.com">Email</a></li>
+      </ul>
     </div>
-    <div class="site-footer__rule container">
+    <div class="site-footer__credit">
       <span>&copy; 2021&ndash;2026 Thought Grain</span>
-      <span class="site-footer__rule-sep">&middot;</span>
-      <span>Set in Inter Tight &amp; Inter</span>
-      <span class="site-footer__rule-sep">&middot;</span>
-      <span>Hand-built, maintained slowly</span>
+      <span>&middot;</span>
+      <span>Set in Newsreader &amp; Inter</span>
     </div>
   </footer>
 

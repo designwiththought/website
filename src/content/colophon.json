@@ -1,27 +1,27 @@
 {
   "items": [
     {
-      "label": "§ Type",
-      "value": "Young Serif for display, Commissioner for body, DM Mono for labels, Caveat for marginalia. Edit the imports in src/css/tokens.css to swap them."
+      "label": "Type",
+      "value": "Inter Tight for display and headings, Inter for body, JetBrains Mono for labels and code. Edit the imports in src/css/tokens.css to swap them."
     },
     {
-      "label": "§ Palette",
-      "value": "A warm paper and cocoa system stored as OKLCH. Tokens live in src/css/tokens.css; see /styles/ for the full specimen."
+      "label": "Palette",
+      "value": "Cool neutral ink on near-white paper, with a single saturated indigo accent. Stored as OKLCH; see /styles/ for the full specimen."
     },
     {
-      "label": "§ Built with",
+      "label": "Built with",
       "value": "Node.js standard library only — no framework, no bundler, no dependencies. The whole build is in build.js."
     },
     {
-      "label": "§ Writing",
+      "label": "Writing",
       "value": "Markdown with a small set of MDX components (Dropcap, Pullquote, MarginaliaPin, Footnote). Files in src/content/."
     },
     {
-      "label": "§ Hosted on",
+      "label": "Hosted on",
       "value": "GitHub Pages, deployed by .github/workflows/pages.yml on every push to main."
     },
     {
-      "label": "§ Source",
+      "label": "Source",
       "value": "Open source. PRs welcome."
     }
   ]

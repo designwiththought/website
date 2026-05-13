@@ -2,27 +2,27 @@
   "updated": "01 January 2026",
   "items": [
     {
-      "label": "§ Writing",
+      "label": "Writing",
       "bodyHtml": "What you're writing this month."
     },
     {
-      "label": "§ Building",
+      "label": "Building",
       "bodyHtml": "What you're building. Inline links use HTML — <a href=\"../projects/your-first-project/\">like this</a>."
     },
     {
-      "label": "§ Reading",
+      "label": "Reading",
       "bodyHtml": "What you're reading."
     },
     {
-      "label": "¶ Managing",
+      "label": "Managing",
       "bodyHtml": "Who or what you're responsible for."
     },
     {
-      "label": "¶ Thinking about",
+      "label": "Thinking about",
       "bodyHtml": "Open questions, half-thoughts."
     },
     {
-      "label": "¶ Saying no to",
+      "label": "Saying no to",
       "bodyHtml": "What you're protecting your attention from."
     }
   ]
