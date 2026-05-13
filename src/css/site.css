@@ -65,17 +65,18 @@ h6, .h6 {
 .hero__eyebrow { margin-bottom: 18px; }
 .hero__prose { max-width: 54ch; }
 .hero__lede {
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 1rem + 1.1vw, 2.05rem);
-  line-height: 1.28;
-  letter-spacing: -0.01em;
-  color: var(--ink-800);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1rem + 1.1vw, 2rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
   margin: 0 0 20px;
   max-width: none;
   text-wrap: pretty;
 }
 [data-theme="dark"] .hero__lede { color: var(--fg); }
-.hero__lede strong { font-weight: 400; color: var(--cocoa-700); }
+.hero__lede strong { font-weight: 500; color: var(--accent); }
 [data-theme="dark"] .hero__lede strong { color: var(--accent); }
 .hero__muted { color: var(--fg-subtle); font-style: italic; }
 
@@ -91,8 +92,8 @@ h6, .h6 {
 .hero__accent-2 {
   position: relative;
   display: inline-block;
-  color: var(--cocoa-700);
-  font-style: italic;
+  color: var(--accent);
+  font-style: normal;
 }
 [data-theme="dark"] .hero__accent-2 { color: var(--accent); }
 .hero__underline {
@@ -106,14 +107,14 @@ h6, .h6 {
 /* hero aside card */
 .hero__aside { padding-top: 40px; position: relative; }
 .hero__aside-card {
-  background: var(--paper-50);
-  border: 1px solid var(--border);
-  border-radius: var(--r-card);
-  padding: 22px 24px;
-  box-shadow: var(--sh-2);
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 4px 0 4px 22px;
+  box-shadow: none;
   display: flex; flex-direction: column; gap: 14px;
 }
-[data-theme="dark"] .hero__aside-card { background: var(--bg-raised); }
 .hero__aside-row { display: flex; flex-direction: column; gap: 4px; }
 .hero__aside-row p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--fg); }
 .hero__aside-more {
@@ -224,11 +225,12 @@ h6, .h6 {
 .page-header--left { text-align: left; padding-left: 0; }
 .page-header h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.2rem + 2.5vw, 3.2rem);
+  font-weight: 500;
+  font-size: clamp(2rem, 1.2rem + 1.8vw, 2.625rem);
   line-height: 1.08;
-  letter-spacing: -0.018em;
-  margin: 12px 0 14px;
-  color: var(--ink-800);
+  letter-spacing: -0.025em;
+  margin: 8px 0 12px;
+  color: var(--ink-900);
 }
 [data-theme="dark"] .page-header h1 { color: var(--fg); }
 .page-header .lead { max-width: 56ch; margin: 0; }
@@ -354,31 +356,24 @@ h6, .h6 {
 .project-tile {
   display: block;
   background: var(--bg-raised);
-  border: 1px solid var(--border);
+  border: 1px solid var(--rule);
   border-radius: var(--r-card);
   overflow: hidden;
   text-decoration: none;
   color: var(--fg);
-  transition: box-shadow var(--dur-med) var(--ease-paper), transform var(--dur-med) var(--ease-paper);
+  box-shadow: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
-.project-tile:hover { box-shadow: var(--sh-3); transform: translateY(-2px); text-decoration: none; }
+.project-tile:hover { box-shadow: none; transform: none; border-color: var(--ink-400); text-decoration: none; }
 .project-tile__plate {
   aspect-ratio: 5 / 3;
-  background: linear-gradient(135deg, var(--paper-200), var(--paper-300));
+  background: var(--bg-sunken);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   color: var(--ink-700);
   border-bottom: 1px solid var(--rule);
   position: relative;
   overflow: hidden;
-}
-.project-tile__plate::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: var(--paper-noise);
-  background-size: 180px 180px;
-  mix-blend-mode: overlay; opacity: 0.4;
-  pointer-events: none;
 }
 .project-tile__glyph {
   font-family: var(--font-display); font-size: 64px; line-height: 1;
@@ -622,11 +617,11 @@ h6, .h6 {
 .about__portrait {
   aspect-ratio: 3/4;
   border-radius: var(--r-card);
-  border: 1px solid var(--border);
-  background: linear-gradient(135deg, var(--paper-200), var(--paper-300));
+  border: 1px solid var(--rule);
+  background: var(--bg-sunken);
   position: relative;
   overflow: hidden;
-  box-shadow: var(--sh-2);
+  box-shadow: none;
 }
 .about__portrait::before {
   content: ''; position: absolute; inset: 0;
@@ -870,7 +865,7 @@ h6, .h6 {
   background: var(--bg-raised);
   border: 1px solid var(--rule);
   border-radius: var(--r-card);
-  box-shadow: var(--sh-2);
+  box-shadow: var(--sh-1);
   padding: 6px;
   animation: dropIn 140ms var(--ease-out) both;
 }

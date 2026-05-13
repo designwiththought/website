@@ -5,12 +5,12 @@
 
 /* ---- Buttons ---- */
 .btn {
-  --_bg: var(--bg-raised);
+  --_bg: transparent;
   --_fg: var(--fg);
-  --_bd: var(--border);
+  --_bd: var(--rule);
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-body); font-size: 14px; font-weight: 500;
-  line-height: 1; padding: 11px 18px;
+  line-height: 1; padding: 9px 16px;
   background: var(--_bg); color: var(--_fg);
   border: 1px solid var(--_bd);
   border-radius: var(--r-pill);
@@ -19,9 +19,7 @@
   letter-spacing: -0.005em;
   transition: background var(--dur-fast) var(--ease-out),
               color var(--dur-fast) var(--ease-out),
-              border-color var(--dur-fast) var(--ease-out),
-              box-shadow var(--dur-fast) var(--ease-out),
-              transform var(--dur-fast) var(--ease-out);
+              border-color var(--dur-fast) var(--ease-out);
 }
 .btn:hover { --_bg: var(--bg-sunken); }
 .btn:active { transform: translateY(1px); box-shadow: var(--sh-press); }
@@ -29,11 +27,13 @@
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn--primary {
-  --_bg: var(--accent); --_fg: #ffffff; --_bd: var(--accent);
-  box-shadow: var(--sh-1);
-  font-weight: 600;
+  --_bg: var(--ink-900); --_fg: var(--paper-50); --_bd: var(--ink-900);
+  box-shadow: none;
+  font-weight: 500;
 }
-.btn--primary:hover { --_bg: var(--accent-hover); --_bd: var(--accent-hover); }
+.btn--primary:hover { --_bg: var(--ink-700); --_bd: var(--ink-700); }
+[data-theme="dark"] .btn--primary { --_bg: var(--fg); --_fg: var(--bg); --_bd: var(--fg); }
+[data-theme="dark"] .btn--primary:hover { --_bg: var(--fg-muted); --_bd: var(--fg-muted); }
 
 .btn--ghost {
   --_bg: transparent; --_bd: var(--border);
@@ -121,31 +121,31 @@ select.input {
 /* ---- Essay card ---- */
 .essay-card {
   display: block;
-  padding: 22px 24px;
-  background: var(--bg-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--r-card);
-  box-shadow: var(--sh-1);
+  padding: 20px 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
   text-decoration: none;
   color: inherit;
-  transition: box-shadow var(--dur-med) var(--ease-paper),
-              transform var(--dur-med) var(--ease-paper),
-              border-color var(--dur-med) var(--ease-paper);
+  transition: color var(--dur-fast) var(--ease-out);
   max-width: 640px;
 }
-.essay-card:hover { box-shadow: var(--sh-3); transform: translateY(-2px); border-color: var(--border-strong); text-decoration: none; }
-.essay-card__meta { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.essay-card:hover { box-shadow: none; transform: none; text-decoration: none; }
+.essay-card:hover .essay-card__title { color: var(--accent); }
+.essay-card__meta { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
 .essay-card__date { font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); letter-spacing: 0.02em; }
 .essay-card__title {
-  font-family: var(--font-display); font-weight: 600;
-  font-size: 24px; line-height: 1.18; letter-spacing: var(--tracking-tight);
-  margin: 0 0 10px; color: var(--ink-900);
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 22px; line-height: 1.2; letter-spacing: var(--tracking-tight);
+  margin: 0 0 8px; color: var(--ink-900);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 [data-theme="dark"] .essay-card__title { color: var(--fg); }
-.essay-card:hover .essay-card__title { color: var(--accent); }
 .essay-card__dek {
   font-size: 15px; line-height: 1.55; color: var(--fg-muted);
-  margin: 0 0 14px; max-width: 54ch;
+  margin: 0 0 12px; max-width: 54ch;
 }
 
 /* ---- Notes ---- */
@@ -200,21 +200,21 @@ mark {
 .project-tile {
   display: block;
   background: var(--bg-raised);
-  border: 1px solid var(--border);
+  border: 1px solid var(--rule);
   border-radius: var(--r-card);
   overflow: hidden;
   text-decoration: none;
   color: var(--fg);
-  transition: box-shadow var(--dur-med) var(--ease-paper),
-              transform var(--dur-med) var(--ease-paper),
-              border-color var(--dur-med) var(--ease-paper);
+  box-shadow: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 .project-tile:hover {
-  box-shadow: var(--sh-3);
-  transform: translateY(-2px);
-  border-color: var(--border-strong);
+  box-shadow: none;
+  transform: none;
+  border-color: var(--ink-400);
   text-decoration: none;
 }
+.project-tile:hover .project-tile__title { color: var(--accent); }
 .project-tile__plate {
   aspect-ratio: 4 / 3;
   background: linear-gradient(135deg, var(--paper-200), var(--paper-300));
@@ -301,13 +301,15 @@ mark {
 
 /* ---- Subscribe card ---- */
 .subscribe-card {
-  background: var(--bg-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--r-card);
-  padding: 28px 30px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 24px 0;
   max-width: 520px;
   position: relative;
-  box-shadow: var(--sh-1);
+  box-shadow: none;
 }
 .subscribe-card h3 {
   font-family: var(--font-display); font-weight: 600;
