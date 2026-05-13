@@ -15,7 +15,13 @@
       </header>
 
       <div class="note-reader__body prose">
-        <p class="note-reader__lede">{{ledeHtml}}</p>
+        {{#if image}}
+        <figure class="note-reader__figure">
+          <img src="{{image}}" alt="{{imageAlt}}" loading="lazy" />
+          {{#if caption}}<figcaption class="note-reader__caption">{{caption}}</figcaption>{{/if}}
+        </figure>
+        {{/if}}
+        {{#if ledeHtml}}<p class="note-reader__lede">{{ledeHtml}}</p>{{/if}}
         {{afterthoughtHtml}}
         <hr class="note-reader__rule">
         <p class="note-reader__sign">
