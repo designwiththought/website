@@ -1227,13 +1227,14 @@ h6, .h6 {
 .note-list { list-style: none; margin: 0; padding: 0; max-width: none; }
 .note-item {
   display: grid;
-  grid-template-columns: 76px 1fr;
+  grid-template-columns: 76px minmax(0, 1fr);
   gap: var(--s-5);
   padding: var(--s-6) 0;
   border-top: 1px solid var(--rule);
   border-bottom: 0;
   align-items: start;
 }
+.note-item > div { min-width: 0; }
 .note-item:first-child { border-top: 0; padding-top: 0; }
 .note-item:last-child { border-bottom: 0; }
 .note-item__date {
@@ -1244,13 +1245,16 @@ h6, .h6 {
 .note-item__body { margin: 0; font-size: 15.5px; line-height: 1.6; max-width: 56ch; color: var(--fg); transition: color var(--dur-fast) var(--ease-out); }
 .note-item__figure {
   margin: 0;
-  max-width: 540px;
+  width: 100%;
+  max-width: 480px;
   display: flex; flex-direction: column; gap: 10px;
 }
 .note-item__figure img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
+  aspect-ratio: auto;
   border-radius: var(--r-3);
   background: var(--bg-sunken);
 }
