@@ -322,11 +322,11 @@ h6, .h6 {
   outline-offset: 3px;
 }
 .note-item__context {
-  font-family: var(--font-hand);
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13px;
   color: var(--marginalia);
   margin-top: 6px;
-  transform: rotate(-1deg);
   display: inline-block;
 }
 
@@ -768,23 +768,12 @@ h6, .h6 {
 }
 .site-footer__rule-sep { opacity: 0.5; }
 
-/* ============ HR ornament ============ */
+/* ============ HR — clean modern line ============ */
 .home hr, .container hr {
-  margin: 0;
+  margin: var(--s-7) 0;
   height: 1px;
   background: var(--rule);
   border: 0;
-  position: relative;
-}
-.home hr::before {
-  content: "❦";
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--bg);
-  padding: 0 12px;
-  color: var(--fg-faint);
-  font-size: 14px;
 }
 
 /* ============ TOC with-reader tweaks ============ */
@@ -821,24 +810,17 @@ h6, .h6 {
 }
 .note-reader__rule {
   border: 0;
-  text-align: center;
+  border-top: 1px solid var(--rule);
   margin: 36px 0 20px;
-  overflow: visible;
   height: 0;
-  position: relative;
-}
-.note-reader__rule::before {
-  content: '❦';
-  color: var(--fg-subtle);
-  font-size: 16px;
-  display: inline-block;
+  width: 64px;
 }
 .note-reader__sign {
-  font-family: var(--font-hand);
-  font-size: 16px !important;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px !important;
   color: var(--marginalia) !important;
   line-height: 1.5 !important;
-  transform: rotate(-0.4deg);
   display: inline-block;
 }
 .note-reader__sign a { color: inherit; text-decoration-style: dashed; }
@@ -1703,11 +1685,12 @@ h6, .h6 {
 
 /* Hero aside marginalia variant */
 .marginalia--block { display: block; margin-bottom: 10px; }
-.marginalia--tilt-3-neg { transform: rotate(-3deg); }
+.marginalia--tilt-3-neg { transform: none; }
 
-/* MarginaliaPin rotation: confine the data-driven inline footprint to a
-   single CSS custom property; the actual transform lives here. */
-.marginalia--rotated { transform: rotate(var(--marginalia-rotate, -2deg)); }
+/* MarginaliaPin rotation: legacy hook from the warm-paper era. The modern
+   marginalia is a quiet inline italic in accent red, so the rotation token
+   is now a no-op (kept so the build doesn't strip the class attribute). */
+.marginalia--rotated { transform: none; }
 
 /* Notes index "older notes in the archive" closing line */
 .notes-archive-line {
@@ -1874,6 +1857,10 @@ h6, .h6 {
 .swatch--ink-700   { background: var(--ink-700); }
 .swatch--ink-800   { background: var(--ink-800); }
 .swatch--ink-900   { background: var(--ink-900); }
+.swatch--indigo-400 { background: var(--indigo-400); }
+.swatch--indigo-500 { background: var(--indigo-500); }
+.swatch--indigo-600 { background: var(--indigo-600); }
+.swatch--indigo-700 { background: var(--indigo-700); }
 .swatch--cocoa-600 { background: var(--cocoa-600); }
 .swatch--cocoa-700 { background: var(--cocoa-700); }
 .swatch--honey-400 { background: var(--honey-400); }
