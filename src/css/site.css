@@ -1722,9 +1722,9 @@ h6, .h6 {
 
 /* Theme toggle: replace inline display:none with class-based hide/show.
    theme.js still flips data-theme="dark" on the documentElement. */
-.theme-toggle__sun  { display: none; }
-[data-theme="dark"] .theme-toggle__moon { display: none; }
-[data-theme="dark"] .theme-toggle__sun  { display: inline-block; }
+.site-nav__theme .theme-toggle__sun  { display: none; }
+[data-theme="dark"] .site-nav__theme .theme-toggle__moon { display: none; }
+[data-theme="dark"] .site-nav__theme .theme-toggle__sun  { display: block; }
 
 /* Dropcap p — already gets max-width:none from .reader p, but
    guarantee it for any prose context that uses .dropcap directly. */
