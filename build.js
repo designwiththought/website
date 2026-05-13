@@ -667,14 +667,27 @@ async function build() {
   var studies = articles.filter(function (a) { return a.kind === 'Study'; });
 
   // Pre-render the grouped notes list for the /notes/ index and the homepage.
+  // A note can be either a short text fragment (.ledeHtml from the MDX body)
+  // or an image with an optional caption (image / imageAlt / caption in the
+  // frontmatter). When both are present the caption falls back to the text
+  // lede, so an image note can carry a sentence of context too.
   function renderNoteItem(n, hrefPrefix) {
     var href = hrefPrefix + 'notes/' + n.slug + '/';
-    return '<li class="note-item">' +
+    var inner;
+    if (n.image) {
+      var alt = (n.imageAlt || n.caption || n.title || '').replace(/"/g, '&quot;');
+      var captionHtml = n.caption || n.ledeHtml || '';
+      inner = '<figure class="note-item__figure">' +
+                '<img src="' + n.image + '" alt="' + alt + '" loading="lazy" />' +
+                (captionHtml ? '<figcaption class="note-item__caption">' + captionHtml + '</figcaption>' : '') +
+              '</figure>';
+    } else {
+      inner = '<p class="note-item__body">' + n.ledeHtml + '</p>';
+    }
+    return '<li class="note-item' + (n.image ? ' note-item--image' : '') + '">' +
              '<span class="note-item__date">' + n.date + '</span>' +
              '<div>' +
-               '<a href="' + href + '" class="note-item__link">' +
-                 '<p class="note-item__body">' + n.ledeHtml + '</p>' +
-               '</a>' +
+               '<a href="' + href + '" class="note-item__link">' + inner + '</a>' +
                (n.context ? '<div class="note-item__context">' + n.context + '</div>' : '') +
              '</div>' +
            '</li>';

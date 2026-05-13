@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your second note — Thought Grain</title>
-  <meta name="description" content="Your second note">
+  <title>An image note — Thought Grain</title>
+  <meta name="description" content="An image note">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/style.css">
-  <link rel="alternate" type="application/atom+xml" title="Your second note — all updates" href="../../feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="An image note — all updates" href="../../feed.xml">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -110,38 +110,36 @@
       <header class="note-reader__head">
         <div class="note-reader__meta">
           <span class="kicker">Note</span>
-          <span class="kicker">&middot; Jan 02</span>
-          <span class="kicker">&middot; another scribbled-on day</span>
+          <span class="kicker">&middot; Jan 03</span>
+          <span class="kicker">&middot; from the desk</span>
         </div>
-        <h1 class="note-reader__title">Your second note.</h1>
+        <h1 class="note-reader__title">An image note.</h1>
       </header>
 
       <div class="note-reader__body prose">
         
+        <figure class="note-reader__figure">
+          <img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&amp;fit=crop&amp;w=1200&amp;q=70" alt="Open notebook on a wooden desk, pen resting across the spine" loading="lazy" />
+          {{#if caption}}<figcaption class="note-reader__caption">Notes can be just an image with a caption — same row layout, no body text required.</figcaption>
         </figure>
         {{/if}}
-        <p class="note-reader__lede">Add as many MDX files as you like to <code>src/content/notes/</code>. They render in file order — keep the numeric <code>01-</code>, <code>02-</code> prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</p>
+        
         
         <hr class="note-reader__rule">
         <p class="note-reader__sign">
-          &mdash; Filed under <em>another scribbled-on day</em>. Permalink <a href="#your-second-note">#your-second-note</a>.
+          &mdash; Filed under <em>from the desk</em>. Permalink <a href="#a-photo-note">#a-photo-note</a>.
         </p>
       </div>
 
       <nav class="note-reader__nav" aria-label="Between notes">
         <div>
           
-          <a href="../../notes/a-photo-note/" class="note-reader__nav-link">
-            <span class="kicker">&larr; Earlier</span>
-            <span>An image note</span>
-          </a>
-          
         </div>
         <div class="note-reader__nav-right">
           
-          <a href="../../notes/your-first-note/" class="note-reader__nav-link note-reader__nav-link--right">
+          <a href="../../notes/your-second-note/" class="note-reader__nav-link note-reader__nav-link--right">
             <span class="kicker">Later &rarr;</span>
-            <span>Your first note</span>
+            <span>Your second note</span>
           </a>
           
         </div>
@@ -159,9 +157,9 @@
           </li>
           
           <li>
-            <a href="../../notes/a-photo-note/">
-              <span class="t-small t-caps note-reader__related-date">Jan 03</span>
-              <span>An image note</span>
+            <a href="../../notes/your-second-note/">
+              <span class="t-small t-caps note-reader__related-date">Jan 02</span>
+              <span>Your second note</span>
             </a>
           </li>
           
