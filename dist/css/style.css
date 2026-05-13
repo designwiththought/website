@@ -2137,7 +2137,7 @@ h6, .h6 {
 
 
 /* ================================================================
-   § Accessibility — WCAG 2.2 A / AA focus + link styles
+   Accessibility — WCAG 2.2 A / AA focus + link styles
    ================================================================ */
 
 /* Consistent, high-contrast focus ring for ALL interactive elements.
@@ -2302,7 +2302,7 @@ h6, .h6 {
 
 
 /* ================================================================
-   § Drawer dialog (Menu variant)
+   Drawer dialog (Menu variant)
    ================================================================ */
 .drawer {
   position: fixed; inset: 0;
@@ -2400,7 +2400,7 @@ h6, .h6 {
 
 
 /* ================================================================
-   § Cover-art layouts — albums, movies, podcasts, books
+   Cover-art layouts — albums, movies, podcasts, books
    ================================================================ */
 
 .cover { display: block; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 20px -8px oklch(0% 0 0 / 0.45), 0 1px 2px oklch(0% 0 0 / 0.15); }
