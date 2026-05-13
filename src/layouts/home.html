@@ -1,67 +1,38 @@
   <main id="main" class="home">
     <!-- Hero — a proper introduction, not a slogan -->
-    <section class="hero container">
-      <div class="hero__grid">
-        <div class="hero__primary">
-          <div class="hero__eyebrow">
-            <span class="kicker">Hello</span>
-          </div>
-          <div class="hero__prose">
-            <p class="hero__lede">
-              I&rsquo;m <strong>{{ownerName}}</strong>, accessibility lead at <strong>Superhuman</strong> <span class="hero__muted">(formerly known as Grammarly)</span>. I spend most of my time thinking about what happens when you treat design as a form of <span class="hero__accent-2">care<svg class="hero__underline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M 6 42 Q 30 28 60 38 T 114 32" stroke="#8E3A1D" stroke-width="2.2" fill="none" stroke-linecap="round" /><path d="M 6 46 Q 32 36 62 44 T 110 38" stroke="#8E3A1D" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5" /></svg></span> &mdash; for the people using the software, for the engineers building it, and for the systems that hold it all together.
-            </p>
-            <p class="hero__body">
-              For years my online presence was rented space &mdash; social profiles and digital CVs on platforms I didn&rsquo;t own. This site is me building a home on the internet instead. The foundation is my own, the creaky floorboards are ones I coded, and the front door is always open.
-            </p>
-            <p class="hero__body">
-              It&rsquo;s a place to slow down and share ideas that invite reflection rather than consumption &mdash; on design systems, accessibility, leadership, and whatever I&rsquo;m paying attention to now.
-            </p>
-          </div>
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="{{basePath}}essays/">Read the essays</a>
-            <a class="btn btn--ghost" href="{{basePath}}now/">See what I&rsquo;m up to now</a>
-          </div>
-          {{feedLinkHtml}}
-        </div>
-
-        <aside class="hero__aside">
-          <span class="marginalia marginalia--block marginalia--tilt-3-neg">on the desk, april &rsquo;26 &rarr;</span>
-          <div class="hero__aside-card">
-            <div class="hero__aside-row">
-              <span class="kicker">Writing</span>
-              <p>{{heroAside.writing}}</p>
-            </div>
-            <div class="hero__aside-row">
-              <span class="kicker">Building</span>
-              <p><a href="{{basePath}}projects/prism/">Prism</a> &mdash; a perceptual contrast checker. Alpha with four teams.</p>
-            </div>
-            <div class="hero__aside-row">
-              <span class="kicker">Reading</span>
-              <p><em>The Craftsman</em>, second pass. <em>Design Justice</em>, slowly.</p>
-            </div>
-            <a class="hero__aside-more" href="{{basePath}}now/">
-              See the now page
-              <svg class="icon icon--trailing" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-            </a>
-          </div>
-        </aside>
+    <section class="hero">
+      <p class="hero__lede">
+        Notes, essays, and projects on design as a form of <em>care</em> &mdash;
+        by {{ownerName}}.
+      </p>
+      <p class="hero__body">
+        I&rsquo;m accessibility lead at Superhuman (formerly known as Grammarly).
+        Most of my writing is about what happens when you treat design as care:
+        for the people using the software, for the engineers building it, and
+        for the systems that hold it all together.
+      </p>
+      <p class="hero__body">
+        This site is a slow place &mdash; ideas to reflect on, not consume.
+        On design systems, accessibility, leadership, and whatever has my
+        attention this month.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="{{basePath}}essays/">Read the essays</a>
+        <a class="btn btn--ghost" href="{{basePath}}now/">What I&rsquo;m up to now</a>
       </div>
+      {{feedLinkHtml}}
     </section>
 
-    <!-- Recent essays -->
+    <!-- Recent writing -->
     <section id="writing" class="container section">
       <header class="section__head">
-        <div>
-          <span class="kicker">Essays</span>
-          <h2 class="section__title">Recent writing</h2>
-        </div>
-        <a class="btn btn--link" href="{{basePath}}essays/">All essays &#8599;</a>
+        <h2 class="section__title">Recent writing</h2>
+        <a class="btn btn--link" href="{{basePath}}essays/">All essays</a>
       </header>
-      <div class="grid grid--3">
+      <div class="essay-list">
         {{#each recentArticles}}
         <a class="essay-card" href="{{basePath}}{{url}}">
           <div class="essay-card__meta">
-            <span class="kicker">{{kind}}</span>
             <span class="essay-card__date">{{date}} &middot; {{read}}</span>
           </div>
           <h3 class="essay-card__title">{{title}}</h3>
@@ -76,70 +47,51 @@
       </div>
     </section>
 
-    <div class="container"><hr></div>
-
-    <!-- Notes + Projects -->
-    <section id="notes" class="container section section--split">
-      <div>
-        <header class="section__head section__head--flush">
-          <div>
-            <span class="kicker">Notes</span>
-            <h2 class="section__title">From the notebook</h2>
-          </div>
-          <a class="btn btn--link" href="{{basePath}}notes/">All notes &#8599;</a>
-        </header>
-        {{homeNotesHtml}}
-      </div>
-      <aside id="projects" class="section__aside">
-        <div class="section__sub">
-          <span class="kicker">Projects</span>
-          <h3 class="section__title section__title--sm">Currently building</h3>
-          <div class="project-stack">
-            {{#each homeProjects}}
-            <a class="project-tile project-tile--sm" href="{{basePath}}projects/{{slug}}/">
-              <div class="project-tile__plate project-tile__plate--{{plate}}">
-                <div class="project-tile__glyph">{{glyph}}</div>
-                <div class="project-tile__plate-label">{{label}}</div>
-              </div>
-              <div class="project-tile__body">
-                <div class="project-tile__meta">
-                  <span class="kicker">{{status}}</span>
-                  <span class="project-tile__year">{{year}}</span>
-                </div>
-                <h4 class="project-tile__title">{{title}}</h4>
-                <p class="project-tile__blurb">{{summary}}</p>
-              </div>
-            </a>
-            {{/each}}
-          </div>
-          <a class="btn btn--link btn--link-block" href="{{basePath}}projects/">All projects &#8599;</a>
-        </div>
-      </aside>
+    <!-- Notes -->
+    <section id="notes" class="container section">
+      <header class="section__head">
+        <h2 class="section__title">From the notebook</h2>
+        <a class="btn btn--link" href="{{basePath}}notes/">All notes</a>
+      </header>
+      {{homeNotesHtml}}
     </section>
 
-    <div class="container"><hr></div>
-
-    <!-- Reading strip -->
-    <section id="reading" class="container section">
+    <!-- Projects -->
+    <section id="projects" class="container section">
       <header class="section__head">
-        <div>
-          <span class="kicker">Reading</span>
-          <h2 class="section__title">On the shelf, this month</h2>
-        </div>
+        <h2 class="section__title">Currently building</h2>
+        <a class="btn btn--link" href="{{basePath}}projects/">All projects</a>
       </header>
-      <div class="reading-strip">
-        {{#each reading}}
-        <div class="reading-card">
-          <div class="reading-card__spine reading-card__spine--{{spine}}">
-            <span class="reading-card__spine-title">{{title}}</span>
+      <div class="project-list">
+        {{#each homeProjects}}
+        <a class="project-tile" href="{{basePath}}projects/{{slug}}/">
+          <div class="project-tile__body">
+            <div class="project-tile__meta">
+              <span class="project-tile__status">{{status}}</span>
+              <span class="project-tile__year">{{year}}</span>
+            </div>
+            <h3 class="project-tile__title">{{title}}</h3>
+            <p class="project-tile__blurb">{{summary}}</p>
           </div>
-          <div class="reading-card__body">
-            <h4>{{title}}</h4>
-            <div class="reading-card__author">{{author}}</div>
-            <p class="reading-card__note">{{note}}</p>
-          </div>
-        </div>
+        </a>
         {{/each}}
       </div>
+    </section>
+
+    <!-- Reading -->
+    <section id="reading" class="container section">
+      <header class="section__head">
+        <h2 class="section__title">On the shelf, this month</h2>
+        <a class="btn btn--link" href="{{basePath}}reading/">All reading</a>
+      </header>
+      <ul class="reading-list-simple">
+        {{#each reading}}
+        <li>
+          <span class="reading-list-simple__title">{{title}}</span>
+          <span class="reading-list-simple__author">{{author}}</span>
+          <span class="reading-list-simple__note">{{note}}</span>
+        </li>
+        {{/each}}
+      </ul>
     </section>
   </main>

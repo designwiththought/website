@@ -1,44 +1,44 @@
 /* =========================================================================
-   UI Kit — Design with Thought (website)
-   Depends on tokens.css
+   UI Kit — Thought Grain
+   Reading-site kit. Almost no chrome: lists, not cards. Links are
+   first-class. Buttons are a quiet pill. Depends on tokens.css.
    ========================================================================= */
 
-/* ---- Buttons ---- */
+/* ---- Buttons ----
+   Two flavours: a quiet pill (.btn) and a text link (.btn--link). The
+   ink-on-paper primary is for one-off CTAs only. */
 .btn {
   --_bg: transparent;
   --_fg: var(--fg);
   --_bd: var(--rule);
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-body); font-size: 14px; font-weight: 500;
-  line-height: 1; padding: 9px 16px;
+  line-height: 1; padding: 8px 14px;
   background: var(--_bg); color: var(--_fg);
   border: 1px solid var(--_bd);
   border-radius: var(--r-pill);
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: -0.005em;
-  transition: background var(--dur-fast) var(--ease-out),
-              color var(--dur-fast) var(--ease-out),
-              border-color var(--dur-fast) var(--ease-out);
+  letter-spacing: 0;
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
 }
-.btn:hover { --_bg: var(--bg-sunken); }
-.btn:active { transform: translateY(1px); box-shadow: var(--sh-press); }
+.btn:hover { --_bg: var(--bg-sunken); --_bd: var(--ink-400); color: var(--fg); text-decoration: none; }
+.btn:active { transform: translateY(1px); }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn--primary {
   --_bg: var(--ink-900); --_fg: var(--paper-50); --_bd: var(--ink-900);
-  box-shadow: none;
   font-weight: 500;
 }
-.btn--primary:hover { --_bg: var(--ink-700); --_bd: var(--ink-700); }
+.btn--primary:hover { --_bg: var(--ink-700); --_bd: var(--ink-700); color: var(--paper-50); }
 [data-theme="dark"] .btn--primary { --_bg: var(--fg); --_fg: var(--bg); --_bd: var(--fg); }
-[data-theme="dark"] .btn--primary:hover { --_bg: var(--fg-muted); --_bd: var(--fg-muted); }
+[data-theme="dark"] .btn--primary:hover { --_bg: var(--fg-muted); --_bd: var(--fg-muted); color: var(--bg); }
 
-.btn--ghost {
-  --_bg: transparent; --_bd: var(--border);
-}
-.btn--ghost:hover { --_bd: var(--border-strong); }
+.btn--ghost { --_bg: transparent; --_bd: var(--rule); }
+.btn--ghost:hover { --_bd: var(--ink-400); }
 
 .btn--link {
   background: none; border: 0; padding: 0;
@@ -52,77 +52,91 @@
 }
 .btn--link:hover { color: var(--accent-hover); text-decoration-color: currentColor; background: none; }
 
-.btn--sm { font-size: 13px; padding: 8px 14px; }
-.btn--lg { font-size: 15px; padding: 14px 22px; }
+.btn--sm { font-size: 12.5px; padding: 6px 11px; }
+.btn--lg { font-size: 15px; padding: 11px 18px; }
 
-/* ---- Tags / kickers ---- */
+/* ---- Tags ----
+   Plain inline labels. No pill background — they're just small italic
+   serif notes in the muted ink. */
 .tag {
-  display: inline-flex; align-items: center;
-  font-family: var(--font-body); font-size: 12px; font-weight: 500;
-  padding: 4px 10px;
-  background: var(--bg-sunken);
+  display: inline;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
   color: var(--fg-muted);
-  border-radius: var(--r-pill);
-  letter-spacing: -0.005em;
-  border: 1px solid var(--rule);
+  background: none;
+  border: 0;
+  padding: 0;
+  letter-spacing: 0;
 }
-.tag--moss  { background: color-mix(in oklch, var(--moss-600)  15%, var(--bg)); color: var(--moss-700);  border-color: color-mix(in oklch, var(--moss-600)  20%, transparent); }
-.tag--terra { background: color-mix(in oklch, var(--terra-600) 12%, var(--bg)); color: var(--terra-700); border-color: color-mix(in oklch, var(--terra-600) 18%, transparent); }
-.tag--accent {
-  background: color-mix(in oklch, var(--accent) 10%, var(--bg));
-  color: var(--accent);
-  border-color: color-mix(in oklch, var(--accent) 22%, transparent);
+.tag + .tag::before {
+  content: " · ";
+  color: var(--fg-faint);
+  font-style: normal;
 }
+.tag--moss  { color: var(--moss-700); }
+.tag--terra { color: var(--terra-700); }
+.tag--accent { color: var(--accent); }
 
+/* ---- Kickers ----
+   The smallest possible orientation label. Used sparingly. */
 .kicker {
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--fg-subtle);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* ---- Inputs ---- */
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field__label {
   font-family: var(--font-body); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   color: var(--fg-muted);
 }
 .input {
   font-family: var(--font-body);
   font-size: 15px;
-  padding: 11px 14px;
-  background: var(--bg-raised);
+  padding: 9px 12px;
+  background: transparent;
   color: var(--fg);
-  border: 1px solid var(--border);
-  border-radius: var(--r-3);
+  border: 0;
+  border-bottom: 1px solid var(--ink-400);
+  border-radius: 0;
   outline: none;
-  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  transition: border-color var(--dur-fast) var(--ease-out);
   width: 100%;
   box-sizing: border-box;
 }
 .input:focus, .input.is-focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 22%, transparent);
+  border-bottom-color: var(--accent);
+  box-shadow: none;
 }
-textarea.input { font-family: var(--font-body); line-height: 1.5; resize: vertical; }
+textarea.input {
+  font-family: var(--font-body); line-height: 1.5; resize: vertical;
+  border: 1px solid var(--ink-400);
+  padding: 12px 14px;
+}
 select.input {
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--fg-muted) 50%),
                     linear-gradient(-45deg, transparent 50%, var(--fg-muted) 50%);
-  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-position: calc(100% - 14px) 50%, calc(100% - 8px) 50%;
   background-size: 6px 6px, 6px 6px;
   background-repeat: no-repeat;
-  padding-right: 32px;
+  padding-right: 28px;
 }
 
-/* ---- Essay card ---- */
+/* ---- Essay card → essay row ----
+   Title + date + dek as a plain list item with a top rule. No frame,
+   no shadow, no padding box. */
 .essay-card {
   display: block;
-  padding: 20px 0;
-  background: transparent;
+  padding: var(--s-5) 0;
+  background: none;
   border: 0;
   border-top: 1px solid var(--rule);
   border-radius: 0;
@@ -134,18 +148,18 @@ select.input {
 }
 .essay-card:hover { box-shadow: none; transform: none; text-decoration: none; }
 .essay-card:hover .essay-card__title { color: var(--accent); }
-.essay-card__meta { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
-.essay-card__date { font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); letter-spacing: 0.02em; }
+.essay-card__meta { display: flex; gap: 10px; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; }
+.essay-card__date { font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); letter-spacing: 0; }
 .essay-card__title {
   font-family: var(--font-display); font-weight: 500;
-  font-size: 22px; line-height: 1.2; letter-spacing: var(--tracking-tight);
-  margin: 0 0 8px; color: var(--ink-900);
+  font-size: 1.5rem; line-height: 1.18; letter-spacing: var(--tracking-tight);
+  margin: 0 0 6px; color: var(--ink-900);
   transition: color var(--dur-fast) var(--ease-out);
 }
 [data-theme="dark"] .essay-card__title { color: var(--fg); }
 .essay-card__dek {
-  font-size: 15px; line-height: 1.55; color: var(--fg-muted);
-  margin: 0 0 12px; max-width: 54ch;
+  font-size: var(--t-body); line-height: 1.55; color: var(--fg-muted);
+  margin: 0 0 8px; max-width: 56ch;
 }
 
 /* ---- Notes ---- */
@@ -154,227 +168,238 @@ select.input {
   display: grid;
   grid-template-columns: 68px 1fr;
   gap: 16px;
-  padding: 16px 0;
+  padding: var(--s-4) 0;
   border-bottom: 1px solid var(--rule);
 }
 .note-item:last-child { border-bottom: 0; }
 .note-item__date {
   font-family: var(--font-mono); font-size: 11px;
-  color: var(--fg-subtle); letter-spacing: 0.04em; text-transform: lowercase;
+  color: var(--fg-subtle); letter-spacing: 0; text-transform: lowercase;
   padding-top: 4px;
 }
-.note-item__body { margin: 0; font-size: 15px; line-height: 1.6; max-width: 56ch; }
+.note-item__body { margin: 0; font-size: var(--t-body); line-height: 1.6; max-width: 56ch; }
 
 /* ---- Pull quote ---- */
 .pullquote {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 22px; line-height: 1.32;
-  letter-spacing: var(--tracking-tight);
-  color: var(--ink-900);
-  border-left: 3px solid var(--accent);
-  padding: 6px 0 6px 22px;
-  margin: 22px 0 6px;
-  font-style: normal;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem; line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-800);
+  border-left: 2px solid var(--rule);
+  padding: 4px 0 4px 22px;
+  margin: var(--s-6) 0 var(--s-4);
 }
-[data-theme="dark"] .pullquote { color: var(--fg); border-color: var(--accent); }
+[data-theme="dark"] .pullquote { color: var(--fg-muted); }
 .pullquote__cite {
   display: block;
   font-family: var(--font-body);
   font-weight: 400;
+  font-style: normal;
   font-size: 13px; color: var(--fg-subtle);
   padding-left: 24px;
   margin-top: 8px;
-  font-style: normal;
 }
 
 /* ---- Mark highlight ---- */
 mark {
-  background: color-mix(in oklch, var(--highlight) 80%, transparent);
+  background: color-mix(in oklch, var(--highlight) 70%, transparent);
   color: inherit;
-  padding: 0.05em 0.25em;
-  border-radius: 3px;
+  padding: 0.05em 0.2em;
+  border-radius: 2px;
 }
 
-/* ---- Project tile ---- */
+/* ---- Project tile → project row ----
+   The plate becomes a small inline glyph; the body is the link. */
 .project-tile {
   display: block;
-  background: var(--bg-raised);
-  border: 1px solid var(--rule);
-  border-radius: var(--r-card);
-  overflow: hidden;
+  padding: var(--s-5) 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
   text-decoration: none;
   color: var(--fg);
-  box-shadow: none;
-  transition: border-color var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-out);
 }
-.project-tile:hover {
-  box-shadow: none;
-  transform: none;
-  border-color: var(--ink-400);
-  text-decoration: none;
-}
+.project-tile:hover { box-shadow: none; transform: none; border-color: var(--rule); text-decoration: none; }
 .project-tile:hover .project-tile__title { color: var(--accent); }
 .project-tile__plate {
-  aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, var(--paper-200), var(--paper-300));
-  display: flex; align-items: center; justify-content: center;
-  color: var(--ink-700);
-  font-family: var(--font-display); font-weight: 700; font-size: 46px;
-  letter-spacing: -0.04em;
-  border-bottom: 1px solid var(--rule);
-  position: relative;
-  overflow: hidden;
+  display: none;
 }
-.project-tile__plate--cocoa { background: linear-gradient(135deg, var(--indigo-600), var(--indigo-700)); color: #fff; }
-.project-tile__plate--terra { background: linear-gradient(135deg, var(--terra-500), var(--terra-700)); color: #fff; }
-.project-tile__plate--moss  { background: linear-gradient(135deg, var(--moss-600), var(--moss-700)); color: #fff; }
-.project-tile__plate--honey { background: linear-gradient(135deg, var(--honey-400), var(--honey-600)); color: var(--ink-800); }
-.project-tile__body { padding: 16px 18px 20px; }
+.project-tile__plate--cocoa,
+.project-tile__plate--terra,
+.project-tile__plate--moss,
+.project-tile__plate--honey { display: none; }
+.project-tile__body { padding: 0; }
+.project-tile__meta {
+  display: flex; gap: 10px; align-items: baseline; margin-bottom: 4px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle);
+}
 .project-tile__title {
-  font-family: var(--font-display); font-weight: 600; font-size: 19px;
-  margin: 4px 0 4px; color: var(--ink-900); line-height: 1.2;
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 1.375rem; margin: 0 0 6px;
+  color: var(--ink-900); line-height: 1.2;
   letter-spacing: var(--tracking-tight);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 [data-theme="dark"] .project-tile__title { color: var(--fg); }
-.project-tile__blurb { font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; margin: 0; }
+.project-tile__blurb { font-size: 15px; color: var(--fg-muted); line-height: 1.55; margin: 0; max-width: 56ch; }
 
-/* ---- Nav ---- */
+/* ---- Nav ----
+   Inline text links. No backdrop blur, no chrome — just a quiet rule
+   at the bottom of the bar. */
 .site-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 28px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 24px var(--gutter) 20px;
   border-bottom: 1px solid var(--rule);
-  background: color-mix(in oklch, var(--bg) 78%, transparent);
-  backdrop-filter: saturate(160%) blur(12px);
-  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  background: var(--bg);
   position: sticky; top: 0; z-index: 10;
+  max-width: var(--container);
+  margin: 0 auto;
 }
-.site-nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); }
-.site-nav__brand img { display: block; height: 30px; }
-.site-title {
+.site-nav__brand {
+  display: inline-flex; align-items: baseline; gap: 8px;
+  text-decoration: none; color: var(--fg);
+}
+.site-nav__brand:hover { text-decoration: none; color: var(--accent); }
+.site-nav__brand img { display: block; height: 24px; }
+.site-title,
+.brand-name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.005em;
   color: var(--ink-900);
   line-height: 1;
+  text-decoration: none;
 }
-.site-footer .site-title { font-size: 24px; display: inline-block; }
-.site-nav__links { display: flex; gap: 18px; align-items: center; }
-.site-nav__link {
-  font-family: var(--font-body); font-size: 14px; font-weight: 500;
-  color: var(--fg-muted); text-decoration: none;
-  letter-spacing: -0.005em;
-  padding: 6px 0;
-  border-bottom: 1px solid transparent;
-  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
-  cursor: pointer;
-  background: none; border-top: 0; border-left: 0; border-right: 0;
-}
-.site-nav__link:hover { color: var(--fg); border-bottom-color: var(--accent); text-decoration: none; }
-.site-nav__link.is-active { color: var(--fg); border-bottom-color: var(--accent); }
-.site-nav__theme {
-  background: none; border: 1px solid var(--border);
-  width: 34px; height: 34px; border-radius: var(--r-pill);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: var(--fg-muted);
-  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
-}
-.site-nav__theme:hover { color: var(--fg); border-color: var(--border-strong); }
+[data-theme="dark"] .site-title,
+[data-theme="dark"] .brand-name { color: var(--fg); }
 
-/* ---- Footer ---- */
+.site-footer .site-title { font-size: 22px; display: inline-block; }
+.site-nav__links { display: flex; gap: 18px; align-items: baseline; }
+.site-nav__link {
+  font-family: var(--font-body); font-size: 14px; font-weight: 400;
+  color: var(--fg-muted); text-decoration: none;
+  letter-spacing: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.site-nav__link:hover,
+.site-nav__link.is-active { color: var(--fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.site-nav__theme {
+  background: none; border: 0;
+  width: auto; height: auto; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--fg-subtle);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.site-nav__theme:hover { color: var(--fg); }
+
+/* ---- Footer ----
+   A single quiet row: wordmark, link cluster, credit. */
 .site-footer {
   margin-top: 96px;
-  padding: 56px 28px 40px;
+  padding: var(--s-7) var(--gutter) var(--s-6);
   border-top: 1px solid var(--rule);
-  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
   font-size: 14px;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
 }
 .site-footer h5 {
   font-family: var(--font-body); font-size: 11px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--fg-subtle); font-weight: 600; margin-bottom: 12px;
+  letter-spacing: 0; text-transform: none;
+  color: var(--fg-subtle); font-weight: 500; margin-bottom: 8px;
 }
-.site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
 .site-footer a { color: var(--fg-muted); text-decoration: none; }
 .site-footer a:hover { color: var(--fg); text-decoration: underline; }
 
 /* ---- Subscribe card ---- */
 .subscribe-card {
-  background: transparent;
+  background: none;
   border: 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   border-radius: 0;
-  padding: 24px 0;
-  max-width: 520px;
+  padding: var(--s-6) 0;
+  max-width: 560px;
   position: relative;
   box-shadow: none;
 }
 .subscribe-card h3 {
-  font-family: var(--font-display); font-weight: 600;
-  font-size: 22px; margin-bottom: 6px; color: var(--ink-900);
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 22px; margin-bottom: 4px; color: var(--ink-900);
   letter-spacing: var(--tracking-tight);
 }
 [data-theme="dark"] .subscribe-card h3 { color: var(--fg); }
-.subscribe-card p { margin-bottom: 16px; color: var(--fg-muted); font-size: 14.5px; }
-.subscribe-card form { display: flex; gap: 8px; }
+.subscribe-card p { margin-bottom: 16px; color: var(--fg-muted); font-size: 15px; }
+.subscribe-card form { display: flex; gap: 8px; align-items: flex-end; }
 .subscribe-card .input { flex: 1; }
 
-/* ---- Container / layout ---- */
+/* ---- Container / layout ----
+   Single column. Everything sits in --container (720px) by default. */
 .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
 .container--narrow { max-width: var(--container-narrow); margin: 0 auto; padding: 0 var(--gutter); }
 
-/* ---- Page hero ---- */
+/* ---- Page hero (legacy) ---- */
 .hero {
-  padding: 80px 0 56px;
-  border-bottom: 1px solid var(--rule);
+  padding: var(--s-8) 0 var(--s-6);
+  border-bottom: 0;
   position: relative;
 }
-.hero__eyebrow { margin-bottom: 16px; }
+.hero__eyebrow { margin-bottom: 12px; }
 .hero__title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.5rem, 1.2rem + 4vw, 4.5rem);
+  font-weight: 500;
+  font-size: var(--t-display);
   line-height: 1.04;
-  letter-spacing: -0.03em;
-  margin: 0 0 18px;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px;
   color: var(--ink-900);
-  max-width: 16ch;
+  max-width: 18ch;
 }
 [data-theme="dark"] .hero__title { color: var(--fg); }
-.hero__dek { font-size: 19px; line-height: 1.5; color: var(--fg-muted); max-width: 48ch; margin: 0; }
+.hero__dek { font-size: var(--t-lead); line-height: 1.5; color: var(--fg-muted); max-width: 56ch; margin: 0; }
 
 /* ---- Reader view ---- */
 .reader {
-  max-width: 680px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 64px 24px 96px;
+  padding: var(--s-8) var(--gutter) var(--s-9);
 }
 .reader h1 {
-  font-size: clamp(2rem, 1rem + 3vw, 3.25rem);
+  font-size: clamp(2.25rem, 1.4rem + 2.5vw, 3.25rem);
   line-height: 1.06;
-  letter-spacing: -0.025em;
-  margin-bottom: 18px;
+  letter-spacing: -0.022em;
+  margin-bottom: var(--s-4);
 }
-.reader .reader__meta { display: flex; gap: 14px; margin-bottom: 32px; }
-.reader p { font-size: 17px; line-height: 1.68; max-width: none; }
+.reader .reader__meta { display: flex; gap: 14px; margin-bottom: var(--s-6); color: var(--fg-subtle); }
+.reader p { font-size: 1.0625rem; line-height: 1.7; max-width: none; }
 .reader h2 {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 26px;
+  font-weight: 500;
+  font-size: 1.5rem;
   letter-spacing: var(--tracking-tight);
-  margin-top: 48px;
-  margin-bottom: 14px;
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-3);
 }
 
 /* ---- TOC sticky (desktop) ---- */
-.reader-with-toc { display: grid; grid-template-columns: 1fr min(680px, 100%) 1fr; gap: 0; padding: 64px 24px 96px; }
+.reader-with-toc { display: grid; grid-template-columns: 1fr min(640px, 100%) 1fr; gap: 0; padding: var(--s-8) var(--gutter) var(--s-9); }
 .reader-with-toc .reader { margin: 0; padding: 0; grid-column: 2; }
-.reader-with-toc .toc { grid-column: 3; padding-left: 32px; position: sticky; top: 96px; align-self: start; max-width: 220px; }
+.reader-with-toc .toc { grid-column: 3; padding-left: var(--s-6); position: sticky; top: 96px; align-self: start; max-width: 220px; }
 .toc__title {
   font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  letter-spacing: 0; text-transform: none;
   color: var(--fg-subtle); margin-bottom: 12px;
 }
 .toc ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
