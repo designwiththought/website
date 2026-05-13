@@ -41,11 +41,7 @@ h6, .h6 {
 }
 [data-theme="dark"] .brand-name { color: var(--fg); }
 
-/* Hide any leftover drawer / hamburger / nav-group markup if it slips
-   into a layout — base.html no longer emits these. */
-.drawer,
-.site-nav__menu-btn,
-.site-nav--drawer .site-nav__menu-btn,
+/* Hide stale .nav-group dropdown markup; the drawer is the canonical menu. */
 .nav-group__menu,
 .nav-group__caret { display: none !important; }
 
@@ -880,14 +876,17 @@ h6, .h6 {
 /* Drawer variant */
 .site-nav--drawer .site-nav__breadcrumb { margin-right: 10px; }
 .site-nav__menu-btn {
-  display: inline-flex; align-items: center;
-  background: none; border: 1px solid var(--rule);
-  padding: 8px 14px; border-radius: 999px;
-  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: 0;
+  padding: 0;
+  font-family: var(--font-body); font-size: 14px; font-weight: 400;
   cursor: pointer;
-  color: var(--fg);
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
 }
-.site-nav__menu-btn:hover { border-color: var(--fg); }
+.site-nav__menu-btn:hover,
+.site-nav__menu-btn:focus-visible { color: var(--fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
 .drawer {
   position: fixed; inset: 0;
@@ -1429,13 +1428,14 @@ h6, .h6 {
 }
 .drawer__head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 28px;
+  padding: 22px var(--gutter) 20px;
   border-bottom: 1px solid var(--rule);
   position: sticky; top: 0;
   background: var(--bg);
   z-index: 2;
-  min-height: 68px; /* matches .site-nav at 18px + 32px content + 18px */
   box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
 }
 .drawer__heading {
   font-family: var(--font-display);
@@ -1443,7 +1443,7 @@ h6, .h6 {
   font-weight: 500;
   letter-spacing: -0.005em;
   line-height: 1;
-  color: var(--ink-800);
+  color: var(--ink-900);
   margin: 0;
   outline: none;
 }
@@ -1454,50 +1454,57 @@ h6, .h6 {
   border-radius: 4px;
 }
 .drawer__body {
-  padding: 32px 28px 80px;
+  padding: var(--s-7) var(--gutter) var(--s-9);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 32px 40px;
-  max-width: 1200px;
+  gap: var(--s-7) var(--s-6);
+  max-width: var(--container);
   margin: 0 auto;
 }
 .drawer__group-title {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--fg-subtle);
   font-weight: 500;
-  margin: 0 0 12px;
+  margin: 0 0 var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule);
 }
 .drawer__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
 .drawer__item {
   display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: var(--r-card, 10px);
+  padding: 8px 0;
+  border: 0;
+  border-radius: 0;
   background: transparent;
   text-align: left;
   cursor: pointer;
   color: var(--fg);
   font-family: inherit;
+  text-decoration: none;
 }
-.drawer__item:hover { background: var(--bg-sunken); text-decoration: none; }
-.drawer__item:focus-visible { text-decoration: none; }
-.drawer__item.is-active {
-  background: var(--bg-sunken);
-  border-color: var(--rule);
-}
+.drawer__item:hover,
+.drawer__item:focus-visible { background: none; text-decoration: none; }
+.drawer__item:hover .drawer__item-label,
+.drawer__item:focus-visible .drawer__item-label { color: var(--accent); }
+.drawer__item.is-active .drawer__item-label { color: var(--accent); }
 .drawer__item-label {
   font-family: var(--font-display);
-  font-size: 17px;
-  letter-spacing: -0.005em;
-  color: var(--ink-800);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink-900);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 [data-theme="dark"] .drawer__item-label { color: var(--fg); }
 .drawer__item-note {
-  font-size: 12.5px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13.5px;
   color: var(--fg-muted);
   line-height: 1.4;
 }

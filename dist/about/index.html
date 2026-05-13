@@ -14,21 +14,90 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__brand" href="../" aria-label="Thought Grain — home">
-      <span class="brand-name">Thought Grain</span>
-    </a>
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
     <div class="site-nav__links">
-      <a class="site-nav__link" href="../essays/">Writing</a>
-      <a class="site-nav__link" href="../projects/">Making</a>
-      <a class="site-nav__link" href="../enjoying/">Enjoying</a>
-      <a class="site-nav__link" href="../about/">About</a>
       <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
-        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button
+        id="menu-open"
+        class="site-nav__menu-btn"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="site-menu-dialog"
+      >
+        <span>Menu</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </nav>
+
+  <div
+    id="site-menu-dialog"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-menu-dialog-heading"
+    hidden
+  >
+    <div class="drawer__head">
+      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse</h2>
+      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body">
+      <section aria-labelledby="drawer-grp-home">
+        <h3 id="drawer-grp-home" class="drawer__group-title">Start</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../"><span class="drawer__item-label">Home</span><span class="drawer__item-note">The front porch</span></a></li>
+          <li><a class="drawer__item" href="../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-writing">
+        <h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
+          <li><a class="drawer__item" href="../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-making">
+        <h3 id="drawer-grp-making" class="drawer__group-title">Making</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../projects/"><span class="drawer__item-label">Projects</span><span class="drawer__item-note">Shipped &amp; shelved</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-enjoying">
+        <h3 id="drawer-grp-enjoying" class="drawer__group-title">Enjoying</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
+          <li><a class="drawer__item" href="../bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
+          <li><a class="drawer__item" href="../music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
+          <li><a class="drawer__item" href="../movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
+          <li><a class="drawer__item" href="../podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
+          <li><a class="drawer__item" href="../products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
+          <li><a class="drawer__item" href="../enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All of the above, mixed</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-learning">
+        <h3 id="drawer-grp-learning" class="drawer__group-title">Learning</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
+          <li><a class="drawer__item" href="../gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="drawer-grp-about">
+        <h3 id="drawer-grp-about" class="drawer__group-title">About</h3>
+        <ul class="drawer__list">
+          <li><a class="drawer__item" href="../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li>
+          <li><a class="drawer__item" href="../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
 
     <main id="main" class="about">
     <section class="container--narrow section">
@@ -118,7 +187,6 @@
 
   <footer class="site-footer">
     <div class="site-footer__row">
-      <span class="site-footer__wordmark">Thought Grain</span>
       <ul class="site-footer__links">
         <li><a href="../essays/">Writing</a></li>
         <li><a href="../projects/">Making</a></li>

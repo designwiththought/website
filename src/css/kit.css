@@ -268,13 +268,15 @@ mark {
    at the bottom of the bar. */
 .site-nav {
   display: flex; align-items: baseline; justify-content: space-between;
-  padding: 24px var(--gutter) 20px;
+  padding: 22px var(--gutter) 20px;
   border-bottom: 1px solid var(--rule);
   background: var(--bg);
   position: sticky; top: 0; z-index: 10;
   max-width: var(--container);
   margin: 0 auto;
 }
+/* Right-align when the nav has no brand on the left. */
+.site-nav:not(:has(.site-nav__brand)) { justify-content: flex-end; }
 .site-nav__brand {
   display: inline-flex; align-items: baseline; gap: 8px;
   text-decoration: none; color: var(--fg);
