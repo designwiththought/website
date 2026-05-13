@@ -1,7 +1,7 @@
 {
-  "title": "Your site title",
-  "description": "A short description of the site, used in the meta description tag and as the default page description.",
-  "ownerName": "Your Name",
+  "title": "Thought Grain",
+  "description": "Notes, essays, and projects by Thought Grain.",
+  "ownerName": "Thought Grain",
   "email": "you@yourdomain.com",
   "siteUrl": "https://yourdomain.example",
   "heroAside": {
