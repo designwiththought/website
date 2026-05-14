@@ -1072,16 +1072,33 @@ async function build() {
     { key: 'shipped',   label: 'Shipped' },
     { key: 'paused',    label: 'Paused' }
   ];
-  var projectGroupsHtml = PROJECT_GROUPS.map(function (g) {
-    var members = projects.filter(function (p) { return projectStatusBucket(p.status) === g.key; });
-    if (!members.length) return '';
-    return '<section class="projects-group">' +
-             '<h3 class="projects-group__label">' + g.label +
-               ' <span class="projects-group__count">' + members.length + '</span>' +
-             '</h3>' +
-             '<div class="grid grid--projects">' + members.map(renderProjectTile).join('') + '</div>' +
-           '</section>';
-  }).join('');
+  function renderProjectGroupsHtml(list) {
+    return PROJECT_GROUPS.map(function (g) {
+      var members = list.filter(function (p) { return projectStatusBucket(p.status) === g.key; });
+      if (!members.length) return '';
+      return '<section class="projects-group">' +
+               '<h3 class="projects-group__label">' + g.label +
+                 ' <span class="projects-group__count">' + members.length + '</span>' +
+               '</h3>' +
+               '<div class="grid grid--projects">' + members.map(renderProjectTile).join('') + '</div>' +
+             '</section>';
+    }).join('');
+  }
+  var projectGroupsHtml = renderProjectGroupsHtml(projects);
+
+  // Making categories. Each lives at /projects/cat/<slug>/ and lists projects
+  // whose frontmatter category: matches the label (case-insensitive). The
+  // category-less catch-all stays at /projects/ as "All projects".
+  var MAKING_CATEGORIES = [
+    { slug: 'code',           label: 'Code',          dek: 'Software, libraries, scripts, and other things made by typing.' },
+    { slug: 'accessibility',  label: 'Accessibility', dek: 'A11y work, audits, contrast tools, and pieces of the practice.' },
+    { slug: 'hardware',       label: 'Hardware',      dek: 'Physical objects, instruments, and circuits.' },
+    { slug: 'design',         label: 'Design',        dek: 'Visual work, type, identity, posters, and illustration.' },
+    { slug: 'experiments',    label: 'Experiments',   dek: 'Smaller scratch builds, prototypes, and weekend things.' }
+  ];
+  function projectCategoryMatches(p, label) {
+    return String(p.category || '').toLowerCase() === label.toLowerCase();
+  }
 
   mkdirp(path.join(DIST, 'projects'));
   var projectsIndexData = Object.assign({}, siteData, {
@@ -1089,13 +1106,41 @@ async function build() {
     feedLinkHtml: renderFeedLinkHtml('feed.xml', 'projects'),
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Projects, ' + siteData.title,
-    pageDescription: 'Projects by ' + siteData.ownerName + '.'
+    pageTitle: 'All projects, ' + siteData.title,
+    pageDescription: 'Projects by ' + siteData.ownerName + '.',
+    pageKicker: 'Making',
+    pageHeading: 'All projects',
+    pageLead: 'Things I’ve made, or am still making. Filter by category in the menu, or read them all below.'
   });
   var projectsIndexContent = renderTemplate(projectsLayout, projectsIndexData);
   var projectsIndexHtml = renderTemplate(baseLayout, Object.assign({}, projectsIndexData, { content: projectsIndexContent }));
   fs.writeFileSync(path.join(DIST, 'projects', 'index.html'), projectsIndexHtml);
   console.log('[build] projects/index.html');
+
+  // 9b. Build per-category index pages at /projects/cat/<slug>/. Each page
+  // reuses the projects template; an empty groups block means "nothing here
+  // yet" rather than a 404.
+  MAKING_CATEGORIES.forEach(function (cat) {
+    var members = projects.filter(function (p) { return projectCategoryMatches(p, cat.label); });
+    var catDir = path.join(DIST, 'projects', 'cat', cat.slug);
+    mkdirp(catDir);
+    var data = Object.assign({}, siteData, {
+      groupsHtml: renderProjectGroupsHtml(members),
+      feedLinkHtml: '',
+      basePath: '../../../',
+      iconSprite: iconSprite,
+      pageTitle: cat.label + ', Making, ' + siteData.title,
+      pageDescription: cat.dek,
+      pageKicker: 'Making',
+      pageHeading: cat.label,
+      pageLead: cat.dek,
+      categoryEmpty: members.length === 0 ? 'true' : ''
+    });
+    var content = renderTemplate(projectsLayout, data);
+    var html = renderTemplate(baseLayout, Object.assign({}, data, { content: content }));
+    fs.writeFileSync(path.join(catDir, 'index.html'), html);
+    console.log('[build] projects/cat/' + cat.slug + '/index.html');
+  });
 
   // 9a. Build individual project pages
   projects.forEach(function (project) {
