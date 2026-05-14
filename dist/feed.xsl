@@ -9,7 +9,7 @@
       <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title><xsl:value-of select="atom:title"/> — feed</title>
+        <title><xsl:value-of select="atom:title"/> feed</title>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
         <link href="https://fonts.googleapis.com/css2?family=Young+Serif&amp;family=Commissioner:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
@@ -25,7 +25,7 @@
 
               <div class="feed-banner">
                 <p>
-                  This is a web feed. Copy the URL into your feed reader to subscribe — it&#8217;s how you keep up without checking a site directly.
+                  This is a web feed. Copy the URL into your feed reader to subscribe, it&#8217;s how you keep up without checking a site directly.
                   <xsl:variable name="self" select="atom:link[@rel='self']/@href"/>
                   <xsl:if test="$self">
                     <br/><code class="feed-banner__url"><xsl:value-of select="$self"/></code>

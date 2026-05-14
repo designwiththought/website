@@ -4,11 +4,11 @@
     {
       "company": "Current company",
       "role": "Your role",
-      "period": "2024 — present",
+      "period": "2024, present",
       "location": "City / Remote",
       "note": "A short paragraph on what you do here. The reader sees this under your role and company.",
       "highlights": [
-        "A specific outcome — quantified if you can.",
+        "A specific outcome, quantified if you can.",
         "Another specific outcome.",
         "A third, optional."
       ]
@@ -16,7 +16,7 @@
     {
       "company": "Previous company",
       "role": "Previous role",
-      "period": "2020 — 2024",
+      "period": "2020, 2024",
       "location": "City",
       "note": "A short paragraph on the previous role.",
       "highlights": [

@@ -17,7 +17,7 @@ const SRC = path.join(__dirname, 'src');
 const DIST = path.join(__dirname, 'dist');
 
 // ---------------------------------------------------------------------------
-// HTTP fetch helpers — used by the /products/ build-time image grabber.
+// HTTP fetch helpers, used by the /products/ build-time image grabber.
 // Pure Node, no dependencies. Browser-like UA so we get past the laziest
 // scrapers; anything stricter (Cloudflare, etc.) falls through to the
 // placeholder path with a console warning.
@@ -197,14 +197,14 @@ function parseMarkdown(md) {
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
 
-    // Blank line — close open blocks
+    // Blank line, close open blocks
     if (line.trim() === '') {
       if (inBlockquote) { output.push('</blockquote>'); inBlockquote = false; }
       if (inList) { output.push('</ul>'); inList = false; }
       continue;
     }
 
-    // Headings — slugify to an id so TOC anchors work
+    // Headings, slugify to an id so TOC anchors work
     const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;
@@ -224,7 +224,7 @@ function parseMarkdown(md) {
       continue;
     }
 
-    // Raw HTML / JSX component tag at the start of a line — emit as-is so
+    // Raw HTML / JSX component tag at the start of a line, emit as-is so
     // block-level elements (Pullquote, Dropcap, MarginaliaPin, manual <div>)
     // are not wrapped in <p>. Matches lines that begin with `<TagName` where
     // TagName starts with a letter.
@@ -287,7 +287,7 @@ function resolveComponents(html) {
   }
 
   // Match self-closing JSX components: <ComponentName prop="val" prop='val' />
-  // Only component names starting with an uppercase letter — this keeps the
+  // Only component names starting with an uppercase letter, this keeps the
   // match from leaking across a neighbouring lowercase HTML tag like
   // `<div id="opening"></div>` while still letting attribute values contain
   // inline HTML (`<code>`, `<em>`, etc.) because their tag names are lower.
@@ -315,7 +315,7 @@ function resolveComponents(html) {
 // ---------------------------------------------------------------------------
 // HTML escaping for {{var}} substitutions.
 //
-// By default every {{var}} substitution is HTML-escaped — characters that
+// By default every {{var}} substitution is HTML-escaped, characters that
 // would close an attribute (") or open a tag (<, >) become entities. This
 // stops user content from leaking into the surrounding markup.
 //
@@ -419,7 +419,7 @@ function renderTemplate(template, data) {
     return data[key] ? renderTemplate(block, data) : '';
   });
 
-  // {{a.b.c}} — support multi-level dot notation
+  // {{a.b.c}}, support multi-level dot notation
   output = output.replace(/\{\{([\w.]+)\}\}/g, function (match, keyPath) {
     if (!keyPath.includes('.')) return match; // Leave simple keys for next pass
     var parts = keyPath.split('.');
@@ -446,7 +446,7 @@ function renderTemplate(template, data) {
 // Build Process
 // ---------------------------------------------------------------------------
 async function ensureProductImage(product) {
-  // Where the cached image lives long-term — committed alongside the rest
+  // Where the cached image lives long-term, committed alongside the rest
   // of src/assets so it survives the dist clean and skips re-fetching on
   // every build.
   var cacheDir = path.join(SRC, 'assets', 'products');
@@ -501,7 +501,7 @@ async function build() {
   var gearData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'gear.json'), 'utf8'));
   var colophonData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'colophon.json'), 'utf8'));
 
-  // Pre-render each work entry's highlights bullet list — the template
+  // Pre-render each work entry's highlights bullet list, the template
   // engine can't nest {{#each}} inside {{#each}}, so do it up front.
   aboutData.work.forEach(function (w) {
     if (w.highlights && w.highlights.length) {
@@ -524,7 +524,7 @@ async function build() {
                '<span class="learning-resource__kind">' + kind + '</span>' +
                '<span>' +
                  '<span class="learning-resource__label">' + r.label + '</span>' +
-                 '<span class="learning-resource__author">— ' + r.author + '</span>' +
+                 '<span class="learning-resource__author">, ' + r.author + '</span>' +
                '</span>' +
              '</li>';
     }).join('');
@@ -646,7 +646,7 @@ async function build() {
 
   // Movies: pre-render the 5-star rating block. Use the WHITE STAR ☆ for
   // unfilled positions so the empty state reads as an outlined star
-  // shape instead of a faded fill — visible to low-vision users and in
+  // shape instead of a faded fill, visible to low-vision users and in
   // glare. The parent .movie-row__rating carries an aria-label, so the
   // glyphs themselves are wrapped in aria-hidden to keep AT clean.
   movies.forEach(function (m) {
@@ -784,7 +784,7 @@ async function build() {
     feedLinkHtml: renderFeedLinkHtml('feed.xml', 'notes'),
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Notes — ' + siteData.title,
+    pageTitle: 'Notes, ' + siteData.title,
     pageDescription: 'Short thoughts and unfinished fragments by ' + siteData.ownerName + '.'
   });
   var notesIndexContent = renderTemplate(notesLayout, notesIndexData);
@@ -809,7 +809,7 @@ async function build() {
       }),
       basePath: '../../',
       iconSprite: iconSprite,
-      pageTitle: note.title + ' — ' + siteData.title,
+      pageTitle: note.title + ', ' + siteData.title,
       pageDescription: note.title
     });
 
@@ -833,7 +833,7 @@ async function build() {
   }
 
   function renderFilterRow(allItems, kindLabel, chipBase, activeTag) {
-    // Per-page tag bar. Each /essays/ and /studies/ index emits its own —
+    // Per-page tag bar. Each /essays/ and /studies/ index emits its own, 
     // the kind is already implied by the route, so no kind chips here.
     // Tags come from the union across all items in the kind so the same
     // chip set appears on the kind index and every tag page.
@@ -885,7 +885,7 @@ async function build() {
   function buildWritingIndex(dir, allItems, meta) {
     mkdirp(path.join(DIST, dir));
 
-    // Kind index — render every item visible. The filter row's "All"
+    // Kind index, render every item visible. The filter row's "All"
     // chip is current; tag chips link to /<dir>/tag/<slug>/.
     var displayed = allItems.map(function (it) {
       return Object.assign({}, it, { hiddenAttr: '' });
@@ -903,7 +903,7 @@ async function build() {
         : '',
       basePath: '../',
       iconSprite: iconSprite,
-      pageTitle: meta.heading + ' — ' + siteData.title,
+      pageTitle: meta.heading + ', ' + siteData.title,
       pageDescription: meta.dek
     });
     var content = renderTemplate(writingIndexLayout, data);
@@ -911,7 +911,7 @@ async function build() {
     fs.writeFileSync(path.join(DIST, dir, 'index.html'), html);
     console.log('[build] ' + dir + '/index.html');
 
-    // Per-tag pages — every item is in DOM, but non-matching items get a
+    // Per-tag pages, every item is in DOM, but non-matching items get a
     // server-rendered hidden attribute so the no-JS view shows only the
     // tagged subset, while the JS runtime can swap visibility instantly
     // when the user picks another chip.
@@ -946,7 +946,7 @@ async function build() {
           : '',
         basePath: '../../../',
         iconSprite: iconSprite,
-        pageTitle: meta.heading + ' · ' + tag + ' — ' + siteData.title,
+        pageTitle: meta.heading + ' · ' + tag + ', ' + siteData.title,
         pageDescription: 'Filtered to ' + tag + '. ' + meta.dek
       });
       var tagContent = renderTemplate(writingIndexLayout, tagData);
@@ -1009,7 +1009,7 @@ async function build() {
         relatedHtml: renderRelatedHtml(related),
         readNextHtml: renderReadNextHtml(related),
         iconSprite: iconSprite,
-        pageTitle: item.title + ' — ' + siteData.title,
+        pageTitle: item.title + ', ' + siteData.title,
         pageDescription: item.summary
       });
 
@@ -1038,7 +1038,7 @@ async function build() {
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
 
-  // 9. Build projects index — grouped by lifecycle status so visitors can
+  // 9. Build projects index, grouped by lifecycle status so visitors can
   // see what's alive at a glance instead of hunting through dates. The
   // status: frontmatter field may carry a leading symbol; strip it
   // before bucketing.
@@ -1047,7 +1047,7 @@ async function build() {
     if (/in progress|ongoing|maintained/.test(s)) return 'in-flight';
     if (/shipped/.test(s))                        return 'shipped';
     if (/paused|shelved|archived/.test(s))        return 'paused';
-    return 'in-flight'; // sensible default — un-tagged work is treated as live
+    return 'in-flight'; // sensible default, un-tagged work is treated as live
   }
 
   function renderProjectTile(p) {
@@ -1089,7 +1089,7 @@ async function build() {
     feedLinkHtml: renderFeedLinkHtml('feed.xml', 'projects'),
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Projects — ' + siteData.title,
+    pageTitle: 'Projects, ' + siteData.title,
     pageDescription: 'Projects by ' + siteData.ownerName + '.'
   });
   var projectsIndexContent = renderTemplate(projectsLayout, projectsIndexData);
@@ -1104,7 +1104,7 @@ async function build() {
     mkdirp(projectDir);
 
     // Join any frontmatter tags (tag1/tag2/tag3) into a single string so the
-    // reader__meta row matches the design reference — one kicker containing
+    // reader__meta row matches the design reference, one kicker containing
     // "tag · tag · tag" rather than several fragments.
     var tags = [project.tag1, project.tag2, project.tag3].filter(function (t) { return !!t; });
     var tagsJoined = tags.join(' · ');
@@ -1113,7 +1113,7 @@ async function build() {
       basePath: '../../',
       iconSprite: iconSprite,
       tagsJoined: tagsJoined,
-      pageTitle: project.title + ' — ' + siteData.title,
+      pageTitle: project.title + ', ' + siteData.title,
       pageDescription: project.summary
     });
 
@@ -1130,7 +1130,7 @@ async function build() {
     nowUpdated: nowData.updated,
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Now — ' + siteData.title,
+    pageTitle: 'Now, ' + siteData.title,
     pageDescription: 'What ' + siteData.ownerName + ' is up to this month.'
   });
   var nowContent = renderTemplate(nowLayout, nowTemplateData);
@@ -1146,8 +1146,8 @@ async function build() {
     elsewhere: aboutData.elsewhere,
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'About — ' + siteData.title,
-    pageDescription: 'About ' + siteData.ownerName + ' — designer, developer, accessibility lead.'
+    pageTitle: 'About, ' + siteData.title,
+    pageDescription: 'About ' + siteData.ownerName + ', designer, developer, accessibility lead.'
   });
   var aboutContent = renderTemplate(aboutLayout, aboutTemplateData);
   var aboutHtml = renderTemplate(baseLayout, Object.assign({}, aboutTemplateData, { content: aboutContent }));
@@ -1160,8 +1160,8 @@ async function build() {
     topics: learningData.topics,
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Learning — ' + siteData.title,
-    pageDescription: 'What ' + siteData.ownerName + ' is chasing — accessibility, perceptual contrast, management as craft.'
+    pageTitle: 'Learning, ' + siteData.title,
+    pageDescription: 'What ' + siteData.ownerName + ' is chasing, accessibility, perceptual contrast, management as craft.'
   });
   var learningContent = renderTemplate(learningLayout, learningTemplateData);
   var learningHtml = renderTemplate(baseLayout, Object.assign({}, learningTemplateData, { content: learningContent }));
@@ -1174,7 +1174,7 @@ async function build() {
     sections: gearData.sections,
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Gear — ' + siteData.title,
+    pageTitle: 'Gear, ' + siteData.title,
     pageDescription: 'The tools ' + siteData.ownerName + ' actually uses.'
   });
   var gearContent = renderTemplate(gearLayout, gearTemplateData);
@@ -1188,7 +1188,7 @@ async function build() {
     items: colophonData.items,
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Colophon — ' + siteData.title,
+    pageTitle: 'Colophon, ' + siteData.title,
     pageDescription: 'How ' + siteData.ownerName + '’s site is made.'
   });
   var colophonContent = renderTemplate(colophonLayout, colophonTemplateData);
@@ -1196,12 +1196,12 @@ async function build() {
   fs.writeFileSync(path.join(DIST, 'colophon', 'index.html'), colophonHtml);
   console.log('[build] colophon/index.html');
 
-  // 14a. Styles — design-system specimen page, linked from the colophon.
+  // 14a. Styles, design-system specimen page, linked from the colophon.
   mkdirp(path.join(DIST, 'styles'));
   var stylesData = Object.assign({}, siteData, {
     basePath: '../',
     iconSprite: iconSprite,
-    pageTitle: 'Styles — ' + siteData.title,
+    pageTitle: 'Styles, ' + siteData.title,
     pageDescription: 'A live specimen of the palette, type, and components this site is built from.'
   });
   var stylesContent = renderTemplate(stylesLayout, stylesData);
@@ -1228,7 +1228,7 @@ async function build() {
         next: next ? { slug: next.slug, title: next.title } : null,
         basePath: '../../',
         iconSprite: iconSprite,
-        pageTitle: item.title + ' — ' + siteData.title,
+        pageTitle: item.title + ', ' + siteData.title,
         pageDescription: item.note || item.title
       });
 
@@ -1260,7 +1260,7 @@ async function build() {
   // 16a. Per-kind indexes (/reading/, /music/, /movies/, /podcasts/, /bookshelf/).
   // Each is a flat list of cards linking to /<kind>/<slug>/, with a tail
   // link back into the unified /enjoying/ stream.
-  // Generic per-kind emitter — takes a layout, the data shape that
+  // Generic per-kind emitter, takes a layout, the data shape that
   // layout expects, and writes /<dir>/index.html.
   function writeKindIndex(dir, layout, data) {
     if (!data || !data.itemCount) return;
@@ -1269,7 +1269,7 @@ async function build() {
       feedLinkHtml: renderFeedLinkHtml('feed.xml', dir),
       basePath: '../',
       iconSprite: iconSprite,
-      pageTitle: data.pageHeading + ' — ' + siteData.title,
+      pageTitle: data.pageHeading + ', ' + siteData.title,
       pageDescription: data.pageDek
     });
     var content = renderTemplate(layout, fullData);
@@ -1278,7 +1278,7 @@ async function build() {
     console.log('[build] ' + dir + '/index.html');
   }
 
-  // 16a-i. Reading — grouped by status (now → next → done), each group is
+  // 16a-i. Reading, grouped by status (now → next → done), each group is
   // a .reading-group with a .book-grid of .book-card items.
   function renderReadingBook(r) {
     return '<li>' +
@@ -1312,22 +1312,22 @@ async function build() {
   writeKindIndex('reading', readingIndexLayout, {
     pageKicker: 'Reading',
     pageHeading: 'Reading list',
-    pageDek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember — probably monthly.',
+    pageDek: 'What’s on the shelf, what’s up next, and what I’ve recently finished. Updated when I remember, probably monthly.',
     groupsHtml: readingGroupsHtml,
     itemCount: reading.length
   });
 
-  // 16a-ii. Music — flat .album-grid of .album-card; movie/album markup
+  // 16a-ii. Music, flat .album-grid of .album-card; movie/album markup
   // shapes match the design's components.
   writeKindIndex('music', musicIndexLayout, {
     pageKicker: 'Music',
     pageHeading: 'Albums that mattered',
-    pageDek: 'Not a scrobble feed — a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.',
+    pageDek: 'Not a scrobble feed, a short list of records that earned a permanent hold on my attention. Roughly chronological; lightly annotated.',
     items: music,
     itemCount: music.length
   });
 
-  // 16a-iii. Movies — letterboxd-style .movies-diary rows: poster + body +
+  // 16a-iii. Movies, letterboxd-style .movies-diary rows: poster + body +
   // 5★ rating column.
   writeKindIndex('movies', moviesIndexLayout, {
     pageKicker: 'Movies',
@@ -1337,16 +1337,16 @@ async function build() {
     itemCount: movies.length
   });
 
-  // 16a-iv. Podcasts — .podcast-grid two-up cards (cover left, body right).
+  // 16a-iv. Podcasts.podcast-grid two-up cards (cover left, body right).
   writeKindIndex('podcasts', podcastsIndexLayout, {
     pageKicker: 'Podcasts',
     pageHeading: 'In rotation',
-    pageDek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years — this is the short list I came back to.',
+    pageDek: 'What’s in the feed. Mostly craft and long-form interviews. I quit podcasts for years, this is the short list I came back to.',
     items: podcasts,
     itemCount: podcasts.length
   });
 
-  // 16a-v. Bookshelf — grouped by section (Craft / Working / Fiction /
+  // 16a-v. Bookshelf, grouped by section (Craft / Working / Fiction /
   // Essays), each section is a .bookshelf-section with a .book-grid.
   function renderBookshelfBook(b) {
     return '<li>' +
@@ -1383,7 +1383,7 @@ async function build() {
   writeKindIndex('bookshelf', bookshelfIndexLayout, {
     pageKicker: 'Bookshelf',
     pageHeading: 'Books that earned a permanent spot',
-    pageDek: 'Separate from the current reading list. The shelf I carry between moves — books I reach for year after year, and the recent ones I already know I will.',
+    pageDek: 'Separate from the current reading list. The shelf I carry between moves, books I reach for year after year, and the recent ones I already know I will.',
     sectionsHtml: bookshelfSectionsHtml,
     itemCount: bookshelf.length
   });
@@ -1440,8 +1440,8 @@ async function build() {
       pageDek: 'Books, records, films, podcasts. The things I keep coming back to, lightly annotated.',
       basePath: basePath,
       iconSprite: iconSprite,
-      pageTitle: (page === 1 ? 'Enjoying' : 'Enjoying — page ' + page) + ' — ' + siteData.title,
-      pageDescription: 'Reading, music, movies, podcasts, bookshelf — ' + siteData.ownerName + '.'
+      pageTitle: (page === 1 ? 'Enjoying' : 'Enjoying, page ' + page) + ', ' + siteData.title,
+      pageDescription: 'Reading, music, movies, podcasts, bookshelf, ' + siteData.ownerName + '.'
     });
 
     var content = renderTemplate(enjoyingLayout, data);
@@ -1450,13 +1450,13 @@ async function build() {
     console.log('[build] enjoying' + (page === 1 ? '' : '/' + page) + '/index.html');
   }
 
-  // 17. Products — index + per-product readers. Hero images are fetched at
+  // 17. Products, index + per-product readers. Hero images are fetched at
   // build time (already deferred until here so the /enjoying/ aggregate
   // doesn't wait on the network).
   await Promise.all(products.map(ensureProductImage));
 
   // Copy each cached image into dist and pre-render cover HTML at the
-  // depth used by the products index (one level deep — basePath '../').
+  // depth used by the products index (one level deep, basePath '../').
   products.forEach(function (p) {
     if (p.imageRel) {
       var srcPath = path.join(SRC, p.imageRel);
@@ -1478,7 +1478,7 @@ async function build() {
       feedLinkHtml: renderFeedLinkHtml('feed.xml', 'products'),
       basePath: '../',
       iconSprite: iconSprite,
-      pageTitle: 'Products — ' + siteData.title,
+      pageTitle: 'Products, ' + siteData.title,
       pageDescription: 'A short list of products worth recommending.'
     });
     var productsIndexContent = renderTemplate(productsIndexLayout, productsIndexData);
@@ -1496,7 +1496,7 @@ async function build() {
         coverHtml: pCover,
         basePath: '../../',
         iconSprite: iconSprite,
-        pageTitle: p.title + ' — ' + siteData.title,
+        pageTitle: p.title + ', ' + siteData.title,
         pageDescription: p.note || p.title
       });
       var content = renderTemplate(productLayout, data);
@@ -1508,7 +1508,7 @@ async function build() {
     });
   }
 
-  // 18. Atom feeds — one per section + a global combined feed. Each feed
+  // 18. Atom feeds, one per section + a global combined feed. Each feed
   // points at the shared /feed.xsl stylesheet so opening the URL in a
   // browser renders a friendly HTML preview instead of a wall of XML.
   var siteUrl = String(siteData.siteUrl || '').replace(/\/$/, '');
@@ -1535,7 +1535,7 @@ async function build() {
     var lines = [];
     lines.push('<?xml version="1.0" encoding="UTF-8"?>');
     // Root-relative href so the XSL applies on every host the site is
-    // served from — browsers only honour an <?xml-stylesheet?> PI when
+    // served from, browsers only honour an <?xml-stylesheet?> PI when
     // the stylesheet is same-origin with the XML, so an absolute URL
     // built off siteUrl fails the moment siteUrl points anywhere other
     // than the host the user is currently visiting.
@@ -1585,18 +1585,18 @@ async function build() {
   var podcastsEntries = podcasts.map(function (p) { return entryFromItem(p, 'podcasts'); });
   var bookshelfEntries = bookshelf.map(function (b) { return entryFromItem(b, 'bookshelf'); });
 
-  writeFeed('essays',    { path: '/essays/',    title: siteData.title + ' — Essays',    subtitle: 'Long-form writing.' },                      essaysEntries);
-  writeFeed('studies',   { path: '/studies/',   title: siteData.title + ' — Studies',   subtitle: 'Short, investigated pieces.' },             studiesEntries);
-  writeFeed('notes',     { path: '/notes/',     title: siteData.title + ' — Notes',     subtitle: 'Short fragments and unfinished thoughts.' }, notesEntries);
-  writeFeed('projects',  { path: '/projects/',  title: siteData.title + ' — Projects',  subtitle: 'Things I’ve made or am still making.' },     projectsEntries);
-  writeFeed('products',  { path: '/products/',  title: siteData.title + ' — Products',  subtitle: 'Things I recommend.' },                      productsEntries);
-  writeFeed('reading',   { path: '/reading/',   title: siteData.title + ' — Reading',   subtitle: 'Books currently / queued / finished.' },     readingEntries);
-  writeFeed('music',     { path: '/music/',     title: siteData.title + ' — Music',     subtitle: 'Albums that mattered.' },                    musicEntries);
-  writeFeed('movies',    { path: '/movies/',    title: siteData.title + ' — Movies',    subtitle: 'A viewing diary.' },                         moviesEntries);
-  writeFeed('podcasts',  { path: '/podcasts/',  title: siteData.title + ' — Podcasts',  subtitle: 'In rotation.' },                             podcastsEntries);
-  writeFeed('bookshelf', { path: '/bookshelf/', title: siteData.title + ' — Bookshelf', subtitle: 'Books that earned a permanent spot.' },      bookshelfEntries);
+  writeFeed('essays',    { path: '/essays/',    title: siteData.title + ', Essays',    subtitle: 'Long-form writing.' },                      essaysEntries);
+  writeFeed('studies',   { path: '/studies/',   title: siteData.title + ', Studies',   subtitle: 'Short, investigated pieces.' },             studiesEntries);
+  writeFeed('notes',     { path: '/notes/',     title: siteData.title + ', Notes',     subtitle: 'Short fragments and unfinished thoughts.' }, notesEntries);
+  writeFeed('projects',  { path: '/projects/',  title: siteData.title + ', Projects',  subtitle: 'Things I’ve made or am still making.' },     projectsEntries);
+  writeFeed('products',  { path: '/products/',  title: siteData.title + ', Products',  subtitle: 'Things I recommend.' },                      productsEntries);
+  writeFeed('reading',   { path: '/reading/',   title: siteData.title + ', Reading',   subtitle: 'Books currently / queued / finished.' },     readingEntries);
+  writeFeed('music',     { path: '/music/',     title: siteData.title + ', Music',     subtitle: 'Albums that mattered.' },                    musicEntries);
+  writeFeed('movies',    { path: '/movies/',    title: siteData.title + ', Movies',    subtitle: 'A viewing diary.' },                         moviesEntries);
+  writeFeed('podcasts',  { path: '/podcasts/',  title: siteData.title + ', Podcasts',  subtitle: 'In rotation.' },                             podcastsEntries);
+  writeFeed('bookshelf', { path: '/bookshelf/', title: siteData.title + ', Bookshelf', subtitle: 'Books that earned a permanent spot.' },      bookshelfEntries);
 
-  // Global feed — concat everything, sort by updated desc, keep newest 30.
+  // Global feed, concat everything, sort by updated desc, keep newest 30.
   var globalEntries = [].concat(
     essaysEntries, studiesEntries, notesEntries, projectsEntries, productsEntries,
     readingEntries, musicEntries, moviesEntries, podcastsEntries, bookshelfEntries

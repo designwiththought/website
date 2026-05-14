@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/feed.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Thought Grain — Studies</title>
+  <title>Thought Grain, Studies</title>
   <subtitle>Short, investigated pieces.</subtitle>
   <link href="https://yourdomain.example/studies/" />
   <link rel="self" type="application/atom+xml" href="https://yourdomain.example/studies/feed.xml" />
@@ -16,6 +16,6 @@
     <link href="https://yourdomain.example/studies/your-first-study/" />
     <id>https://yourdomain.example/studies/your-first-study/</id>
     <updated>2026-01-01T00:00:00.000Z</updated>
-    <summary>Studies are shorter than essays — typically a single investigated question with a small data set or a focused observation.</summary>
+    <summary>Studies are shorter than essays, typically a single investigated question with a small data set or a focused observation.</summary>
   </entry>
 </feed>
