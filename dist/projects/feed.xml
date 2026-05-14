@@ -18,4 +18,11 @@
     <updated>2026-01-01T00:00:00.000Z</updated>
     <summary>A short blurb that previews the project, appears on the projects index card and on the case-study reader.</summary>
   </entry>
+  <entry>
+    <title>Moss and Air</title>
+    <link href="https://yourdomain.example/projects/moss-and-air/" />
+    <id>https://yourdomain.example/projects/moss-and-air/</id>
+    <updated>2026-01-01T00:00:00.000Z</updated>
+    <summary>A music-producer alias for slow, instrumental records made on cassette, modular, and the occasional kalimba.</summary>
+  </entry>
 </feed>

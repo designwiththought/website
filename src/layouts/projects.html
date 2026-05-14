@@ -1,11 +1,15 @@
   <main id="main">
     <div class="container section">
       <header class="page-header page-header--left">
-        <span class="kicker">Projects</span>
-        <h1>Projects</h1>
-        <p class="lead">Things I&rsquo;ve made, or am still making. Most are about accessibility or reading, the two topics I keep circling back to.</p>
+        <span class="kicker">{{pageKicker}}</span>
+        <h1>{{pageHeading}}</h1>
+        <p class="lead">{{pageLead}}</p>
         {{feedLinkHtml}}
       </header>
+
+      {{#if categoryEmpty}}
+      <p class="t-small page-empty">Nothing in this category yet, but it&rsquo;s a real corner of the site.</p>
+      {{/if}}
 
       {{groupsHtml}}
     </div>
