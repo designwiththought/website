@@ -1092,7 +1092,9 @@ async function build() {
   var MAKING_CATEGORIES = [
     { slug: 'code',           label: 'Code',          dek: 'Software, libraries, scripts, and other things made by typing.' },
     { slug: 'accessibility',  label: 'Accessibility', dek: 'A11y work, audits, contrast tools, and pieces of the practice.' },
-    { slug: 'hardware',       label: 'Hardware',      dek: 'Physical objects, instruments, and circuits.' }
+    { slug: 'hardware',       label: 'Hardware',      dek: 'Physical objects, instruments, and circuits.' },
+    { slug: 'design',         label: 'Design',        dek: 'Visual work, type, identity, posters, and illustration.' },
+    { slug: 'experiments',    label: 'Experiments',   dek: 'Smaller scratch builds, prototypes, and weekend things.' }
   ];
   function projectCategoryMatches(p, label) {
     return String(p.category || '').toLowerCase() === label.toLowerCase();
