@@ -13,7 +13,7 @@
     {
       "topic": "Another thing you're chasing",
       "stage": "Ongoing",
-      "why": "Same shape — what the topic is and why it matters to you.",
+      "why": "Same shape, what the topic is and why it matters to you.",
       "resources": [
         { "kind": "reading", "label": "Long-form to read", "author": "Author" },
         { "kind": "tool", "label": "A tool to learn", "author": "Maker" }

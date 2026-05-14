@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/feed.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Thought Grain — Bookshelf</title>
+  <title>Thought Grain, Bookshelf</title>
   <subtitle>Books that earned a permanent spot.</subtitle>
   <link href="https://yourdomain.example/bookshelf/" />
   <link rel="self" type="application/atom+xml" href="https://yourdomain.example/bookshelf/feed.xml" />
@@ -23,7 +23,7 @@
     <link href="https://yourdomain.example/bookshelf/craft-book/" />
     <id>https://yourdomain.example/bookshelf/craft-book/</id>
     <updated>2020-01-01T00:00:00.000Z</updated>
-    <summary>Why it earned a permanent spot. /bookshelf/ groups by section — match the section value across files to put books in the same group.</summary>
+    <summary>Why it earned a permanent spot. /bookshelf/ groups by section, match the section value across files to put books in the same group.</summary>
   </entry>
   <entry>
     <title>A book about working</title>
@@ -37,6 +37,6 @@
     <link href="https://yourdomain.example/bookshelf/essays-book/" />
     <id>https://yourdomain.example/bookshelf/essays-book/</id>
     <updated>1985-01-01T00:00:00.000Z</updated>
-    <summary>Why it stays on the shelf. Older books are welcome — the year is just for context.</summary>
+    <summary>Why it stays on the shelf. Older books are welcome, the year is just for context.</summary>
   </entry>
 </feed>

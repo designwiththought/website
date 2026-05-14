@@ -10,7 +10,7 @@
     },
     {
       "label": "Built with",
-      "value": "Node.js standard library only — no framework, no bundler, no dependencies. The whole build is in build.js."
+      "value": "Node.js standard library only, no framework, no bundler, no dependencies. The whole build is in build.js."
     },
     {
       "label": "Writing",
