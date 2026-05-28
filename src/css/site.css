@@ -55,7 +55,7 @@ body::before {
   position: fixed;
   inset: 0;
   background-image: var(--paper-noise);
-  background-size: 300px 300px;
+  background-size: 150px 150px;
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
