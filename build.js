@@ -403,21 +403,33 @@ function renderValue(name, value) {
 function renderTemplate(template, data) {
   let output = template;
 
-  // {{#each key}} ... {{/each}}
-  output = output.replace(/\{\{#each\s+(\w+)\}\}([\s\S]*?)\{\{\/each\}\}/g, function (_, key, block) {
-    const arr = data[key];
-    if (!Array.isArray(arr)) return '';
-    return arr.map(function (item) {
-      // Merge item data with parent data (item takes precedence)
-      var merged = Object.assign({}, data, item);
-      return renderTemplate(block, merged);
-    }).join('');
-  });
+  // {{#each key}} ... {{/each}} — innermost-first so nested each works
+  var eachRe = /\{\{#each\s+(\w+)\}\}((?:(?!\{\{#each\s)[\s\S])*?)\{\{\/each\}\}/g;
+  var eachPrev;
+  do {
+    eachPrev = output;
+    output = output.replace(eachRe, function (_, key, block) {
+      const arr = data[key];
+      if (!Array.isArray(arr)) return '';
+      return arr.map(function (item) {
+        var merged = Object.assign({}, data, item);
+        return renderTemplate(block, merged);
+      }).join('');
+    });
+  } while (eachPrev !== output);
 
-  // {{#if key}} ... {{/if}}
-  output = output.replace(/\{\{#if\s+(\w+)\}\}([\s\S]*?)\{\{\/if\}\}/g, function (_, key, block) {
-    return data[key] ? renderTemplate(block, data) : '';
-  });
+  // {{#if key}} ... {{/if}} — same innermost-first loop so nested ifs work.
+  // Without this the regex's non-greedy match grabs the first {{/if}} it
+  // sees, which on a nested block is the INNER close, leaving the outer
+  // close + any trailing markup orphaned in the output.
+  var ifRe = /\{\{#if\s+(\w+)\}\}((?:(?!\{\{#if\s)[\s\S])*?)\{\{\/if\}\}/g;
+  var ifPrev;
+  do {
+    ifPrev = output;
+    output = output.replace(ifRe, function (_, key, block) {
+      return data[key] ? renderTemplate(block, data) : '';
+    });
+  } while (ifPrev !== output);
 
   // {{a.b.c}}, support multi-level dot notation
   output = output.replace(/\{\{([\w.]+)\}\}/g, function (match, keyPath) {
