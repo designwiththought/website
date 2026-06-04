@@ -46,16 +46,27 @@ h6, .h6 {
 .nav-group__caret { display: none !important; }
 
 /* ============ PAPER GRAIN ============ */
-/* Site-wide paper grain. A fixed full-viewport layer painted on every
-   page. z-index -1 sits it above the body's solid colour but behind all
-   in-flow content, so nothing else needs a stacking change (the sticky
-   nav keeps its own z-index). */
+/* Two fixed full-viewport layers, both z-index -1.
+   ::before is the broad subtle warm-paper grain.
+   ::after is a sparser layer of darker warm "flecks" (inverse in dark
+   mode) that punctuates the field with the occasional fibre-like speck.
+   Sticky nav keeps its own z-index so it stays above both. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background-image: var(--paper-noise);
   background-size: 150px 150px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: -1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--paper-flecks);
+  background-size: 240px 240px;
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
