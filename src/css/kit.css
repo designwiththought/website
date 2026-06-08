@@ -266,14 +266,42 @@ mark {
 /* ---- Nav ----
    Inline text links. No backdrop blur, no chrome — just a quiet rule
    at the bottom of the bar. */
+/* Glass top bar — full-width sticky strip with a translucent background and
+   a backdrop-blur, plus a thin ::after edge below it that ramps the blur
+   off into the content (the Josh Comeau distortion-edge trick). The inner
+   content stays in the 720px column. */
 .site-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px var(--gutter);
-  border-bottom: 1px solid var(--rule);
-  background: var(--bg);
+  display: block;
+  padding: 0;
+  border-bottom: 0;
+  background: color-mix(in oklch, var(--bg) 62%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+          backdrop-filter: blur(14px) saturate(140%);
   position: sticky; top: 0; z-index: 10;
+  max-width: none;
+  margin: 0;
+  box-shadow: inset 0 -1px 0 var(--rule);
+}
+.site-nav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px var(--gutter);
   max-width: var(--container);
   margin: 0 auto;
+}
+/* Soft blur ramp that extends just below the bar — the edge fades from
+   blurred to clear, so scrolling content distorts smoothly under the
+   glass rather than against a hard line. */
+.site-nav::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  height: 22px;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
 }
 .site-nav__home {
   font-family: var(--font-body);
