@@ -989,7 +989,7 @@ body::before {
   pointer-events: none;
   z-index: -1;
   opacity: 1;
-  transition: opacity 350ms var(--ease-out);
+  transition: opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 body::after {
   content: "";
@@ -1001,12 +1001,12 @@ body::after {
   pointer-events: none;
   z-index: -1;
   opacity: 1;
-  transition: opacity 350ms var(--ease-out);
+  transition: opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 body.is-scrolling::before,
 body.is-scrolling::after {
   opacity: 0;
-  transition: opacity 80ms var(--ease-out);
+  transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   body::before, body::after { display: none; }

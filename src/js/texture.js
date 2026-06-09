@@ -11,7 +11,7 @@
 
   var body = document.body;
   var timer = null;
-  var DEBOUNCE_MS = 180;
+  var DEBOUNCE_MS = 220;
 
   function onScroll() {
     if (!body.classList.contains('is-scrolling')) {
