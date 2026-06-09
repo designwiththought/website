@@ -48,9 +48,16 @@ h6, .h6 {
 /* ============ PAPER GRAIN ============ */
 /* Two fixed full-viewport layers, both z-index -1.
    ::before is the broad subtle warm-paper grain.
-   ::after is a sparser layer of darker warm "flecks" (inverse in dark
-   mode) that punctuates the field with the occasional fibre-like speck.
-   Sticky nav keeps its own z-index so it stays above both. */
+   ::after is a sparser layer of darker (or lighter in dark theme)
+   "flecks" that punctuates the field with the occasional fibre-like
+   speck. Sticky nav keeps its own z-index so it stays above both.
+
+   Accessibility: fixed noise behind scrolling content can trigger
+   motion sickness. While the page is scrolling we drop the layers to
+   opacity 0 (fast, 80ms) and ease them back in once motion stops
+   (slower, 350ms). texture.js toggles body.is-scrolling on a debounced
+   scroll listener. Users with prefers-reduced-motion get the layers
+   hidden entirely. */
 body::before {
   content: "";
   position: fixed;
@@ -60,6 +67,8 @@ body::before {
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
+  opacity: 1;
+  transition: opacity 350ms var(--ease-out);
 }
 body::after {
   content: "";
@@ -70,6 +79,16 @@ body::after {
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
+  opacity: 1;
+  transition: opacity 350ms var(--ease-out);
+}
+body.is-scrolling::before,
+body.is-scrolling::after {
+  opacity: 0;
+  transition: opacity 80ms var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { display: none; }
 }
 
 /* ============ HERO ============ */
