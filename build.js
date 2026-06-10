@@ -512,6 +512,55 @@ async function build() {
   var learningData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'learning.json'), 'utf8'));
   var gearData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'gear.json'), 'utf8'));
   var colophonData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'colophon.json'), 'utf8'));
+  var navData = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'nav.json'), 'utf8'));
+
+  // Drawer + footer nav are generated from nav.json so a single flag flips
+  // a section between visible and hidden across both menus. {{basePath}}
+  // resolves later inside the per-page template render; emails are baked
+  // in here so the mailto: link doesn't double-template. Disabled items
+  // are dropped at this stage; their pages still build, so direct URLs
+  // keep working.
+  function renderDrawerNav() {
+    return navData.groups.map(function (g) {
+      var enabled = (g.items || []).filter(function (it) { return it.enabled; });
+      if (!enabled.length) return '';
+      var items = enabled.map(function (it) {
+        return '<li><a class="drawer__item" href="{{basePath}}' + it.href + '">' +
+                 '<span class="drawer__item-label">' + it.label + '</span>' +
+                 '<span class="drawer__item-note">' + (it.note || '') + '</span>' +
+               '</a></li>';
+      }).join('');
+      var titleId = 'drawer-grp-' + g.id;
+      return '<section aria-labelledby="' + titleId + '">' +
+               '<h3 id="' + titleId + '" class="drawer__group-title">' + g.label + '</h3>' +
+               '<ul class="drawer__list">' + items + '</ul>' +
+             '</section>';
+    }).join('');
+  }
+  function renderFooterNav() {
+    var groupsHtml = navData.groups.map(function (g) {
+      var enabled = (g.items || []).filter(function (it) { return it.enabled; });
+      if (!enabled.length) return '';
+      var items = enabled.map(function (it) {
+        return '<li><a href="{{basePath}}' + it.href + '">' + it.label + '</a></li>';
+      });
+      // RSS + Email tack onto the About group's list in the footer.
+      if (g.id === 'about' && Array.isArray(navData.footerExtras)) {
+        navData.footerExtras.forEach(function (ex) {
+          var href = ex.href.replace('{{email}}', siteData.email || '');
+          items.push('<li><a href="' + (href.indexOf('mailto:') === 0 ? href : '{{basePath}}' + href) + '">' + ex.label + '</a></li>');
+        });
+      }
+      var titleId = 'footer-grp-' + g.id;
+      return '<section class="site-footer__group" aria-labelledby="' + titleId + '">' +
+               '<h2 id="' + titleId + '" class="site-footer__group-title">' + g.label + '</h2>' +
+               '<ul>' + items.join('') + '</ul>' +
+             '</section>';
+    }).join('');
+    return groupsHtml;
+  }
+  siteData.drawerNavHtml = renderDrawerNav();
+  siteData.footerNavHtml = renderFooterNav();
 
   // Pre-render each work entry's highlights bullet list, the template
   // engine can't nest {{#each}} inside {{#each}}, so do it up front.
