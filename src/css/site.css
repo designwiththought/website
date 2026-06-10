@@ -53,11 +53,13 @@ h6, .h6 {
    speck. Sticky nav keeps its own z-index so it stays above both.
 
    Accessibility: fixed noise behind scrolling content can trigger
-   motion sickness. While the page is scrolling we drop the layers to
-   opacity 0 (fast, 80ms) and ease them back in once motion stops
-   (slower, 350ms). texture.js toggles body.is-scrolling on a debounced
-   scroll listener. Users with prefers-reduced-motion get the layers
-   hidden entirely. */
+   motion sickness. Opacity is driven by a CSS custom property
+   --grain-opacity that texture.js updates each frame from smoothed
+   scroll velocity, with a short opacity transition that turns the
+   discrete updates into a continuous fade. Faster scroll = closer to
+   0, idle = 1, recovery happens as velocity decays. Users with
+   prefers-reduced-motion get the layers hidden entirely. */
+body { --grain-opacity: 1; }
 body::before {
   content: "";
   position: fixed;
@@ -67,8 +69,8 @@ body::before {
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
-  opacity: 1;
-  transition: opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  opacity: var(--grain-opacity);
+  transition: opacity 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 body::after {
   content: "";
@@ -79,13 +81,8 @@ body::after {
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
-  opacity: 1;
-  transition: opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-body.is-scrolling::before,
-body.is-scrolling::after {
-  opacity: 0;
-  transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: var(--grain-opacity);
+  transition: opacity 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   body::before, body::after { display: none; }
