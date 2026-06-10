@@ -52,6 +52,10 @@
         <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+    <!-- LAUNCH NAV — Notes / About / Now / Colophon. Full structure
+         (Writing/Making/Enjoying/Learning) preserved in base.full.html
+         and can be swapped back as those sections fill in. The pages
+         themselves still build, so direct URLs work for previewing. -->
     <div class="drawer__body">
       <section aria-labelledby="drawer-grp-home">
         <h3 id="drawer-grp-home" class="drawer__group-title">Start</h3>
@@ -63,39 +67,7 @@
       <section aria-labelledby="drawer-grp-writing">
         <h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
           <li><a class="drawer__item" href="../../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-making">
-        <h3 id="drawer-grp-making" class="drawer__group-title">Making</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../projects/"><span class="drawer__item-label">All projects</span><span class="drawer__item-note">Everything I&rsquo;ve made</span></a></li>
-          <li><a class="drawer__item" href="../../projects/cat/code/"><span class="drawer__item-label">Code</span><span class="drawer__item-note">Software &amp; libraries</span></a></li>
-          <li><a class="drawer__item" href="../../projects/cat/design/"><span class="drawer__item-label">Design</span><span class="drawer__item-note">Type, identity, posters</span></a></li>
-          <li><a class="drawer__item" href="../../projects/cat/accessibility/"><span class="drawer__item-label">Accessibility</span><span class="drawer__item-note">A11y work &amp; tools</span></a></li>
-          <li><a class="drawer__item" href="../../projects/cat/hardware/"><span class="drawer__item-label">Hardware</span><span class="drawer__item-note">Physical things</span></a></li>
-          <li><a class="drawer__item" href="../../projects/cat/experiments/"><span class="drawer__item-label">Experiments</span><span class="drawer__item-note">Weekend builds</span></a></li>
-          <li><a class="drawer__item" href="../../projects/moss-and-air/"><span class="drawer__item-label">Moss and Air</span><span class="drawer__item-note">Music-producer alias</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-enjoying">
-        <h3 id="drawer-grp-enjoying" class="drawer__group-title">Enjoying</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All of the below, mixed</span></a></li>
-          <li><a class="drawer__item" href="../../reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="../../bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="../../music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="../../movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="../../podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
-          <li><a class="drawer__item" href="../../products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-learning">
-        <h3 id="drawer-grp-learning" class="drawer__group-title">Learning</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="../../learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
-          <li><a class="drawer__item" href="../../gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-about">
@@ -152,6 +124,8 @@
 
 
   <footer class="site-footer">
+    <!-- LAUNCH FOOTER — mirrors the launch drawer. Full footer kept in
+         base.full.html. -->
     <div class="site-footer__groups">
       <section class="site-footer__group" aria-labelledby="footer-grp-start">
         <h2 id="footer-grp-start" class="site-footer__group-title">Start</h2>
@@ -163,39 +137,7 @@
       <section class="site-footer__group" aria-labelledby="footer-grp-writing">
         <h2 id="footer-grp-writing" class="site-footer__group-title">Writing</h2>
         <ul>
-          <li><a href="../../essays/">Essays</a></li>
           <li><a href="../../notes/">Notes</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-making">
-        <h2 id="footer-grp-making" class="site-footer__group-title">Making</h2>
-        <ul>
-          <li><a href="../../projects/">All projects</a></li>
-          <li><a href="../../projects/cat/code/">Code</a></li>
-          <li><a href="../../projects/cat/design/">Design</a></li>
-          <li><a href="../../projects/cat/accessibility/">Accessibility</a></li>
-          <li><a href="../../projects/cat/hardware/">Hardware</a></li>
-          <li><a href="../../projects/cat/experiments/">Experiments</a></li>
-          <li><a href="../../projects/moss-and-air/">Moss and Air</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-enjoying">
-        <h2 id="footer-grp-enjoying" class="site-footer__group-title">Enjoying</h2>
-        <ul>
-          <li><a href="../../enjoying/">Everything</a></li>
-          <li><a href="../../reading/">Reading</a></li>
-          <li><a href="../../bookshelf/">Bookshelf</a></li>
-          <li><a href="../../music/">Music</a></li>
-          <li><a href="../../movies/">Movies</a></li>
-          <li><a href="../../podcasts/">Podcasts</a></li>
-          <li><a href="../../products/">Products</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-learning">
-        <h2 id="footer-grp-learning" class="site-footer__group-title">Learning</h2>
-        <ul>
-          <li><a href="../../learning/">Learning</a></li>
-          <li><a href="../../gear/">Gear</a></li>
         </ul>
       </section>
       <section class="site-footer__group" aria-labelledby="footer-grp-about">
