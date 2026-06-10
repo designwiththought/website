@@ -52,6 +52,10 @@
         <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+    <!-- LAUNCH NAV — Notes / About / Now / Colophon. Full structure
+         (Writing/Making/Enjoying/Learning) preserved in base.full.html
+         and can be swapped back as those sections fill in. The pages
+         themselves still build, so direct URLs work for previewing. -->
     <div class="drawer__body">
       <section aria-labelledby="drawer-grp-home">
         <h3 id="drawer-grp-home" class="drawer__group-title">Start</h3>
@@ -63,39 +67,7 @@
       <section aria-labelledby="drawer-grp-writing">
         <h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3>
         <ul class="drawer__list">
-          <li><a class="drawer__item" href="essays/"><span class="drawer__item-label">Essays</span><span class="drawer__item-note">The long ones</span></a></li>
           <li><a class="drawer__item" href="notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-making">
-        <h3 id="drawer-grp-making" class="drawer__group-title">Making</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="projects/"><span class="drawer__item-label">All projects</span><span class="drawer__item-note">Everything I&rsquo;ve made</span></a></li>
-          <li><a class="drawer__item" href="projects/cat/code/"><span class="drawer__item-label">Code</span><span class="drawer__item-note">Software &amp; libraries</span></a></li>
-          <li><a class="drawer__item" href="projects/cat/design/"><span class="drawer__item-label">Design</span><span class="drawer__item-note">Type, identity, posters</span></a></li>
-          <li><a class="drawer__item" href="projects/cat/accessibility/"><span class="drawer__item-label">Accessibility</span><span class="drawer__item-note">A11y work &amp; tools</span></a></li>
-          <li><a class="drawer__item" href="projects/cat/hardware/"><span class="drawer__item-label">Hardware</span><span class="drawer__item-note">Physical things</span></a></li>
-          <li><a class="drawer__item" href="projects/cat/experiments/"><span class="drawer__item-label">Experiments</span><span class="drawer__item-note">Weekend builds</span></a></li>
-          <li><a class="drawer__item" href="projects/moss-and-air/"><span class="drawer__item-label">Moss and Air</span><span class="drawer__item-note">Music-producer alias</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-enjoying">
-        <h3 id="drawer-grp-enjoying" class="drawer__group-title">Enjoying</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="enjoying/"><span class="drawer__item-label">Everything</span><span class="drawer__item-note">All of the below, mixed</span></a></li>
-          <li><a class="drawer__item" href="reading/"><span class="drawer__item-label">Reading</span><span class="drawer__item-note">Currently</span></a></li>
-          <li><a class="drawer__item" href="bookshelf/"><span class="drawer__item-label">Bookshelf</span><span class="drawer__item-note">Permanent spots</span></a></li>
-          <li><a class="drawer__item" href="music/"><span class="drawer__item-label">Music</span><span class="drawer__item-note">Albums that mattered</span></a></li>
-          <li><a class="drawer__item" href="movies/"><span class="drawer__item-label">Movies</span><span class="drawer__item-note">A diary</span></a></li>
-          <li><a class="drawer__item" href="podcasts/"><span class="drawer__item-label">Podcasts</span><span class="drawer__item-note">In rotation</span></a></li>
-          <li><a class="drawer__item" href="products/"><span class="drawer__item-label">Products</span><span class="drawer__item-note">Things I&rsquo;m into</span></a></li>
-        </ul>
-      </section>
-      <section aria-labelledby="drawer-grp-learning">
-        <h3 id="drawer-grp-learning" class="drawer__group-title">Learning</h3>
-        <ul class="drawer__list">
-          <li><a class="drawer__item" href="learning/"><span class="drawer__item-label">Learning</span><span class="drawer__item-note">What I&rsquo;m chasing</span></a></li>
-          <li><a class="drawer__item" href="gear/"><span class="drawer__item-label">Gear</span><span class="drawer__item-note">Tools, honestly</span></a></li>
         </ul>
       </section>
       <section aria-labelledby="drawer-grp-about">
@@ -109,17 +81,18 @@
   </div>
 
     <main id="main" class="home">
-    <!-- Hero, a proper introduction, not a slogan -->
+    <!-- LAUNCH HOME — Hero + Notes only. Full home layout (Recent
+         writing, Projects, Reading) preserved in home.full.html. -->
     <section class="hero">
       <p class="hero__lede">
-        Notes, essays, and projects on design as a form of <em>care</em>,
+        Notes and a few small projects on design as a form of <em>care</em>,
         by Thought Grain.
       </p>
       <p class="hero__body">
         I&rsquo;m accessibility lead at Superhuman (formerly known as Grammarly).
-        Most of my writing is about what happens when you treat design as care:
-        for the people using the software, for the engineers building it, and
-        for the systems that hold it all together.
+        Most of what shows up here is about what happens when you treat design
+        as care: for the people using the software, for the engineers building
+        it, and for the systems that hold it all together.
       </p>
       <p class="hero__body">
         For years my online presence was rented space, social profiles and
@@ -128,52 +101,15 @@
         floorboards are ones I coded, and the front door is always open.
       </p>
       <p class="hero__body">
-        It&rsquo;s a place to slow down and share ideas that invite reflection
-        rather than consumption, on design systems, accessibility, leadership,
-        and whatever I&rsquo;m paying attention to now.
+        It&rsquo;s a place to slow down. A few of the longer rooms (essays,
+        projects, the shelves) are still being arranged, but the notes are
+        already here.
       </p>
       <div class="hero__cta">
-        <a class="btn btn--primary" href="essays/">Read the essays</a>
+        <a class="btn btn--primary" href="notes/">Read the notes</a>
         <a class="btn btn--ghost" href="now/">What I&rsquo;m up to now</a>
       </div>
       <p class="page-header__feed"><a class="page-feed-link" href="feed.xml"><svg class="page-feed-link__icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span>Subscribe to all updates</span></a></p>
-    </section>
-
-    <!-- Recent writing -->
-    <section id="writing" class="container section">
-      <header class="section__head">
-        <h2 class="section__title">Recent writing</h2>
-        <a class="btn btn--link" href="essays/">All essays</a>
-      </header>
-      <div class="essay-list">
-        
-        <a class="essay-card" href="essays/your-first-essay/">
-          <div class="essay-card__meta">
-            <span class="essay-card__date">01 January 2026 &middot; 5 min</span>
-          </div>
-          <h3 class="essay-card__title">Your first essay</h3>
-          <p class="essay-card__dek">A short sentence that previews the piece, appears under the title on the index page and on the reader.</p>
-          <div class="essay-card__tags">
-            <span class="tag">Tag one</span>
-            <span class="tag">Tag two</span>
-            
-          </div>
-        </a>
-        
-        <a class="essay-card" href="studies/your-first-study/">
-          <div class="essay-card__meta">
-            <span class="essay-card__date">01 January 2026 &middot; 8 min</span>
-          </div>
-          <h3 class="essay-card__title">Your first study</h3>
-          <p class="essay-card__dek">Studies are shorter than essays, typically a single investigated question with a small data set or a focused observation.</p>
-          <div class="essay-card__tags">
-            <span class="tag">Tag one</span>
-            <span class="tag">Study</span>
-            
-          </div>
-        </a>
-        
-      </div>
     </section>
 
     <!-- Notes -->
@@ -184,72 +120,12 @@
       </header>
       <ul class="note-list"><li class="note-item"><span class="note-item__date">Jan 01</span><div><a href="notes/your-first-note/" class="note-item__link"><p class="note-item__body">A note is a short fragment, usually one paragraph, sometimes two. The first paragraph becomes the lede on the reader page; subsequent paragraphs become the afterthought.</p></a><div class="note-item__context">where it was written</div></div></li><li class="note-item"><span class="note-item__date">Jan 02</span><div><a href="notes/your-second-note/" class="note-item__link"><p class="note-item__body">Add as many MDX files as you like to <code>src/content/notes/</code>. They render in file order, keep the numeric <code>01-</code>, <code>02-</code> prefix and the most recent at the bottom (or invert the convention; build.js sorts by filename).</p></a><div class="note-item__context">another scribbled-on day</div></div></li><li class="note-item note-item--image"><span class="note-item__date">Jan 03</span><div><a href="notes/a-photo-note/" class="note-item__link"><figure class="note-item__figure"><img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=1200&q=70" alt="Open notebook on a wooden desk, pen resting across the spine" loading="lazy" /><figcaption class="note-item__caption">Notes can be just an image with a caption, same row layout, no body text required.</figcaption></figure></a><div class="note-item__context">from the desk</div></div></li></ul>
     </section>
-
-    <!-- Projects -->
-    <section id="projects" class="container section">
-      <header class="section__head">
-        <h2 class="section__title">Currently building</h2>
-        <a class="btn btn--link" href="projects/">All projects</a>
-      </header>
-      <div class="project-list">
-        
-        <a class="project-tile" href="projects/your-first-project/">
-          <div class="project-tile__body">
-            <div class="project-tile__meta">
-              <span class="project-tile__status">In progress</span>
-              <span class="project-tile__year">2026</span>
-            </div>
-            <h3 class="project-tile__title">Your first project</h3>
-            <p class="project-tile__blurb">A short blurb that previews the project, appears on the projects index card and on the case-study reader.</p>
-          </div>
-        </a>
-        
-        <a class="project-tile" href="projects/moss-and-air/">
-          <div class="project-tile__body">
-            <div class="project-tile__meta">
-              <span class="project-tile__status">Ongoing</span>
-              <span class="project-tile__year">2026</span>
-            </div>
-            <h3 class="project-tile__title">Moss and Air</h3>
-            <p class="project-tile__blurb">A music-producer alias for slow, instrumental records made on cassette, modular, and the occasional kalimba.</p>
-          </div>
-        </a>
-        
-      </div>
-    </section>
-
-    <!-- Reading -->
-    <section id="reading" class="container section">
-      <header class="section__head">
-        <h2 class="section__title">On the shelf, this month</h2>
-        <a class="btn btn--link" href="reading/">All reading</a>
-      </header>
-      <ul class="reading-list-simple">
-        
-        <li>
-          <span class="reading-list-simple__title">Book on the shelf</span>
-          <span class="reading-list-simple__author">Author</span>
-          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
-        </li>
-        
-        <li>
-          <span class="reading-list-simple__title">Another book</span>
-          <span class="reading-list-simple__author">Author</span>
-          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
-        </li>
-        
-        <li>
-          <span class="reading-list-simple__title">A third book</span>
-          <span class="reading-list-simple__author">Author</span>
-          <span class="reading-list-simple__note">A line on why it&#39;s there.</span>
-        </li>
-        
-      </ul>
-    </section>
   </main>
 
 
   <footer class="site-footer">
+    <!-- LAUNCH FOOTER — mirrors the launch drawer. Full footer kept in
+         base.full.html. -->
     <div class="site-footer__groups">
       <section class="site-footer__group" aria-labelledby="footer-grp-start">
         <h2 id="footer-grp-start" class="site-footer__group-title">Start</h2>
@@ -261,39 +137,7 @@
       <section class="site-footer__group" aria-labelledby="footer-grp-writing">
         <h2 id="footer-grp-writing" class="site-footer__group-title">Writing</h2>
         <ul>
-          <li><a href="essays/">Essays</a></li>
           <li><a href="notes/">Notes</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-making">
-        <h2 id="footer-grp-making" class="site-footer__group-title">Making</h2>
-        <ul>
-          <li><a href="projects/">All projects</a></li>
-          <li><a href="projects/cat/code/">Code</a></li>
-          <li><a href="projects/cat/design/">Design</a></li>
-          <li><a href="projects/cat/accessibility/">Accessibility</a></li>
-          <li><a href="projects/cat/hardware/">Hardware</a></li>
-          <li><a href="projects/cat/experiments/">Experiments</a></li>
-          <li><a href="projects/moss-and-air/">Moss and Air</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-enjoying">
-        <h2 id="footer-grp-enjoying" class="site-footer__group-title">Enjoying</h2>
-        <ul>
-          <li><a href="enjoying/">Everything</a></li>
-          <li><a href="reading/">Reading</a></li>
-          <li><a href="bookshelf/">Bookshelf</a></li>
-          <li><a href="music/">Music</a></li>
-          <li><a href="movies/">Movies</a></li>
-          <li><a href="podcasts/">Podcasts</a></li>
-          <li><a href="products/">Products</a></li>
-        </ul>
-      </section>
-      <section class="site-footer__group" aria-labelledby="footer-grp-learning">
-        <h2 id="footer-grp-learning" class="site-footer__group-title">Learning</h2>
-        <ul>
-          <li><a href="learning/">Learning</a></li>
-          <li><a href="gear/">Gear</a></li>
         </ul>
       </section>
       <section class="site-footer__group" aria-labelledby="footer-grp-about">
