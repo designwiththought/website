@@ -148,18 +148,26 @@
   var raf = null;
 
   // Tunables.
-  //   VEL_TO_FADE: how aggressively velocity dims the grain.
-  //     1 px/ms scroll velocity reaches opacity 0 around 1/VEL_TO_FADE.
-  //   SMOOTH_IN:   weight of new measurement when entering motion (snappy).
-  //   SMOOTH_OUT:  decay multiplier per frame when idle (gentle recovery).
-  var VEL_TO_FADE = 0.9;
-  var SMOOTH_IN = 0.45;
-  var SMOOTH_OUT = 0.92;
-  var IDLE_EPS = 0.005;
+  //   MIN_OPACITY: floor while scrolling. The grain dims but doesn't
+  //                vanish — the presence-not-gone state is what we want
+  //                during motion, since the issue is the motion itself
+  //                not the texture's existence.
+  //   VEL_TO_FADE: how aggressively velocity drives the dim. Lower is
+  //                more gradual; reaching the floor takes more speed.
+  //   SMOOTH_IN:   weight of new measurement when entering motion.
+  //   SMOOTH_OUT:  decay multiplier per frame when idle (gentle return).
+  var MIN_OPACITY = 0.3;
+  var VEL_TO_FADE = 0.45;
+  var SMOOTH_IN = 0.22;
+  var SMOOTH_OUT = 0.965;
+  var IDLE_EPS = 0.0025;
 
   function setOpacity() {
-    var op = 1 - smoothed * VEL_TO_FADE;
-    if (op < 0) op = 0;
+    var range = 1 - MIN_OPACITY;
+    var t = smoothed * VEL_TO_FADE;
+    if (t > 1) t = 1;
+    var op = 1 - t * range;
+    if (op < MIN_OPACITY) op = MIN_OPACITY;
     if (op > 1) op = 1;
     body.style.setProperty('--grain-opacity', op.toFixed(3));
   }
@@ -171,7 +179,7 @@
       raf = window.requestAnimationFrame(tick);
     } else {
       smoothed = 0;
-      body.style.setProperty('--grain-opacity', '1');
+      setOpacity();
       raf = null;
     }
   }
