@@ -32,10 +32,10 @@
   //   SMOOTH_IN:   weight of new measurement when entering motion.
   //   SMOOTH_OUT:  decay multiplier per frame when idle (gentle return).
   var MIN_OPACITY = 0.3;
-  var VEL_TO_FADE = 0.45;
-  var SMOOTH_IN = 0.22;
-  var SMOOTH_OUT = 0.965;
-  var IDLE_EPS = 0.0025;
+  var VEL_TO_FADE = 0.3;
+  var SMOOTH_IN = 0.06;   // velocity ramps up slowly: gradual dim-down
+  var SMOOTH_OUT = 0.97;  // velocity decays slowly: ~3s breathe-back
+  var IDLE_EPS = 0.002;
 
   function setOpacity() {
     var range = 1 - MIN_OPACITY;
