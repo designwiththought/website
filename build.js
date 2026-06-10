@@ -446,10 +446,18 @@ function renderTemplate(template, data) {
     return renderValue(keyPath, val);
   });
 
-  // {{key}}
-  output = output.replace(/\{\{(\w+)\}\}/g, function (_, key) {
-    return renderValue(key, data[key]);
-  });
+  // {{key}} — loop until stable so substitutions that inject further
+  // {{...}} placeholders (e.g. {{drawerNavHtml}} expanding into HTML
+  // that itself references {{basePath}}) get resolved in a follow-up
+  // pass instead of being left as literals in the output.
+  var keyPrev;
+  do {
+    keyPrev = output;
+    output = output.replace(/\{\{(\w+)\}\}/g, function (match, key) {
+      if (!(key in data)) return match;
+      return renderValue(key, data[key]);
+    });
+  } while (keyPrev !== output);
 
   return output;
 }
