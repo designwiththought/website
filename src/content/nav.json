@@ -1,0 +1,68 @@
+{
+  "_comment": "Single source of truth for the drawer and footer nav. Set enabled:false on any item to hide it from both menus. Pages themselves keep building, so disabled items remain reachable by direct URL.",
+  "groups": [
+    {
+      "id": "start",
+      "label": "Start",
+      "items": [
+        { "label": "Home", "href": "",        "note": "The front porch", "enabled": true },
+        { "label": "Now",  "href": "now/",    "note": "This month",       "enabled": true }
+      ]
+    },
+    {
+      "id": "writing",
+      "label": "Writing",
+      "items": [
+        { "label": "Notes",   "href": "notes/",   "note": "Fragments",      "enabled": true  },
+        { "label": "Essays",  "href": "essays/",  "note": "The long ones",  "enabled": false },
+        { "label": "Studies", "href": "studies/", "note": "Small evidence", "enabled": false }
+      ]
+    },
+    {
+      "id": "making",
+      "label": "Making",
+      "items": [
+        { "label": "All projects",  "href": "projects/",                  "note": "Everything I’ve made", "enabled": false },
+        { "label": "Code",          "href": "projects/cat/code/",         "note": "Software & libraries", "enabled": false },
+        { "label": "Design",        "href": "projects/cat/design/",       "note": "Type, identity, posters", "enabled": false },
+        { "label": "Accessibility", "href": "projects/cat/accessibility/","note": "A11y work & tools",     "enabled": false },
+        { "label": "Hardware",      "href": "projects/cat/hardware/",     "note": "Physical things",       "enabled": false },
+        { "label": "Experiments",   "href": "projects/cat/experiments/",  "note": "Weekend builds",        "enabled": false },
+        { "label": "Moss and Air",  "href": "projects/moss-and-air/",     "note": "Music-producer alias",  "enabled": false }
+      ]
+    },
+    {
+      "id": "enjoying",
+      "label": "Enjoying",
+      "items": [
+        { "label": "Everything", "href": "enjoying/",  "note": "All of the below, mixed", "enabled": false },
+        { "label": "Reading",    "href": "reading/",   "note": "Currently",               "enabled": false },
+        { "label": "Bookshelf",  "href": "bookshelf/", "note": "Permanent spots",         "enabled": false },
+        { "label": "Music",      "href": "music/",     "note": "Albums that mattered",    "enabled": false },
+        { "label": "Movies",     "href": "movies/",    "note": "A diary",                 "enabled": false },
+        { "label": "Podcasts",   "href": "podcasts/",  "note": "In rotation",             "enabled": false },
+        { "label": "Products",   "href": "products/",  "note": "Things I’m into",         "enabled": false }
+      ]
+    },
+    {
+      "id": "learning",
+      "label": "Learning",
+      "items": [
+        { "label": "Learning", "href": "learning/", "note": "What I’m chasing", "enabled": false },
+        { "label": "Gear",     "href": "gear/",     "note": "Tools, honestly",  "enabled": false }
+      ]
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "items": [
+        { "label": "About",    "href": "about/",    "note": "The long version", "enabled": true },
+        { "label": "Colophon", "href": "colophon/", "note": "Credits",          "enabled": true }
+      ]
+    }
+  ],
+  "footerExtras": [
+    { "label": "RSS",   "href": "feed.xml" },
+    { "label": "Email", "href": "mailto:{{email}}" }
+  ]
+}
