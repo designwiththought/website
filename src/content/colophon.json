@@ -2,11 +2,11 @@
   "items": [
     {
       "label": "Type",
-      "value": "Inter Tight for display and headings, Inter for body, JetBrains Mono for labels and code. Edit the imports in src/css/tokens.css to swap them."
+      "value": "Newsreader for display and headings, Inter for body, JetBrains Mono for labels and code. Edit the imports in src/css/tokens.css to swap them."
     },
     {
       "label": "Palette",
-      "value": "Cool neutral ink on near-white paper, with a single saturated indigo accent. Stored as OKLCH; see /styles/ for the full specimen."
+      "value": "Warm cream paper with a near-black ink and a single rust accent. Stored as OKLCH so the ramps stay perceptually even across light and dark."
     },
     {
       "label": "Built with",
