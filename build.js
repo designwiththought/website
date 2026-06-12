@@ -745,6 +745,77 @@ async function build() {
   });
   var studies = articles.filter(function (a) { return a.kind === 'Study'; });
 
+  // Group articles by series — structural grouping (parts of one piece),
+  // independent of kind. Any article with a `series:` frontmatter field
+  // joins a group; the group is sorted by `seriesPart:`. The reader gets
+  // a series nav per article showing every part with the current marked.
+  var seriesGroups = {};
+  articles.forEach(function (a) {
+    if (!a.series) return;
+    if (!seriesGroups[a.series]) seriesGroups[a.series] = [];
+    seriesGroups[a.series].push(a);
+  });
+  Object.keys(seriesGroups).forEach(function (k) {
+    seriesGroups[k].sort(function (a, b) { return (a.seriesPart || 0) - (b.seriesPart || 0); });
+  });
+  function renderSeriesNavHtml(article) {
+    if (!article.series || !seriesGroups[article.series]) return '';
+    var parts = seriesGroups[article.series];
+    var items = parts.map(function (p) {
+      var n = p.seriesPart ? String(p.seriesPart).padStart(2, '0') : '';
+      var isCurrent = p.slug === article.slug;
+      // Title sans the series prefix if present — keeps the list readable.
+      var label = p.title.replace(new RegExp('^' + article.series + ',?\\s*', 'i'), '')
+        .replace(/^part\s+\d+:\s*/i, '');
+      var inner =
+        '<span class="series-nav__num">' + n + '</span>' +
+        '<span class="series-nav__body">' +
+          '<span class="series-nav__title">' + label + '</span>' +
+        '</span>' +
+        (isCurrent ? '<span class="series-nav__here" aria-label="You are here">You are here</span>' : '');
+      var cls = 'series-nav__row' + (isCurrent ? ' is-current' : '');
+      var aria = isCurrent ? ' aria-current="page"' : '';
+      if (isCurrent) {
+        return '<li class="' + cls + '"><span class="series-nav__link"' + aria + '>' + inner + '</span></li>';
+      }
+      return '<li class="' + cls + '"><a class="series-nav__link" href="{{basePath}}' + p.url + '"' + aria + '>' + inner + '</a></li>';
+    }).join('');
+    var idx = parts.findIndex(function (p) { return p.slug === article.slug; });
+    var caption = (idx >= 0 ? 'Part ' + (idx + 1) + ' of ' + parts.length : parts.length + ' parts') +
+                  ' in <em>' + article.series + '</em>';
+    return '<aside class="series-nav" aria-label="' + article.series + ' series navigation">' +
+             '<div class="series-nav__caption"><span class="kicker">Series</span><span class="series-nav__meta">' + caption + '</span></div>' +
+             '<ol class="series-nav__list">' + items + '</ol>' +
+           '</aside>';
+  }
+
+  function seriesPrevNext(article) {
+    if (!article.series || !seriesGroups[article.series]) return { prev: null, next: null };
+    var parts = seriesGroups[article.series];
+    var idx = parts.findIndex(function (p) { return p.slug === article.slug; });
+    return {
+      prev: idx > 0 ? parts[idx - 1] : null,
+      next: idx >= 0 && idx < parts.length - 1 ? parts[idx + 1] : null
+    };
+  }
+  function renderSeriesPrevNextHtml(article) {
+    var pn = seriesPrevNext(article);
+    if (!pn.prev && !pn.next) return '';
+    var prev = pn.prev
+      ? '<a class="series-prevnext__link series-prevnext__link--prev" href="{{basePath}}' + pn.prev.url + '">' +
+          '<span class="kicker">Previous</span>' +
+          '<span class="series-prevnext__title">' + pn.prev.title.replace(/^.*part \d+:\s*/i, '') + '</span>' +
+        '</a>'
+      : '<span></span>';
+    var next = pn.next
+      ? '<a class="series-prevnext__link series-prevnext__link--next" href="{{basePath}}' + pn.next.url + '">' +
+          '<span class="kicker">Next</span>' +
+          '<span class="series-prevnext__title">' + pn.next.title.replace(/^.*part \d+:\s*/i, '') + '</span>' +
+        '</a>'
+      : '<span></span>';
+    return '<nav class="series-prevnext" aria-label="Series navigation">' + prev + next + '</nav>';
+  }
+
   // Pre-render the grouped notes list for the /notes/ index and the homepage.
   // A note can be either a short text fragment (.ledeHtml from the MDX body)
   // or an image with an optional caption (image / imageAlt / caption in the
@@ -1076,18 +1147,26 @@ async function build() {
       var itemDir = path.join(DIST, dir, item.slug);
       mkdirp(itemDir);
 
-      // Two pieces that aren't this one. Default pool is all articles; a
-      // caller (like the build series) can override with its own pool so
-      // related stays inside the series.
+      // Series articles get a series nav + prev/next that lists every part.
+      // Non-series articles fall back to the existing related + read-next
+      // (two topic-adjacent pieces). The two concepts are exclusive:
+      // related is "you might also like this", series is "this is the next
+      // part of what you were reading".
+      var inSeries = !!item.series && !!seriesGroups[item.series];
+      var seriesNavHtml = inSeries ? renderSeriesNavHtml(item) : '';
+      var seriesPrevNextHtml = inSeries ? renderSeriesPrevNextHtml(item) : '';
+
       var pool = meta.relatedPool || articles;
-      var related = pool.filter(function (a) { return a.slug !== item.slug; }).slice(0, 2);
+      var related = pool.filter(function (a) { return a.slug !== item.slug && !a.series; }).slice(0, 2);
 
       var data = Object.assign({}, siteData, item, {
         basePath: '../../',
         backHref: meta.backHref || (dir + '/'),
         backLabel: meta.backLabel,
-        relatedHtml: renderRelatedHtml(related),
-        readNextHtml: renderReadNextHtml(related),
+        relatedHtml: inSeries ? '' : renderRelatedHtml(related),
+        readNextHtml: inSeries ? '' : renderReadNextHtml(related),
+        seriesNavHtml: seriesNavHtml,
+        seriesPrevNextHtml: seriesPrevNextHtml,
         iconSprite: iconSprite,
         pageTitle: item.title + ', ' + siteData.title,
         pageDescription: item.summary

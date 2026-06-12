@@ -75,6 +75,7 @@
           <span class="kicker">&middot; Static sites</span>
           
         </div>
+        <aside class="series-nav" aria-label="Building this site series navigation"><div class="series-nav__caption"><span class="kicker">Series</span><span class="series-nav__meta">Part 1 of 5 in <em>Building this site</em></span></div><ol class="series-nav__list"><li class="series-nav__row is-current"><span class="series-nav__link" aria-current="page"><span class="series-nav__num">01</span><span class="series-nav__body"><span class="series-nav__title">why I rolled my own</span></span><span class="series-nav__here" aria-label="You are here">You are here</span></span></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-2-bones/"><span class="series-nav__num">02</span><span class="series-nav__body"><span class="series-nav__title">the bones</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-3-templates/"><span class="series-nav__num">03</span><span class="series-nav__body"><span class="series-nav__title">a 60-line template engine</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-4-content/"><span class="series-nav__num">04</span><span class="series-nav__body"><span class="series-nav__title">content as markdown + frontmatter</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-5-deploy/"><span class="series-nav__num">05</span><span class="series-nav__body"><span class="series-nav__title">deploy in 20 lines of YAML</span></span></a></li></ol></aside>
         <div class="reader__body prose">
           <p class="dropcap">There are so many good static site generators that picking one is a small act of identity. Eleventy, Astro, Hugo, Jekyll, Next, Hexo, Gatsby. Each comes with a community, a plugin ecosystem, an opinion about how your content should be shaped.</p>
 <p>I built this site without any of them. The whole thing is a single <code>build.js</code> file using only Node's standard library. No framework, no bundler, no dependencies. This series is a walkthrough of how it works and why I chose to build it this way.</p>
@@ -103,7 +104,8 @@
 <p>That's the whole worldview. The next four parts walk through how the rules play out in practice: the shape of the project, the template engine, content handling, and how it deploys to GitHub Pages.</p>
 <p>If the trade-off sounds right to you, the rest of this series will give you enough to build the same thing for yourself. If it sounds bonkers, well, at least you'll know why my old sites are still running.</p>
         </div>
-        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../build/building-this-site-2-bones/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 5 min</span></div><h3 class="essay-card__title">Building this site, part 2: the bones</h3><p class="essay-card__dek">The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a><a class="essay-card essay-card--compact" href="../../build/building-this-site-3-templates/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">11 June 2026 &middot; 6 min</span></div><h3 class="essay-card__title">Building this site, part 3: a 60-line template engine</h3><p class="essay-card__dek">The whole template language, written in three regexes, and the one bug I shipped twice.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a></div></div>
+        <nav class="series-prevnext" aria-label="Series navigation"><span></span><a class="series-prevnext__link series-prevnext__link--next" href="../../build/building-this-site-2-bones/"><span class="kicker">Next</span><span class="series-prevnext__title">the bones</span></a></nav>
+        
       </article>
 
       
@@ -118,7 +120,7 @@
           <li><a href="#the-rules">Three rules I set</a></li>
           
         </ol>
-        <div class="toc__aside"><span class="kicker">Read next</span><ul class="toc__next"><li><a href="../../build/building-this-site-2-bones/">Building this site, part 2: the bones</a></li><li><a href="../../build/building-this-site-3-templates/">Building this site, part 3: a 60-line template engine</a></li></ul></div>
+        
       </aside>
       
     </div>
