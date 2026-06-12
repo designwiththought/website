@@ -81,30 +81,29 @@
 <p>This part walks through how content is shaped, parsed, and turned into the data that the templates from the last part consume.</p>
 <h2 id="frontmatter-is-configuration">Frontmatter is configuration</h2>
 <p>Every content file opens with a small YAML block:</p>
-<p><code>`</code>yaml</p>
-<hr>
-<p>slug: hello</p>
-<p>kind: Essay</p>
-<p>title: "A hello-world essay"</p>
-<p>summary: "A short dek that previews the piece."</p>
-<p>date: "10 June 2026"</p>
-<p>read: "3 min"</p>
-<p>tag1: "Greetings"</p>
-<p>toc:</p>
-<p>  - id: "intro"</p>
-<p>    label: "Introduction"</p>
-<hr>
-<p><code>`</code></p>
+<pre><code class="language-yaml">---
+slug: hello
+kind: Essay
+title: "A hello-world essay"
+summary: "A short dek that previews the piece."
+date: "10 June 2026"
+read: "3 min"
+tag1: "Greetings"
+toc:
+  - id: "intro"
+    label: "Introduction"
+---</code></pre>
 <p>The parser is a tiny function: take everything between the two <code>---</code> lines, split on newlines, split each line on the first colon, store the key/value pairs in an object. YAML it isn't, exactly, but it covers what I need: strings, numbers, booleans, and arrays of objects for the table of contents.</p>
 <p>Each field becomes a property the template can reference. <code>Building this site, part 4: content as markdown + frontmatter</code> pulls from <code>title</code>. <code>{{#each toc}}</code> walks the table of contents array. The pieces from the last post fall into place.</p>
 <h2 id="mdx-but-only-the-bits-i-need">MDX, but only the bits I need</h2>
 <p>Below the frontmatter is the body. It's markdown with one twist: I allow a small set of custom components written as XML-ish tags.</p>
-<p><code>`</code>mdx</p>
-<p class="dropcap">An opening line, set in the display face, with the first letter dropped two lines.</p>
-<p>The rest of the paragraph runs as normal markdown. Headings, lists, <strong>bold</strong>, <em>italic</em>, <a href="https://example.com">links</a>, inline <code>code</code>, and code blocks.</p>
-<blockquote class="pullquote">A sentence worth pulling out.<span class="pullquote__cite">my own essay, this paragraph</span></blockquote>
-<p>More body text. The pull quote breaks the column with a generous left rule.</p>
-<p><code>`</code></p>
+<pre><code class="language-mdx">&lt;Dropcap text="An opening line, set in the display face, with the first letter dropped two lines." /&gt;
+
+The rest of the paragraph runs as normal markdown. Headings, lists, **bold**, *italic*, [links](https://example.com), inline `code`, and code blocks.
+
+&lt;Pullquote text="A sentence worth pulling out." cite="my own essay, this paragraph" /&gt;
+
+More body text. The pull quote breaks the column with a generous left rule.</code></pre>
 <p>The parser runs in two stages. First, it finds and lifts the custom component tags into placeholders, recording the props for each. Then it hands the remaining markdown to a tiny markdown-to-HTML function. Once the markdown is HTML, it slots the rendered components back in at their placeholders.</p>
 <p>That order matters: if you let markdown see the tags, it tries to interpret the angle brackets and the props get mangled.</p>
 <h2 id="the-four-components-i-kept">The four components I kept</h2>

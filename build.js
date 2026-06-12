@@ -194,8 +194,32 @@ function parseMarkdown(md) {
   let inBlockquote = false;
   let inList = false;
 
+  function htmlEscape(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
+
+    // Fenced code block. Opening ``` (optionally followed by a language
+    // tag) starts a block; everything up to the closing ``` is captured
+    // verbatim and HTML-escaped, then emitted inside <pre><code>. No
+    // syntax highlighting — just the mono + tinted background CSS.
+    const fenceMatch = line.match(/^```\s*([\w-]*)\s*$/);
+    if (fenceMatch) {
+      if (inBlockquote) { output.push('</blockquote>'); inBlockquote = false; }
+      if (inList) { output.push('</ul>'); inList = false; }
+      const lang = fenceMatch[1] || '';
+      const buf = [];
+      i++;
+      while (i < lines.length && !/^```\s*$/.test(lines[i])) {
+        buf.push(lines[i]);
+        i++;
+      }
+      const langAttr = lang ? ' class="language-' + lang + '"' : '';
+      output.push('<pre><code' + langAttr + '>' + htmlEscape(buf.join('\n')) + '</code></pre>');
+      continue;
+    }
 
     // Blank line, close open blocks
     if (line.trim() === '') {
