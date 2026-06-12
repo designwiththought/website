@@ -2268,6 +2268,121 @@ body::after {
   max-width: 60ch;
 }
 
+/* ============ SERIES NAV ============
+   Shown at the top of any article that has a series: field. Lists every
+   part, marks the current one. Lives inside the reader column. */
+.series-nav {
+  margin: var(--s-5) 0 var(--s-7);
+  padding: var(--s-5) var(--s-5);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-4);
+  background: color-mix(in oklch, var(--bg-sunken) 70%, transparent);
+}
+.series-nav__caption {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 var(--s-4);
+  flex-wrap: wrap;
+}
+.series-nav__meta {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--fg-muted);
+}
+.series-nav__meta em {
+  font-style: italic;
+  color: var(--fg);
+  font-weight: 500;
+}
+.series-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.series-nav__row {
+  border-top: 1px solid var(--rule);
+}
+.series-nav__row:first-child { border-top: 0; }
+.series-nav__link {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding: 10px 0;
+  text-decoration: none;
+  color: inherit;
+}
+a.series-nav__link:hover .series-nav__title { color: var(--accent); }
+.series-nav__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-subtle);
+  letter-spacing: 0;
+}
+.series-nav__body { min-width: 0; }
+.series-nav__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--ink-900);
+  letter-spacing: var(--tracking-tight);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+[data-theme="dark"] .series-nav__title { color: var(--fg); }
+.series-nav__row.is-current .series-nav__title { color: var(--accent); }
+.series-nav__here {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.series-nav__row.is-current .series-nav__link {
+  cursor: default;
+}
+
+/* ============ SERIES PREV / NEXT ============
+   Two-column row at the end of a series article. */
+.series-prevnext {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5);
+  margin: var(--s-8) 0 var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule);
+}
+.series-prevnext__link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--s-4) 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--r-3);
+}
+.series-prevnext__link--next { text-align: right; align-items: flex-end; }
+.series-prevnext__link:hover .series-prevnext__title { color: var(--accent); }
+.series-prevnext__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.25;
+  color: var(--ink-900);
+  letter-spacing: var(--tracking-tight);
+  max-width: 32ch;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+[data-theme="dark"] .series-prevnext__title { color: var(--fg); }
+@media (max-width: 640px) {
+  .series-prevnext { grid-template-columns: 1fr; }
+  .series-prevnext__link--next { text-align: left; align-items: flex-start; }
+}
+
 /* Footer social row */
 .site-footer__social {
   list-style: none; padding: 0; margin: 18px 0 0;
