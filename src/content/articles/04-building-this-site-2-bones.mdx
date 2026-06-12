@@ -1,0 +1,89 @@
+---
+slug: building-this-site-2-bones
+kind: "Build series"
+seriesPart: 2
+title: "Building this site, part 2: the bones"
+summary: "The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML."
+date: "10 June 2026"
+read: "5 min"
+tag1: "Build series"
+tag2: "Static sites"
+toc:
+  - id: "the-folders"
+    label: "The folders"
+  - id: "the-loop"
+    label: "The read-render-write loop"
+  - id: "no-dependencies"
+    label: "Why no dependencies"
+---
+
+<Dropcap text="A static site generator, stripped to its essentials, does three things. It reads files from a content folder. It runs them through templates. It writes HTML files into an output folder. Everything else is decoration." />
+
+This second part shows you the shape of the project: where the files live, what each folder is for, and the loop that ties them together.
+
+## The folders
+
+Here's the whole structure. It fits in one screen, on purpose:
+
+```
+website/
+  build.js              the entire build script
+  src/
+    content/            markdown + JSON, one file per piece
+    layouts/            HTML templates with {{...}} placeholders
+    components/         the four MDX components I actually use
+    css/                tokens, kit, site styles
+    js/                 small enhancers, one per concern
+  dist/                 built site, written fresh on every build
+  .github/workflows/    one file: build on push, deploy to Pages
+```
+
+If you can navigate a Finder window, you can navigate the project. There's no `node_modules`, no `.cache`, no `.next`, no `pages/` vs `app/` distinction.
+
+`content/` is the only folder that grows over time. Everything else stays roughly the size it is today.
+
+## The read-render-write loop
+
+The whole build is one async function. In pseudocode it looks like this:
+
+```
+async function build() {
+  cleanDist();
+
+  const site = readJson('content/site.json');
+  const articles = readMdxDir('content/articles');
+  const notes    = readMdxDir('content/notes');
+  // …read the rest
+
+  const layouts = readLayouts('layouts/');
+
+  for (const article of articles) {
+    const html = render(layouts.article, { ...site, ...article });
+    writePage(`dist/${article.url}/index.html`, html);
+  }
+
+  // …same loop for notes, projects, indexes, feeds
+}
+```
+
+That's it. Each content file becomes one page on the way out. Each index page is built by feeding a list of items into a list template. Feeds are built the same way, just with an XML template instead of HTML.
+
+The whole loop runs in about 250 milliseconds on my laptop. Fast enough that I never wait for it.
+
+## Why no dependencies
+
+Every npm package I add is a promise I'll be in a relationship with that package for as long as the site exists. Most of those relationships don't age well.
+
+Two examples from sites I built before this one:
+
+- A markdown library that decided to break its named-export shape between minor versions. Half a Saturday lost.
+
+- A bundler plugin that worked great until a Node version bump, then silently emitted broken CSS. Two essays' worth of head-scratching to find.
+
+Neither of those was the package author's fault. Software changes. Stack rot is the default state of the internet. The only defence I've found is to depend on fewer things.
+
+<Pullquote text="Every npm package I add is a promise I'll be in a relationship with that package for as long as the site exists." cite="this essay, the section above" />
+
+Node's standard library is the one dependency I can't avoid, but it has the best backwards-compatibility story in the industry. Code I wrote for Node 12 still runs unchanged.
+
+The price I pay for this is that I have to write the things a framework would give me for free: a tiny template engine, a tiny markdown parser, my own RSS writer. The next two parts walk through those pieces. None of them is more than 60 lines.

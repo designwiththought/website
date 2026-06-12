@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building this site, part 3: a 60-line template engine, Thought Grain</title>
+  <meta name="description" content="The whole template language, written in three regexes, and the one bug I shipped twice.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="alternate" type="application/atom+xml" title="Building this site, part 3: a 60-line template engine, all updates" href="../../feed.xml">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
+    <div class="site-nav__inner">
+      <a class="site-nav__home" href="../../" aria-label="Home">Home</a>
+      <div class="site-nav__links">
+        <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+          <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button
+          id="menu-open"
+          class="site-nav__menu-btn"
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="site-menu-dialog"
+        >
+          <span>Menu</span>
+          <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div
+    id="site-menu-dialog"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-menu-dialog-heading"
+    hidden
+  >
+    <div class="drawer__head">
+      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse</h2>
+      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Drawer body generated from src/content/nav.json. Flip an item's
+         enabled flag to hide/show it without touching the layout. Pages
+         themselves keep building either way. -->
+    <div class="drawer__body"><section aria-labelledby="drawer-grp-start"><h3 id="drawer-grp-start" class="drawer__group-title">Start</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../"><span class="drawer__item-label">Home</span><span class="drawer__item-note">The front porch</span></a></li><li><a class="drawer__item" href="../../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li></ul></section><section aria-labelledby="drawer-grp-writing"><h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li></ul></section><section aria-labelledby="drawer-grp-about"><h3 id="drawer-grp-about" class="drawer__group-title">About</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li><li><a class="drawer__item" href="../../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li></ul></section></div>
+  </div>
+
+    <main id="main">
+    <div class="reader-with-toc">
+      <article class="reader">
+        <a class="btn btn--link reader__back" href="../../colophon/">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+          <span class="reader__back-label">Back to colophon</span>
+        </a>
+        <div class="reader__kicker"><span class="kicker">Build series</span></div>
+        <h1>Building this site, part 3: a 60-line template engine</h1>
+        <p class="reader__dek">The whole template language, written in three regexes, and the one bug I shipped twice.</p>
+        <div class="reader__meta">
+          <span class="kicker">11 June 2026</span>
+          <span class="kicker">&middot; 6 min</span>
+          <span class="kicker">&middot; Build series</span>
+          <span class="kicker">&middot; Static sites</span>
+          
+        </div>
+        <div class="reader__body prose">
+          <p class="dropcap">A template engine is one of those things you assume is hard until you write one. The honest version, for a personal site, is three regexes and a loop. This post walks through the whole thing.</p>
+<p>I needed exactly enough template syntax to interpolate values, loop a list, and skip a block conditionally. Anything beyond that, I told myself, was a sign I should rewrite the content rather than the engine.</p>
+<h2 id="what-it-supports">What it supports</h2>
+<p>Three constructs:</p>
+<ul>
+<li><code>{{key}}</code> substitutes a value by name. Nested keys with dots: <code>{{a.b.c}}</code>.</li>
+<li><code>{{#each list}}…{{/each}}</code> repeats the block once per item in a list.</li>
+<li><code>{{#if key}}…{{/if}}</code> includes the block when <code>key</code> is truthy.</li>
+</ul>
+<p>That's the whole language. No filters, no partials, no escape syntax. If I need something complicated I do it in JavaScript in the build script and pass the finished HTML in as a string.</p>
+<p>A page template ends up looking like this:</p>
+<p><code>`</code>html</p>
+<h1>Building this site, part 3: a 60-line template engine</h1>
+<p class="lead">The whole template language, written in three regexes, and the one bug I shipped twice.</p>
+<p>{{#if hasTags}}</p>
+  <ul class="tags">
+<p>    {{#each tags}}<li>{{label}}</li>{{/each}}</p>
+<p>  </ul></p>
+<p>{{/if}}</p>
+<p><code>`</code></p>
+<h2 id="the-three-passes">The three passes</h2>
+<p><code>renderTemplate(template, data)</code> runs three passes over the string, in order, until nothing changes.</p>
+<p><strong>Pass 1: <code>{{#each}}</code> blocks.</strong> A regex finds the innermost <code>{{#each name}}…{{/each}}</code> whose body contains no further <code>each</code>. Each item in the named array gets merged into the data object, the block is rendered against that merged data, and the results are joined. Repeat until no <code>each</code> blocks remain.</p>
+<p><strong>Pass 2: <code>{{#if}}</code> blocks.</strong> Same shape as <code>each</code>: innermost first, looped until stable. If the key is truthy, render the block with the current data; otherwise emit an empty string.</p>
+<p><strong>Pass 3: simple <code>{{key}}</code> substitution.</strong> Walk the regex over remaining <code>{{name}}</code> tokens and replace each with the value at that key. If the value is itself a string containing <code>{{…}}</code> tokens, those get picked up in the next iteration of the loop, until the output stops changing.</p>
+<p>That last detail matters. Without it, an interpolation like <code>{{drawerHtml}}</code> that expands into HTML containing <code>../../</code> would ship the literal <code>../../</code> to the browser. (I know this because I shipped that bug.)</p>
+<h2 id="the-bug-i-shipped-twice">The bug I shipped twice</h2>
+<p>The original engine ran each pass once. It looked clean. It also failed in two places I didn't notice for weeks.</p>
+<p>The first place was nested <code>{{#if}}</code> blocks. My regex was non-greedy with no nesting awareness, so on input like this:</p>
+<p><code>`</code></p>
+<p>{{#if outer}}</p>
+<p>  …</p>
+<p>  {{#if inner}}…{{/if}}</p>
+<p>  …</p>
+<p>{{/if}}</p>
+<p><code>`</code></p>
+<p>…it grabbed the <em>first</em> <code>{{/if}}</code> it saw as the outer's closing tag. That's the inner one. Everything between the inner close and the outer close fell out of the parse and shipped as literal text.</p>
+<p>The fix was to change the regex so the body explicitly forbids a nested <code>{{#if}}</code>, then loop the replacement until stable. Innermost blocks resolve first; once they're gone the outer block matches cleanly.</p>
+<p>The second place was the interpolation-inside-interpolation case I mentioned. Same fix shape: loop the simple-key pass until the output stops changing.</p>
+<blockquote class="pullquote">The honest version, for a personal site, is three regexes and a loop.</blockquote>
+<p>The engine is still 60 lines. It still has no escaping, no filters, no partials. But it now handles nested blocks and resolves transitively-injected placeholders. Which, for a site whose biggest template is a few hundred lines, is plenty.</p>
+<p>The next part shows you what feeds into it: the content files, their frontmatter, and the four MDX components I kept.</p>
+        </div>
+        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../build/building-this-site-1-why/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 4 min</span></div><h3 class="essay-card__title">Building this site, part 1: why I rolled my own</h3><p class="essay-card__dek">Why I built a static site by hand instead of reaching for a framework, and what I was optimising for.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a><a class="essay-card essay-card--compact" href="../../build/building-this-site-2-bones/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 5 min</span></div><h3 class="essay-card__title">Building this site, part 2: the bones</h3><p class="essay-card__dek">The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a></div></div>
+      </article>
+
+      
+      <aside class="toc" aria-label="Table of contents">
+        <div class="toc__title">In this essay</div>
+        <ol>
+          
+          <li><a href="#what-it-supports">What it supports</a></li>
+          
+          <li><a href="#the-three-passes">The three passes</a></li>
+          
+          <li><a href="#the-bug">The bug I shipped twice</a></li>
+          
+        </ol>
+        <div class="toc__aside"><span class="kicker">Read next</span><ul class="toc__next"><li><a href="../../build/building-this-site-1-why/">Building this site, part 1: why I rolled my own</a></li><li><a href="../../build/building-this-site-2-bones/">Building this site, part 2: the bones</a></li></ul></div>
+      </aside>
+      
+    </div>
+  </main>
+
+
+  <footer class="site-footer">
+    <!-- Footer groups generated from src/content/nav.json. -->
+    <div class="site-footer__groups"><section class="site-footer__group" aria-labelledby="footer-grp-start"><h2 id="footer-grp-start" class="site-footer__group-title">Start</h2><ul><li><a href="../../">Home</a></li><li><a href="../../now/">Now</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-writing"><h2 id="footer-grp-writing" class="site-footer__group-title">Writing</h2><ul><li><a href="../../notes/">Notes</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-about"><h2 id="footer-grp-about" class="site-footer__group-title">About</h2><ul><li><a href="../../about/">About</a></li><li><a href="../../colophon/">Colophon</a></li><li><a href="../../feed.xml">RSS</a></li><li><a href="mailto:you@yourdomain.com">Email</a></li></ul></section></div>
+    <div class="site-footer__credit">
+      <span>&copy; 2021&ndash;2026 Thought Grain</span>
+      <span>&middot;</span>
+      <span>Set in Newsreader &amp; Inter</span>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building this site, part 4: content as markdown + frontmatter, Thought Grain</title>
+  <meta name="description" content="The MDX-flavoured markdown that feeds the build, and the four custom components I actually use.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="alternate" type="application/atom+xml" title="Building this site, part 4: content as markdown + frontmatter, all updates" href="../../feed.xml">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
+    <div class="site-nav__inner">
+      <a class="site-nav__home" href="../../" aria-label="Home">Home</a>
+      <div class="site-nav__links">
+        <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+          <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button
+          id="menu-open"
+          class="site-nav__menu-btn"
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="site-menu-dialog"
+        >
+          <span>Menu</span>
+          <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div
+    id="site-menu-dialog"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-menu-dialog-heading"
+    hidden
+  >
+    <div class="drawer__head">
+      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse</h2>
+      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Drawer body generated from src/content/nav.json. Flip an item's
+         enabled flag to hide/show it without touching the layout. Pages
+         themselves keep building either way. -->
+    <div class="drawer__body"><section aria-labelledby="drawer-grp-start"><h3 id="drawer-grp-start" class="drawer__group-title">Start</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../"><span class="drawer__item-label">Home</span><span class="drawer__item-note">The front porch</span></a></li><li><a class="drawer__item" href="../../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li></ul></section><section aria-labelledby="drawer-grp-writing"><h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li></ul></section><section aria-labelledby="drawer-grp-about"><h3 id="drawer-grp-about" class="drawer__group-title">About</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li><li><a class="drawer__item" href="../../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li></ul></section></div>
+  </div>
+
+    <main id="main">
+    <div class="reader-with-toc">
+      <article class="reader">
+        <a class="btn btn--link reader__back" href="../../colophon/">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+          <span class="reader__back-label">Back to colophon</span>
+        </a>
+        <div class="reader__kicker"><span class="kicker">Build series</span></div>
+        <h1>Building this site, part 4: content as markdown + frontmatter</h1>
+        <p class="reader__dek">The MDX-flavoured markdown that feeds the build, and the four custom components I actually use.</p>
+        <div class="reader__meta">
+          <span class="kicker">11 June 2026</span>
+          <span class="kicker">&middot; 5 min</span>
+          <span class="kicker">&middot; Build series</span>
+          <span class="kicker">&middot; Static sites</span>
+          
+        </div>
+        <div class="reader__body prose">
+          <p class="dropcap">Every piece of content on this site is a plain text file. Open it in any editor. Read it without rendering. Commit it like any other file. There's no database, no admin, no live preview. Just markdown with a YAML header on top.</p>
+<p>This part walks through how content is shaped, parsed, and turned into the data that the templates from the last part consume.</p>
+<h2 id="frontmatter-is-configuration">Frontmatter is configuration</h2>
+<p>Every content file opens with a small YAML block:</p>
+<p><code>`</code>yaml</p>
+<hr>
+<p>slug: hello</p>
+<p>kind: Essay</p>
+<p>title: "A hello-world essay"</p>
+<p>summary: "A short dek that previews the piece."</p>
+<p>date: "10 June 2026"</p>
+<p>read: "3 min"</p>
+<p>tag1: "Greetings"</p>
+<p>toc:</p>
+<p>  - id: "intro"</p>
+<p>    label: "Introduction"</p>
+<hr>
+<p><code>`</code></p>
+<p>The parser is a tiny function: take everything between the two <code>---</code> lines, split on newlines, split each line on the first colon, store the key/value pairs in an object. YAML it isn't, exactly, but it covers what I need: strings, numbers, booleans, and arrays of objects for the table of contents.</p>
+<p>Each field becomes a property the template can reference. <code>Building this site, part 4: content as markdown + frontmatter</code> pulls from <code>title</code>. <code>{{#each toc}}</code> walks the table of contents array. The pieces from the last post fall into place.</p>
+<h2 id="mdx-but-only-the-bits-i-need">MDX, but only the bits I need</h2>
+<p>Below the frontmatter is the body. It's markdown with one twist: I allow a small set of custom components written as XML-ish tags.</p>
+<p><code>`</code>mdx</p>
+<p class="dropcap">An opening line, set in the display face, with the first letter dropped two lines.</p>
+<p>The rest of the paragraph runs as normal markdown. Headings, lists, <strong>bold</strong>, <em>italic</em>, <a href="https://example.com">links</a>, inline <code>code</code>, and code blocks.</p>
+<blockquote class="pullquote">A sentence worth pulling out.<span class="pullquote__cite">my own essay, this paragraph</span></blockquote>
+<p>More body text. The pull quote breaks the column with a generous left rule.</p>
+<p><code>`</code></p>
+<p>The parser runs in two stages. First, it finds and lifts the custom component tags into placeholders, recording the props for each. Then it hands the remaining markdown to a tiny markdown-to-HTML function. Once the markdown is HTML, it slots the rendered components back in at their placeholders.</p>
+<p>That order matters: if you let markdown see the tags, it tries to interpret the angle brackets and the props get mangled.</p>
+<h2 id="the-four-components-i-kept">The four components I kept</h2>
+<p>I started with a long list of MDX components and trimmed every time I found myself using one only once. The set I shipped is four:</p>
+<ul>
+<li><strong><code><p class="dropcap">…</p></code></strong> drops the first letter of the opening paragraph into a display-typeface initial. One per essay, occasionally none.</li>
+</ul>
+<ul>
+<li><strong><code><blockquote class="pullquote">…<span class="pullquote__cite">…</span></blockquote></code></strong> breaks a sentence into the margin with the source attributed below. The <code><PullquoteNoCite></code> variant is for when the quote stands alone.</li>
+</ul>
+<ul>
+<li><strong><code><span class="marginalia-pin marginalia-pin--right"><span class="marginalia marginalia--rotated" style="--marginalia-rotate: {{rotate}}deg">…</span></span></code></strong> drops a handwritten note into the right gutter on wide viewports and hides on narrower screens. It's the only piece of the design that actively rewards a big monitor.</li>
+</ul>
+<ul>
+<li><strong>A footnote shorthand</strong> — <code><sup><a href="#fn1" id="ref1" class="footnote-ref" aria-label="Footnote 1, see source">[1]</a></sup></code> — that renders as a small numbered reference inline and collects the texts into a list at the end of the piece.</li>
+</ul>
+<p>Anything else I would have built — embeds, image galleries, callouts, code playgrounds — I left out. If I ever need them I'll add them. So far I haven't.</p>
+<blockquote class="pullquote">I started with a long list of MDX components and trimmed every time I found myself using one only once.<span class="pullquote__cite">this essay, two paragraphs ago</span></blockquote>
+<p>The next and last part walks through deploy: GitHub Actions, GitHub Pages, and the single workflow file that connects the dots.</p>
+        </div>
+        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../build/building-this-site-1-why/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 4 min</span></div><h3 class="essay-card__title">Building this site, part 1: why I rolled my own</h3><p class="essay-card__dek">Why I built a static site by hand instead of reaching for a framework, and what I was optimising for.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a><a class="essay-card essay-card--compact" href="../../build/building-this-site-2-bones/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 5 min</span></div><h3 class="essay-card__title">Building this site, part 2: the bones</h3><p class="essay-card__dek">The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a></div></div>
+      </article>
+
+      
+      <aside class="toc" aria-label="Table of contents">
+        <div class="toc__title">In this essay</div>
+        <ol>
+          
+          <li><a href="#frontmatter">Frontmatter is configuration</a></li>
+          
+          <li><a href="#mdx-lite">MDX, but only the bits I need</a></li>
+          
+          <li><a href="#components">The four components I kept</a></li>
+          
+        </ol>
+        <div class="toc__aside"><span class="kicker">Read next</span><ul class="toc__next"><li><a href="../../build/building-this-site-1-why/">Building this site, part 1: why I rolled my own</a></li><li><a href="../../build/building-this-site-2-bones/">Building this site, part 2: the bones</a></li></ul></div>
+      </aside>
+      
+    </div>
+  </main>
+
+
+  <footer class="site-footer">
+    <!-- Footer groups generated from src/content/nav.json. -->
+    <div class="site-footer__groups"><section class="site-footer__group" aria-labelledby="footer-grp-start"><h2 id="footer-grp-start" class="site-footer__group-title">Start</h2><ul><li><a href="../../">Home</a></li><li><a href="../../now/">Now</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-writing"><h2 id="footer-grp-writing" class="site-footer__group-title">Writing</h2><ul><li><a href="../../notes/">Notes</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-about"><h2 id="footer-grp-about" class="site-footer__group-title">About</h2><ul><li><a href="../../about/">About</a></li><li><a href="../../colophon/">Colophon</a></li><li><a href="../../feed.xml">RSS</a></li><li><a href="mailto:you@yourdomain.com">Email</a></li></ul></section></div>
+    <div class="site-footer__credit">
+      <span>&copy; 2021&ndash;2026 Thought Grain</span>
+      <span>&middot;</span>
+      <span>Set in Newsreader &amp; Inter</span>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

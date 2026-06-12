@@ -725,14 +725,24 @@ async function build() {
     m.starsHtml = '<span aria-hidden="true">' + filled + empty + '</span>';
   });
 
-  // Partition articles into essays and studies by kind. Each piece gets its
-  // own page at /essays/<slug>/ or /studies/<slug>/, so compute the url up
-  // front so every template that lists articles can reach the right place.
+  // Partition articles into essays, studies, and build-series by kind.
+  // Each piece gets its own page; compute the url up front so every
+  // template that lists articles can reach the right place. Build series
+  // posts are routed under /build/<slug>/ and surfaced from the colophon,
+  // not the essays index.
   articles.forEach(function (a) {
-    var dir = a.kind === 'Study' ? 'studies' : 'essays';
+    var dir;
+    if (a.kind === 'Study') dir = 'studies';
+    else if (a.kind === 'Build series') dir = 'build';
+    else dir = 'essays';
     a.url = dir + '/' + a.slug + '/';
   });
-  var essays = articles.filter(function (a) { return a.kind !== 'Study'; });
+  var buildSeries = articles
+    .filter(function (a) { return a.kind === 'Build series'; })
+    .sort(function (a, b) { return (a.seriesPart || 0) - (b.seriesPart || 0); });
+  var essays = articles.filter(function (a) {
+    return a.kind !== 'Study' && a.kind !== 'Build series';
+  });
   var studies = articles.filter(function (a) { return a.kind === 'Study'; });
 
   // Pre-render the grouped notes list for the /notes/ index and the homepage.
@@ -1066,14 +1076,15 @@ async function build() {
       var itemDir = path.join(DIST, dir, item.slug);
       mkdirp(itemDir);
 
-      // Two pieces that aren't this one, same pool the design picks from
-      // (all articles, not just essays or studies). Keeps the two lists in
-      // sync: compact cards under the body + link list in the TOC.
-      var related = articles.filter(function (a) { return a.slug !== item.slug; }).slice(0, 2);
+      // Two pieces that aren't this one. Default pool is all articles; a
+      // caller (like the build series) can override with its own pool so
+      // related stays inside the series.
+      var pool = meta.relatedPool || articles;
+      var related = pool.filter(function (a) { return a.slug !== item.slug; }).slice(0, 2);
 
       var data = Object.assign({}, siteData, item, {
         basePath: '../../',
-        backHref: dir + '/',
+        backHref: meta.backHref || (dir + '/'),
         backLabel: meta.backLabel,
         relatedHtml: renderRelatedHtml(related),
         readNextHtml: renderReadNextHtml(related),
@@ -1106,6 +1117,39 @@ async function build() {
     kindLabel: 'studies'
   });
   buildWritingReader('studies', studies, { backLabel: 'All studies' });
+
+  // 8a. Build series posts: routed under /build/<slug>/, linked from the
+  // colophon. Same article reader layout as essays/studies; related pool
+  // is the series itself so navigation stays inside the series.
+  buildWritingReader('build', buildSeries, {
+    backLabel: 'Back to colophon',
+    backHref: 'colophon/',
+    relatedPool: buildSeries
+  });
+
+  // Pre-render the series list HTML the colophon uses to surface the
+  // posts. Each row is a small numbered link with title + summary.
+  function renderBuildSeriesListHtml() {
+    if (!buildSeries.length) return '';
+    var items = buildSeries.map(function (p) {
+      var num = p.seriesPart ? '<span class="build-series__num">' + String(p.seriesPart).padStart(2, '0') + '</span>' : '';
+      return '<li class="build-series__row">' +
+               '<a class="build-series__link" href="{{basePath}}' + p.url + '">' +
+                 num +
+                 '<span class="build-series__body">' +
+                   '<span class="build-series__title">' + p.title.replace(/^Building this site, /, '') + '</span>' +
+                   '<span class="build-series__dek">' + p.summary + '</span>' +
+                 '</span>' +
+               '</a>' +
+             '</li>';
+    }).join('');
+    return '<section class="build-series">' +
+             '<h2 class="build-series__heading">How this site was built</h2>' +
+             '<p class="build-series__intro">A short series on the rules, the bones, the template engine, the content, and the deploy.</p>' +
+             '<ol class="build-series__list">' + items + '</ol>' +
+           '</section>';
+  }
+  var buildSeriesListHtml = renderBuildSeriesListHtml();
 
   // 9. Build projects index, grouped by lifecycle status so visitors can
   // see what's alive at a glance instead of hunting through dates. The
@@ -1300,6 +1344,7 @@ async function build() {
   mkdirp(path.join(DIST, 'colophon'));
   var colophonTemplateData = Object.assign({}, siteData, {
     items: colophonData.items,
+    buildSeriesHtml: buildSeriesListHtml,
     basePath: '../',
     iconSprite: iconSprite,
     pageTitle: 'Colophon, ' + siteData.title,

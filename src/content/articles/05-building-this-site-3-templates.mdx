@@ -1,0 +1,82 @@
+---
+slug: building-this-site-3-templates
+kind: "Build series"
+seriesPart: 3
+title: "Building this site, part 3: a 60-line template engine"
+summary: "The whole template language, written in three regexes, and the one bug I shipped twice."
+date: "11 June 2026"
+read: "6 min"
+tag1: "Build series"
+tag2: "Static sites"
+toc:
+  - id: "what-it-supports"
+    label: "What it supports"
+  - id: "the-three-passes"
+    label: "The three passes"
+  - id: "the-bug"
+    label: "The bug I shipped twice"
+---
+
+<Dropcap text="A template engine is one of those things you assume is hard until you write one. The honest version, for a personal site, is three regexes and a loop. This post walks through the whole thing." />
+
+I needed exactly enough template syntax to interpolate values, loop a list, and skip a block conditionally. Anything beyond that, I told myself, was a sign I should rewrite the content rather than the engine.
+
+## What it supports
+
+Three constructs:
+
+- `{{key}}` substitutes a value by name. Nested keys with dots: `{{a.b.c}}`.
+- `{{#each list}}…{{/each}}` repeats the block once per item in a list.
+- `{{#if key}}…{{/if}}` includes the block when `key` is truthy.
+
+That's the whole language. No filters, no partials, no escape syntax. If I need something complicated I do it in JavaScript in the build script and pass the finished HTML in as a string.
+
+A page template ends up looking like this:
+
+```html
+<h1>{{title}}</h1>
+<p class="lead">{{summary}}</p>
+{{#if hasTags}}
+  <ul class="tags">
+    {{#each tags}}<li>{{label}}</li>{{/each}}
+  </ul>
+{{/if}}
+```
+
+## The three passes
+
+`renderTemplate(template, data)` runs three passes over the string, in order, until nothing changes.
+
+**Pass 1: `{{#each}}` blocks.** A regex finds the innermost `{{#each name}}…{{/each}}` whose body contains no further `each`. Each item in the named array gets merged into the data object, the block is rendered against that merged data, and the results are joined. Repeat until no `each` blocks remain.
+
+**Pass 2: `{{#if}}` blocks.** Same shape as `each`: innermost first, looped until stable. If the key is truthy, render the block with the current data; otherwise emit an empty string.
+
+**Pass 3: simple `{{key}}` substitution.** Walk the regex over remaining `{{name}}` tokens and replace each with the value at that key. If the value is itself a string containing `{{…}}` tokens, those get picked up in the next iteration of the loop, until the output stops changing.
+
+That last detail matters. Without it, an interpolation like `{{drawerHtml}}` that expands into HTML containing `{{basePath}}` would ship the literal `{{basePath}}` to the browser. (I know this because I shipped that bug.)
+
+## The bug I shipped twice
+
+The original engine ran each pass once. It looked clean. It also failed in two places I didn't notice for weeks.
+
+The first place was nested `{{#if}}` blocks. My regex was non-greedy with no nesting awareness, so on input like this:
+
+```
+{{#if outer}}
+  …
+  {{#if inner}}…{{/if}}
+  …
+{{/if}}
+```
+
+…it grabbed the *first* `{{/if}}` it saw as the outer's closing tag. That's the inner one. Everything between the inner close and the outer close fell out of the parse and shipped as literal text.
+
+The fix was to change the regex so the body explicitly forbids a nested `{{#if}}`, then loop the replacement until stable. Innermost blocks resolve first; once they're gone the outer block matches cleanly.
+
+The second place was the interpolation-inside-interpolation case I mentioned. Same fix shape: loop the simple-key pass until the output stops changing.
+
+<PullquoteNoCite text="The honest version, for a personal site, is three regexes and a loop." />
+
+The engine is still 60 lines. It still has no escaping, no filters, no partials. But it now handles nested blocks and resolves transitively-injected placeholders. Which, for a site whose biggest template is a few hundred lines, is plenty.
+
+The next part shows you what feeds into it: the content files, their frontmatter, and the four MDX components I kept.

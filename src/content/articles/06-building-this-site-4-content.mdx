@@ -1,0 +1,81 @@
+---
+slug: building-this-site-4-content
+kind: "Build series"
+seriesPart: 4
+title: "Building this site, part 4: content as markdown + frontmatter"
+summary: "The MDX-flavoured markdown that feeds the build, and the four custom components I actually use."
+date: "11 June 2026"
+read: "5 min"
+tag1: "Build series"
+tag2: "Static sites"
+toc:
+  - id: "frontmatter"
+    label: "Frontmatter is configuration"
+  - id: "mdx-lite"
+    label: "MDX, but only the bits I need"
+  - id: "components"
+    label: "The four components I kept"
+---
+
+<Dropcap text="Every piece of content on this site is a plain text file. Open it in any editor. Read it without rendering. Commit it like any other file. There's no database, no admin, no live preview. Just markdown with a YAML header on top." />
+
+This part walks through how content is shaped, parsed, and turned into the data that the templates from the last part consume.
+
+## Frontmatter is configuration
+
+Every content file opens with a small YAML block:
+
+```yaml
+---
+slug: hello
+kind: Essay
+title: "A hello-world essay"
+summary: "A short dek that previews the piece."
+date: "10 June 2026"
+read: "3 min"
+tag1: "Greetings"
+toc:
+  - id: "intro"
+    label: "Introduction"
+---
+```
+
+The parser is a tiny function: take everything between the two `---` lines, split on newlines, split each line on the first colon, store the key/value pairs in an object. YAML it isn't, exactly, but it covers what I need: strings, numbers, booleans, and arrays of objects for the table of contents.
+
+Each field becomes a property the template can reference. `{{title}}` pulls from `title`. `{{#each toc}}` walks the table of contents array. The pieces from the last post fall into place.
+
+## MDX, but only the bits I need
+
+Below the frontmatter is the body. It's markdown with one twist: I allow a small set of custom components written as XML-ish tags.
+
+```mdx
+<Dropcap text="An opening line, set in the display face, with the first letter dropped two lines." />
+
+The rest of the paragraph runs as normal markdown. Headings, lists, **bold**, *italic*, [links](https://example.com), inline `code`, and code blocks.
+
+<Pullquote text="A sentence worth pulling out." cite="my own essay, this paragraph" />
+
+More body text. The pull quote breaks the column with a generous left rule.
+```
+
+The parser runs in two stages. First, it finds and lifts the custom component tags into placeholders, recording the props for each. Then it hands the remaining markdown to a tiny markdown-to-HTML function. Once the markdown is HTML, it slots the rendered components back in at their placeholders.
+
+That order matters: if you let markdown see the tags, it tries to interpret the angle brackets and the props get mangled.
+
+## The four components I kept
+
+I started with a long list of MDX components and trimmed every time I found myself using one only once. The set I shipped is four:
+
+- **`<Dropcap text="…" />`** drops the first letter of the opening paragraph into a display-typeface initial. One per essay, occasionally none.
+
+- **`<Pullquote text="…" cite="…" />`** breaks a sentence into the margin with the source attributed below. The `<PullquoteNoCite>` variant is for when the quote stands alone.
+
+- **`<MarginaliaPin text="…" />`** drops a handwritten note into the right gutter on wide viewports and hides on narrower screens. It's the only piece of the design that actively rewards a big monitor.
+
+- **A footnote shorthand** — `<Footnote id="1" text="…" />` — that renders as a small numbered reference inline and collects the texts into a list at the end of the piece.
+
+Anything else I would have built — embeds, image galleries, callouts, code playgrounds — I left out. If I ever need them I'll add them. So far I haven't.
+
+<Pullquote text="I started with a long list of MDX components and trimmed every time I found myself using one only once." cite="this essay, two paragraphs ago" />
+
+The next and last part walks through deploy: GitHub Actions, GitHub Pages, and the single workflow file that connects the dots.
