@@ -6,7 +6,7 @@
   <link href="https://yourdomain.example/podcasts/" />
   <link rel="self" type="application/atom+xml" href="https://yourdomain.example/podcasts/feed.xml" />
   <id>https://yourdomain.example/podcasts/feed.xml</id>
-  <updated>2026-06-12T22:26:17.374Z</updated>
+  <updated>2026-06-12T22:31:36.257Z</updated>
   <author>
     <name>Thought Grain</name>
     <email>you@yourdomain.com</email>
@@ -15,7 +15,7 @@
     <title>Podcast title</title>
     <link href="https://yourdomain.example/podcasts/a-podcast/" />
     <id>https://yourdomain.example/podcasts/a-podcast/</id>
-    <updated>2026-06-12T22:26:17.374Z</updated>
+    <updated>2026-06-12T22:31:36.257Z</updated>
     <summary>What you reach for it for. Status is freeform, &apos;Subscribed&apos;, &apos;Seasonal&apos;, &apos;Occasional&apos;.</summary>
   </entry>
 </feed>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Building this site, part 2: the bones, Thought Grain</title>
+  <title>Building this site, part 2: The bones, Thought Grain</title>
   <meta name="description" content="The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/style.css">
-  <link rel="alternate" type="application/atom+xml" title="Building this site, part 2: the bones, all updates" href="../../feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="Building this site, part 2: The bones, all updates" href="../../feed.xml">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -66,7 +66,7 @@
           <span class="reader__back-label">Back to colophon</span>
         </a>
         <div class="reader__kicker"><span class="kicker">Build series</span></div>
-        <h1>Building this site, part 2: the bones</h1>
+        <h1>Building this site, part 2: The bones</h1>
         <p class="reader__dek">The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.</p>
         <div class="reader__meta">
           <span class="kicker">10 June 2026</span>
@@ -75,7 +75,7 @@
           <span class="kicker">&middot; Static sites</span>
           
         </div>
-        <aside class="series-nav" aria-label="Building this site series navigation"><div class="series-nav__caption"><span class="kicker">Series</span><span class="series-nav__meta">Part 2 of 5 in <em>Building this site</em></span></div><ol class="series-nav__list"><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-1-why/"><span class="series-nav__num">01</span><span class="series-nav__body"><span class="series-nav__title">why I rolled my own</span></span></a></li><li class="series-nav__row is-current"><span class="series-nav__link" aria-current="page"><span class="series-nav__num">02</span><span class="series-nav__body"><span class="series-nav__title">the bones</span></span><span class="series-nav__here" aria-label="You are here">You are here</span></span></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-3-templates/"><span class="series-nav__num">03</span><span class="series-nav__body"><span class="series-nav__title">a 60-line template engine</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-4-content/"><span class="series-nav__num">04</span><span class="series-nav__body"><span class="series-nav__title">content as markdown + frontmatter</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-5-deploy/"><span class="series-nav__num">05</span><span class="series-nav__body"><span class="series-nav__title">deploy in 20 lines of YAML</span></span></a></li></ol></aside>
+        <aside class="series-nav" aria-label="Building this site series navigation"><div class="series-nav__caption"><span class="kicker">Series</span><span class="series-nav__meta">Part 2 of 5 in <em>Building this site</em></span></div><ol class="series-nav__list"><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-1-why/"><span class="series-nav__num">01</span><span class="series-nav__body"><span class="series-nav__title">Why I rolled my own</span></span></a></li><li class="series-nav__row is-current"><span class="series-nav__link" aria-current="page"><span class="series-nav__num">02</span><span class="series-nav__body"><span class="series-nav__title">The bones</span></span><span class="series-nav__here" aria-label="You are here">You are here</span></span></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-3-templates/"><span class="series-nav__num">03</span><span class="series-nav__body"><span class="series-nav__title">A 60-line template engine</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-4-content/"><span class="series-nav__num">04</span><span class="series-nav__body"><span class="series-nav__title">Content as markdown + frontmatter</span></span></a></li><li class="series-nav__row"><a class="series-nav__link" href="../../build/building-this-site-5-deploy/"><span class="series-nav__num">05</span><span class="series-nav__body"><span class="series-nav__title">Deploy in 20 lines of YAML</span></span></a></li></ol></aside>
         <div class="reader__body prose">
           <p class="dropcap">A static site generator, stripped to its essentials, does three things. It reads files from a content folder. It runs them through templates. It writes HTML files into an output folder. Everything else is decoration.</p>
 <p>This second part shows you the shape of the project: where the files live, what each folder is for, and the loop that ties them together.</p>
@@ -128,7 +128,7 @@
 <p>Node's standard library is the one dependency I can't avoid, but it has the best backwards-compatibility story in the industry. Code I wrote for Node 12 still runs unchanged.</p>
 <p>The price I pay for this is that I have to write the things a framework would give me for free: a tiny template engine, a tiny markdown parser, my own RSS writer. The next two parts walk through those pieces. None of them is more than 60 lines.</p>
         </div>
-        <nav class="series-prevnext" aria-label="Series navigation"><a class="series-prevnext__link series-prevnext__link--prev" href="../../build/building-this-site-1-why/"><span class="kicker">Previous</span><span class="series-prevnext__title">why I rolled my own</span></a><a class="series-prevnext__link series-prevnext__link--next" href="../../build/building-this-site-3-templates/"><span class="kicker">Next</span><span class="series-prevnext__title">a 60-line template engine</span></a></nav>
+        <nav class="series-prevnext" aria-label="Series navigation"><a class="series-prevnext__link series-prevnext__link--prev" href="../../build/building-this-site-1-why/"><span class="kicker">Previous</span><span class="series-prevnext__title">Why I rolled my own</span></a><a class="series-prevnext__link series-prevnext__link--next" href="../../build/building-this-site-3-templates/"><span class="kicker">Next</span><span class="series-prevnext__title">A 60-line template engine</span></a></nav>
         
       </article>
 
