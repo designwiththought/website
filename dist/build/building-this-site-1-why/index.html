@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building this site, part 1: why I rolled my own, Thought Grain</title>
+  <meta name="description" content="Why I built a static site by hand instead of reaching for a framework, and what I was optimising for.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="alternate" type="application/atom+xml" title="Building this site, part 1: why I rolled my own, all updates" href="../../feed.xml">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav site-nav--drawer" aria-label="Primary">
+    <div class="site-nav__inner">
+      <a class="site-nav__home" href="../../" aria-label="Home">Home</a>
+      <div class="site-nav__links">
+        <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle theme">
+          <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button
+          id="menu-open"
+          class="site-nav__menu-btn"
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="site-menu-dialog"
+        >
+          <span>Menu</span>
+          <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div
+    id="site-menu-dialog"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-menu-dialog-heading"
+    hidden
+  >
+    <div class="drawer__head">
+      <h2 id="site-menu-dialog-heading" class="drawer__heading" tabindex="-1">Browse</h2>
+      <button id="menu-close" class="site-nav__menu-btn" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg class="icon icon--trailing" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Drawer body generated from src/content/nav.json. Flip an item's
+         enabled flag to hide/show it without touching the layout. Pages
+         themselves keep building either way. -->
+    <div class="drawer__body"><section aria-labelledby="drawer-grp-start"><h3 id="drawer-grp-start" class="drawer__group-title">Start</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../"><span class="drawer__item-label">Home</span><span class="drawer__item-note">The front porch</span></a></li><li><a class="drawer__item" href="../../now/"><span class="drawer__item-label">Now</span><span class="drawer__item-note">This month</span></a></li></ul></section><section aria-labelledby="drawer-grp-writing"><h3 id="drawer-grp-writing" class="drawer__group-title">Writing</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../notes/"><span class="drawer__item-label">Notes</span><span class="drawer__item-note">Fragments</span></a></li></ul></section><section aria-labelledby="drawer-grp-about"><h3 id="drawer-grp-about" class="drawer__group-title">About</h3><ul class="drawer__list"><li><a class="drawer__item" href="../../about/"><span class="drawer__item-label">About</span><span class="drawer__item-note">The long version</span></a></li><li><a class="drawer__item" href="../../colophon/"><span class="drawer__item-label">Colophon</span><span class="drawer__item-note">Credits</span></a></li></ul></section></div>
+  </div>
+
+    <main id="main">
+    <div class="reader-with-toc">
+      <article class="reader">
+        <a class="btn btn--link reader__back" href="../../colophon/">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
+          <span class="reader__back-label">Back to colophon</span>
+        </a>
+        <div class="reader__kicker"><span class="kicker">Build series</span></div>
+        <h1>Building this site, part 1: why I rolled my own</h1>
+        <p class="reader__dek">Why I built a static site by hand instead of reaching for a framework, and what I was optimising for.</p>
+        <div class="reader__meta">
+          <span class="kicker">10 June 2026</span>
+          <span class="kicker">&middot; 4 min</span>
+          <span class="kicker">&middot; Build series</span>
+          <span class="kicker">&middot; Static sites</span>
+          
+        </div>
+        <div class="reader__body prose">
+          <p class="dropcap">There are so many good static site generators that picking one is a small act of identity. Eleventy, Astro, Hugo, Jekyll, Next, Hexo, Gatsby. Each comes with a community, a plugin ecosystem, an opinion about how your content should be shaped.</p>
+<p>I built this site without any of them. The whole thing is a single <code>build.js</code> file using only Node's standard library. No framework, no bundler, no dependencies. This series is a walkthrough of how it works and why I chose to build it this way.</p>
+<h2 id="the-temptation-of-frameworks">The temptation of frameworks</h2>
+<p>Every time I sit down to build a personal site, I start by surveying the static-site landscape. The pitch is always the same: don't reinvent the wheel, get something polished up in an afternoon, focus on the writing.</p>
+<p>It's a good pitch, and most of the time it's right. But personal sites have a strange long-term cost that the pitch doesn't price in. The framework you pick today will publish four breaking releases before your next big piece of writing is ready. The plugins you depend on will get abandoned. Your <code>node_modules</code> folder, six months from now, will be a small archaeology project.</p>
+<p>I have a folder of old personal sites that proves this. Half of them won't build anymore because something in their dependency chain rotted.</p>
+<h2 id="what-i-wanted-instead">What I wanted instead</h2>
+<p>For this site I wanted three things:</p>
+<p>1. <strong>Longevity.</strong> I want to come back in three years, type <code>node build.js</code>, and have it just work. No fighting deprecations, no chasing breaking changes.</p>
+<p>2. <strong>Control.</strong> Every behaviour on the site should be readable in the source. When something looks off, I want to find it by reading code I wrote, not by reading the docs for somebody else's plugin.</p>
+<p>3. <strong>Joy.</strong> I'm a designer-engineer. Writing the build is part of the design. Outsourcing it to a framework is like outsourcing the choice of paper.</p>
+<p>None of those are universal goals. If you publish ten essays a year and want a community, a framework is the right choice. If you publish three essays a year and like the act of carpentry, maybe this approach makes sense.</p>
+<h2 id="three-rules-i-set">Three rules I set</h2>
+<p>To keep myself honest, I gave the project three rules:</p>
+<ul>
+<li><strong>Node standard library only.</strong> No npm install, ever. If a feature can't be built with <code>fs</code>, <code>path</code>, <code>http</code>, and the language itself, the feature doesn't ship.</li>
+</ul>
+<ul>
+<li><strong>One build script.</strong> The whole pipeline lives in a single <code>build.js</code> file. No glob of helpers, no clever directory of modules. If I need to find something, it's there.</li>
+</ul>
+<ul>
+<li><strong>HTML out, HTML in.</strong> Content is plain markdown with frontmatter. Layouts are plain HTML with a tiny template syntax. The output is plain HTML. No client-side framework re-rendering the page once it loads.</li>
+</ul>
+<blockquote class="pullquote">The framework you pick today will publish four breaking releases before your next big piece of writing is ready.<span class="pullquote__cite">this essay, two paragraphs ago</span></blockquote>
+<p>That's the whole worldview. The next four parts walk through how the rules play out in practice: the shape of the project, the template engine, content handling, and how it deploys to GitHub Pages.</p>
+<p>If the trade-off sounds right to you, the rest of this series will give you enough to build the same thing for yourself. If it sounds bonkers, well, at least you'll know why my old sites are still running.</p>
+        </div>
+        <div class="reader__related"><h3 class="section__title section__title--sm">Related</h3><div class="grid grid--2"><a class="essay-card essay-card--compact" href="../../build/building-this-site-2-bones/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">10 June 2026 &middot; 5 min</span></div><h3 class="essay-card__title">Building this site, part 2: the bones</h3><p class="essay-card__dek">The folder layout, the one-file build script, and the read-render-write loop that turns markdown into HTML.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a><a class="essay-card essay-card--compact" href="../../build/building-this-site-3-templates/"><div class="essay-card__meta"><span class="kicker">Build series</span><span class="essay-card__date">11 June 2026 &middot; 6 min</span></div><h3 class="essay-card__title">Building this site, part 3: a 60-line template engine</h3><p class="essay-card__dek">The whole template language, written in three regexes, and the one bug I shipped twice.</p><div class="essay-card__tags"><span class="tag">Build series</span><span class="tag">Static sites</span></div></a></div></div>
+      </article>
+
+      
+      <aside class="toc" aria-label="Table of contents">
+        <div class="toc__title">In this essay</div>
+        <ol>
+          
+          <li><a href="#the-temptation">The temptation of frameworks</a></li>
+          
+          <li><a href="#what-i-wanted">What I wanted instead</a></li>
+          
+          <li><a href="#the-rules">Three rules I set</a></li>
+          
+        </ol>
+        <div class="toc__aside"><span class="kicker">Read next</span><ul class="toc__next"><li><a href="../../build/building-this-site-2-bones/">Building this site, part 2: the bones</a></li><li><a href="../../build/building-this-site-3-templates/">Building this site, part 3: a 60-line template engine</a></li></ul></div>
+      </aside>
+      
+    </div>
+  </main>
+
+
+  <footer class="site-footer">
+    <!-- Footer groups generated from src/content/nav.json. -->
+    <div class="site-footer__groups"><section class="site-footer__group" aria-labelledby="footer-grp-start"><h2 id="footer-grp-start" class="site-footer__group-title">Start</h2><ul><li><a href="../../">Home</a></li><li><a href="../../now/">Now</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-writing"><h2 id="footer-grp-writing" class="site-footer__group-title">Writing</h2><ul><li><a href="../../notes/">Notes</a></li></ul></section><section class="site-footer__group" aria-labelledby="footer-grp-about"><h2 id="footer-grp-about" class="site-footer__group-title">About</h2><ul><li><a href="../../about/">About</a></li><li><a href="../../colophon/">Colophon</a></li><li><a href="../../feed.xml">RSS</a></li><li><a href="mailto:you@yourdomain.com">Email</a></li></ul></section></div>
+    <div class="site-footer__credit">
+      <span>&copy; 2021&ndash;2026 Thought Grain</span>
+      <span>&middot;</span>
+      <span>Set in Newsreader &amp; Inter</span>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

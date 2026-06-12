@@ -1,0 +1,58 @@
+---
+slug: building-this-site-1-why
+kind: "Build series"
+seriesPart: 1
+title: "Building this site, part 1: why I rolled my own"
+summary: "Why I built a static site by hand instead of reaching for a framework, and what I was optimising for."
+date: "10 June 2026"
+read: "4 min"
+tag1: "Build series"
+tag2: "Static sites"
+toc:
+  - id: "the-temptation"
+    label: "The temptation of frameworks"
+  - id: "what-i-wanted"
+    label: "What I wanted instead"
+  - id: "the-rules"
+    label: "Three rules I set"
+---
+
+<Dropcap text="There are so many good static site generators that picking one is a small act of identity. Eleventy, Astro, Hugo, Jekyll, Next, Hexo, Gatsby. Each comes with a community, a plugin ecosystem, an opinion about how your content should be shaped." />
+
+I built this site without any of them. The whole thing is a single `build.js` file using only Node's standard library. No framework, no bundler, no dependencies. This series is a walkthrough of how it works and why I chose to build it this way.
+
+## The temptation of frameworks
+
+Every time I sit down to build a personal site, I start by surveying the static-site landscape. The pitch is always the same: don't reinvent the wheel, get something polished up in an afternoon, focus on the writing.
+
+It's a good pitch, and most of the time it's right. But personal sites have a strange long-term cost that the pitch doesn't price in. The framework you pick today will publish four breaking releases before your next big piece of writing is ready. The plugins you depend on will get abandoned. Your `node_modules` folder, six months from now, will be a small archaeology project.
+
+I have a folder of old personal sites that proves this. Half of them won't build anymore because something in their dependency chain rotted.
+
+## What I wanted instead
+
+For this site I wanted three things:
+
+1. **Longevity.** I want to come back in three years, type `node build.js`, and have it just work. No fighting deprecations, no chasing breaking changes.
+
+2. **Control.** Every behaviour on the site should be readable in the source. When something looks off, I want to find it by reading code I wrote, not by reading the docs for somebody else's plugin.
+
+3. **Joy.** I'm a designer-engineer. Writing the build is part of the design. Outsourcing it to a framework is like outsourcing the choice of paper.
+
+None of those are universal goals. If you publish ten essays a year and want a community, a framework is the right choice. If you publish three essays a year and like the act of carpentry, maybe this approach makes sense.
+
+## Three rules I set
+
+To keep myself honest, I gave the project three rules:
+
+- **Node standard library only.** No npm install, ever. If a feature can't be built with `fs`, `path`, `http`, and the language itself, the feature doesn't ship.
+
+- **One build script.** The whole pipeline lives in a single `build.js` file. No glob of helpers, no clever directory of modules. If I need to find something, it's there.
+
+- **HTML out, HTML in.** Content is plain markdown with frontmatter. Layouts are plain HTML with a tiny template syntax. The output is plain HTML. No client-side framework re-rendering the page once it loads.
+
+<Pullquote text="The framework you pick today will publish four breaking releases before your next big piece of writing is ready." cite="this essay, two paragraphs ago" />
+
+That's the whole worldview. The next four parts walk through how the rules play out in practice: the shape of the project, the template engine, content handling, and how it deploys to GitHub Pages.
+
+If the trade-off sounds right to you, the rest of this series will give you enough to build the same thing for yourself. If it sounds bonkers, well, at least you'll know why my old sites are still running.

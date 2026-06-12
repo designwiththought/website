@@ -1,0 +1,92 @@
+---
+slug: building-this-site-5-deploy
+kind: "Build series"
+seriesPart: 5
+title: "Building this site, part 5: deploy in 20 lines of YAML"
+summary: "GitHub Pages, GitHub Actions, and the single workflow file that takes a push to main and turns it into a live site."
+date: "12 June 2026"
+read: "4 min"
+tag1: "Build series"
+tag2: "Static sites"
+toc:
+  - id: "the-workflow"
+    label: "The whole workflow"
+  - id: "what-happens"
+    label: "What happens on push"
+  - id: "what-i-skipped"
+    label: "What I deliberately skipped"
+---
+
+<Dropcap text="The last piece of the puzzle is getting the built site onto the internet. I host it on GitHub Pages, deployed by a single GitHub Actions workflow file. It's the smallest part of the project and the one most likely to outlive everything else." />
+
+This part shows the whole deploy in one file.
+
+## The whole workflow
+
+`.github/workflows/pages.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node build.js
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - uses: actions/deploy-pages@v4
+```
+
+That's twenty lines, counting blanks. It's the whole deploy.
+
+## What happens on push
+
+A push to `main` triggers the workflow. The job:
+
+1. Checks out the repo.
+2. Installs Node 20.
+3. Runs `node build.js`. Because the build has zero npm dependencies, there's nothing to install first. The build itself takes around 250ms.
+4. Uploads the `dist/` folder as a Pages artifact.
+5. Deploys the artifact to Pages.
+
+End-to-end, from `git push` to live URL, is about 35 seconds on a good day. Most of that is GitHub provisioning a runner. Actual work is a fraction of a second.
+
+If the build fails, the workflow fails, and the live site keeps showing whatever was last successfully deployed. There's no half-deployed state.
+
+## What I deliberately skipped
+
+I've seen workflow files in personal-site repos balloon to three hundred lines: cache restoration, lighthouse budgets, link checkers, Lighthouse CI, broken-image audits, six different preview-deploy adapters. Most of those are worth having on a team project. On a personal site they're a tax.
+
+The things I left out, with my reasoning:
+
+- **No dependency caching.** With zero dependencies, there's nothing to cache.
+
+- **No preview deploys per PR.** I don't merge PRs from forks. My branches deploy nothing; only `main` does.
+
+- **No lighthouse / link / a11y CI.** I check those manually when I make a structural change. The cost of a failed automated check halting a deploy of a typo fix is higher than the cost of running an audit myself once a month.
+
+- **No CDN-purge step.** GitHub Pages handles edge propagation. It usually takes a couple of minutes, which I've accepted.
+
+- **No analytics injection.** This is a personal site. I don't want the numbers.
+
+<Pullquote text="From git push to live URL is about 35 seconds on a good day." cite="this essay, the section above" />
+
+That closes the loop. Content goes into a markdown file. A push runs the build. A workflow uploads the result. GitHub Pages serves it.
+
+If you've read all five parts: that's the whole site. Five small pieces, each one understandable in an afternoon. The choice I made — and the one this series has been arguing for — was to trade the convenience of a framework for the durability of small pieces I wrote myself. Three years from now, when the framework I would have picked has long since shipped its breaking change, this site should still just build.
+
+Thanks for reading along. Edit any of these files, run `node build.js`, and you have your own version.
