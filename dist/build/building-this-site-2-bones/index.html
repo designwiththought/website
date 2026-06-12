@@ -81,37 +81,37 @@
 <p>This second part shows you the shape of the project: where the files live, what each folder is for, and the loop that ties them together.</p>
 <h2 id="the-folders">The folders</h2>
 <p>Here's the whole structure. It fits in one screen, on purpose:</p>
-<p><code>`</code></p>
-<p>website/</p>
-<p>  build.js              the entire build script</p>
-<p>  src/</p>
-<p>    content/            markdown + JSON, one file per piece</p>
-<p>    layouts/            HTML templates with {{...}} placeholders</p>
-<p>    components/         the four MDX components I actually use</p>
-<p>    css/                tokens, kit, site styles</p>
-<p>    js/                 small enhancers, one per concern</p>
-<p>  dist/                 built site, written fresh on every build</p>
-<p>  .github/workflows/    one file: build on push, deploy to Pages</p>
-<p><code>`</code></p>
+<pre><code>website/
+  build.js              the entire build script
+  src/
+    content/            markdown + JSON, one file per piece
+    layouts/            HTML templates with {{...}} placeholders
+    components/         the four MDX components I actually use
+    css/                tokens, kit, site styles
+    js/                 small enhancers, one per concern
+  dist/                 built site, written fresh on every build
+  .github/workflows/    one file: build on push, deploy to Pages</code></pre>
 <p>If you can navigate a Finder window, you can navigate the project. There's no <code>node_modules</code>, no <code>.cache</code>, no <code>.next</code>, no <code>pages/</code> vs <code>app/</code> distinction.</p>
 <p><code>content/</code> is the only folder that grows over time. Everything else stays roughly the size it is today.</p>
 <h2 id="the-read-render-write-loop">The read-render-write loop</h2>
 <p>The whole build is one async function. In pseudocode it looks like this:</p>
-<p><code>`</code></p>
-<p>async function build() {</p>
-<p>  cleanDist();</p>
-<p>  const site = readJson('content/site.json');</p>
-<p>  const articles = readMdxDir('content/articles');</p>
-<p>  const notes    = readMdxDir('content/notes');</p>
-<p>  // …read the rest</p>
-<p>  const layouts = readLayouts('layouts/');</p>
-<p>  for (const article of articles) {</p>
-<p>    const html = render(layouts.article, { ...site, ...article });</p>
-<p>    writePage(<code>dist/${article.url}/index.html</code>, html);</p>
-<p>  }</p>
-<p>  // …same loop for notes, projects, indexes, feeds</p>
-<p>}</p>
-<p><code>`</code></p>
+<pre><code>async function build() {
+  cleanDist();
+
+  const site = readJson('content/site.json');
+  const articles = readMdxDir('content/articles');
+  const notes    = readMdxDir('content/notes');
+  // …read the rest
+
+  const layouts = readLayouts('layouts/');
+
+  for (const article of articles) {
+    const html = render(layouts.article, { ...site, ...article });
+    writePage(`dist/${article.url}/index.html`, html);
+  }
+
+  // …same loop for notes, projects, indexes, feeds
+}</code></pre>
 <p>That's it. Each content file becomes one page on the way out. Each index page is built by feeding a list of items into a list template. Feeds are built the same way, just with an XML template instead of HTML.</p>
 <p>The whole loop runs in about 250 milliseconds on my laptop. Fast enough that I never wait for it.</p>
 <h2 id="why-no-dependencies">Why no dependencies</h2>

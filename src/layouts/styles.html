@@ -118,6 +118,39 @@
 
       <hr>
 
+      <section class="styles-section" aria-labelledby="code-heading">
+        <header class="styles-section__head">
+          <span class="kicker">Code</span>
+          <h2 id="code-heading" class="section__title">Code</h2>
+          <p>Inline <code>code</code> uses the mono face with a soft tinted background; fenced code blocks sit on the same code surface with a hairline border and an accent rule on the left. No syntax highlighting, just clear separation from prose.</p>
+        </header>
+
+        <div class="prose styles-prose">
+          <p>Inline mentions use single backticks, e.g. <code>build.js</code> or <code>node --version</code>.</p>
+          <pre><code class="language-js">// the heart of the build
+async function build() {
+  cleanDist();
+  const articles = readMdxDir('content/articles');
+  for (const article of articles) {
+    const html = render(layout, { ...site, ...article });
+    writePage(`dist/${article.url}/index.html`, html);
+  }
+}</code></pre>
+          <pre><code class="language-yaml">name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node build.js</code></pre>
+        </div>
+      </section>
+
+      <hr>
+
       <section class="styles-section" aria-labelledby="buttons-heading">
         <header class="styles-section__head">
           <span class="kicker">Buttons</span>
