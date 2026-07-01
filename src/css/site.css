@@ -60,13 +60,19 @@ h6, .h6 {
    0, idle = 1, recovery happens as velocity decays. Users with
    prefers-reduced-motion get the layers hidden entirely. */
 body { --grain-opacity: 1; }
+/* Grain tiles are large (512 / 640) and mutually coprime-ish, so the
+   combined visible period is much wider than a typical viewport. The
+   ::after layer gets a background-position offset so the two tile
+   grids never align. Both layers are further softened by the scroll
+   fade in texture.js. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background-image: var(--paper-noise);
-  background-size: 150px 150px;
+  background-size: 512px 512px;
   background-repeat: repeat;
+  background-position: 0 0;
   pointer-events: none;
   z-index: -1;
   opacity: var(--grain-opacity);
@@ -77,8 +83,9 @@ body::after {
   position: fixed;
   inset: 0;
   background-image: var(--paper-flecks);
-  background-size: 240px 240px;
+  background-size: 640px 640px;
   background-repeat: repeat;
+  background-position: 137px 211px;
   pointer-events: none;
   z-index: -1;
   opacity: var(--grain-opacity);
